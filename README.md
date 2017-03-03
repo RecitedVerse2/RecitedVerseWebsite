@@ -1,5 +1,6 @@
-# First Test App In Heroku
+# Recited Verse
 
 - Year: 2017
 - Languages: HTML, Javascript, CSS
-- Programmer: Adeola Uthman
+- Created By: Omar Miranda
+- Programmers: Rashid Aziz, Adeola Uthman
