@@ -1,5 +1,5 @@
-# RecitedVerseWebsite
-The code that goes into building the Recited Verse website.
+# First Test App In Heroku
 
-# File Structure
-All html pages go under the view/pages directory and all css and javascript files go under the public/stylesandscripts directory.
+- Year: 2017
+- Languages: HTML, Javascript, CSS
+- Programmer: Adeola Uthman
