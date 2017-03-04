@@ -1,0 +1,8 @@
+{
+  "name": "Recited Verse",
+  "description": "A website for sharing poetry recitations.",
+  "repository": "https://github.com/RecitedVerse/RecitedVerseWebsite",
+  "logo": "",
+  "keywords": ["node", "express", "static"],
+  "image": "heroku/nodejs"
+}
