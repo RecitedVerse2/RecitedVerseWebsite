@@ -1,4 +1,4 @@
-import { fireRef } from "firebaseconfig.js"
+import { fireRef } from "firebaseconfig.js";
 
 /* Get stuff from the html. */
 var mailingListBtn = document.getElementById('mailingListBtn');
