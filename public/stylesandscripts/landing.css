@@ -39,6 +39,7 @@ video {
 /* The main points section */
 .overall_points_section {
     position: relative;
+    word-wrap: normal;
     text-align: center;
     top: -370px;
     display: table;
@@ -46,6 +47,7 @@ video {
 }
 .table_cell {
     display: table-cell;
+    background: green;
     word-wrap: normal;
     margin-right: auto;
     margin-left: auto;
