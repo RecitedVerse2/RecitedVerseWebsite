@@ -10,7 +10,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 // The different pages of the app, in the form "/your_page_extension (ex.) /about, /profile, etc.)"
-app.get('/landing', function(request, response) {
+app.get('/', function(request, response) {
   response.render('pages/landing');
 });
 
