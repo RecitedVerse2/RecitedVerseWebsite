@@ -16,6 +16,8 @@ mailingListBtn.onclick = function() {
         alert("Please enter a valid email address.");
     } else {
         // Add to the mailing list
-        fireRef.child('mailing_list').child("0").set(email);
+        var newEmail = fireRef.child('mailing_list').push();
+        newEmail.set(email);
+        //fireRef.child('mailing_list').child("0").set(email);
     }
 };
