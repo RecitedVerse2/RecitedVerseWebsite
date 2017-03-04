@@ -4,80 +4,72 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/stylesandscripts/landing.css" />
+        <title>Recited Verse</title>
     </head>
 
     
-    <body class="page">
-        <!-- THE HEADER: VIDEO BACKGROUND WITH HEADER TEXT -->
+    <body class="body">
+        
+        
+        <!--   The video background.     -->
         <div class="video_background">
-            <!-- THE VIDEO BACKGROUND -->
             <video autoplay loop>
                 <source src="http://recitedverse.com/wp-content/uploads/2016/11/videobackground2.mp4" type="video/mp4">
             </video>
-
-
-            <!-- THE DIV FOR ALL OF THE HEADER INFORMATION (ON TOP OF THE VIDEO BACKGROUND) -->
+            
             <div class="logo_header">
-                <!-- THE LOGO -->
                 <img src="http://recitedverse.com/wp-content/uploads/2016/08/rlogo.png" alt="logo" class="logo" width="150" height="150">
-
-                <!-- THE HEADER AND SUB-HEADER -->
                 <h2 style="color: white; font-style: italic; font-size: 30px;">Recited Verse</h2>
                 <h3 style="color: white; font-style: italic; font-size: 23px;">A free treasury of online poetry recitations</h3>
                 <br>
-            </div> <!-- END OF LOGO_HEADER -->
-        </div> <!-- END OF VIDEO BACKGROUND -->
-
-
-
-
-
-
-        <!-- THE PART OF THE PAGE THAT DISPLAYS THE THREE MAIN POINTS OF THE WEBSITE -->
-        <div class="three_points_section">
+            </div>
+        </div>
+        
+        
+        <!--    The three main points of the website.    -->
+        <div>
             <br>
-            <!-- THE OVERALL DIV THAT HOLDS EACH INFO POINT -->
             <div class="overall_points_section non_header_text">
-                    <!-- EACH INFO POINT AS A TABLE CELL -->
-                    <div class="table_cell">
-                        <img src="http://recitedverse.com/wp-content/uploads/2016/11/HeadphonesIcon.png" alt="img" width="165" height="165">
-                        <br>
-                        <h3>Recitations</h3>	
-                        <p>The world's first - and leading - treasury of original poetry recitations. </p>
-                    </div>	<!-- END OF TABLE CELL -->
-                    <div class="table_cell">
-                        <img src="http://recitedverse.com/wp-content/uploads/2016/11/MicrophoneImage.png" alt="img" width="165" height="165">
-                        <br>
-                        <h3>Upload</h3>
-                        <p>Record and upload your own recitations for others to listen to, favorite, and share.</p>
-                    </div>	<!-- END OF TABLE CELL -->
-                    <div class="table_cell">
-                        <img src="http://recitedverse.com/wp-content/uploads/2016/11/SocialImageIcon.png" alt="img" width="165" height="165">
-                        <h3>Social</h3>
-                        <p>Create, share, follow, discover. Get to know other reciting artists and keep up with their latest posts.</p>
-                    </div>	<!-- END OF TABLE CELL -->
-            </div>	<!-- END OF EACH INFO POINT -->
+                <!--   First point   -->
+                <div class="table_cell">
+                    <img src="http://recitedverse.com/wp-content/uploads/2016/11/HeadphonesIcon.png" alt="img" width="165" height="165">
+                    <br>
+                    <h3>Recitations</h3>	
+                    <p>The world's first - and leading - treasury of original poetry recitations. </p>
+                </div>
+                
+                <!--   Second point   -->
+                <div class="table_cell">
+                    <img src="http://recitedverse.com/wp-content/uploads/2016/11/MicrophoneImage.png" alt="img" width="165" height="165">
+                    <br>
+                    <h3>Upload</h3>
+                    <p>Record and upload your own recitations for others to listen to, favorite, and share.</p>
+                <</div>
+                
+                <!--   Third point   -->
+                <div class="table_cell">
+                    <img src="http://recitedverse.com/wp-content/uploads/2016/11/SocialImageIcon.png" alt="img" width="165" height="165">
+                    <h3>Social</h3>
+                    <p>Create, share, follow, discover. Get to know other reciting artists and keep up with their latest posts.</p>
+                </div>
+            </div>
             <br><br><br><br>
-        </div>	<!-- END OF THREE POINTS DIV -->
+        </div>
+             
 
-
-
-
-
-
-        <!-- THE DIV THAT SHOWS THE NOTIFY INPUT -->
-        <div class="recitations_section">
-
-            <!-- THE DIV THAT ACTUALLY HOLDS THE ELEMENTS -->
-            <div class="recitation_info_holder_section non_header_text">
+        <!--    The area for putting one's email down for when the website actually launches.    -->
+        <div>
+            <div class="notify_me_section non_header_text">
                 <h3>Want to be notified when Recited Verse launches? Enter your email below! </h3>
                 <input class="notify_inp" id="rv_email_field" type="text" placeholder="Email Address">
                 <br>
                 <button class="pill_button" onclick="addToMailingList();"> Submit </button>
-            </div>	<!-- END OF RECITATION HOLDER SECTION -->
-        </div>	<!-- END OF THE RECITATIONS SECTION. AFTER THIS, DISPLAY A COLLECTION VIEW OF THE RECITATIONS -->
+            </div>
+        </div>
+
 
          
+        <!--    All of the javascript.    -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="/stylesandscripts/landing.js"></script>
     </body>
