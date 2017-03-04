@@ -1,6 +1,65 @@
-.page {
-    background-color: blue;
-    text-align: center;
+/* Utilities */
+video {
+    position: relative;
     width: 100%;
-    height: 100%;
+    height: 60%;
+    background: url(http://recitedverse.com/wp-content/uploads/2016/11/videobackground2.mp4) no-repeat;
+    z-index: -100;
+}
+.pill_button {
+    border-radius: 25px;
+    border-style: none;
+    padding: 10px;
+    -webkit-transition-duration: 0.4s;
+}
+.pill_button:hover {
+    background-color: lightgreen;
+}
+.non_header_text {
+    color: rgb(108, 108, 108);
+}
+
+
+/* The header section */
+.video_background {
+    position: relative;
+    top: -100px;
+}
+.logo_header {
+    position: relative;
+    text-align: center;
+    top: -350px;
+}
+
+
+/* The main points section */
+.overall_points_section {
+    position: relative;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    top: -370px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+.table_cell {
+    display: table-cell;
+    margin-right: auto;
+    margin-left: auto;
+    width: 371px;
+    padding: 10px;
+}
+
+
+/* The beginning of the recitations section */
+.recitation_info_holder_section {
+    position: relative;
+    text-align: center;
+    top: -310px;
+    width: 100%;
+}
+.notify_inp {
+    width: 90%;
 }
