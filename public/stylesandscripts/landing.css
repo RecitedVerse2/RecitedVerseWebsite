@@ -25,10 +25,6 @@ video {
 
 
 /* The header section */
-.video_background {
-    position: relative;
-    top: -100px;
-}
 .logo_header {
     position: relative;
     text-align: center;

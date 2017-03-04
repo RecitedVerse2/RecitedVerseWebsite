@@ -7,11 +7,11 @@ app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 
 // The different pages of the app, in the form "/your_page_extension (ex.) /about, /profile, etc.)"
 app.get('/', function(request, response) {
-  response.render('pages/landing.html');
+  response.render('pages/landing.ejs');
 });
 
 
