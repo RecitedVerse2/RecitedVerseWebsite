@@ -1,9 +1,16 @@
+/* Get stuff from the html. */
+
+var mailingListBtn = document.getElementById('mailingListBtn');
 
 
 
 
-// Adds the email to the mailing list.
-function addToMailingList() {
+
+
+
+/* Button functionality. */
+
+mailingListBtn.onclick = function() {
     var email = document.getElementById('rv_email_field').value;
 
     if(email.indexOf('@') <= -1) {
@@ -11,4 +18,4 @@ function addToMailingList() {
     } else {
         // Add to the mailing list
     }
-}
+};
