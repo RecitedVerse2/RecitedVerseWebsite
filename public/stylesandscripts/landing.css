@@ -51,7 +51,8 @@ video {
     word-wrap: normal;
     margin-right: auto;
     margin-left: auto;
-    padding: 10px;
+/*    padding: 10px;*/
+    height: 400px;
 }
 
 
