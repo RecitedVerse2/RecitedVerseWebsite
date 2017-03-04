@@ -46,10 +46,10 @@ video {
 }
 .table_cell {
     display: table-cell;
+    word-wrap: normal;
     margin-right: auto;
     margin-left: auto;
     padding: 10px;
-    height: 400px;
 }
 
 
