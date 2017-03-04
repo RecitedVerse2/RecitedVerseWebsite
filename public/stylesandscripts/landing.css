@@ -37,23 +37,7 @@ video {
 
 
 /* The main points section */
-.overall_points_section {
-    position: relative;
-    word-wrap: normal;
-    text-align: center;
-    top: -370px;
-    display: table;
-    margin: auto;
-}
-.table_cell {
-    display: table-cell;
-    background: green;
-    word-wrap: normal;
-    margin-right: auto;
-    margin-left: auto;
-/*    padding: 10px;*/
-    height: 400px;
-}
+
 
 
 /* The beginning of the recitations section */
