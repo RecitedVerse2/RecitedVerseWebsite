@@ -48,7 +48,11 @@ video {
     word-wrap: normal;
     vertical-align: top; 
     font-size: 12px;
-    width: 100px;
+    width: 300px;
+    padding: 20px;
+}
+.landing_info {
+    text-align: center;
 }
 
 
