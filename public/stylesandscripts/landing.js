@@ -1,5 +1,4 @@
 /* Get stuff from the html. */
-
 var mailingListBtn = document.getElementById('mailingListBtn');
 
 
@@ -17,5 +16,7 @@ mailingListBtn.onclick = function() {
         alert("Please enter a valid email address.");
     } else {
         // Add to the mailing list
+        var mailingList = { "email" : email };
+        fireRef.child('mailing_list').child(email).set(mailingList);
     }
 };

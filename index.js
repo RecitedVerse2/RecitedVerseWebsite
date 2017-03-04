@@ -9,10 +9,12 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+
 // The different pages of the app, in the form "/your_page_extension (ex.) /about, /profile, etc.)"
 app.get('/', function(request, response) {
   response.render('pages/landing.ejs');
 });
+
 
 
 app.listen(app.get('port'), function() {
