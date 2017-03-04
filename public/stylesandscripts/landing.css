@@ -37,7 +37,15 @@ video {
 
 
 /* The main points section */
-
+.mainpoints_container {
+    width: 100%;
+}
+#first_point, #second_point, #third_point {
+    display: inline-block;
+/*    display: inline;*/
+    vertical-align: top; 
+    font-size: 12px;
+}
 
 
 /* The beginning of the recitations section */
