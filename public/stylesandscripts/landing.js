@@ -1,7 +1,4 @@
-/* A reference to the firebase database and storage. */
-var fireRef = firebase.database().ref();
-var storageRef = firebase.storage().ref();
-
+import { fireRef } from "firebaseconfig.js"
 
 /* Get stuff from the html. */
 var mailingListBtn = document.getElementById('mailingListBtn');
