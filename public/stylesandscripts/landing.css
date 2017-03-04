@@ -38,7 +38,10 @@ video {
 
 /* The main points section */
 .mainpoints_container {
+    position: relative;
+    text-align: center;
     width: 100%;
+    top: 10px;
 }
 #first_point, #second_point, #third_point {
     display: inline-block;
