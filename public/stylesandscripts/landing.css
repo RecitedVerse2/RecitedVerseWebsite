@@ -40,8 +40,6 @@ video {
 .overall_points_section {
     position: relative;
     text-align: center;
-    padding-left: 20px;
-    padding-right: 20px;
     top: -370px;
     display: table;
     margin: auto;
