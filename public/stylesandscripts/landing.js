@@ -1,16 +1,5 @@
-// Use jQuery to try to remove unwanted parts of the page
-jQuery(function($) {
-    $("header").remove();
-});
-jQuery(function($) {
-    $("edit-link").remove();
-});
-jQuery(function($) {
-    $("vc_inline-link").remove();
-});
-jQuery(function($) {
-    $("post-edit-link").remove();
-});
+
+
 
 
 // Adds the email to the mailing list.
