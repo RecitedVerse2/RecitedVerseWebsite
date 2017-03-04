@@ -22,6 +22,6 @@ mailingListBtn.onclick = function() {
             mailingList.push(email);
             
             fireRef.child('mailing_list').child(name).set(mailingList);
-        }
+        });
     }
 };
