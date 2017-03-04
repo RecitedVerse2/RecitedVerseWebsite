@@ -1,3 +1,5 @@
+$.getScript("firebaseconfig.js", function(){});
+
 /* Get stuff from the html. */
 var mailingListBtn = document.getElementById('mailingListBtn');
 
