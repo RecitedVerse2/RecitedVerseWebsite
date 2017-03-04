@@ -17,7 +17,8 @@ mailingListBtn.onclick = function() {
     } else {
         // Add to the mailing list
         var newEmail = fireRef.child('mailing_list').push();
-        newEmail.set(email);
+        var name = email.substring(0, email.indexOf('@'));
+        newEmail.set({ name : email });
         //fireRef.child('mailing_list').child("0").set(email);
     }
 };
