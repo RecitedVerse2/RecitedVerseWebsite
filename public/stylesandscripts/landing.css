@@ -9,7 +9,7 @@
     padding: 10px;
     -webkit-transition-duration: 0.4s;
 }
-.pill_button:hover {
+#mailingListBtn:hover {
     background-color: lightgreen;
 }
 .non_header_text {
@@ -33,6 +33,13 @@ video {
     position: relative;
     text-align: center;
     top: -350px;
+}
+#login_btn, #signup_btn {
+    width: 80px;
+    height: 25px;
+}
+#login_btn:hover, #signup_btn:hover {
+    background-color: skyblue;
 }
 
 

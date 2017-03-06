@@ -14,6 +14,9 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   response.render('pages/landing.ejs');
 });
+app.get('/home', function(request, response) {
+  response.render('pages/home.ejs');
+});
 
 
 
