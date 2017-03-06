@@ -1,6 +1,7 @@
 /* Get stuff from the html. */
 var mailingListBtn = document.getElementById('mailingListBtn');
-
+var loginBtn = document.getElementById('login_btn');
+var signupBtn = document.getElementById('signup_btn');
 
 
 
@@ -21,3 +22,11 @@ mailingListBtn.onclick = function() {
         newEmail.set({ name : email });
     }
 };
+
+loginBtn.onclick = function() {
+    document.location = "https://recitedverse.herokuapp.com/login";
+}
+
+signupBtn.onclick = function() {
+    document.location = "https://recitedverse.herokuapp.com/signup";
+}
