@@ -4,13 +4,14 @@
     padding: 0;
 }
 .pill_button {
+    text-align: center;
     border-radius: 25px;
     border-style: none;
     padding: 10px;
     -webkit-transition-duration: 0.4s;
 }
 #mailingListBtn:hover {
-    background-color: lightgreen;
+    background-color: skyblue;
 }
 .non_header_text {
     color: rgb(108, 108, 108);
@@ -35,8 +36,9 @@ video {
     top: -350px;
 }
 #login_btn, #signup_btn {
-    width: 80px;
-    height: 25px;
+    width: 60px;
+    height: 30px;
+    color: midnightblue;
 }
 #login_btn:hover, #signup_btn:hover {
     background-color: skyblue;
