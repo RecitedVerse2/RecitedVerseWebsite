@@ -19,7 +19,7 @@ mailingListBtn.onclick = function() {
         // Add to the mailing list
         var newEmail = fireRef.child('mailing_list').push();
         var name = email.substring(0, email.indexOf('@'));
-        newEmail.set({ name : email });
+        newEmail.set({ "email" : email });
     }
 };
 

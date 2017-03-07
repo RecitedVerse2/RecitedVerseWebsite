@@ -12,3 +12,7 @@ firebase.initializeApp(config);
 /* A reference to the firebase database and storage. */
 var fireRef = firebase.database().ref();
 var storageRef = firebase.storage().ref();
+var fireAuth = firebase.auth();
+
+/* A reference to the current user. */
+var currentUser;

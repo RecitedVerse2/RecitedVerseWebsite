@@ -12,7 +12,21 @@
 
 
     <body>
+        <% include ../partials/header.ejs %>
         
+        <div class="login_signup_box">
+            <h2>Sign Up</h2>
+            <input class="round_input" id="fullname_field" type="text" placeholder="Enter your full name" />
+            <br><br>
+            <input class="round_input" id="email_field" type="email" placeholder="Enter your email" />
+            <br><br>
+            <input class="round_input" id="password_field_1" type="password" placeholder="Create a password" />
+            <br><br>
+            <input class="round_input" id="password_field_2" type="password" placeholder="Re-enter your password" />
+            <p id="status_label" style="color: red; visibility: hidden;">The passwords do not match.</p>
+            <button class="pillButton" id="createAccount_btn">Create Account</button>
+            <br><br>
+        </div>
         
         <!--    All of the javascript.    -->
         <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
