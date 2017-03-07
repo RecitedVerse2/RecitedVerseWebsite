@@ -49,7 +49,6 @@ loginBtn.onclick = function() {
                     "userID" : user.uid,
                     "photoURL" : photoURL
                 };
-                console.log(currentUser);
             });
             // Go to the home page.
             //document.location = "";
