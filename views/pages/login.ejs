@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
+   <head>
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/stylesandscripts/login.css" />
@@ -12,7 +12,18 @@
 
 
     <body>
+        <% include ../partials/header.ejs %>
         
+        <div class="login_signup_box">
+            <h2>Login</h2>
+            <input class="round_input" id="email_field" type="email" placeholder="Enter your email" />
+            <br><br>
+            <input class="round_input" id="password_field" type="password" placeholder="Enter your password" />
+            <br><br>
+            <p id="status_label" style="color: red; visibility: hidden;">Incorrect Email or Password.</p>
+            <button class="pillButton" id="login_btn">Sign In</button>
+            <br><br>
+        </div>
         
         <!--    All of the javascript.    -->
         <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
