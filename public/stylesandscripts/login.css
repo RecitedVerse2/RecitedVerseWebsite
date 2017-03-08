@@ -1,17 +1,19 @@
 body {
-    background-color: white;
+    background-color: aliceblue;
 }
 
 .login_signup_box {
-    text-align: center;
+    position: relative;
+    top: 100px;
     margin: auto;
+    text-align: center;
     border-radius: 25px;
     border-color: cornflowerblue;
     background-color: ghostwhite;
     color: cornflowerblue;
     border: 2px solid cornflowerblue;
-    width: 50%;
-    height: 60%;
+    width: 40%;
+    height: 40%;
 }
 
 .round_input {
@@ -33,5 +35,9 @@ body {
     padding: 10px;
     -webkit-transition-duration: 0.4s;
 }
-#login_btn { background-color: cornflowerblue; }
+#login_btn { 
+    width: 80px; 
+    font-size: 12px;
+    background-color: cornflowerblue;
+}
 #login_btn:hover { background-color: royalblue; }

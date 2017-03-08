@@ -3,8 +3,10 @@ body {
 }
 
 .login_signup_box {
-    text-align: center;
+    position: relative;
+    top: 100px;
     margin: auto;
+    text-align: center;
     border-radius: 25px;
     border-color: cornflowerblue;
     background-color: ghostwhite;
@@ -33,5 +35,9 @@ body {
     padding: 10px;
     -webkit-transition-duration: 0.4s;
 }
-#createAccount_btn { background-color: cornflowerblue; }
+#createAccount_btn { 
+    width: 80px; 
+    font-size: 12px;
+    background-color: cornflowerblue;
+}
 #createAccount_btn:hover { background-color: royalblue; }
