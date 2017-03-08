@@ -23,19 +23,14 @@ loginBtn.onclick = function() {
             statusLabel.style.color = "red";
             statusLabel.innerHTML = "Incorrect Email or Password.";
             statusLabel.style.visibility = "visible";
-            return;   
-        } else {
-            statusLabel.style.color = "red";
-            statusLabel.innerHTML = "There was a problem signing in.";
-            statusLabel.style.visibility = "visible";
-            return;
+            return; 
         }
-        return;
     });
 
     // Save the user object.
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+            console.log(user.uid);
             
             fireRef.child('Users').child(user.uid).once('value').then(function(snapshot) {
                 var email = snapshot.val()["email"];
@@ -48,17 +43,19 @@ loginBtn.onclick = function() {
                     "fullname" : fullname,
                     "email" : email,
                     "password" : password,
-                    "userID" : user.uid,
+                    "userID" : userID,
                     "photoURL" : photoURL
                 };
+                
+                // Display status
+                statusLabel.style.color = "green";
+                statusLabel.style.visibility = "visible";
+                statusLabel.innerHTML = "Signing in!";
+
+                // Go to the home page.
+                document.location = "https://recitedverse.herokuapp.com/home";
             });
             
-            // Display status
-            statusLabel.style.color = "green";
-            statusLabel.style.visibility = "visible";
-            statusLabel.innerHTML = "Signing in!";
-            // Go to the home page.
-            document.location = "https://recitedverse.herokuapp.com/home";
         } else {}
     });
 
