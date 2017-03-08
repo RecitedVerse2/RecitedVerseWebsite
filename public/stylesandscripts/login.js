@@ -20,9 +20,15 @@ loginBtn.onclick = function() {
         var errorMessage = error.message;
         
         if(errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-email') {
+            statusLabel.style.color = "red";
             statusLabel.innerHTML = "Incorrect Email or Password.";
             statusLabel.style.visibility = "visible";
             return;   
+        } else {
+            statusLabel.style.color = "red";
+            statusLabel.innerHTML = "There was a problem signing in.";
+            statusLabel.style.visibility = "visible";
+            return;
         }
     });
     

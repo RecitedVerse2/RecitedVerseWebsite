@@ -22,6 +22,9 @@ body {
     width: 90%;
     height: 25px;
 }
+.round_input:focus {
+    border: 2px solid lightskyblue;
+}
 
 .pillButton {
     text-align: center;
