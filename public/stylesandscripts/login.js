@@ -10,11 +10,11 @@ var loginBtn = document.getElementById('login_btn');
     Sign in to the user's account.
 */
 loginBtn.onclick = function() {
-    var email = emailField.value;
-    var password = passwordField.value;
+    var em = emailField.value;
+    var pass = passwordField.value;
     
     // Sign in.
-    fireAuth.signInWithEmailAndPassword(email, password).catch(function(error) {
+    fireAuth.signInWithEmailAndPassword(em, pass).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -23,40 +23,37 @@ loginBtn.onclick = function() {
             statusLabel.style.color = "red";
             statusLabel.innerHTML = "Incorrect Email or Password.";
             statusLabel.style.visibility = "visible";
+            currentUser = null;
             return; 
+        } else if(errorCode === 'auth/user-not-found') {
+            statusLabel.style.color = "red";
+            statusLabel.innerHTML = "No user was found with that email and password.";
+            statusLabel.style.visibility = "visible";
+            currentUser = null;
+            return;
         }
     });
+    
+    var user = fireAuth.currentUser;
+    fireRef.child('Users').child(user.uid).once('value').then(function(snapshot) {
+        var email = snapshot.val()["email"];
+        var fullname = snapshot.val()["fullname"];
+        var password = snapshot.val()["password"];
+        var userID = snapshot.val()["userID"];
+        var photoURL = snapshot.val()["photoURL"];
 
-    // Save the user object.
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            console.log(user.uid);
-            
-            fireRef.child('Users').child(user.uid).once('value').then(function(snapshot) {
-                var email = snapshot.val()["email"];
-                var fullname = snapshot.val()["fullname"];
-                var password = snapshot.val()["password"];
-                var userID = snapshot.val()["userID"];
-                var photoURL = snapshot.val()["photoURL"];
-                
-                currentUser = {
-                    "fullname" : fullname,
-                    "email" : email,
-                    "password" : password,
-                    "userID" : userID,
-                    "photoURL" : photoURL
-                };
-                
-                // Display status
-                statusLabel.style.color = "green";
-                statusLabel.style.visibility = "visible";
-                statusLabel.innerHTML = "Signing in!";
-
-                // Go to the home page.
-                document.location = "https://recitedverse.herokuapp.com/home";
-            });
-            
-        } else {}
+        if(em === email && pass == password) {
+            currentUser = {
+                "fullname" : fullname,
+                "email" : email,
+                "password" : password,
+                "userID" : userID,
+                "photoURL" : photoURL
+            };
+            document.location = "https://recitedverse.herokuapp.com/home";
+        } else {
+            currentUser = null;
+            return;
+        }
     });
-
 };
