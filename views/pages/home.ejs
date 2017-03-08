@@ -2,7 +2,10 @@
 <html>
 
     <head>
-        <link rel="stylesheet" href="/public/stylesandscripts/home.css" />
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/stylesandscripts/home.css" />
+        <title>Recited Verse - Home</title>
     </head>
     
     
@@ -15,6 +18,38 @@
         <% include ../partials/header.ejs %>
         
         
+        <!--   The welcome header.   -->
+        <div class="welcome_header">
+            <h3>Welcome to Recited Verse </h3>
+            <p>A treasury of free poetry recitations. </p>
+        </div>
+        
+        
+        <!--   The trending section.   -->
+        <div class="trending_area">
+            <h3>Check out what's trending on Recited Verse</h3>
+            
+            <div class="trending_collectionView">
+                <h1>trending items go here</h1>
+            </div>
+        </div>
+        
+        
+        <!--   The recently added section.   -->
+        <div class="recentlyAdded_area">
+            <h3>Recently Added</h3>
+            
+            <div class="recentlyAdded_collectionView">
+                <h1>recently uploaded items go here</h1>
+            </div>
+        </div>
+        
+        
+        
+        <!--    All of the javascript.    -->
+        <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/stylesandscripts/firebaseconfig.js"></script>
         <script type="text/javascript" src="/stylesandscripts/home.js"></script>
     </body>
 

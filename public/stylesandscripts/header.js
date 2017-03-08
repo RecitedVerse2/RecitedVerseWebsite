@@ -34,6 +34,12 @@ menuBtn.click(function() {
         
         searchBar.removeClass('rv_searchbar');
         searchBar.addClass('rv_searchbar_expanded');
+        
+        $('.trending_area').addClass('trending_area_expanded');
+        $('.trending_area_expanded').removeClass('trending_area');
+        $('.recentlyAdded_area').addClass('recentlyAdded_area_expanded');
+        $('.recentlyAdded_area_expanded').removeClass('recentlyAdded_area');
+        
     } else {
         menu.addClass('menu');
         menu.removeClass('menu_expanded');
@@ -43,6 +49,12 @@ menuBtn.click(function() {
         
         searchBar.addClass('rv_searchbar');
         searchBar.removeClass('rv_searchbar_expanded');
+        
+        $('.trending_area_expanded').addClass('trending_area');
+        $('.trending_area').removeClass('trending_area_expanded');
+        $('.recentlyAdded_area_expanded').addClass('recentlyAdded_area');
+        $('.recentlyAdded_area').removeClass('recentlyAdded_area_expanded');
+        
     }
 });
 
