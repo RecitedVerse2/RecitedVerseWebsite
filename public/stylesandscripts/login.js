@@ -30,12 +30,8 @@ loginBtn.onclick = function() {
             statusLabel.style.visibility = "visible";
             return;
         }
+        return;
     });
-    
-    // Display status
-    statusLabel.style.visibility = "visible";
-    statusLabel.style.color = "green";
-    statusLabel.innerHTML = "Signing in!";
 
     // Save the user object.
     firebase.auth().onAuthStateChanged(function(user) {
@@ -56,6 +52,11 @@ loginBtn.onclick = function() {
                     "photoURL" : photoURL
                 };
             });
+            
+            // Display status
+            statusLabel.style.color = "green";
+            statusLabel.style.visibility = "visible";
+            statusLabel.innerHTML = "Signing in!";
             // Go to the home page.
             document.location = "https://recitedverse.herokuapp.com/home";
         } else {}
