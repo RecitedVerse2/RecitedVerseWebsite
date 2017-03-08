@@ -57,7 +57,7 @@ loginBtn.onclick = function() {
                 };
             });
             // Go to the home page.
-            //document.location = "";
+            document.location = "https://recitedverse.herokuapp.com/home";
         } else {}
     });
 

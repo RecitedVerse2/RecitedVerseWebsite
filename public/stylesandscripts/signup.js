@@ -68,8 +68,8 @@ createAccountBtn.onclick = function() {
                     };
                     fireRef.child("Users").child(user.uid).set(currentUser);
                     
-                    // Go to the home page.
-                    //document.location = "";
+                    // Go to the user's profile page.
+                    document.location = "https://recitedverse.herokuapp.com/profile";
                 } else {}
             });
             
