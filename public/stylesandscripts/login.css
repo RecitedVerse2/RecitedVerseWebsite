@@ -1,5 +1,5 @@
 body {
-    background-color: aliceblue;
+    background-color: rgb(242,244,248);
 }
 
 .login_signup_box {
@@ -11,7 +11,7 @@ body {
     border-color: cornflowerblue;
     background-color: ghostwhite;
     color: cornflowerblue;
-    border: 2px solid cornflowerblue;
+    border: 1.5px solid cornflowerblue;
     width: 40%;
     height: 40%;
 }

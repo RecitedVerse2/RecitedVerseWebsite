@@ -13,7 +13,7 @@
     height: 45px;
     color: white;
     border: none;
-    background-color: darkslateblue;
+    background-color: rgb(84,92,166);
     -webkit-transition-duration: 0.3s;
 }
 .open_menu_btn_expanded {
@@ -22,12 +22,11 @@
     height: 45px;
     color: white;
     border: none;
-    background-color: darkslateblue;
+    background-color: rgb(84,92,166);
     -webkit-transition-duration: 0.3s;
 }
-.open_menu_btn:hover,.open_menu_btn_expanded:hover {
-    background-color: midnightblue;
-}
+.open_menu_btn:hover,.open_menu_btn_expanded:hover { background-color: darkslateblue; }
+.open_menu_btn:active,.open_menu_btn_expanded:active { background-color: midnightblue }
 
 .menu {
     position: absolute;
@@ -35,7 +34,7 @@
     top: 45px;
     width: 6%;
     height: 100%;
-    background-color: midnightblue;
+    background-color: rgb(90,106,122);
   	transition: all 0.3s ease;
 }
 .menu_expanded {
@@ -44,7 +43,7 @@
     top: 45px;
     width: 12%;
     height: 100%;
-    background-color: midnightblue;
+    background-color: rgb(90,106,122);
   	transition: all 0.3s ease;
 }
 .menu_btn {
@@ -52,12 +51,11 @@
     height: 45px;
     color: white;
     border: none;
-    background-color: darkslateblue;
+    background-color: rgb(98,119,140);
     -webkit-transition-duration: 0.3s;
 }
-.menu_btn:hover {
-    background-color: midnightblue;
-}
+.menu_btn:hover { background-color: rgb(90,100,150); }
+.menu_btn:active { background-color: rgb(80,85,160); }
 
 .rv_searchbar {
     position: absolute;
