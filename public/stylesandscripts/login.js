@@ -48,7 +48,10 @@ loginBtn.onclick = function() {
                 "email" : email,
                 "password" : password,
                 "userID" : userID,
-                "photoURL" : photoURL
+                "photoURL" : photoURL,
+                "followers" : 0,
+                "following" : 0,
+                "bio" : "Bio"
             };
             document.location = "https://recitedverse.herokuapp.com/home";
         } else {
