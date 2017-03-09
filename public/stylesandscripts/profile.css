@@ -43,6 +43,7 @@ body {
     background-color: lightgray;
 }
 
+
 .social_button {
     border-radius: 20px;
     border: none;
@@ -55,4 +56,28 @@ body {
 }
 .fa-facebook-square, .fa-linkedin-square, .fa-instagram, .fa-twitter {
 /*    visibility: hidden;*/
+}
+
+
+.profile_recitations_area {
+    position: absolute;
+    top: 320px;
+    left: 0%;
+    width: 100%;
+    height: 500px;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+.profile_recitations_area_expanded {
+    position: absolute;
+    top: 320px;
+    left: 6.5%;
+    width: 94%;
+    height: 700px;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+    transition: all 0.3s ease;
 }

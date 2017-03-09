@@ -8,7 +8,7 @@
 }
 
 .open_menu_btn {
-    position: absolute;
+    position: fixed;
     width: 6%;
     height: 45px;
     color: white;
@@ -17,7 +17,7 @@
     -webkit-transition-duration: 0.3s;
 }
 .open_menu_btn_expanded {
-    position: absolute;
+    position: fixed;
     width: 12%;
     height: 45px;
     color: white;
@@ -29,20 +29,20 @@
 .open_menu_btn:active,.open_menu_btn_expanded:active { background-color: midnightblue }
 
 .menu {
-    position: absolute;
+    position: fixed;
     left: 0px;
     top: 45px;
     width: 6%;
-    height: 150%;
+    height: 200%;
     background-color: rgb(90,106,122);
   	transition: all 0.3s ease;
 }
 .menu_expanded {
-    position: absolute;
+    position: fixed;
     left: 0px;
     top: 45px;
     width: 12%;
-    height: 150%;
+    height: 200%;
     background-color: rgb(90,106,122);
   	transition: all 0.3s ease;
 }
@@ -58,21 +58,23 @@
 .menu_btn:active { background-color: rgb(80,85,160); }
 
 .rv_searchbar {
-    position: absolute;
+    position: fixed;
     left: 6%;
     width: 94%;
     height: 45px;
     border: none;
+    z-index: 10;
     font-size: 17px;
     background-color: white;
   	transition: all 0.3s ease;
 }
 .rv_searchbar_expanded {
-    position: absolute;
+    position: fixed;
     left: 12%;
     width: 88%;
     height: 45px;
     border: none;
+    z-index: 10;
     font-size: 17px;
     background-color: white;
   	transition: all 0.3s ease;

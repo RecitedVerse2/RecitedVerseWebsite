@@ -41,6 +41,8 @@ menuBtn.click(function() {
         $('.recentlyAdded_area_expanded').removeClass('recentlyAdded_area');
         $('.profile_info_area').addClass('profile_info_area_expanded');
         $('.profile_info_area_expanded').removeClass('profile_info_area');
+        $('.profile_recitations_area').addClass('profile_recitations_area_expanded');
+        $('.profile_recitations_area_expanded').removeClass('profile_recitations_area');
         
     } else {
         menu.addClass('menu');
@@ -58,6 +60,8 @@ menuBtn.click(function() {
         $('.recentlyAdded_area').removeClass('recentlyAdded_area_expanded');
         $('.profile_info_area_expanded').addClass('profile_info_area');
         $('.profile_info_area').removeClass('profile_info_area_expanded');
+        $('.profile_recitations_area_expanded').addClass('profile_recitations_area');
+        $('.profile_recitations_area').removeClass('profile_recitations_area_expanded');
         
     }
 });
