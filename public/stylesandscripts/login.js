@@ -53,8 +53,7 @@ loginBtn.onclick = function() {
                 "following" : 0,
                 "bio" : "Bio"
             };
-            console.log(currentUser);
-            //document.location = "https://recitedverse.herokuapp.com/home";
+            document.location = "https://recitedverse.herokuapp.com/home";
         } else {
             currentUser = null;
             return;

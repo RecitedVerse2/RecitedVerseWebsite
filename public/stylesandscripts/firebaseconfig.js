@@ -13,6 +13,3 @@ firebase.initializeApp(config);
 var fireRef = firebase.database().ref();
 var storageRef = firebase.storage().ref();
 var fireAuth = firebase.auth();
-
-/* A reference to the current user. */
-var currentUser;
