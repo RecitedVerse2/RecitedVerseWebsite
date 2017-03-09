@@ -71,7 +71,10 @@ createAccountBtn.onclick = function() {
                         "email" : email,
                         "password" : pass1,
                         "userID" : user.uid,
-                        "photoURL" : user.photoURL
+                        "photoURL" : user.photoURL,
+                        "followers" : 0,
+                        "following" : 0,
+                        "bio" : "Bio"
                     };
                     fireRef.child("Users").child(user.uid).set(currentUser);
                     
