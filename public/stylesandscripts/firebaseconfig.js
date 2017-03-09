@@ -19,10 +19,8 @@ var currentUser;
 
 
 
-
-
 /** A method for loading the current user object. */
-function loadCurrentUser() {
+var loadCurrentUser = function() {
     if (typeof(Storage) !== "undefined") {
         var cUser = JSON.parse(window.localStorage.getItem("current_user"));
         return cUser;
