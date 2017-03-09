@@ -1,6 +1,6 @@
 var menuBtn = $('.open_menu_btn');
 var searchBar = $('.rv_searchbar');
-var menu = $('.menu');
+var menu = $('.rv_menu');
 
 var homeBtn = $('#home_btn');
 var albumsBtn = $('#albums_btn');
