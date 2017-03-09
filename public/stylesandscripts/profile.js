@@ -1,17 +1,17 @@
 /* All of the parts of the profile. */
-var profilePicture = $('#profile_picture');
-var nameLabel = $('#profile_name');
-var bioLabel = $('#profile_bio');
-var followersLabel = $('#profile_followers');
-var followingLabel = $('#profile_following');
+var profilePicture = document.getElementById('profile_picture');
+var nameLabel = document.getElementById('#profile_name');
+var bioLabel = document.getElementById('#profile_bio');
+var followersLabel = document.getElementById('#profile_followers');
+var followingLabel = document.getElementById('#profile_following');
 
 
 if (typeof(Storage) !== "undefined") {
     currentUser = JSON.parse(window.localStorage.getItem("current_user"));
  
     
-    nameLabel.value = currentUser["fullname"];
-    bioLabel.value = currentUser["bio"];
-    followersLabel.val = "Followers: " + currentUser["followers"];
-    followingLabel.val = "Following: " + currentUser["following"]; 
+    nameLabel.innerHTML = currentUser["fullname"];
+    bioLabel.innerHTML = currentUser["bio"];
+    followersLabel.innerHTML = "Followers: " + currentUser["followers"];
+    followingLabel.innerHTML = "Following: " + currentUser["following"]; 
 }
