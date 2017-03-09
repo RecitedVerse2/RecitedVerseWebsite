@@ -25,7 +25,3 @@ app.get('/profile', function(request, response) { response.render('pages/profile
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
-
-/* A reference to the current user. */
-var currentUser;
