@@ -24,10 +24,10 @@ searchBar.keyup(function(event) {
 
 // Clicking on the menu button.
 menuBtn.click(function() {
-    
-    if(menu.hasClass('menu')) {
-        menu.removeClass('menu');
-        menu.addClass('menu_expanded');
+
+    if(menu.hasClass('rv_menu')) {
+        menu.removeClass('rv_menu');
+        menu.addClass('rv_menu_expanded');
         
         menuBtn.removeClass('open_menu_btn');
         menuBtn.addClass('open_menu_btn_expanded');
@@ -45,8 +45,8 @@ menuBtn.click(function() {
         $('.profile_recitations_area_expanded').removeClass('profile_recitations_area');
         
     } else {
-        menu.addClass('menu');
-        menu.removeClass('menu_expanded');
+        menu.addClass('rv_menu');
+        menu.removeClass('rv_menu_expanded');
         
         menuBtn.addClass('open_menu_btn');
         menuBtn.removeClass('open_menu_btn_expanded');
