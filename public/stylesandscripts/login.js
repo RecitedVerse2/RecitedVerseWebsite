@@ -5,8 +5,10 @@ var statusLabel = document.getElementById('status_label');
 var loginBtn = document.getElementById('login_btn');
 
 $(document).ready(function() {
-   
-    currentUser = loadCurrentUser();
+    
+    if (typeof(Storage) !== "undefined") {
+        currentUser = JSON.parse(window.localStorage.getItem("current_user"));
+    }
     
 });
 

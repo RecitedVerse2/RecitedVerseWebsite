@@ -6,10 +6,12 @@ var followersLabel = $('#profile_followers');
 var followingLabel = $('#profile_following');
 
 
-
-currentUser = loadCurrentUser();
+if (typeof(Storage) !== "undefined") {
+    currentUser = JSON.parse(window.localStorage.getItem("current_user"));
+ 
     
-nameLabel.value = currentUser["fullname"];
-bioLabel.value = currentUser["bio"];
-followersLabel.val = "Followers: " + currentUser["followers"];
-followingLabel.val = "Following: " + currentUser["following"]; 
+    nameLabel.value = currentUser["fullname"];
+    bioLabel.value = currentUser["bio"];
+    followersLabel.val = "Followers: " + currentUser["followers"];
+    followingLabel.val = "Following: " + currentUser["following"]; 
+}
