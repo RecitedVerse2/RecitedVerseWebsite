@@ -39,6 +39,8 @@ menuBtn.click(function() {
         $('.trending_area_expanded').removeClass('trending_area');
         $('.recentlyAdded_area').addClass('recentlyAdded_area_expanded');
         $('.recentlyAdded_area_expanded').removeClass('recentlyAdded_area');
+        $('.profile_info_area').addClass('profile_info_area_expanded');
+        $('.profile_info_area_expanded').removeClass('profile_info_area');
         
     } else {
         menu.addClass('menu');
@@ -54,6 +56,8 @@ menuBtn.click(function() {
         $('.trending_area').removeClass('trending_area_expanded');
         $('.recentlyAdded_area_expanded').addClass('recentlyAdded_area');
         $('.recentlyAdded_area').removeClass('recentlyAdded_area_expanded');
+        $('.profile_info_area_expanded').addClass('profile_info_area');
+        $('.profile_info_area').removeClass('profile_info_area_expanded');
         
     }
 });

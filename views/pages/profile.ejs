@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+   <head>
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/stylesandscripts/profile.css" />
+        <title>Recited Verse - Profile</title>
+    </head>
+
+
+
+
+    <body>
+        <% include ../partials/header.ejs %>
+        
+        
+        <!-- The entire profile area. -->
+        <div class="profile_area">
+            
+            <!-- The upper profile area that shows all of the person's info. -->
+            <div class="profile_info_area">
+            
+                <!-- The profile picture area. -->
+                <div class="profile_picture_area"> <img src="" alt="profile picture"> </div>
+                
+                <!-- The area that shows the person's name, bio, education, etc. -->
+                <div class="personal_info">
+                    <h3 id="profile_name">Name</h3>
+                    <p id="profile_bio">Bio</p>
+                    <p id="profile_followers">Followers:</p>
+                    <p id="profile_following">Following:</p>
+                </div>
+                
+                <!-- The social buttons. -->
+                <div class="social_buttons">
+                    <button class="fa fa-facebook-square social_button"></button>
+                    <button class="fa fa-linkedin-square social_button"></button>
+                    <button class="fa fa-instagram social_button"></button>
+                    <button class="fa fa-twitter social_button"></button>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+        <!--    All of the javascript.    -->
+        <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/stylesandscripts/firebaseconfig.js"></script>
+        <script type="text/javascript" src="/stylesandscripts/profile.js"></script>
+    </body>
+    
+</html>
