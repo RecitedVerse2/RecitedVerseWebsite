@@ -35,67 +35,56 @@ createAccountBtn.onclick = function() {
                 var errorMessage = error.message;
 
                 if(errorCode === 'auth/weak-password') {
+                    statusLabel.style.color = "red";
                     statusLabel.style.visibility = "visible";
                     statusLabel.innerHTML = "Password must be at least six characters";
                     return;
                     
                 } else if(errorCode === 'auth/email-already-in-use') {
+                    statusLabel.style.color = "red";
                     statusLabel.style.visibility = "visible";
                     statusLabel.innerHTML = "That email is already in use.";
                     return;
                 }                                
+            }).then(function(user) {
+              
+                // Save it to the database.
+                currentUser = {
+                    "fullname" : fullname,
+                    "email" : email,
+                    "password" : pass1,
+                    "userID" : user.uid,
+                    "photoURL" : user.photoURL,
+                    "followers" : 0,
+                    "following" : 0,
+                    "bio" : "Bio"
+                };
+                fireRef.child("Users").child(user.uid).set(currentUser);
+
+                if (typeof(Storage) !== "undefined") {
+                    window.localStorage.setItem("current_user", JSON.stringify(currentUser));
+                }
+
+                // Go to the user's profile page.
+                document.location = "https://recitedverse.herokuapp.com/profile";
+                
             }); // End of creating the user.
         
             // Display status
-            statusLabel.style.visibility = "visible";
             statusLabel.style.color = "green";
+            statusLabel.style.visibility = "visible";
             statusLabel.innerHTML = "Creating account!";
-            
-            // Sign the user in so you can get access to the user object.
-            firebase.auth().signInWithEmailAndPassword(email, pass1).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                
-                // If there is a problem, return.
-                if(errorCode != null) {
-                    return;
-                }
-            });
-            
-            // Save the user object.
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    currentUser = {
-                        "fullname" : fullname,
-                        "email" : email,
-                        "password" : pass1,
-                        "userID" : user.uid,
-                        "photoURL" : user.photoURL,
-                        "followers" : 0,
-                        "following" : 0,
-                        "bio" : "Bio"
-                    };
-                    fireRef.child("Users").child(user.uid).set(currentUser);
-                    
-                    if (typeof(Storage) !== "undefined") {
-                        // Code for localStorage/sessionStorage.
-                        window.localStorage.setItem("current_user", JSON.stringify(currentUser));
-                    }
-                    
-                    // Go to the user's profile page.
-                    document.location = "https://recitedverse.herokuapp.com/profile";
-                } else {}
-            });
             
         } // End of checking if the two passwords match.
         else {
+            statusLabel.style.color = "red";
             statusLabel.style.visibility = "visible";
             statusLabel.innerHTML = "Passwords do not match.";
         }
             
     } // End of first if-statement.
     else {
+        statusLabel.style.color = "red";
         statusLabel.style.visibility = "visible";
         statusLabel.innerHTML = "Please fill out each item.";
     }
