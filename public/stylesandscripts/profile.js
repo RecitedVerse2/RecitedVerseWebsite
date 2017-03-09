@@ -10,7 +10,7 @@ var followingLabel = $('#profile_following');
 This assumes that currentUser is already initialized. */
 $(document).ready(function() {
     
-    currentUser = loadCurrentUser();
+    currentUser = window.loadCurrentUser();
     
     nameLabel.value = currentUser["fullname"];
     bioLabel.value = currentUser["bio"];
