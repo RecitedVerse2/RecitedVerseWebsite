@@ -16,3 +16,17 @@ var fireAuth = firebase.auth();
 
 /* A reference to the current user. */
 var currentUser;
+
+
+
+
+
+/** A method for loading the current user object. */
+function loadCurrentUser() {
+    if (typeof(Storage) !== "undefined") {
+        var cUser = JSON.parse(window.localStorage.getItem("current_user"));
+        return cUser;
+    } else {
+        return null;
+    }
+}

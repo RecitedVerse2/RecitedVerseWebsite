@@ -7,6 +7,13 @@ var statusLabel = document.getElementById('status_label');
 var createAccountBtn = document.getElementById('createAccount_btn');
 
 
+$(document).ready(function() {
+    
+    currentUser = loadCurrentUser();
+    
+});
+
+
 /**
     Creates an account in Firebase.
 */
@@ -65,6 +72,11 @@ createAccountBtn.onclick = function() {
                         "photoURL" : user.photoURL
                     };
                     fireRef.child("Users").child(user.uid).set(currentUser);
+                    
+                    if (typeof(Storage) !== "undefined") {
+                        // Code for localStorage/sessionStorage.
+                        window.localStorage.setItem("current_user", JSON.stringify(currentUser));
+                    }
                     
                     // Go to the user's profile page.
                     document.location = "https://recitedverse.herokuapp.com/profile";
