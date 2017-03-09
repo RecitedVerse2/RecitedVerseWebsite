@@ -12,8 +12,10 @@ $(document).ready(function() {
     
    if (typeof(Storage) !== "undefined") {
         // Retrieve the current user
-        var cUser = JSON.parse(window.localStorage.getItem("currentUser"));
+        var cUser = JSON.parse(window.localStorage.getItem("current_user"));
     
+        console.log(cUser);
+       
         nameLabel.value = cUser["fullname"];
         bioLabel.value = cUser["bio"];
         followersLabel.val = "Followers: " + cUser["followers"];

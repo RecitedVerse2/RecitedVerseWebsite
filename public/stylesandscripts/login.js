@@ -4,15 +4,6 @@ var passwordField = document.getElementById('password_field');
 var statusLabel = document.getElementById('status_label');
 var loginBtn = document.getElementById('login_btn');
 
-$(document).ready(function() {
-    
-    if (typeof(Storage) !== "undefined") {
-        // Retrieve the current user
-        var cUser = JSON.parse(window.localStorage.getItem("currentUser"));
-    }
-});
-
-
 
 
 /**
@@ -65,7 +56,7 @@ loginBtn.onclick = function() {
             
             if (typeof(Storage) !== "undefined") {
                 // Code for localStorage/sessionStorage.
-                window.localStorage.setItem("currentUser", JSON.stringify(currentUser));
+                window.localStorage.setItem("current_user", JSON.stringify(currentUser));
             } else {
                 // Sorry! No Web Storage support..
             }

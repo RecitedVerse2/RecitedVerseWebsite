@@ -7,18 +7,6 @@ var statusLabel = document.getElementById('status_label');
 var createAccountBtn = document.getElementById('createAccount_btn');
 
 
-$(document).ready(function() {
-    
-    if (typeof(Storage) !== "undefined") {
-        // Retrieve the current user
-        // Retrieve the current user
-        var cUser = JSON.parse(window.localStorage.getItem("currentUser"));
-    }
-});
-
-
-
-
 /**
     Creates an account in Firebase.
 */

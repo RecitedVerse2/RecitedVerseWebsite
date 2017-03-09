@@ -1,3 +1,9 @@
 $(document).ready(function() {
-    console.log(currentUser);
+    
+   if (typeof(Storage) !== "undefined") {
+        // Retrieve the current user
+        var cUser = JSON.parse(window.localStorage.getItem("current_user"));
+    
+        console.log(cUser);
+   }
 });
