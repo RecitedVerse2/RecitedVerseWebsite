@@ -15,4 +15,4 @@ var storageRef = firebase.storage().ref();
 var fireAuth = firebase.auth();
 
 /* A reference to the current user. */
-var currentUser = currentUser;
+var currentUser;
