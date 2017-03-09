@@ -76,7 +76,11 @@ genresBtn.click(function() {
     document.location = "https://recitedverse.herokuapp.com/genres";
 });
 myAccountBtn.click(function() {
-    document.location = "https://recitedverse.herokuapp.com/profile";
+    if(currentUser != null) {
+        document.location = "https://recitedverse.herokuapp.com/profile";
+    } else {
+        document.location = "https://recitedverse.herokuapp.com/login";    
+    }
 });
 goToLoginBtn.click(function() {
     document.location = "https://recitedverse.herokuapp.com/login";
