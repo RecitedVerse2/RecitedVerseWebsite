@@ -43,7 +43,7 @@ body {
     background-color: lightgray;
 }
 #profile_picture {
-    width: 50px;
+    width: 100%;
     height: 100px;
 }
 .profile_background_area {
