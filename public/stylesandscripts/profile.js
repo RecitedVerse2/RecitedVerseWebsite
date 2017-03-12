@@ -15,7 +15,12 @@ if (typeof(Storage) !== "undefined") {
     followersLabel.innerHTML = "Followers: " + currentUser["followers"];
     followingLabel.innerHTML = "Following: " + currentUser["following"];
     
-    storageRef.child(currentUser["userID"]).child(currentUser["photoURL"]).getDownloadURL().then(function(url) {
+    var uid = currentUser["userID"];
+    var photid = currentUser["photoURL"];
+    
+    console.log(photid);
+    
+    storageRef.child(uid).child().getDownloadURL().then(function(url) {
         profilePicture.src = url;
     }).catch(function(error) {
         console.log("User did not have their own profile picture." + error);
