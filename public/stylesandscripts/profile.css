@@ -42,7 +42,7 @@ body {
     border-radius: 100%;
     background-color: lightgray;
 }
-.profile_picture {
+#profile_picture {
     width: 50px;
     height: 100px;
 }
