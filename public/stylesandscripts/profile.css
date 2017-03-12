@@ -50,8 +50,8 @@ body {
 .profile_background_area {
     position: absolute;
     top: 45px;
-    left: 0%;
-    width: 100%;
+    left: 6%;
+    width: 94%;
     height: 400px;
     background-color: lightcoral;
     transition: all 0.3s ease;
