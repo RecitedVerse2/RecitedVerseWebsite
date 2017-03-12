@@ -18,11 +18,13 @@ if (typeof(Storage) !== "undefined") {
     storageRef.child(currentUser["userID"]).child(currentUser["photoURL"]).getDownloadURL().then(function(url) {
         profilePicture.src = url;
     }).catch(function(error) {
+        console.log("User did not have their own profile picture." + error);
+        
         // Handle any errors
         storageRef.child('circleProfilePic.png').getDownloadURL().then(function(url) {
             profilePicture.src = url;
         }).catch(function(error) {
-            console.log("Couldn't load any profile picture.");
+            console.log("Couldn't load any profile picture." + error);
         });
-    )};
+    });
 }
