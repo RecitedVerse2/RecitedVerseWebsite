@@ -65,7 +65,11 @@ body {
     background-color: lightcoral;
     transition: all 0.3s ease;
 }
-.profile_background {}
+#edit_profile_btn {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+}
 
 
 .social_button {
