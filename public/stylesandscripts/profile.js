@@ -16,7 +16,7 @@ if (typeof(Storage) !== "undefined") {
     followingLabel.innerHTML = "Following: " + currentUser["following"];
     
     var uid = currentUser["userID"];
-    var photid = currentUser["photoURL"];
+    var photoid = currentUser["photoURL"];
     
     
     var httpsReference = storageRef.refFromURL(photoid).getDownloadURL().then(function(url) {
