@@ -13,8 +13,48 @@
     
     
     <body>
-    
+        <% include ../partials/header.ejs %>
         
+    
+        <!-- The overall container for the edit profile page. -->
+        <div class="ep_content_container">
+            
+            <!-- The header -->
+            <h2 class="ep_header">Edit Profile</h2>
+            
+            <!-- The place where you choose a profile picture. -->
+            <div class="profile_picture_area"> 
+                <img id="profile_picture" src="" alt="profile picture">
+                <br><br>
+                <button id="choose_profile_picture_btn">Choose Profile Picture</button>
+            </div>
+            
+            
+            <!-- The input fields. -->
+            <div class="ep_about_area">
+                <p><b>Personal Information</b></p>
+                Full Name: &nbsp;&nbsp;&nbsp; <input type="text" class="ep_field" id="ep_fullname_field" placeholder="Change your full name">
+                <br><br>
+                Email: &nbsp;&nbsp;&nbsp; <input type="email" class="ep_field" id="ep_email_field" placeholder="Change your email">
+                <br><br>
+                Display Name: &nbsp;&nbsp;&nbsp; <input type="text" class="ep_field" id="ep_displayname_field" placeholder="Change your display name">
+                <br><br>
+                Password: &nbsp;&nbsp;&nbsp; <input type="text" class="ep_field" id="ep_password1_field" placeholder="Change your password">
+                <br><br>
+                Re-enter Password: &nbsp;&nbsp;&nbsp; <input type="text" class="ep_field" id="ep_password2_field" placeholder="Re-enter your new password">
+                <br><br><br><br>
+                
+                <p><b>Profile</b></p>
+                Bio: &nbsp;&nbsp;&nbsp; <textarea id="ep_bio_field"></textarea>
+            
+            
+            
+                <!-- The button to save the changes -->
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <button class="pill_button">Save Changes</button>
+            </div>
+            
+        </div>
         
         
         

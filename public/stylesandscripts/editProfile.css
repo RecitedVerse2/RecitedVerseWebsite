@@ -1,0 +1,68 @@
+.ep_content_container {
+    position: absolute;
+    top: 45px;
+    left: 6%;
+    width: 94%;
+    height: 100%;
+    background-color: whitesmoke;
+    transition: all 0.3s ease;
+}
+.ep_content_container_expanded {
+    position: absolute;
+    top: 45px;
+    left: 12%;
+    width: 88%;
+    height: 100%;
+    background-color: whitesmoke;
+    transition: all 0.3s ease;
+}
+
+
+.ep_header {
+    position: relative;
+    left: 10px;
+    color: rgb(128, 128, 128);
+    background-color: whitesmoke;
+}
+.profile_picture_area {
+    position: relative;
+    top: 20px;
+    left: 50px;
+    width: 200px;
+    background-color: whitesmoke;
+}
+#profile_picture {
+    position: relative;
+    left: 48px;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: lightgray;
+}
+#choose_profile_picture_btn {
+    width: 200px;
+    height: 35px;
+    text-align: center;
+    border-radius: 25px;
+    border-style: none;
+    -webkit-transition-duration: 0.4s;   
+}
+
+
+.ep_about_area {
+    position: relative;
+    top: 80px;
+    padding-left: 30px;
+    background-color: whitesmoke;
+}
+.ep_field {
+    width: 300px;
+}
+
+
+.pill_button {
+    text-align: center;
+    border-radius: 25px;
+    border-style: none;
+    -webkit-transition-duration: 0.3s;
+}
