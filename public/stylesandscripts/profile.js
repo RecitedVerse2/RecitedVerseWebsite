@@ -19,7 +19,7 @@ if (typeof(Storage) !== "undefined") {
     var photid = currentUser["photoURL"];
     
     
-    var httpsReference = storage.refFromURL(photoid).getDownloadURL().then(function(url) {
+    var httpsReference = storageRef.refFromURL(photoid).getDownloadURL().then(function(url) {
         profilePicture.src = url;
     }).catch(function(error) {
         console.log("User did not have their own profile picture." + error);
