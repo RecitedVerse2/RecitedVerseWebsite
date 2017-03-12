@@ -67,8 +67,11 @@ body {
 }
 #edit_profile_btn {
     position: absolute;
-    top: 20px;
+    top: 50px;
     right: 10px;
+    width: 80px;
+    height: 30px;
+    color: dodgerblue;
 }
 
 
