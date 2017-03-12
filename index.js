@@ -19,6 +19,7 @@ app.get('/albums', function(request, response) { response.render('pages/albums.e
 app.get('/artists', function(request, response) { response.render('pages/artists.ejs'); });
 app.get('/genres', function(request, response) { response.render('pages/genres.ejs'); });
 app.get('/profile', function(request, response) { response.render('pages/profile.ejs'); });
+app.get('/editprofile', function(request, response) { response.render('pages/editProfile.ejs'); });
 
 
 

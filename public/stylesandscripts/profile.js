@@ -4,6 +4,7 @@ var nameLabel = document.getElementById('profile_name');
 var bioLabel = document.getElementById('profile_bio');
 var followersLabel = document.getElementById('profile_followers');
 var followingLabel = document.getElementById('profile_following');
+var editProfieBtn = document.getElementById('edit_profile_btn');
 
 
 if (typeof(Storage) !== "undefined") {
@@ -24,3 +25,8 @@ if (typeof(Storage) !== "undefined") {
         console.log("User did not have their own profile picture." + error);
     });
 }
+
+
+editProfieBtn.onclick = function() {
+    document.location = "https://recitedverse.herokuapp.com/editprofile";
+};
