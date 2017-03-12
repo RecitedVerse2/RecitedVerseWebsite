@@ -18,7 +18,6 @@ if (typeof(Storage) !== "undefined") {
     var uid = currentUser["userID"];
     var photid = currentUser["photoURL"];
     
-    console.log(photid);
     
     storageRef.child(uid).child().getDownloadURL().then(function(url) {
         profilePicture.src = url;

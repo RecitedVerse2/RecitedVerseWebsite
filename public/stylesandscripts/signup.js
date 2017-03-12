@@ -54,7 +54,7 @@ createAccountBtn.onclick = function() {
                     "email" : email,
                     "password" : pass1,
                     "userID" : user.uid,
-                    "photoURL" : user.photoURL,
+                    "photoURL" : "https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/circleProfilePic.png?alt=media&token=371faf98-1f53-4ad6-85b7-8a23641b0624",
                     "followers" : 0,
                     "following" : 0,
                     "bio" : "Bio"
