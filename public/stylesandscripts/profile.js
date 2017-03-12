@@ -21,8 +21,8 @@ if (typeof(Storage) !== "undefined") {
         // Handle any errors
         storageRef.child('circleProfilePic.png').getDownloadURL().then(function(url) {
             profilePicture.src = url;
-        }).catch(function(error)) {
+        }).catch(function(error) {
             console.log("Couldn't load any profile picture.");
         });
-    });
+    )};
 }
