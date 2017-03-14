@@ -7,6 +7,13 @@ var bioField = document.getElementById('ep_bio_field');
 var saveBtn = document.getElementById('save_btn');
 
 
+$(document).ready(function() {
+    
+    if (typeof(Storage) !== "undefined") {
+        currentUser = JSON.parse(window.localStorage.getItem("current_user"));
+    }
+    
+});
 
 
 
@@ -15,7 +22,7 @@ saveBtn.onclick = function() {
     var email = emailField.value;
     var password1 = passwordField1.value;
     var password2 = passwordField2.value;
-    var bio = "";
+    var bio = bioField.value;
     
     
     if( fullname != "" && fullname != null ) {
