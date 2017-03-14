@@ -53,5 +53,8 @@ saveBtn.onclick = function() {
 
 function saveToFirebase(obj) {
     fireRef.child('Users').child(''+obj["userID"]).set(obj);
+    if (typeof(Storage) !== "undefined") {
+        window.localStorage.setItem("current_user", JSON.stringify(obj));
+    }
     document.location = "https://recitedverse.herokuapp.com/profile";
 }
