@@ -6,10 +6,10 @@ var followersLabel = document.getElementById('profile_followers');
 var followingLabel = document.getElementById('profile_following');
 var editProfieBtn = document.getElementById('edit_profile_btn');
 
-var facebookBtn = document.getElementById('facebookBtn');
-var linkedInBtn = document.getElementById('linkedInBtn');
-var instagramBtn = document.getElementById('instagramBtn');
-var twitterBtn = document.getElementById('twitterBtn');
+var facebookBtn = $('#facebookBtn');
+var linkedInBtn = $('#linkedInBtn');
+var instagramBtn = $('#instagramBtn');
+var twitterBtn = $('#twitterBtn');
 
 
 if (typeof(Storage) !== "undefined") {
@@ -23,10 +23,18 @@ if (typeof(Storage) !== "undefined") {
     
     
     var social = currentUser["social_media_links"];
-    if(social.indexOf("facebook") < 0) { facebookBtn.style.visibility = 'hidden'; }
-    if(social.indexOf("linkedin") < 0) { linkedInBtn.style.visibility = 'hidden'; }
-    if(social.indexOf("instagram") < 0) { instagramBtn.style.visibility = 'hidden'; }
-    if(social.indexOf("twitter") < 0) { twitterBtn.style.visibility = 'hidden'; }
+    if(social.indexOf("facebook") < 0) { facebookBtn.remove('#facebookBtn'); } else {
+        $('.social_buttons').append('<button class="fa fa-facebook-square social_button" id="facebookBtn"></button>')
+    }
+    if(social.indexOf("linkedin") < 0) { linkedInBtn.remove('#linkedInBtn'); } else {
+        $('.social_buttons').append('<button class="fa fa-linkedin-square social_button" id="linkedInBtn"></button>');
+    }
+    if(social.indexOf("instagram") < 0) { instagramBtn.remove('#instgramBtn'); } else {
+        $('.social_buttons').append('<button class="fa fa-instagram social_button" id="instagramBtn"></button>');
+    }
+    if(social.indexOf("twitter") < 0) { twitterBtn.remove('#twitterBtn'); } else {
+        $('.social_buttons').append('<button class="fa fa-twitter social_button" id="twitterBtn"></button>');
+    }
     
     
     var uid = currentUser["userID"];
