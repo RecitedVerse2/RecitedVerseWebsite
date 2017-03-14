@@ -6,10 +6,10 @@ var bioField = document.getElementById('ep_bio_field');
 
 var saveBtn = document.getElementById('save_btn');
 
-var facebookCBOX = document.getElementById('facebookCBox');
-var linkedinCBOX = document.getElementById('linkedinCBox');
-var instagramCBOX = document.getElementById('instagramCBox');
-var twitterCBOX = document.getElementById('twitterCBox');
+var facebookLink = document.getElementById('facebookLink');
+var linkedinLink = document.getElementById('linkedinLink');
+var instagramLink = document.getElementById('instagramLink');
+var twitterLink = document.getElementById('twitterLink');
 
 
 
@@ -57,10 +57,10 @@ saveBtn.onclick = function() {
     
     
     var social = [];
-    if(facebookCBOX.checked == true) { social.push('facebook'); }
-    if(linkedinCBOX.checked == true) { social.push('linkedin'); }
-    if(instagramCBOX.checked == true) { social.push('instagram'); }
-    if(twitterCBOX.checked == true) { social.push('twitter'); }
+    if(facebookLink.value != '') { social.push('facebook'); }
+    if(linkedinLink.value != '') { social.push('linkedin'); }
+    if(instagramLink.value != '') { social.push('instagram'); }
+    if(twitterLink.value != '') { social.push('twitter'); }
     currentUser["social_media_links"] = social;
     
     saveToFirebase(currentUser);
