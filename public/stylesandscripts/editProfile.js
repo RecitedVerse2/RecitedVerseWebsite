@@ -1,3 +1,4 @@
+var profilePicture = document.getElementById('profile_picture');
 var fullNameField = document.getElementById('ep_fullname_field');
 var emailField = document.getElementById('ep_email_field');
 var passwordField1 = document.getElementById('ep_password1_field');
