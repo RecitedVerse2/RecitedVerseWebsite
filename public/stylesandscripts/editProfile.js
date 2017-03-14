@@ -18,6 +18,12 @@ $(document).ready(function() {
     if (typeof(Storage) !== "undefined") {
         currentUser = JSON.parse(window.localStorage.getItem("current_user"));
         
+        var photoid = currentUser["photoURL"];
+        var httpsReference = firebase.storage().refFromURL(''+photoid).getDownloadURL().then(function(url) {
+            profilePicture.src = url;
+        }).catch(function(error) {
+            console.log("Error loading the profile picture." + error);
+        });
         fullNameField.value = currentUser["fullname"];
         emailField.value = currentUser["email"];
         bioField.value = currentUser["bio"];
