@@ -66,3 +66,8 @@
     border-style: none;
     -webkit-transition-duration: 0.3s;
 }
+.rect_button {
+    text-align: center;
+    border-style: none;
+    -webkit-transition-duration: 0.3s;
+}

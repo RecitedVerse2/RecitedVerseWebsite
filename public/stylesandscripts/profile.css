@@ -95,7 +95,7 @@ body {
 
 
 .profile_recitations_area {
-    position: absolute;
+    position: relative;
     top: 285px;
     left: 0%;
     width: 100%;
