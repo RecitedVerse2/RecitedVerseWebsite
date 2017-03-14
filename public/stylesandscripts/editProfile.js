@@ -57,10 +57,10 @@ saveBtn.onclick = function() {
     
     
     var social = [];
-    if(facebookLink.value != '') { social.push('facebook'); }
-    if(linkedinLink.value != '') { social.push('linkedin'); }
-    if(instagramLink.value != '') { social.push('instagram'); }
-    if(twitterLink.value != '') { social.push('twitter'); }
+    if(facebookLink.value != '') { social.push(facebookLink.value); }
+    if(linkedinLink.value != '') { social.push(linkedinLink.value); }
+    if(instagramLink.value != '') { social.push(instagramLink.value); }
+    if(twitterLink.value != '') { social.push(twitterLink.value); }
     currentUser["social_media_links"] = social;
     
     saveToFirebase(currentUser);

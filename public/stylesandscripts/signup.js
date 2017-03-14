@@ -58,7 +58,7 @@ createAccountBtn.onclick = function() {
                     "followers" : 0,
                     "following" : 0,
                     "bio" : "Bio",
-                    "social_media_links" : ["facebook", "linkedin", "instagram", "twitter"]
+                    "social_media_links" : {"facebook":"","linkedin":"","instagram":"","twitter":""};
                 };
                 fireRef.child("Users").child(user.uid).set(currentUser);
 

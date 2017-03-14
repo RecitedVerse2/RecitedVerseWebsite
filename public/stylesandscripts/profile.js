@@ -23,17 +23,29 @@ if (typeof(Storage) !== "undefined") {
     
     
     var social = currentUser["social_media_links"];
-    if(social.indexOf("facebook") < 0) { facebookBtn.remove('#facebookBtn'); } else {
-        $('.social_buttons').append('<button class="fa fa-facebook-square social_button" id="facebookBtn"></button>')
+    if(social[0] == '') { facebookBtn.remove('#facebookBtn'); } else {
+        $('.social_buttons').append('<button class="fa fa-facebook-square social_button" id="facebookBtn"></button>');
+        $('#facebookBtn').click(function() {
+            document.location = social[0]; 
+        });
     }
-    if(social.indexOf("linkedin") < 0) { linkedInBtn.remove('#linkedInBtn'); } else {
+    if(social[1] == '') { linkedInBtn.remove('#linkedInBtn'); } else {
         $('.social_buttons').append('<button class="fa fa-linkedin-square social_button" id="linkedInBtn"></button>');
+        $('#linkedInBtn').click(function() {
+            document.location = social[1]; 
+        });
     }
-    if(social.indexOf("instagram") < 0) { instagramBtn.remove('#instgramBtn'); } else {
+    if(social[2] == '') { instagramBtn.remove('#instgramBtn'); } else {
         $('.social_buttons').append('<button class="fa fa-instagram social_button" id="instagramBtn"></button>');
+        $('#instagramBtn').click(function() {
+            document.location = social[2]; 
+        });
     }
-    if(social.indexOf("twitter") < 0) { twitterBtn.remove('#twitterBtn'); } else {
+    if(social[3] == '') { twitterBtn.remove('#twitterBtn'); } else {
         $('.social_buttons').append('<button class="fa fa-twitter social_button" id="twitterBtn"></button>');
+        $('#twitterBtn').click(function() {
+            document.location = social[3]; 
+        });
     }
     
     
