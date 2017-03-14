@@ -5,6 +5,7 @@ var passwordField1 = document.getElementById('ep_password1_field');
 var passwordField2 = document.getElementById('ep_password2_field');
 var bioField = document.getElementById('ep_bio_field');
 
+var choosePicture = document.getElementById('choose_profile_picture_btn');
 var saveBtn = document.getElementById('save_btn');
 
 var facebookLink = document.getElementById('facebookLink');
@@ -37,6 +38,10 @@ $(document).ready(function() {
 
 
 
+
+/*
+    Button for saving the profile changes.
+*/
 saveBtn.onclick = function() {
     var fullname = fullNameField.value;
     var email = emailField.value;
@@ -79,6 +84,28 @@ saveBtn.onclick = function() {
     currentUser["social_media_links"] = social;
     
     saveToFirebase(currentUser);
+};
+
+
+
+/*
+    Button for selecting a profile picture.
+*/
+choosePicture.onclick = function() {
+    var fileSelector = document.createElement('input');
+    fileSelector.setAttribute('type', 'file');
+
+    var selectDialogueLink = document.createElement('a');
+    selectDialogueLink.setAttribute('href', '');
+    selectDialogueLink.innerText = "Select File";
+
+    selectDialogueLink.onclick = function () {
+        fileSelector.click();
+        return false;
+    }
+
+    //document.body.appendChild(selectDialogueLink);
+    console.log(selectDialogueLink);
 };
 
 
