@@ -15,7 +15,7 @@ saveBtn.onclick = function() {
     var email = emailField.value;
     var password1 = passwordField1.value;
     var password2 = passwordField2.value;
-    var bio = bioField.value;
+    var bio = '' + bioField.value;
     
     
     if( fullname != "" && fullname != null ) {
