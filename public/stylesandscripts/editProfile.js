@@ -29,7 +29,12 @@ saveBtn.onclick = function() {
         currentUser["fullname"] = fullname;
     }
     if( email != "" && email != null ) {
-        currentUser["email"] = email;
+        var user = firebase.auth().currentUser;
+        user.updateEmail(email).then(function() {
+            currentUser["email"] = email;
+        }, function(error) {
+            alert('That email is already in use.');
+        });
     }
     if( password1 != "" && password1 != null ) {
         if( password2 != "" && password2 != null ) {
