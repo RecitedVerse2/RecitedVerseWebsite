@@ -96,6 +96,7 @@ choosePicture.onclick = function() {
         $('#file-input').trigger('click');
     });
     profilePicture.src = $('#file-input').value;
+    console.log(profilePicture.src);
 };
 
 
