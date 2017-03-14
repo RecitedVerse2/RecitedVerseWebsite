@@ -92,20 +92,9 @@ saveBtn.onclick = function() {
     Button for selecting a profile picture.
 */
 choosePicture.onclick = function() {
-    var fileSelector = document.createElement('input');
-    fileSelector.setAttribute('type', 'file');
-
-    var selectDialogueLink = document.createElement('a');
-    selectDialogueLink.setAttribute('href', '');
-    selectDialogueLink.innerText = "Select File";
-
-    selectDialogueLink.onclick = function () {
-        fileSelector.click();
-        return false;
-    }
-
-    //document.body.appendChild(selectDialogueLink);
-    console.log(selectDialogueLink);
+    $('#choose_profile_picture_btn').on('click', function() {
+        $('#file-input').trigger('click');
+    });
 };
 
 
