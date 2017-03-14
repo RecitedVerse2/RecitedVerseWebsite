@@ -49,6 +49,7 @@ createAccountBtn.onclick = function() {
             }).then(function(user) {
               
                 // Save it to the database.
+                var social = {"facebook":"","linkedin":"","instagram":"","twitter":""};
                 currentUser = {
                     "fullname" : fullname,
                     "email" : email,
@@ -58,7 +59,7 @@ createAccountBtn.onclick = function() {
                     "followers" : 0,
                     "following" : 0,
                     "bio" : "Bio",
-                    "social_media_links" : {"facebook":"","linkedin":"","instagram":"","twitter":""};
+                    "social_media_links" : social
                 };
                 fireRef.child("Users").child(user.uid).set(currentUser);
 
