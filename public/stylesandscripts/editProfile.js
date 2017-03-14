@@ -17,8 +17,15 @@ $(document).ready(function() {
     
     if (typeof(Storage) !== "undefined") {
         currentUser = JSON.parse(window.localStorage.getItem("current_user"));
+        
+        fullNameField.value = currentUser["fullname"];
+        emailField.value = currentUser["email"];
+        bioField.value = currentUser["bio"];
+        facebookLink.value = currentUser["social_media_links"][0];
+        linkedinLink.value = currentUser["social_media_links"][1];
+        instagramLink.value = currentUser["social_media_links"][2];
+        twitterLink.value = currentUser["social_media_links"][3];
     }
-    
 });
 
 
