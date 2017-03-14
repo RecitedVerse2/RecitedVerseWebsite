@@ -6,6 +6,11 @@ var followersLabel = document.getElementById('profile_followers');
 var followingLabel = document.getElementById('profile_following');
 var editProfieBtn = document.getElementById('edit_profile_btn');
 
+var facebookBtn = document.getElementById('facebookBtn');
+var linkedInBtn = document.getElementById('linkedInBtn');
+var instagramBtn = document.getElementById('instagramBtn');
+var twitterBtn = document.getElementById('twitterBtn');
+
 
 if (typeof(Storage) !== "undefined") {
     currentUser = JSON.parse(window.localStorage.getItem("current_user"));
@@ -15,6 +20,14 @@ if (typeof(Storage) !== "undefined") {
     bioLabel.innerHTML = currentUser["bio"];
     followersLabel.innerHTML = "Followers: " + currentUser["followers"];
     followingLabel.innerHTML = "Following: " + currentUser["following"];
+    
+    
+    var social = currentUser["social"];
+    if(social.indexOf("facebook") < 0) { facebookBtn.style.visibility = 'hidden'; }
+    if(social.indexOf("linkedin") < 0) { linkedInBtn.style.visibility = 'hidden'; }
+    if(social.indexOf("instagram") < 0) { instagramBtn.style.visibility = 'hidden'; }
+    if(social.indexOf("twitter") < 0) { twitterBtn.style.visibility = 'hidden'; }
+    
     
     var uid = currentUser["userID"];
     var photoid = currentUser["photoURL"];
