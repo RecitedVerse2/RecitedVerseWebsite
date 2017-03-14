@@ -22,7 +22,7 @@ if (typeof(Storage) !== "undefined") {
     followingLabel.innerHTML = "Following: " + currentUser["following"];
     
     
-    var social = currentUser["social"];
+    var social = currentUser["social_media_links"];
     if(social.indexOf("facebook") < 0) { facebookBtn.style.visibility = 'hidden'; }
     if(social.indexOf("linkedin") < 0) { linkedInBtn.style.visibility = 'hidden'; }
     if(social.indexOf("instagram") < 0) { instagramBtn.style.visibility = 'hidden'; }
