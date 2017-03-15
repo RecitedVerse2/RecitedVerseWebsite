@@ -92,17 +92,15 @@ saveBtn.onclick = function() {
     Button for selecting a profile picture.
 */
 choosePicture.onclick = function() {
-    $('#choose_profile_picture_btn').on('click', function() {
-        $('#file-input').trigger('click');
-    });
-    profilePicture.src = $('#file-input').value;
-    console.log(profilePicture.src);
+    
 };
 
 
 
 
-
+/*
+    Saves the object to firebase.
+*/
 function saveToFirebase(obj) {
     fireRef.child('Users').child(''+obj["userID"]).set(obj);
     if (typeof(Storage) !== "undefined") {
