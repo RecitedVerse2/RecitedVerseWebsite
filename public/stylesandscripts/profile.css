@@ -55,6 +55,20 @@ body {
     z-index: 102;
     background-color: rgba(0,0,0,0);
 }
+.pill_btn {
+    width: 100px;
+    height: 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: lightblue;
+}
+.pill_btn:hover {
+    width: 100px;
+    height: 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: cornflowerblue;
+}
 
 .profile_area {
     position: relative;
@@ -154,9 +168,6 @@ body {
 }
 .social_button:hover {
     color: blue;
-}
-.fa-facebook-square, .fa-linkedin-square, .fa-instagram, .fa-twitter {
-/*    visibility: hidden;*/
 }
 
 
