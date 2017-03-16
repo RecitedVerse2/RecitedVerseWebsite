@@ -2,6 +2,29 @@ body {
     background-color: rgb(242,244,248);
 }
 
+#dialogoverlay {
+    display: none;
+    opacity: 0.8;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: green;
+    width: 100%;
+    z-index: 100;
+}
+#dialogbox {
+    display: none;
+    position: fixed;
+    background: orange;
+    border-radius: 7px;
+    width: 550px;
+    z-index: 100;
+}
+#dialogbox > div { background: red; margin: 8px; }
+#dialogbox > div > #dialogboxhead { background: red; margin: 8px; }
+#dialogbox > div > #dialogboxbody { background: blue; margin: 8px; }
+#dialogbox > div > #dialogboxfoot { background: coral; margin: 8px; }
+
 .profile_area {
     position: relative;
     top: 200px;
@@ -127,4 +150,27 @@ body {
     text-align: center;
     background-color: white;
     transition: all 0.3s ease;
+}
+
+
+.pill_button {
+    position: relative;
+    float: right;
+    border: none;
+    width: 170px;
+    height: 30px;
+    border-radius: 25px;
+    margin-right: 20px;
+    background-color: rgb(76, 182, 203);
+    -webkit-transition-duration: 0.3s;
+}
+.pill_button:hover {
+    position: relative;
+    float: right;
+    border: none;
+    width: 170px;
+    height: 30px;
+    border-radius: 25px;
+    margin-right: 20px;
+    background-color: rgb(76, 152, 233);
 }

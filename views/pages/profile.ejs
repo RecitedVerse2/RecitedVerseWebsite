@@ -11,10 +11,17 @@
     </head>
 
 
-
-
     <body>
         <% include ../partials/header.ejs %>
+        
+        
+        <div id="dialogoverlay">
+            <div id="dialogbox">
+                <div id="dialogboxhead"></div>
+                <div id="dialogboxbody"></div>
+                <div id="dialogbox"></div>
+            </div>
+        </div>
         
         
         <!-- The background image of the user's profile -->
@@ -58,6 +65,7 @@
                     <li><a data-toggle="tab" href="#liked">Liked</a></li>
                     <li><a data-toggle="tab" href="#favorites">Favorites</a></li>
                     <li><a data-toggle="tab" href="#playlists">Playlists</a></li>
+                    <button class="pill_button" id="upload_recitation_btn">Upload new recitation</button>
                 </ul>
 
                 <!-- The content that goes into each tab. You can just use exteral ejs files for this so it's not too crowded here. -->
@@ -81,7 +89,7 @@
                     <div id="playlists" class="tab-pane fade">
                         <% include ../partials/profile_playlists.ejs %>
                     </div>
-                </div>    
+                </div>
             </div>
             
         </div>

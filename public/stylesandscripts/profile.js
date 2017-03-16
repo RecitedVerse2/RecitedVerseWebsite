@@ -7,6 +7,7 @@ var followingLabel = document.getElementById('profile_following');
 
 var editProfieBtn = document.getElementById('edit_profile_btn');
 var logoutBtn = document.getElementById('logout_btn');
+var uploadRecitationButton = document.getElementById('upload_recitation_btn');
 
 var facebookBtn = $('#facebookBtn');
 var linkedInBtn = $('#linkedInBtn');
@@ -14,6 +15,7 @@ var instagramBtn = $('#instagramBtn');
 var twitterBtn = $('#twitterBtn');
 
 
+/** Load all of the important user information. */
 if (typeof(Storage) !== "undefined") {
     currentUser = JSON.parse(window.localStorage.getItem("current_user"));
  
@@ -72,4 +74,28 @@ logoutBtn.onclick = function() {
         fireAuth.signOut();
         document.location = "https://recitedverse.herokuapp.com/login";
     }
+};
+
+
+
+function CustomAlert() {
+    this.render = function() {
+        var winW = window.innerWidth;
+        var winH = window.innerHeight;
+        var dialogoverlay = document.getElementById('dialogoverlay');
+        var dialogbox = document.getElementById('dialogbox');
+        dialogoverlay.style.display = "block";
+        dialogoverlay.style.height = winH+"px";
+        
+        console.log('worked');
+    }
+    this.ok = function() {
+        
+    }
+}
+
+var Alert = new CustomAlert();
+
+uploadRecitationButton.onclick = function() {
+    Alert.render();
 };
