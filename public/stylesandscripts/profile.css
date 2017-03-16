@@ -17,11 +17,22 @@ body {
     position: fixed;
     width: 400px;
     z-index: 101;
-    display: none;
+    display: 2px skyblue solid;
     text-align: center;
     border-radius: 7px;
     padding-right: 20px;
     background-color: rgba(255, 255, 255, 1);
+}
+.roundBtn {
+	border-radius: 25px;
+	border-style: none;
+	border: none;
+	outline: none;
+    text-decoration: none;
+	background-color: #ADD8E6;
+	-webkit-transition-duration: 0.4s;
+	width: 50px;
+	height: 50px;
 }
 
 .profile_area {

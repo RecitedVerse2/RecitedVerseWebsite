@@ -17,9 +17,16 @@
         
         <div id="dialogoverlay">
             <div id="dialogbox">
-                <h3 style="text-align:center;">Upload a recitation</h3>
-                <input type="text" id="rec_name_field">
-                <button>Upload!</button>
+                <h4 style="text-align:center;">Upload a recitation</h4>
+                
+                <div class="mediaButtons" style="position: relative; text-align: center;">
+                    <button id="recordBtn" class="roundBtn fa fa-microphone"></button>
+                    <button id="stopRecBtn" class="roundBtn fa fa-stop-circle-o"></button>
+                    <button id="playBtn" class="roundBtn fa fa-play"></button>
+                    <button id="pauseBtn" class="roundBtn fa fa-pause"></button>
+                    <button id="stopBtn" class="roundBtn fa fa-stop"></button>
+                    <button id="clearBtn" class="roundBtn fa fa-trash"></button>
+                </div>
             </div>
         </div>
         
@@ -100,6 +107,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://adeolauthman.squarespace.com/s/AUAudioRecorder.js"></script>
         <script type="text/javascript" src="/stylesandscripts/firebaseconfig.js"></script>
         <script type="text/javascript" src="/stylesandscripts/profile.js"></script>
     </body>
