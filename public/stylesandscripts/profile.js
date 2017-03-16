@@ -41,9 +41,7 @@ stopRecordBtn.onclick = function() {
 }
 
 playBtn.onclick = function() {
-    if(audioRec.getRecording() === undefined || typeof(audioRec.getRecording()) == undefined) {
-        console.log("It's undefined");
-    }
+    console.log(audioRec.getRecording());
 }
 
 pauseBtn.onclick = function() { audioRec.pause(); }
