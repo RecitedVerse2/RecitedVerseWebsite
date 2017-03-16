@@ -45,7 +45,6 @@ playBtn.onclick = function() {
         audioRec.play();
     } else {
         $('[data-toggle="popover"]').popover();
-        return;
     }
 }
 
