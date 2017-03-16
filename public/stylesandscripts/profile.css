@@ -15,15 +15,11 @@ body {
 #dialogbox {
     display: none;
     position: fixed;
-    background: orange;
+    background: rgba(255, 255, 255, 1);
     border-radius: 7px;
-    width: 550px;
+    width: 400px;
     z-index: 100;
 }
-#dialogbox > div { background: red; margin: 8px; }
-#dialogbox > div > #dialogboxhead { background: red; margin: 8px; }
-#dialogbox > div > #dialogboxbody { background: blue; margin: 8px; }
-#dialogbox > div > #dialogboxfoot { background: coral; margin: 8px; }
 
 .profile_area {
     position: relative;
