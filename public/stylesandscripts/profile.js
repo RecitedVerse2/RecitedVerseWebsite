@@ -41,10 +41,8 @@ stopRecordBtn.onclick = function() {
 }
 
 playBtn.onclick = function() {
-    if(audioRec.getRecording() == null) {
-        audioRec.play();
-    } else {
-        $('[data-toggle="popover"]').popover();
+    if(audioRec.getRecording() === undefined) {
+        console.log("It's undefined");
     }
 }
 
