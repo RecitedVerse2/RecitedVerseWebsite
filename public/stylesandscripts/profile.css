@@ -45,6 +45,12 @@ body {
     color: red;
     visibility: hidden;
 }
+#closeBtn {
+    position: relative;
+    float: right;
+    top: 5px;
+    border: none;    
+}
 
 .profile_area {
     position: relative;
