@@ -36,9 +36,17 @@ recordBtn.onclick = function() {
     }
 }
 
-stopRecordBtn.onclick = function() { audioRec.stopRecording(); }
+stopRecordBtn.onclick = function() { 
+    audioRec.stopRecording();
+}
 
-playBtn.onclick = function() { audioRec.play(); }
+playBtn.onclick = function() { 
+    if(audioRec.getRecording() == null || audioRec.getRecording() == undefined) {
+        $('[data-toggle="popover"]').popover();
+    } else {
+        audioRec.play();
+    }
+}
 
 pauseBtn.onclick = function() { audioRec.pause(); }
 
