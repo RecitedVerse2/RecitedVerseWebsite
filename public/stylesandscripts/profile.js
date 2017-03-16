@@ -41,14 +41,36 @@ stopRecordBtn.onclick = function() {
 }
 
 playBtn.onclick = function() {
-    console.log(audioRec.getRecording());
+    if(audioRec.getRecording() == null) {
+        $('[data-toggle="popover"]').popover();
+    } else {
+        audioRec.play();
+    }
 }
 
-pauseBtn.onclick = function() { audioRec.pause(); }
+pauseBtn.onclick = function() { 
+    if(audioRec.getRecording() == null) {
+        $('[data-toggle="popover"]').popover();
+    } else {
+        audioRec.pause();
+    }
+}
 
-stopBtn.onclick = function() { audioRec.stop(); }
+stopBtn.onclick = function() { 
+    if(audioRec.getRecording() == null) {
+        $('[data-toggle="popover"]').popover();
+    } else {
+        audioRec.stop();
+    }
+}
 
-clearBtn.onclick = function() { audioRec.clear(); }
+clearBtn.onclick = function() { 
+    if(audioRec.getRecording() == null) {
+        $('[data-toggle="popover"]').popover();
+    } else {
+        audioRec.clear();
+    }
+}
 
 
 
