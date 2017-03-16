@@ -59,15 +59,19 @@ body {
     width: 100px;
     height: 20px;
     border: none;
+    text-align: center;
     border-radius: 25px;
     background-color: lightblue;
+    -webkit-transition-duration: 0.2s;
 }
 .pill_btn:hover {
     width: 100px;
-    height: 20px;
+    height: 25px;
     border: none;
+    text-align: center;
     border-radius: 25px;
     background-color: cornflowerblue;
+    -webkit-transition-duration: 0.2s;
 }
 
 .profile_area {
