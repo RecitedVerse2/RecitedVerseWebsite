@@ -41,12 +41,11 @@ stopRecordBtn.onclick = function() {
 }
 
 playBtn.onclick = function() {
-    var a = audioRec.getRecording();
-    if(a == undefined || a == null) {
+    if(audioRec.getRecording() != undefined) {
+        audioRec.play();
+    } else {
         $('[data-toggle="popover"]').popover();
         return;
-    } else {
-        audioRec.play();
     }
 }
 
