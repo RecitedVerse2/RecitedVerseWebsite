@@ -39,7 +39,7 @@ body {
 }
 .inp {
     width: 200px;
-    padding: 10px;
+    margin: 10px;
 }
 #status_label {
     color: red;
