@@ -79,23 +79,27 @@ logoutBtn.onclick = function() {
 
 
 function CustomAlert() {
-    this.render = function() {
+    this.render = function(message) {
         var winW = window.innerWidth;
         var winH = window.innerHeight;
         var dialogoverlay = document.getElementById('dialogoverlay');
         var dialogbox = document.getElementById('dialogbox');
         dialogoverlay.style.display = "block";
         dialogoverlay.style.height = winH+"px";
-        
-        console.log('worked');
+        dialogbox.style.left = (winW/2) - (550 * 0.5)+"px";
+        dialogbox.style.top = "100px";
+        dialogbox.style.display = "block";
     }
     this.ok = function() {
-        
+        var dialogoverlay = document.getElementById('dialogoverlay');
+        var dialogbox = document.getElementById('dialogbox');
+        dialogbox.style.display = "none";
+        dialogoverlay.style.display = "none";
     }
 }
 
 var Alert = new CustomAlert();
 
 uploadRecitationButton.onclick = function() {
-    Alert.render();
+    Alert.render("Upload");
 };
