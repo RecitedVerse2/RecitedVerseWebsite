@@ -77,6 +77,18 @@ body {
     color: dodgerblue;
     background-color: rgba(0,0,0,0);
 }
+#logout_btn {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    width: 90px;
+    height: 30px;
+    z-index: 20;
+    border: none;
+    border-style: none;
+    color: dodgerblue;
+    background-color: rgba(0,0,0,0);
+}
 
 
 .social_button {
