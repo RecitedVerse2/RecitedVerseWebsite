@@ -15,6 +15,42 @@ var instagramBtn = $('#instagramBtn');
 var twitterBtn = $('#twitterBtn');
 
 
+/*
+    AUDIO RECORDER
+*/
+var audioRec = new AUAudioRecorder();
+
+var recordBtn = document.getElementById('recordBtn');
+var stopRecordBtn = document.getElementById('stopRecBtn');
+var playBtn = document.getElementById('playBtn');
+var pauseBtn = document.getElementById('pauseBtn');
+var stopBtn = document.getElementById('stopBtn');
+var clearBtn = document.getElementById('clearBtn');
+
+
+recordBtn.onclick = function() { 
+    if(audioRec.hasPermission()) {
+        audioRec.startRecording();
+    } else {
+        audioRec.requestPermission();
+    }
+}
+
+stopRecordBtn.onclick = function() { audioRec.stopRecording(); }
+
+playBtn.onclick = function() { audioRec.play(); }
+
+pauseBtn.onclick = function() { audioRec.pause(); }
+
+stopBtn.onclick = function() { audioRec.stop(); }
+
+clearBtn.onclick = function() { audioRec.clear(); }
+
+
+
+
+
+
 /** Load all of the important user information. */
 if (typeof(Storage) !== "undefined") {
     currentUser = JSON.parse(window.localStorage.getItem("current_user"));
