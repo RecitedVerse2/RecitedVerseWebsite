@@ -87,7 +87,7 @@ function CustomAlert() {
         dialogoverlay.style.display = "block";
         dialogoverlay.style.height = winH+"px";
         //dialogbox.style.left = (winW/2) - (400 * 0.4)+"px";
-        dialogbox.style.left = "50%";
+        dialogbox.style.left = "50% - (400/2)";
         dialogbox.style.top = "100px";
         dialogbox.style.display = "block";
     }
