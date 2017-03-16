@@ -86,7 +86,7 @@ function CustomAlert() {
         var dialogbox = document.getElementById('dialogbox');
         dialogoverlay.style.display = "block";
         dialogoverlay.style.height = winH+"px";
-        dialogbox.style.left = (winW/2) - (400 * 0.35)+"px";
+        //dialogbox.style.left = (winW/2) - (400 * 0.4)+"px";
         dialogbox.style.top = "100px";
         dialogbox.style.display = "block";
     }
