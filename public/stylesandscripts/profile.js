@@ -4,7 +4,9 @@ var nameLabel = document.getElementById('profile_name');
 var bioLabel = document.getElementById('profile_bio');
 var followersLabel = document.getElementById('profile_followers');
 var followingLabel = document.getElementById('profile_following');
+
 var editProfieBtn = document.getElementById('edit_profile_btn');
+var logoutBtn = document.getElementById('logout_btn');
 
 var facebookBtn = $('#facebookBtn');
 var linkedInBtn = $('#linkedInBtn');
@@ -62,4 +64,12 @@ if (typeof(Storage) !== "undefined") {
 
 editProfieBtn.onclick = function() {
     document.location = "https://recitedverse.herokuapp.com/editprofile";
+};
+
+logoutBtn.onclick = function() {
+    if (typeof(Storage) !== "undefined") {
+        window.localStorage.removeItem("current_user");
+        fireAuth.signOut();
+        document.location = "https://recitedverse.herokuapp.com/login";
+    }
 };
