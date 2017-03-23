@@ -70,14 +70,14 @@
 <div class="rv_audio_player">
     
     <div class="audio_buttons">
-        <button class="fa fa-step-backward circleBtn"></button>
-        <button class="fa fa-play circleBtn"></button>
-        <button class="fa fa-step-forward circleBtn"></button>
+        <button class="fa fa-step-backward circleBtn" id="stepBackBtn"></button>
+        <button class="fa fa-play circleBtn" id="playBtn"></button>
+        <button class="fa fa-step-forward circleBtn" id="stepForwardBtn"></button>
     </div>
     
     
     <div class="title_area">
-        <p id="audio_title">Fire and Ice</p>
+        <p id="audio_title"></p>
         <input type="range" id="seekSlider">
     </div>
     
@@ -87,3 +87,15 @@
         <button class="fa fa-repeat"></button>
     </div>
 </div>
+
+
+
+
+<script>
+    var stepbackBtn = document.getElementById('stepBackBtn');
+    var playBtn = document.getElementById('playBtn');
+    var stepforwardBtn = document.getElementById('stepForwardBtn');
+
+    
+    
+</script>

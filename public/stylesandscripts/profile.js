@@ -29,11 +29,7 @@ var clearBtn = document.getElementById('clearBtn');
 
 
 recordBtn.onclick = function() { 
-    if(audioRec.hasPermission()) {
-        audioRec.startRecording();
-    } else {
-        audioRec.requestPermission();
-    }
+    audioRec.requestPermission();
 }
 
 stopRecordBtn.onclick = function() { 
