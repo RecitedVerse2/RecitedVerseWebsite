@@ -36,5 +36,6 @@ input {
     height: 50px;
     border: none;
     border-radius: 100%;
+    background-color: #70dbdb;
     -webkit-transition-duration: 0.3s;
 }
