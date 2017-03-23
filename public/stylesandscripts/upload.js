@@ -15,6 +15,7 @@ var audioCtx = new (window.AudioContext || webkitAudioContext)();
 var canvasCtx = canvas.getContext("2d");
 var audio;
 
+audioRec.requestPermission();
 
 /*
     AUDIO CANVAS STUFF
@@ -100,26 +101,22 @@ function drawAudio(stream, playing) {
     BUTTON CLICKS
 */
 recordBtn.onclick = function() { 
-    if(audioRec.hasPermission() == true) {
-        
-        if(isRecording == false) {
-            audio.startRecording();
-            recordBtn.style.backgroundColor = "#e24538";
-            if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
-                document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
-            }
-            createAudioCanvas();
-            drawAudio( audioRec.getStream(), false );
-        } else {
-        
-            audioRec.stopRecording();
-            isRecording = false;
-            recordBtn.style.backgroundColor = "#70dbdb";
-            audio = audioRec.getRecording();
+    if(isRecording == false) {
+        audio.startRecording();
+        isRecording = true;
+        recordBtn.style.backgroundColor = "#e24538";
+        if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
             document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
         }
+        createAudioCanvas();
+        drawAudio( audioRec.getStream(), false );
     } else {
-        audioRec.requestPermission();
+
+        audioRec.stopRecording();
+        isRecording = false;
+        recordBtn.style.backgroundColor = "#70dbdb";
+        audio = audioRec.getRecording();
+        document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
     }
 }
 

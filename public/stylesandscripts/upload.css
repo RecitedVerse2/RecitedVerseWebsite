@@ -39,3 +39,18 @@ input {
     background-color: #70dbdb;
     -webkit-transition-duration: 0.3s;
 }
+
+
+#canvas_holder {
+    position: relative;
+}
+.visualizer {
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 20px;
+    border-style: none;
+    -webkit-transition-duration: 0.4s;
+}
