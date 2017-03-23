@@ -16,66 +16,6 @@ var instagramBtn = $('#instagramBtn');
 var twitterBtn = $('#twitterBtn');
 
 
-/*
-    AUDIO RECORDER
-*/
-var audioRec = new AUAudioRecorder();
-var recordBtn = document.getElementById('recordBtn');
-var stopRecordBtn = document.getElementById('stopRecBtn');
-var playBtn = document.getElementById('playBtn');
-var pauseBtn = document.getElementById('pauseBtn');
-var stopBtn = document.getElementById('stopBtn');
-var clearBtn = document.getElementById('clearBtn');
-
-
-recordBtn.onclick = function() { 
-    if(audioRec.hasPermission()) {
-        audioRec.startRecording();
-    } else {
-        audioRec.requestPermission();
-    }
-}
-
-stopRecordBtn.onclick = function() { 
-    audioRec.stopRecording();
-}
-
-playBtn.onclick = function() {
-    if(audioRec.getRecording() == null) {
-        $('[data-toggle="popover"]').popover();
-    } else {
-        audioRec.play();
-    }
-}
-
-pauseBtn.onclick = function() { 
-    if(audioRec.getRecording() == null) {
-        $('[data-toggle="popover"]').popover();
-    } else {
-        audioRec.pause();
-    }
-}
-
-stopBtn.onclick = function() { 
-    if(audioRec.getRecording() == null) {
-        $('[data-toggle="popover"]').popover();
-    } else {
-        audioRec.stop();
-    }
-}
-
-clearBtn.onclick = function() { 
-    if(audioRec.getRecording() == null) {
-        $('[data-toggle="popover"]').popover();
-    } else {
-        audioRec.clear();
-    }
-}
-
-
-
-
-
 
 /** Load all of the important user information. */
 if (typeof(Storage) !== "undefined") {
@@ -145,36 +85,6 @@ logoutBtn.onclick = function() {
     }
 };
 
-
-
-
-/*
-
-    Creating a recitation.
-
-*/
-
-function CustomAlert() {
-    this.render = function(message) {
-        var winW = window.innerWidth;
-        var winH = window.innerHeight;
-        var dialogoverlay = document.getElementById('dialogoverlay');
-        var dialogbox = document.getElementById('dialogbox');
-        dialogoverlay.style.display = "block";
-        dialogbox.style.left = (winW/2) - (400 * 0.4)+"px";
-        dialogbox.style.top = "100px";
-        dialogbox.style.display = "block";
-    }
-    this.ok = function() {
-        var dialogoverlay = document.getElementById('dialogoverlay');
-        var dialogbox = document.getElementById('dialogbox');
-        dialogbox.style.display = "none";
-        dialogoverlay.style.display = "none";
-    }
-}
-
-var Alert = new CustomAlert();
-
 uploadRecitationButton.onclick = function() {
-    Alert.render("Upload");
+    document.location = "https://recitedverse.herokuapp.com/upload";
 };

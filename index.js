@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 
 
 // The different pages of the app, in the form "/your_page_extension (ex.) /about, /profile, etc.)"
-app.get('/', function(request, response) { response.render('pages/landing.ejs'); });
+app.get('/', function(request, response) { response.render('pages/upload.ejs'); });
 app.get('/home', function(request, response) { response.render('pages/home.ejs'); });
 app.get('/signup', function(request, response) { response.render('pages/signup.ejs'); });
 app.get('/login', function(request, response) { response.render('pages/login.ejs'); });
@@ -20,7 +20,7 @@ app.get('/artists', function(request, response) { response.render('pages/artists
 app.get('/genres', function(request, response) { response.render('pages/genres.ejs'); });
 app.get('/profile', function(request, response) { response.render('pages/profile.ejs'); });
 app.get('/editprofile', function(request, response) { response.render('pages/editProfile.ejs'); });
-
+app.get('/upload', function(request, response) { response.render('pages/upload.ejs'); });
 
 
 app.listen(app.get('port'), function() {

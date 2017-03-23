@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/stylesandscripts/upload.css" />
+        <title>Recited Verse - Upload</title>
+    </head>
+
+
+    <body>
+        <% include ../partials/header.ejs %>
+        <% include ../partials/audioPlayer.ejs %>
+        
+        <div class="upload_area">
+            <h3 id="title">Upload</h3>
+            <br>
+            <h5>Poem Page: <input type="text" class="inp" id="recitation_name_field" placeholder="Enter the name of the poem"> </h5>
+            <br>
+            <h5>Author: <input type="text" class="inp"  id="recitation_author_field" placeholder="Enter the author's name"> </h5>
+            <br>
+            <h5>Published: <input type="text" class="inp"  id="recitation_publication_field" placeholder="Year of publication"> </h5>
+            <br>
+            <h5>Genre: <input type="text" class="inp"  id="recitation_genre_field" placeholder="Enter the genre of the poem"> </h5>
+            <br><br>
+            <h5>Upload from file</h5>
+            <button class="pill_btn">Upload</button>
+            <br><br><p>Or</p>
+            <h5>Record a recitation here.</h5>
+            <div class="mediaButtons">
+                <button id="recordBtn" class="roundBtn fa fa-microphone"></button>
+                <button id="stopRecBtn" class="roundBtn fa fa-stop-circle-o"></button>
+                <button id="playBtn" class="roundBtn fa fa-play" data-toggle="popover" data-placement="bottom" data-content="There is no audio to play."></button>
+                <button id="pauseBtn" class="roundBtn fa fa-pause" data-toggle="popover" data-placement="bottom" data-content="There is no audio to pause."></button>
+                <button id="stopBtn" class="roundBtn fa fa-stop" data-toggle="popover" data-placement="bottom" data-content="There is no audio to stop playing."></button>
+                <button id="clearBtn" class="roundBtn fa fa-trash"></button>
+            </div>
+            <br><br>
+            <button class="pill_btn">Submit</button>
+            <br><br><br><br><br><br>
+        </div>
+            
+    </body>
+
+
+
+
+
+</html>

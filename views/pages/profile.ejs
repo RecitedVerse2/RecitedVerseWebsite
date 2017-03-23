@@ -16,36 +16,6 @@
         <% include ../partials/audioPlayer.ejs %>
         
         
-        <div id="dialogoverlay">
-            <div id="dialogbox">
-                <button id="closeBtn" onclick="Alert.ok();">x</button>
-                <h4 style="position: relative; left: 13px; text-align:center;">Upload</h4>
-                Poem Name: <input type="text" class="inp" id="recitation_name_field" placeholder="Enter the name of the poem">
-                <br>
-                Author: <input type="text" class="inp"  id="recitation_author_field" placeholder="Enter the author's name">
-                <br>
-                Published: <input type="text" class="inp"  id="recitation_publication_field" placeholder="Year of publication">
-                <br>
-                Genre: <input type="text" class="inp"  id="recitation_genre_field" placeholder="Enter the genre of the poem">
-                <br><br><br>
-                Upload from file&nbsp;&nbsp;<button class="pill_btn">Upload</button>
-                <br>Or<br>
-                Record a recitation here.<br>
-                <div class="mediaButtons" style="position: relative; text-align: center;">
-                    <button id="recordBtn" class="roundBtn fa fa-microphone"></button>
-                    <button id="stopRecBtn" class="roundBtn fa fa-stop-circle-o"></button>
-                    <button id="playBtn" class="roundBtn fa fa-play" data-toggle="popover" data-placement="bottom" data-content="There is no audio to play."></button>
-                    <button id="pauseBtn" class="roundBtn fa fa-pause" data-toggle="popover" data-placement="bottom" data-content="There is no audio to pause."></button>
-                    <button id="stopBtn" class="roundBtn fa fa-stop" data-toggle="popover" data-placement="bottom" data-content="There is no audio to stop playing."></button>
-                    <button id="clearBtn" class="roundBtn fa fa-trash"></button>
-                </div>
-                <p id="status_label">Status</p>
-                <button class="pill_btn">Submit</button>
-                <br><br>
-            </div>
-        </div>
-        
-        
         <!-- The background image of the user's profile -->
         <div class="profile_background_area"> <img id="profile_background" src="" alt="background" width="100%" height="100%"> </div>
         

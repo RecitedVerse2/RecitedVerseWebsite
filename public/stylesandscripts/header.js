@@ -47,6 +47,8 @@ menuBtn.click(function() {
         $('.profile_background_area_expanded').removeClass('profile_background_area');
         $('.ep_content_container').addClass('ep_content_container_expanded');
         $('.ep_content_container_expanded').removeClass('ep_content_container');
+        $('.upload_area').addClass('upload_area_expanded');
+        $('.upload_area_expanded').removeClass('upload_area');
         
     } else {
         menu.addClass('rv_menu');
@@ -70,6 +72,8 @@ menuBtn.click(function() {
         $('.profile_background_area').removeClass('profile_background_area_expanded');
         $('.ep_content_container_expanded').addClass('ep_content_container');
         $('.ep_content_container').removeClass('ep_content_container_expanded');
+        $('.upload_area_expanded').addClass('upload_area');
+        $('.upload_area').removeClass('upload_area_expanded');
         
     }
 });
