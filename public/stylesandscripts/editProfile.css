@@ -65,14 +65,14 @@
     width: 200px;
     height: 45px;
     text-align: center;
-    background-color: dodgerblue;
+    background-color: rgb(76, 182, 203);
     -webkit-transition-duration: 0.4s;
 }
 #choose_background_picture_btn:hover {
     width: 200px;
     height: 45px;
     text-align: center;
-    background-color: royalblue;
+    background-color: rgb(76, 132, 183);
     -webkit-transition-duration: 0.4s;
 }
 
