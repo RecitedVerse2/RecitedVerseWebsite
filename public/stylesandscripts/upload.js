@@ -102,7 +102,7 @@ function drawAudio(stream, playing) {
 */
 recordBtn.onclick = function() { 
     if(isRecording == false) {
-        audio.startRecording();
+        audioRec.startRecording();
         isRecording = true;
         recordBtn.style.backgroundColor = "#e24538";
         if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
