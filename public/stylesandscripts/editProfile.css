@@ -65,6 +65,14 @@
     width: 200px;
     height: 45px;
     text-align: center;
+    background-color: dodgerblue;
+    -webkit-transition-duration: 0.4s;
+}
+#choose_background_picture_btn:hover {
+    width: 200px;
+    height: 45px;
+    text-align: center;
+    background-color: royalblue;
     -webkit-transition-duration: 0.4s;
 }
 

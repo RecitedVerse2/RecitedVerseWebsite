@@ -1,4 +1,5 @@
 var profilePicture = document.getElementById('profile_picture');
+var backgroundPicture = document.getElementById('background_picture');
 var fullNameField = document.getElementById('ep_fullname_field');
 var emailField = document.getElementById('ep_email_field');
 var passwordField1 = document.getElementById('ep_password1_field');
@@ -6,6 +7,7 @@ var passwordField2 = document.getElementById('ep_password2_field');
 var bioField = document.getElementById('ep_bio_field');
 
 var choosePicture = document.getElementById('choose_profile_picture_btn');
+var chooseBackground = document.getElementById('choose_background_picture_btn');
 var saveBtn = document.getElementById('save_btn');
 
 var facebookLink = document.getElementById('facebookLink');
@@ -21,10 +23,17 @@ $(document).ready(function() {
         currentUser = JSON.parse(window.localStorage.getItem("current_user"));
         
         var photoid = currentUser["photoURL"];
+        var backgroundImg = currentUser["backgroundImage"];
+        
         var httpsReference = firebase.storage().refFromURL(''+photoid).getDownloadURL().then(function(url) {
             profilePicture.src = url;
         }).catch(function(error) {
             console.log("Error loading the profile picture." + error);
+        });
+        var httpsReference = firebase.storage().refFromURL(''+backgroundImg).getDownloadURL().then(function(url) {
+            backgroundPicture.src = url;
+        }).catch(function(error) {
+            console.log("Error loading the background picture." + error);
         });
         fullNameField.value = currentUser["fullname"];
         emailField.value = currentUser["email"];
@@ -89,13 +98,15 @@ saveBtn.onclick = function() {
 
 
 /*
-    Button for selecting a profile picture.
+    Button for selecting a profile/background picture.
 */
 choosePicture.onclick = function() {
     
 };
 
-
+chooseBackground.onclick = function() {
+    
+};
 
 
 /*
