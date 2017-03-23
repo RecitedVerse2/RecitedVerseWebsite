@@ -100,28 +100,23 @@ function drawAudio(stream, playing) {
 /*
     BUTTON CLICKS
 */
-recordBtn.onclick = function() { 
-    if(isRecording == false) {
-        audioRec.startRecording();
-        isRecording = true;
-        recordBtn.style.backgroundColor = "#e24538";
-        if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
-            document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
-        }
-        createAudioCanvas();
-        drawAudio( audioRec.getStream(), false );
-    } else {
-
-        audioRec.stopRecording();
-        isRecording = false;
-        recordBtn.style.backgroundColor = "#70dbdb";
-        audio = audioRec.getRecording();
+recordBtn.onclick = function() {
+    audioRec.startRecording();
+    isRecording = true;
+    recordBtn.style.backgroundColor = "#e24538";
+    if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
         document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
     }
+    createAudioCanvas();
+    drawAudio( audioRec.getStream(), false );
 }
 
 stopRecordBtn.onclick = function() { 
     audioRec.stopRecording();
+    isRecording = false;
+    recordBtn.style.backgroundColor = "#70dbdb";
+    audio = audioRec.getRecording();
+    document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
 }
 
 playBtn.onclick = function() {
