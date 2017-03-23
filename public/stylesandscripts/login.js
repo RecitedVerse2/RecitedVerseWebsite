@@ -49,6 +49,7 @@ loginBtn.onclick = function() {
         var password = snapshot.val()["password"];
         var userID = snapshot.val()["userID"];
         var photoURL = snapshot.val()["photoURL"];
+        var backgrounImg = snapshot.val()["backgroundImage"];
         var bio = snapshot.val()["bio"];
         var social = snapshot.val()["social_media_links"];
 
@@ -59,6 +60,7 @@ loginBtn.onclick = function() {
                 "password" : password,
                 "userID" : userID,
                 "photoURL" : photoURL,
+                "backgroundImage" : backgrounImg,
                 "followers" : 0,
                 "following" : 0,
                 "bio" : bio,

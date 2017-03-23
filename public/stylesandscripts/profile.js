@@ -1,5 +1,6 @@
 /* All of the parts of the profile. */
 var profilePicture = document.getElementById('profile_picture');
+var backgroundImage = document.getElementById('profile_background');
 var nameLabel = document.getElementById('profile_name');
 var bioLabel = document.getElementById('profile_bio');
 var followersLabel = document.getElementById('profile_followers');
@@ -19,7 +20,6 @@ var twitterBtn = $('#twitterBtn');
     AUDIO RECORDER
 */
 var audioRec = new AUAudioRecorder();
-
 var recordBtn = document.getElementById('recordBtn');
 var stopRecordBtn = document.getElementById('stopRecBtn');
 var playBtn = document.getElementById('playBtn');
@@ -117,9 +117,16 @@ if (typeof(Storage) !== "undefined") {
     
     var uid = currentUser["userID"];
     var photoid = currentUser["photoURL"];
+    var backgroundImg = currentUser["backgroundImage"];
     
     var httpsReference = firebase.storage().refFromURL(''+photoid).getDownloadURL().then(function(url) {
         profilePicture.src = url;
+    }).catch(function(error) {
+        console.log("User did not have their own profile picture." + error);
+    });
+    
+    var httpsReference = firebase.storage().refFromURL(''+backgroundImg).getDownloadURL().then(function(url) {
+        backgroundImage.src = url;
     }).catch(function(error) {
         console.log("User did not have their own profile picture." + error);
     });
@@ -139,6 +146,13 @@ logoutBtn.onclick = function() {
 };
 
 
+
+
+/*
+
+    Creating a recitation.
+
+*/
 
 function CustomAlert() {
     this.render = function(message) {
