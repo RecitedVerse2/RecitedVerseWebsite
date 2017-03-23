@@ -47,6 +47,28 @@
 }
 
 
+.background_picture_area {
+    position: relative;
+    top: 50px;
+    left: 50px;
+    width: 200px;
+    text-align: center;
+    background-color: whitesmoke;
+}
+#background_picture {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: lightgray;
+}
+#choose_background_picture_btn {
+    width: 170px;
+    height: 35px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+}
+
+
 .ep_about_area {
     position: relative;
     top: 80px;
