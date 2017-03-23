@@ -57,13 +57,13 @@
 }
 #background_picture {
     position: relative;
-    width: 200px;
+    width: 350px;
     height: 100px;
     background-color: lightgray;
 }
 #choose_background_picture_btn {
     width: 200px;
-    height: 35px;
+    height: 45px;
     text-align: center;
     -webkit-transition-duration: 0.4s;
 }
