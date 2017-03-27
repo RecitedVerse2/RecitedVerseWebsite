@@ -9,7 +9,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     var listOfObjects = snapshot.val();
     console.log(listOfObjects);
     
-    for(obj in listOfObjects) {
+    for(var obj in listOfObjects) {
         console.log(obj);
         console.log(obj.title);
         
