@@ -27,6 +27,7 @@ var authorField = document.getElementById('recitation_author_field');
 var publicationField = document.getElementById('recitation_publication_field');
 var genreField = document.getElementById('recitation_genre_field');
 var descriptionField = document.getElementById('recitation_description_field');
+var imageField = document.getElementById('poem_image');
 
 var uploadFromFileBtn = document.getElementById('fromFileBtn');
 var submitRecBtn = document.getElementById('submit_recitation_btn');
@@ -201,8 +202,9 @@ submitRecBtn.onclick = function() {
     var published = publicationField.value;
     var genre = genreField.value;
     var description = descriptionField.value;
+    var image = imageField.value;
     
-    if(valueExists(name) && valueExists(author) && valueExists(published) && valueExists(genre)) {
+    if(valueExists(name) && valueExists(author) && valueExists(published) && valueExists(genre) && valueExists(image)) {
         if(!valueExists(description)) { description = ""; }
         
         // Create a dictionary object for the audio.
@@ -217,6 +219,7 @@ submitRecBtn.onclick = function() {
             "published":published,
             "genre":genre,
             "description":description,
+            "image":image.src,
             "recited_by":currentUser["fullname"],
             "plays":0,
             "likes":0,
