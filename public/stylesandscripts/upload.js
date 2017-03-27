@@ -4,7 +4,8 @@
 var audioRec = new AUAudioRecorder();
 var recordBtn = document.getElementById('recordBtn');
 var stopRecordBtn = document.getElementById('stopRecBtn');
-var playBtn = document.getElementById('playBtn');
+//var playBtn = document.getElementById('playBtn');
+var playBtn = $('#playBtn');
 var pauseBtn = document.getElementById('pauseBtn');
 var stopBtn = document.getElementById('stopBtn');
 var clearBtn = document.getElementById('clearBtn');
@@ -127,16 +128,9 @@ stopRecordBtn.onclick = function() {
     document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
 };
 
-playBtn.onclick = function() {
+playBtn.click(function() {
     console.log("Playing audio");
-    audioRec.play();
-    
-//    if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
-//        document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
-//    }
-//    createAudioCanvas();
-//    drawAudio( audioRec.getRecording() , false );
-};
+});
 
 pauseBtn.onclick = function() { 
     console.log("Pausing audio");
