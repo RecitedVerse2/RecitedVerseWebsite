@@ -13,8 +13,19 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         
         if(listOfObjects.hasOwnProperty(recitation)) {
             
-            var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img' width='120' height='120' src='" + listOfObjects[recitation].image + "' alt='image'>" + listOfObjects[recitation].title + "</li>";
+            var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img' width='120' height='120' src='" + listOfObjects[recitation].image + "' alt='image'><button id='goToPoemPageBtn' style='color:black;'>" + listOfObjects[recitation].title + "</button></li>";
             recList.append(item);
+            
+            
+            
+            var recImage = document.getElementById('recitation_img');
+            recImage.onclick = function() {
+                console.log('going to next page');
+            };
+            var goToBtn = document.getElementById('goToPoemPageBtn');
+            goToBtn.onclick = function() {
+                console.log('going to next page!');
+            };
         }
     }
 
