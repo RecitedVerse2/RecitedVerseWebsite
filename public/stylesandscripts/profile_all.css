@@ -24,10 +24,10 @@
     list-style-type: none;
 /*        text-align: -webkit-match-parent;*/
 }
-#recitation_img:hover {
+#recitation_item:hover {
     border: 4px cornflowerblue solid;
 }
-#goToPoemPageBtn {
+.goToBtn {
     border: none;
     background: rgba(0,0,0,0);
 }

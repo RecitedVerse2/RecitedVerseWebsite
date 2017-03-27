@@ -14,8 +14,17 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         if(listOfObjects.hasOwnProperty(recitation)) {
             var recitationObject = listOfObjects[recitation];
             
-            var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button id='goToPoemPageBtn' style='color:black;' onclick='if (typeof(Storage) !== 'undefined') { window.sessionStorage.setItem('recitation_to_look_at', JSON.stringify(recitationObject)); } document.location = 'https://recitedverse.herokuapp.com/poem';'>" + recitationObject.title + "</button></li>";
+            var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_'" + recitationObject.name + " width='120' height='120' src='" + recitationObject.image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_'" + recitationObject.name + " style='color:black;'>" + recitationObject.title + "</button></li>";
             recList.append(item);
+            
+            var recImage = document.getElementById('recitation_img_' + recitationObject.name);
+            var goToBtn = document.getElementById('goToPoemPageBtn_' + recitationObject.name);
+            recImage.onclick = function() {
+                goToPoemPageWithRecitation(recitationObject);
+            };
+            goToBtn.onclick = function() {
+                goToPoemPageWithRecitation(recitationObject);
+            };
         }
     }
 
