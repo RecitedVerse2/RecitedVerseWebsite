@@ -14,19 +14,23 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         if(listOfObjects.hasOwnProperty(recitation)) {
             var recitationObject = listOfObjects[recitation];
             
-            var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitationObject.name + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.name + "' style='color:black;' onclick='goToPoemPageWithRecitation(" + recitationObject + ")'>" + recitationObject.title + "</button></li>";
+            var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitationObject.name + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.name + "' style='color:black;'>" + recitationObject.title + "</button></li>";
             recList.append(item);
             
-//            var s1 = 'recitation_img_' + recitationObject.name;
-//            var s2 = 'goToPoemPageBtn_' + recitationObject.name;
-//            var recImage = document.getElementById(s1);
-//            var goToBtn = document.getElementById(s2);
-//            recImage.onclick = function() {
-//                goToPoemPageWithRecitation(recitationObject);
-//            };
-//            goToBtn.onclick = function() {
-//                goToPoemPageWithRecitation(recitationObject);
-//            };
+            var s1 = 'recitation_img_' + recitationObject.name;
+            var s2 = 'goToPoemPageBtn_' + recitationObject.name;
+            
+            console.log(s1);
+            console.log(s2);
+            
+            var recImage = document.getElementById(s1);
+            var goToBtn = document.getElementById(s2);
+            recImage.onclick = function() {
+                goToPoemPageWithRecitation(recitationObject);
+            };
+            goToBtn.onclick = function() {
+                goToPoemPageWithRecitation(recitationObject);
+            };
         }
     }
 
