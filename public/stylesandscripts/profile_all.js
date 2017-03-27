@@ -7,17 +7,13 @@ if (typeof(Storage) !== "undefined") { currentUser = JSON.parse(window.localStor
 // Load all of the recitations.
 fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(snapshot) {
     var listOfObjects = snapshot.val();
-    console.log(listOfObjects);
-    
-    for(var recitation in listOfObjects) {
-        for(var prop in recitation) {
-            if(recitation.hasOwnProperty(prop)) {
-                console.log(recitation[prop]);
-            }
+    for(var prop in listOfObjects) {
+        if(listOfObjects.hasOwnProperty(prop)) {
+            console.log(listOfObjects[prop]);
         }
-        console.log(recitation);
+    }
+    
         
 //        var item = "<li>" + obj.title + "</li>";
 //        recList.append(item);
-    }
 }); 
