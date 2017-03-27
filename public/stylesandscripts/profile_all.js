@@ -17,7 +17,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             
             for(var p in recitation) {
                 if(recitation.hasOwnProperty(p)) {
-                    console.log(recitation[p]);
+                    console.log(listOfObjects[recitation[p]]);
                 }
             }
             
