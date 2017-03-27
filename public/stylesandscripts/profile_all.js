@@ -14,10 +14,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         if(listOfObjects.hasOwnProperty(recitation)) {
             var recitationObject = listOfObjects[recitation];
             
-            console.log("THE OBJECT");
-            console.log(recitationObject.name);
-            console.log("THE ACTUAL THING");
-            console.log(listOfObjects[recitation]["name"]);
+            console.log( listOfObjects[recitation]["name"] );
             
             var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitationObject.name + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.name + "' style='color:black;'>" + recitationObject.title + "</button></li>";
             //console.log("ITEM: " + item);
