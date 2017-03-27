@@ -13,7 +13,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         
         if(listOfObjects.hasOwnProperty(recitation)) {
             
-            console.log(recitation.author);
+            console.log(listOfObjects[recitation[author]]);
             
 //            var item = "<li>" + recitation[] + "</li>";
 //            recList.append(item);
