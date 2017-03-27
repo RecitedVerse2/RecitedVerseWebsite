@@ -99,7 +99,7 @@ function drawAudio(stream, playing) {
         canvasCtx.lineTo(canvas.width, canvas.height/2);
         canvasCtx.stroke();
     }
-}
+};
 
 
 
@@ -117,7 +117,7 @@ recordBtn.onclick = function() {
     }
     createAudioCanvas();
     drawAudio( audioRec.getStream(), false );
-}
+};
 
 stopRecordBtn.onclick = function() { 
     audioRec.stopRecording();
@@ -125,27 +125,28 @@ stopRecordBtn.onclick = function() {
     recordBtn.style.backgroundColor = "rgb(76, 182, 203)";
     audio = audioRec.getRecording();
     document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
-}
+};
 
 playBtn.onclick = function() {
     console.log("Playing audio");
     audioRec.play();
-    if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
-        document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
-    }
-    createAudioCanvas();
-    drawAudio( audioRec.getRecording() , false );
-}
+    
+//    if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
+//        document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
+//    }
+//    createAudioCanvas();
+//    drawAudio( audioRec.getRecording() , false );
+};
 
 pauseBtn.onclick = function() { 
     console.log("Pausing audio");
     audioRec.pause();
-}
+};
 
 stopBtn.onclick = function() { 
     console.log("Stopping audio");
     audioRec.stop();
-}
+};
 
 clearBtn.onclick = function() { 
     console.log("Clearing audio");
@@ -153,4 +154,4 @@ clearBtn.onclick = function() {
     if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
         document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
     }
-}
+};
