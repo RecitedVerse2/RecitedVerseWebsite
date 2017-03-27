@@ -15,6 +15,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var recitationObject = listOfObjects[recitation];
             
             var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitationObject.name + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.name + "' style='color:black;'>" + recitationObject.title + "</button></li>";
+            console.log("ITEM: " + item);
             recList.append(item);
             
             var s1 = 'recitation_img_' + recitationObject.name;
