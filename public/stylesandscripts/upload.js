@@ -239,6 +239,8 @@ submitRecBtn.onclick = function() {
                 console.log('Uploaded audio file!');
             });
             
+            /* Go back to the user's profile page. */
+            document.location = "https://recitedverse.herokuapp.com/profile";
         }
         
         return;
