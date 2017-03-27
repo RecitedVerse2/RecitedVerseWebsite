@@ -8,5 +8,6 @@ if (typeof(Storage) !== "undefined") { currentUser = JSON.parse(window.localStor
 fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(snapshot) {
     var dictionary = snapshot.val();
 
-    recList.append('<li> {dictionary["title"]} </li>');
-});
+    var item = "<li>" + dictionary["title"] + "</li>";
+    recList.append(item);
+}); 
