@@ -7,7 +7,8 @@ if (typeof(Storage) !== "undefined") { currentUser = JSON.parse(window.localStor
 // Load all of the recitations.
 fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(snapshot) {
     var listOfObjects = snapshot.val();
-
+    console.log(listOfObjects);
+    
     for(obj in listOfObjects) {
         console.log(obj);
         console.log(obj.title);
