@@ -1,25 +1,35 @@
 <!-- CSS -->
 <style>
-    table {
-        width: 95%;
+    #content {
+        text-align: center;
+    }
+    .recitations_grid {
+        position: relative;
+        left: 1.5%;
+        width: 96.5%;
         height: 500px;
+        display: block;
+        text-align: center;
         background-color: green;
     }
-
 </style>
 
 <!-- HTML -->
 
-<h3>All</h3>
-<table id="recitations_grid">
-
+<div id="content">
+    <h3>All</h3>
+    
+    <!-- Where all the recitations are stored. -->
+    <div class="recitations_grid">
+        <ul class="recitations_list"></ul>
+    </div>
     
     
-
-</table>
-
-
-
-<!-- JAVASCRIPT -->
-<script>
-</script>
+    
+    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/stylesandscripts/firebaseconfig.js"></script>
+    <script type="text/javascript" src="/stylesandscripts/profile_all.js"></script>
+</div>
