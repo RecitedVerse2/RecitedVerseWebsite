@@ -13,7 +13,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         
         if(listOfObjects.hasOwnProperty(recitation)) {
             
-            var item = "<li class='recitation_item'><img width='200' height='200' src='" + listOfObjects[recitation].image + "' alt='image'>" + listOfObjects[recitation].title + "</li>";
+            var item = "<li class='recitation_item'><img width='50' height='50' src='" + listOfObjects[recitation].image + "' alt='image'>" + listOfObjects[recitation].title + "</li>";
             recList.append(item);
         }
     }
