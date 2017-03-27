@@ -6,10 +6,11 @@ if (typeof(Storage) !== "undefined") { currentUser = JSON.parse(window.localStor
 
 // Load all of the recitations.
 fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(snapshot) {
-    var dictionary = snapshot.val();
+    var listOfObjects = snapshot.val();
 
-    console.log(dictionary);
-    
+    for(obj in listOfObjects) {
+        console.log(obj);
+    }
     var item = "<li>" + dictionary["title"] + "</li>";
     recList.append(item);
 }); 
