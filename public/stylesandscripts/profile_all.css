@@ -1,0 +1,33 @@
+#content {
+    text-align: center;
+}
+.recitations_grid {
+    position: relative;
+    left: 1.5%;
+    width: 96.5%;
+    height: 500px;
+    display: block;
+    text-align: center;
+}
+.recitation_item {
+    box-sizing: border-box;
+    padding-right: 20px;
+    width: 16.666%;
+    float: left;
+}
+.recitation_item {
+    display: list-item;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 10px;
+    text-align: center;
+    list-style-type: none;
+/*        text-align: -webkit-match-parent;*/
+}
+#recitation_img:hover {
+    border: 4px cornflowerblue solid;
+}
+#goToPoemPageBtn {
+    border: none;
+    background: rgba(0,0,0,0);
+}
