@@ -32,7 +32,7 @@ var imageField = document.getElementById('poem_image');
 var uploadFromFileBtn = document.getElementById('fromFileBtn');
 var submitRecBtn = document.getElementById('submit_recitation_btn');
 
-
+var statusLabel = document.getElementById('status_label');
 
 
 
@@ -233,12 +233,15 @@ submitRecBtn.onclick = function() {
             
             /* Save it to the database under Recitations->UserID->AutoID:Dictionary*/
             fireRef.child("Recitations").child(currentUser["userID"]).push().set(dictionary);
+            
+            /* Alert the user. */
+            statusLabel.style.visibility = "visible";
 
             /* Save the actual audio to the storage. */
-            storageRef.child(currentUser["userID"]).child(name).put(myRecording);
-            
-            /* Go back to the user's profile page. */
-            document.location = "https://recitedverse.herokuapp.com/profile";
+            storageRef.child(currentUser["userID"]).child(name).put(myRecording).then(function() {
+                /* Go back to the user's profile page. */
+                document.location = "https://recitedverse.herokuapp.com/profile"; 
+            });
         }
         
         return;
