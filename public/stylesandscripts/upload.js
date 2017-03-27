@@ -1,11 +1,10 @@
-/*
-    AUDIO RECORDER
-*/
+/************************
+*     AUDIO RECORDER    *
+*************************/
 var audioRec = new AUAudioRecorder();
 var recordBtn = document.getElementById('recordBtn');
 var stopRecordBtn = document.getElementById('stopRecBtn');
-//var playBtn = document.getElementById('playBtn');
-var playBtn = $('#playBtn');
+var playBtn = document.getElementById('playAudioBtn');
 var pauseBtn = document.getElementById('pauseBtn');
 var stopBtn = document.getElementById('stopBtn');
 var clearBtn = document.getElementById('clearBtn');
@@ -14,7 +13,8 @@ var isRecording = false;
 var canvas = document.querySelector('.visualizer');
 var audioCtx = new (window.AudioContext || webkitAudioContext)();
 var canvasCtx = canvas.getContext("2d");
-var audio;
+var source;
+var createTwice = false;
 
 audioRec.requestPermission();
 
@@ -35,18 +35,20 @@ function createAudioCanvas() {
     var canv = document.createElement("canvas");
     canv.classList.add("visualizer");
     canv.setAttribute("id","visualizer");
+    canv.style.width = "200px";
     document.getElementById("canvas_holder").appendChild(canv);
     canvas = canv;
     canvasCtx = canvas.getContext("2d");
 };
 
-function drawAudio(stream, playing) {
-    var source;
+function drawAudio(stream, audio, playing) {
 
     if(audio == null || audio == undefined || playing == false) {
         source = audioCtx.createMediaStreamSource(stream);
     } else {
-        source = audioCtx.createMediaElementSource(audio);
+        if(createTwice == false) {
+            source = audioCtx.createMediaElementSource(audio);
+        }
     }
 
     var analyser = audioCtx.createAnalyser();
@@ -55,6 +57,7 @@ function drawAudio(stream, playing) {
     var dataArray = new Uint8Array(bufferLength);
 
     source.connect(analyser);
+    
     // Only hear it when you are listening, not recording.
     if(audio != null && audio != undefined && playing == true) {
         analyser.connect(audioCtx.destination);
@@ -117,7 +120,8 @@ recordBtn.onclick = function() {
         document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
     }
     createAudioCanvas();
-    drawAudio( audioRec.getStream(), false );
+    drawAudio( audioRec.getStream(), null, false );
+    createTwice = false;
 };
 
 stopRecordBtn.onclick = function() { 
@@ -126,24 +130,32 @@ stopRecordBtn.onclick = function() {
     recordBtn.style.backgroundColor = "rgb(76, 182, 203)";
     audio = audioRec.getRecording();
     document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
+    createTwice = false;
 };
 
-playBtn.click(function() {
-    console.log("Playing audio");
-});
+playBtn.onclick = function() {
+    if(audioRec.getRecording() == null) {
+        // Don't play
+    } else {
+        audioRec.play();
+        if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
+            document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
+        }
+        createAudioCanvas();
+        drawAudio( null, audioRec.getRecording() , true );
+        createTwice = true;
+    }
+};
 
 pauseBtn.onclick = function() { 
-    console.log("Pausing audio");
     audioRec.pause();
 };
 
 stopBtn.onclick = function() { 
-    console.log("Stopping audio");
     audioRec.stop();
 };
 
 clearBtn.onclick = function() { 
-    console.log("Clearing audio");
     audioRec.clear();
     if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
         document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
