@@ -16,20 +16,20 @@
         <% include ../partials/audioPlayer.ejs %>
         
         <div class="upload_area">
-            <h3 id="title">Upload</h3>
+            <h3 class="page_text" id="title">Upload</h3>
             <br>
-            <h5>Poem Page: <input type="text" class="inp" id="recitation_name_field" placeholder="Enter the name of the poem"> </h5>
+            <h5 class="page_text">Poem Page: <input type="text" class="inp" id="recitation_name_field" placeholder="Enter the name of the poem"> </h5>
             <br>
-            <h5>Author: <input type="text" class="inp"  id="recitation_author_field" placeholder="Enter the author's name"> </h5>
+            <h5 class="page_text">Author: <input type="text" class="inp"  id="recitation_author_field" placeholder="Enter the author's name"> </h5>
             <br>
-            <h5>Published: <input type="text" class="inp"  id="recitation_publication_field" placeholder="Year of publication"> </h5>
+            <h5 class="page_text">Published: <input type="text" class="inp"  id="recitation_publication_field" placeholder="Year of publication"> </h5>
             <br>
-            <h5>Genre: <input type="text" class="inp"  id="recitation_genre_field" placeholder="Enter the genre of the poem"> </h5>
+            <h5 class="page_text">Genre: <input type="text" class="inp"  id="recitation_genre_field" placeholder="Enter the genre of the poem"> </h5>
             <br><br>
-            <h5>Upload from file</h5>
+            <h5 class="page_text">Upload from file</h5>
             <button class="pill_btn">Upload</button>
-            <br><br><p>Or</p>
-            <h5>Record a recitation here.</h5>
+            <br><br><p class="page_text">Or</p>
+            <h5 class="page_text">Record a recitation here.</h5>
             <p id="canvas_holder" class="canvas_holder"><canvas class="visualizer"></canvas></p>
             <div class="mediaButtons">
                 <button id="recordBtn" class="roundBtn fa fa-microphone"></button>
@@ -39,7 +39,7 @@
                 <button id="stopBtn" class="roundBtn fa fa-stop" data-toggle="popover" data-placement="bottom" data-content="There is no audio to stop playing."></button>
                 <button id="clearBtn" class="roundBtn fa fa-trash"></button>
             </div>
-            <br><br>
+            <br><br><br><br>
             <button class="pill_btn">Submit</button>
             <br><br><br><br><br><br>
         </div>

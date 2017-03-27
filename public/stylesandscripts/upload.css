@@ -14,8 +14,14 @@
 }
 
 
+.page_text {
+    color: rgb(130, 130, 130);
+}
+
+
 input {
     width: 300px;
+    font-weight: normal;
 }
 
 
@@ -36,8 +42,11 @@ input {
     height: 50px;
     border: none;
     border-radius: 100%;
-    background-color: #70dbdb;
+    background-color: rgb(76, 182, 203);
     -webkit-transition-duration: 0.3s;
+}
+.roundBtn:hover {
+    background-color: rgb(76, 132, 183);
 }
 
 

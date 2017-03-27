@@ -17,9 +17,15 @@ var audio;
 
 audioRec.requestPermission();
 
-/*
-    AUDIO CANVAS STUFF
-*/
+
+
+
+
+
+/************************
+*   AUDIO CANVAS STUFF  *
+*************************/
+
 jQuery(function($) {
     $("canvas").remove();
 });
@@ -97,13 +103,15 @@ function drawAudio(stream, playing) {
 
 
 
-/*
-    BUTTON CLICKS
-*/
+
+/************************
+*     BUTTON CLICKS     *
+*************************/
+
 recordBtn.onclick = function() {
     audioRec.startRecording();
     isRecording = true;
-    recordBtn.style.backgroundColor = "#e24538";
+    recordBtn.style.backgroundColor = "rgb(76, 182, 203)";
     if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
         document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
     }
@@ -114,47 +122,47 @@ recordBtn.onclick = function() {
 stopRecordBtn.onclick = function() { 
     audioRec.stopRecording();
     isRecording = false;
-    recordBtn.style.backgroundColor = "#70dbdb";
+    recordBtn.style.backgroundColor = "rgb(76, 182, 203)";
     audio = audioRec.getRecording();
     document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
 }
 
 playBtn.onclick = function() {
+    console.log("Playing audio");
     if(audioRec.getRecording() == null) {
-        $('[data-toggle="popover"]').popover();
+        // Don't play
     } else {
         audioRec.play();
         if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
             document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
         }
         createAudioCanvas();
-        drawAudio( null, true );
+        drawAudio( audioRec.getRecording() , false );
     }
 }
 
 pauseBtn.onclick = function() { 
+    console.log("Pausing audio");
     if(audioRec.getRecording() == null) {
-        $('[data-toggle="popover"]').popover();
+        // Don't pause
     } else {
         audioRec.pause();
     }
 }
 
 stopBtn.onclick = function() { 
+    console.log("Stopping audio");
     if(audioRec.getRecording() == null) {
-        $('[data-toggle="popover"]').popover();
+        // Don't stop
     } else {
         audioRec.stop();
     }
 }
 
 clearBtn.onclick = function() { 
-    if(audioRec.getRecording() == null) {
-        $('[data-toggle="popover"]').popover();
-    } else {
-        audioRec.clear();
-        if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
-			document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
-		}
+    console.log("Clearing audio");
+    audioRec.clear();
+    if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
+        document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
     }
 }
