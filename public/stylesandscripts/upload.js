@@ -219,7 +219,7 @@ submitRecBtn.onclick = function() {
             "published":published,
             "genre":genre,
             "description":description,
-            "image":image.src,
+            "image":image,
             "recited_by":currentUser["fullname"],
             "plays":0,
             "likes":0,
