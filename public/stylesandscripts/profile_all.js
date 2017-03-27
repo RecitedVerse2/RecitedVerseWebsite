@@ -9,6 +9,8 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     var listOfObjects = snapshot.val();
 
     for(obj in listOfObjects) {
+        console.log(obj);
+        console.log(obj["title"]);
         var item = "<li>" + obj["title"] + "</li>";
         recList.append(item);
     }
