@@ -213,7 +213,7 @@ submitRecBtn.onclick = function() {
         
         if(!valueExists(description)) { description = ""; }
         if(valueExists(tags)) {
-            String s = tags.replace('/ /g','');
+            String s = tags.replace(/ /g,"");
             console.log('TAGS: ' + s);
             return;
         }
