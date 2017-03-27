@@ -10,11 +10,12 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     console.log(listOfObjects);
     
     for(var recitation in listOfObjects) {
-//        for(var prop in recitation) {
-//            if(recitation.hasOwnProperty)
-//        }
+        for(var prop in recitation) {
+            if(recitation.hasOwnProperty(prop)) {
+                console.log(recitation[prop]);
+            }
+        }
         console.log(recitation);
-        console.log(recitation.title);
         
 //        var item = "<li>" + obj.title + "</li>";
 //        recList.append(item);
