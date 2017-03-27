@@ -26,7 +26,6 @@ var nameField = document.getElementById('recitation_name_field');
 var authorField = document.getElementById('recitation_author_field');
 var publicationField = document.getElementById('recitation_publication_field');
 var genreField = document.getElementById('recitation_genre_field');
-var tagsField = document.getElementById('recitation_tags_field');
 var poemText = document.getElementById('recitation_text_field');
 var descriptionField = document.getElementById('recitation_description_field');
 var imageField = document.getElementById('poem_image');
@@ -203,7 +202,6 @@ submitRecBtn.onclick = function() {
     var author = authorField.value;
     var published = publicationField.value;
     var genre = genreField.value;
-    var tags = tagsField.value;
     var text = poemText.value;
     var description = descriptionField.value;
     var image = imageField.src;
@@ -212,11 +210,6 @@ submitRecBtn.onclick = function() {
       && valueExists(text)) {
         
         if(!valueExists(description)) { description = ""; }
-        if(valueExists(tags)) {
-            String s = tags.replace(/ /g,"");
-            console.log('TAGS: ' + s);
-            return;
-        }
         
         // Create a dictionary object for the audio.
         // Save that dictionary to the Firebase database.
@@ -236,7 +229,6 @@ submitRecBtn.onclick = function() {
             "plays":0,
             "likes":0,
             "favorites":0,
-            "tags":[],
             "comments":[]
         };
         
@@ -247,6 +239,7 @@ submitRecBtn.onclick = function() {
             fireRef.child("Recitations").child(currentUser["userID"]).child(name).set(dictionary);
             
             /* Alert the user. */
+            statusLabel.style.color = "green";
             statusLabel.style.visibility = "visible";
 
             /* Save the actual audio to the storage. */
