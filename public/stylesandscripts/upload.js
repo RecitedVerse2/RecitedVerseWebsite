@@ -215,6 +215,7 @@ submitRecBtn.onclick = function() {
         if(valueExists(tags)) {
             String s = tags.replace('/ /g','');
             console.log('TAGS: ' + s);
+            return;
         }
         
         // Create a dictionary object for the audio.
