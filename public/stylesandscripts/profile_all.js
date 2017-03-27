@@ -17,16 +17,13 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;'>" + recitationObject.title + "</button></li>";
             recList.append(item);
             
-            var s1 = 'recitation_img_' + recitationObject.title;
-            var s2 = 'goToPoemPageBtn_' + recitationObject.title;
-            
-            console.log(s1);
-            console.log(s2);
+            var s1 = 'recitation_img_' + recitationObject.title.replace(/ /g,"");
+            var s2 = 'goToPoemPageBtn_' + recitationObject.title.replace(/ /g,"");
             
             var recImage = document.getElementById(s1);
             var goToBtn = document.getElementById(s2);
             recImage.onclick = function() {
-                goToPoemPageWithRecitation(recitationObject);
+                
             };
             goToBtn.onclick = function() {
                 goToPoemPageWithRecitation(recitationObject);
