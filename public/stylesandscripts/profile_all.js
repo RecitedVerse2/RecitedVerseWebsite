@@ -12,21 +12,27 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     for(var recitation in listOfObjects) {
         
         if(listOfObjects.hasOwnProperty(recitation)) {
+            var recitationObject = listOfObjects[recitation];
             
-            var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img' width='120' height='120' src='" + listOfObjects[recitation].image + "' alt='image'><button id='goToPoemPageBtn' style='color:black;'>" + listOfObjects[recitation].title + "</button></li>";
+            var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button id='goToPoemPageBtn' style='color:black;'>" + recitationObject.title + "</button></li>";
             recList.append(item);
             
             
             
             var recImage = document.getElementById('recitation_img');
-            recImage.onclick = function() {
-                console.log('going to next page');
-            };
             var goToBtn = document.getElementById('goToPoemPageBtn');
+            recImage.onclick = function() {
+                goToPoemPageWithRecitation(recitationObject);
+            };
             goToBtn.onclick = function() {
-                console.log('going to next page!');
+                goToPoemPageWithRecitation(recitationObject);
             };
         }
     }
 
 }); 
+
+
+function goToPoemPageWithRecitation(recitation) {
+    document.location = "https://recitedverse.herokuapp.com/poem"; 
+};

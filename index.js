@@ -21,6 +21,8 @@ app.get('/genres', function(request, response) { response.render('pages/genres.e
 app.get('/profile', function(request, response) { response.render('pages/profile.ejs'); });
 app.get('/editprofile', function(request, response) { response.render('pages/editProfile.ejs'); });
 app.get('/upload', function(request, response) { response.render('pages/upload.ejs'); });
+app.get('/poem', function(request, response) { response.render('pages/poem.ejs'); });
+
 
 
 app.listen(app.get('port'), function() {
