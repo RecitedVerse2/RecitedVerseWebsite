@@ -129,34 +129,22 @@ stopRecordBtn.onclick = function() {
 
 playBtn.onclick = function() {
     console.log("Playing audio");
-    if(audioRec.getRecording() == null) {
-        // Don't play
-    } else {
-        audioRec.play();
-        if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
-            document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
-        }
-        createAudioCanvas();
-        drawAudio( audioRec.getRecording() , false );
+    audioRec.play();
+    if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
+        document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
     }
+    createAudioCanvas();
+    drawAudio( audioRec.getRecording() , false );
 }
 
 pauseBtn.onclick = function() { 
     console.log("Pausing audio");
-    if(audioRec.getRecording() == null) {
-        // Don't pause
-    } else {
-        audioRec.pause();
-    }
+    audioRec.pause();
 }
 
 stopBtn.onclick = function() { 
     console.log("Stopping audio");
-    if(audioRec.getRecording() == null) {
-        // Don't stop
-    } else {
-        audioRec.stop();
-    }
+    audioRec.stop();
 }
 
 clearBtn.onclick = function() { 
