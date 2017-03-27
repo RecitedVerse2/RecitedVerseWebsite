@@ -17,8 +17,10 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitationObject.name + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.name + "' style='color:black;'>" + recitationObject.title + "</button></li>";
             recList.append(item);
             
-            var recImage = document.getElementById('recitation_img_' + recitationObject.name);
-            var goToBtn = document.getElementById('goToPoemPageBtn_' + recitationObject.name);
+            var s1 = 'recitation_img_' + recitation_item;
+            var s2 = 'goToPoemPageBtn_' + recitation_item;
+            var recImage = document.getElementById(s1);
+            var goToBtn = document.getElementById(s2);
             recImage.onclick = function() {
                 goToPoemPageWithRecitation(recitationObject);
             };
