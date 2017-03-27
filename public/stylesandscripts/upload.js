@@ -26,6 +26,7 @@ var nameField = document.getElementById('recitation_name_field');
 var authorField = document.getElementById('recitation_author_field');
 var publicationField = document.getElementById('recitation_publication_field');
 var genreField = document.getElementById('recitation_genre_field');
+var descriptionField = document.getElementById('recitation_description_field');
 
 var uploadFromFileBtn = document.getElementById('fromFileBtn');
 var submitRecBtn = document.getElementById('submit_recitation_btn');
@@ -49,7 +50,9 @@ function valueExists(element) {
     }
 }
 
-
+if (typeof(Storage) !== "undefined") {
+    currentUser = JSON.parse(window.localStorage.getItem("current_user"));
+}
 
 
 /************************
@@ -197,14 +200,43 @@ submitRecBtn.onclick = function() {
     var author = authorField.value;
     var published = publicationField.value;
     var genre = genreField.value;
-    
+    var description = descriptionField.value;
     
     if(valueExists(name) && valueExists(author) && valueExists(published) && valueExists(genre)) {
+        if(!valueExists(description)) { description = ""; }
         
         // Create a dictionary object for the audio.
         // Save that dictionary to the Firebase database.
         // Save the audio to the Firebase storage.
         // Return from this method.
+        
+        /* Create dictionary for the recitation. */
+        var dictionary = {
+            "title":name,
+            "author":author,
+            "published":published,
+            "genre":genre,
+            "description":description,
+            "recited_by":currentUser["fullname"],
+            "plays":0,
+            "likes":0,
+            "favorites":0,
+            "tags":[],
+            "comments":[]
+        };
+        
+        var myRecording = audioRec.getRecordingFile();
+        if(myRecording != null) {
+            
+            /* Save it to the database under Recitations->UserID->AutoID:Dictionary*/
+            fireRef.child("Recitations").child(currentUser["userID"]).push().set(dictionary);
+
+            /* Save the actual audio to the storage. */
+            storageRef.child(currentUser["userID"]).child(name).put(myRecording).then(function() {
+                console.log('Uploaded audio file!');
+            });
+            
+        }
         
         return;
     }
