@@ -202,7 +202,7 @@ submitRecBtn.onclick = function() {
     var published = publicationField.value;
     var genre = genreField.value;
     var description = descriptionField.value;
-    var image = imageField.value;
+    var image = imageField.src;
     
     if(valueExists(name) && valueExists(author) && valueExists(published) && valueExists(genre) && valueExists(image)) {
         if(!valueExists(description)) { description = ""; }
@@ -235,9 +235,7 @@ submitRecBtn.onclick = function() {
             fireRef.child("Recitations").child(currentUser["userID"]).push().set(dictionary);
 
             /* Save the actual audio to the storage. */
-            storageRef.child(currentUser["userID"]).child(name).put(myRecording).then(function() {
-                console.log('Uploaded audio file!');
-            });
+            storageRef.child(currentUser["userID"]).child(name).put(myRecording);
             
             /* Go back to the user's profile page. */
             document.location = "https://recitedverse.herokuapp.com/profile";
