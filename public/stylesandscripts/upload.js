@@ -18,7 +18,36 @@ var createTwice = false;
 
 audioRec.requestPermission();
 
+/************************
+*    OTHER VARIABLES    *
+*************************/
 
+var nameField = document.getElementById('recitation_name_field');
+var authorField = document.getElementById('recitation_author_field');
+var publicationField = document.getElementById('recitation_publication_field');
+var genreField = document.getElementById('recitation_genre_field');
+
+var uploadFromFileBtn = document.getElementById('fromFileBtn');
+var submitRecBtn = document.getElementById('submit_recitation_btn');
+
+
+
+
+
+
+/************************
+*    UTILITY METHODS    *
+*************************/
+
+/** Returns whether or not the value for a particular element exists. Just an easy way to check if it is not null or 
+undefined. */
+function valueExists(element) {
+    if(element != null && element != undefined && element != "") {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 
 
@@ -160,4 +189,28 @@ clearBtn.onclick = function() {
     if(document.getElementById("visualizer") != null && document.getElementById("visualizer") != undefined) {
         document.getElementById("canvas_holder").removeChild(document.getElementById("visualizer"));
     }
+};
+
+
+submitRecBtn.onclick = function() {
+    var name = nameField.value;
+    var author = authorField.value;
+    var published = publicationField.value;
+    var genre = genreField.value;
+    
+    
+    if(valueExists(name) && valueExists(author) && valueExists(published) && valueExists(genre)) {
+        
+        // Create a dictionary object for the audio.
+        // Save that dictionary to the Firebase database.
+        // Save the audio to the Firebase storage.
+        // Return from this method.
+        
+        return;
+    }
+    
+    if(!valueExists(name)) { nameField.style.borderColor = "red"; }
+    if(!valueExists(author)) { authorField.style.borderColor = "red"; }
+    if(!valueExists(published)) { publicationField.style.borderColor = "red"; }
+    if(!valueExists(genre)) { genreField.style.borderColor = "red"; }
 };
