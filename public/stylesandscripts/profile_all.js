@@ -9,11 +9,14 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     var listOfObjects = snapshot.val();
     console.log(listOfObjects);
     
-    for(var obj in listOfObjects) {
-        console.log(obj);
-        console.log(obj.title);
+    for(var recitation in listOfObjects) {
+//        for(var prop in recitation) {
+//            if(recitation.hasOwnProperty)
+//        }
+        console.log(recitation);
+        console.log(recitation.title);
         
-        var item = "<li>" + obj.title + "</li>";
-        recList.append(item);
+//        var item = "<li>" + obj.title + "</li>";
+//        recList.append(item);
     }
 }); 
