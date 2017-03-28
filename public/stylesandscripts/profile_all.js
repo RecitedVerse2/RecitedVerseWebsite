@@ -17,21 +17,31 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;'>" + recitationObject.title + "</button></li>";
             recList.append(item);
             
-            var s1 = 'recitation_img_' + recitationObject.title.replace(/ /g,"");
-            var s2 = 'goToPoemPageBtn_' + recitationObject.title.replace(/ /g,"");
-            
-            var recImage = document.getElementById(s1);
-            var goToBtn = document.getElementById(s2);
-            recImage.onclick = function() {
-                
-            };
-            goToBtn.onclick = function() {
-                goToPoemPageWithRecitation(recitationObject);
-            };
+//            var s1 = 'recitation_img_' + recitationObject.title;
+//            var s2 = 'goToPoemPageBtn_' + recitationObject.title;
+//            
+//            var recImage = document.getElementById(s1);
+//            var goToBtn = document.getElementById(s2);
+//            recImage.onclick = function() {
+//                
+//            };
+//            goToBtn.onclick = function() {
+//                goToPoemPageWithRecitation(recitationObject);
+//            };
         }
     }
 
 }); 
+
+
+var list = document.getElementById('recitations_list');
+var items = list.getElementsByTagName('li');
+
+for(var i = 0; i < items.length; i++) {
+    console.log(items[i]);
+};
+
+
 
 
 function goToPoemPageWithRecitation(recitation) {
