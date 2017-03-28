@@ -23,7 +23,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             
             // Create the html elements.
             var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;'>" + recitationObject.title + "</button>";
-            var imageItem = "<img id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'>";
+            var imageItem = "<img class='general_rec_image' id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'>";
             var listItem = "<li class='recitation_item' style='font-size:15px;'>"+imageItem+goToBtn+"</li>";
             recList.append(listItem);
             
@@ -32,7 +32,10 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var s2 = 'recitation_img_'+recitationObject.title;
             
             var btnElement = document.getElementById(s1);
+            var imgElement = document.getElementById(s2);
+            
             btnElement.setAttribute("onclick","var strID = '" + s1 + "'; goToPoemPageWithRecitation(strID);");
+            imgElement.setAttribute("onclick","var strID = '" + s2 + "' playRecitation(strID);");
             
             btnIDs.push(s1);
             imgIDs.push(s2);
@@ -41,13 +44,6 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         }
     } // End of for-loop
     
-    
-    // Go through each element and set the onclick attribute to go to the poem at the index.
-//    for(var i = 0; i < recitations.length; i++) {
-//        var btnElement = document.getElementById(btnIDs[i]);
-//        var imgElement = document.getElementById(imgIDs[i]);
-//        btnElement.setAttribute("onclick","var strID = btnIDs[" + i + "]; goToPoemPageWithRecitation(strID)")
-//    } 
 });
 
 
