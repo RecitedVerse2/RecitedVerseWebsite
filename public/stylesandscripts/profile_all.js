@@ -38,8 +38,8 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
 
     
     
-    for(var itm in recitations) {
-        console.log(itm);
+    for(var i = 0; i < recitations.length; i++) {
+        console.log(recitations[i]);
     }
     
 });
