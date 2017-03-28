@@ -31,23 +31,22 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         }
     }
 
+    
+    var list = document.getElementById('recitations_list');
+    var items = list.getElementsByTagName('li');
+
+    for(var i = 0; i < items.length; i++) {
+        console.log(items[i]);
+    };
+
+
+
+
+    function goToPoemPageWithRecitation(recitation) {
+        // Quickly set the value of the recitation you want to look at.
+        if (typeof(Storage) !== "undefined") {
+            window.sessionStorage.setItem("recitation_to_look_at", JSON.stringify(recitation));
+            document.location = "https://recitedverse.herokuapp.com/poem";
+        }
+    };
 }); 
-
-
-var list = document.getElementById('recitations_list');
-var items = list.getElementsByTagName('li');
-
-for(var i = 0; i < items.length; i++) {
-    console.log(items[i]);
-};
-
-
-
-
-function goToPoemPageWithRecitation(recitation) {
-    // Quickly set the value of the recitation you want to look at.
-    if (typeof(Storage) !== "undefined") {
-        window.sessionStorage.setItem("recitation_to_look_at", JSON.stringify(recitation));
-        document.location = "https://recitedverse.herokuapp.com/poem";
-    }
-};
