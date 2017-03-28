@@ -34,7 +34,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             });
             
             btnClicker.onclick = function() {
-                console.log(recitations[0][s1]);
+                console.log(recitations[0]);
                 recitations.pop();
             }
             
