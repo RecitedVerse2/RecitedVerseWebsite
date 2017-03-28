@@ -20,28 +20,19 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             
             var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;'>" + recitationObject.title + "</button>";
             var imageItem = "<img id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'>";
-            
-            
-            var parser = new DOMParser();
-            var s = 'goToPoemPageBtn_'+recitationObject.title;
-            var buttonObject = parser.parseFromString(goToBtn, "text/html").getElementById(s);
-            buttonObject.onclick = function() {
-                console.log(recitationObject.title);
-            };
-            
-            // Add the recitation object and the id for the goto button.
-//            recitations.push(recitationObject);
-//            clickableRecs.push(buttonObject.activeElement);
-            
             var listItem = "<li class='recitation_item' style='font-size:15px;'>"+imageItem+goToBtn+"</li>";
             recList.append(listItem);
+            
+            recitations.push({
+                recitationObject:function() { goToPoemPageWithRecitation(recitationObject) }
+            });
         }
     }
 
     
     // Print out all the recitation objects.
     for(var i = 0; i < recitations.length; i++) {
-        
+        console.log(recitations[i]);
     }
     
 });
