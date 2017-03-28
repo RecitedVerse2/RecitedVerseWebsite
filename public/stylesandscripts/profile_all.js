@@ -37,9 +37,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     
     for(var i = 0; i < recitations.length; i++) {
         var btnElement = document.getElementById(btnIDs[i]);
-        var strID = btnIDs[i];
-        console.log(strID);
-        btnElement.setAttribute("onclick","goToPoemPageWithRecitation(strID)")
+        btnElement.setAttribute("onclick","var strID = btnIDs[i[; goToPoemPageWithRecitation(strID)")
     } 
 });
 
