@@ -51,7 +51,7 @@ function goToPoemPageWithRecitation(btnID) {
         //console.log("INDEX: "+index);
         //console.log(theRecitation);
         
-        window.sessionStorage.setItem("recitation_to_look_at", theRecitation);
+        window.sessionStorage.setItem("recitation_to_look_at", JSON.stringify(theRecitation));
         document.location = "https://recitedverse.herokuapp.com/poem";
     }
 };
