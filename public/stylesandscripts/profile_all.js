@@ -1,6 +1,7 @@
 var recGrid = $('.recitations_grid');
 var recList = $('.recitations_list');
 
+var recitations = [];
 
 
 // Load the current user.
@@ -23,12 +24,24 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             recList.append(listItem);
             
             
-            var s1 = 'goToPoemPageBtn_'+recitationObject.title;
-            var s2 = 'recitation_img_'+recitationObject.title;
-            
-            goToBtn.setAttribute("onclick","console.log('working!')");
-            imageItem.setAttribute("onclick","console.log('working!')");
+            recitations.push(recitationObject);
         }
+    }
+    
+    
+    for(var i = 0; i < recitations.length; i++) {
+        var s1 = 'goToPoemPageBtn_'+recitations[i].title;
+        var s2 = 'recitation_img_'+recitations[i].title;
+
+        var btnClicker = document.getElementById(s1);
+        var imgClicker = document.getElementById(s2);
+
+        btnClicker.onclick = function() {
+            console.log(recitations[i]);
+        };
+        imgClicker.onclick = function() {
+            console.log(recitations[i]);
+        };
     }
     
 });
