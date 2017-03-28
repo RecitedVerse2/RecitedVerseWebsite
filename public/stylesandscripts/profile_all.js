@@ -45,14 +45,13 @@ function goToPoemPageWithRecitation(btnID) {
     // Quickly set the value of the recitation you want to look at.
     if (typeof(Storage) !== "undefined") {
         
-        console.log(btnID);
+        //console.log(btnID);
         var index = btnIDs.indexOf(btnID);
-        console.log("INDEX: "+index);
-        console.log(recitations[index]);
+        var theRecitation = recitations[index];
+        //console.log("INDEX: "+index);
+        //console.log(theRecitation);
         
-        
-        
-//        window.sessionStorage.setItem("recitation_to_look_at", recitation);
-//        document.location = "https://recitedverse.herokuapp.com/poem";
+        window.sessionStorage.setItem("recitation_to_look_at", theRecitation);
+        document.location = "https://recitedverse.herokuapp.com/poem";
     }
 };
