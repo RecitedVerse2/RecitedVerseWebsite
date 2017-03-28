@@ -1,7 +1,6 @@
 var recGrid = $('.recitations_grid');
 var recList = $('.recitations_list');
 
-var recitations = [];
 
 
 // Load the current user.
@@ -24,23 +23,12 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             recList.append(listItem);
             
             
-            var parser = new DOMParser();
-            var btn = parser.parseFromString(goToBtn,'text/html');
+            var s1 = 'goToPoemPageBtn_'+recitationObject.title;
+            var s2 = 'recitation_img_'+recitationObject.title;
             
-            recitations.push({
-                btn:btn
-            });
+            goToBtn.setAttribute("onclick","console.log('working!')");
+            imageItem.setAttribute("onclick","console.log('working!')");
         }
-    }
-
-    
-    // Print out all the recitation objects.
-    for(var i = 0; i < recitations.length; i++) {
-        console.log(recitations[i]);
-        
-        recitations[i].onclick = function() {
-            console.log('Working!');
-        };
     }
     
 });
