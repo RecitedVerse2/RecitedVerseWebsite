@@ -18,7 +18,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         if(listOfObjects.hasOwnProperty(recitation)) {
             var recitationObject = listOfObjects[recitation];
             
-            var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;' onclick='console.log(recitationObject);'>" + recitationObject.title + "</button>";
+            var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;' onclick='console.log(" + recitationObject + ");'>" + recitationObject.title + "</button>";
             var imageItem = "<img id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'>";
             var listItem = "<li class='recitation_item' style='font-size:15px;'>"+imageItem+goToBtn+"</li>";
             recList.append(listItem);
