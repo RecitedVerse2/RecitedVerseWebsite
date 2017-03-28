@@ -27,8 +27,8 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
 //            var itemObject = parser.parseFromString(goToBtn, "text/html");
             
             // Add the recitation object and the id for the goto button.
-            recitations.push(recitationObject);
-            clickableRecs.push(itemObject.activeElement);
+//            recitations.push(recitationObject);
+//            clickableRecs.push(itemObject.activeElement);
         }
     }
 
