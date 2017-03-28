@@ -2,6 +2,8 @@ var recGrid = $('.recitations_grid');
 var recList = $('.recitations_list');
 
 var recitations = [];
+var clickables = [];
+
 
 
 // Load the current user.
@@ -24,22 +26,20 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             recList.append(listItem);
             
             
+            var s1 = 'goToPoemPageBtn_'+recitations[i].title;
+            var s2 = 'recitation_img_'+recitations[i].title;
+            var btnClicker = document.getElementById(s1);
+            var imgClicker = document.getElementById(s2);
+            
+            
             recitations.push(recitationObject);
+            clickables.push(btnClicker);
         }
     }
     
     
     for(var i = 0; i < recitations.length; i++) {
-        var s1 = 'goToPoemPageBtn_'+recitations[i].title;
-        var s2 = 'recitation_img_'+recitations[i].title;
-
-        var btnClicker = document.getElementById(s1);
-        var imgClicker = document.getElementById(s2);
-
-        btnClicker.onclick = function() {
-            console.log(recitations[i]);
-        };
-        imgClicker.onclick = function() {
+        clickables[i].onclick = function() {
             console.log(recitations[i]);
         };
     }
