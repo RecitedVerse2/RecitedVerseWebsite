@@ -20,13 +20,14 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         if(listOfObjects.hasOwnProperty(recitation)) {
             var recitationObject = listOfObjects[recitation];
             
+            // Create the html elements.
             var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;'>" + recitationObject.title + "</button>";
             var imageItem = "<img id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'>";
             var listItem = "<li class='recitation_item' style='font-size:15px;'>"+imageItem+goToBtn+"</li>";
             recList.append(listItem);
             
+            // Get a reference to the id that each button element has.
             var s1 = 'goToPoemPageBtn_'+recitationObject.title;
-            var btnClicker = document.getElementById(s1);
             
             btnIDs.push(s1);
             recitations.push(recitationObject);
@@ -35,12 +36,16 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     } // End of for-loop
     
     
+    // Go through each element and set the onclick attribute to go to the poem at the index.
     for(var i = 0; i < recitations.length; i++) {
         var btnElement = document.getElementById(btnIDs[i]);
         btnElement.setAttribute("onclick","var strID = btnIDs[" + i + "]; goToPoemPageWithRecitation(strID)")
     } 
 });
 
+
+/** Goes to the poem page with the id of the poem that was clicked on (really the id for the button that knows which
+poem to go to). */
 function goToPoemPageWithRecitation(btnID) {
     // Quickly set the value of the recitation you want to look at.
     if (typeof(Storage) !== "undefined") {
