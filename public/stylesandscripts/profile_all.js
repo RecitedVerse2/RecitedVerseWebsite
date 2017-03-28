@@ -28,7 +28,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var btn = parser.parseFromString(goToBtn,'text/html');
             
             recitations.push({
-                btn:recitationObject
+                btn:btn
             });
         }
     }
@@ -37,6 +37,10 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     // Print out all the recitation objects.
     for(var i = 0; i < recitations.length; i++) {
         console.log(recitations[i]);
+        
+        recitations[i].onclick = function() {
+            console.log('Working!');
+        };
     }
     
 });
