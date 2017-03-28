@@ -21,9 +21,12 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var item = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;'>" + recitationObject.title + "</button></li>";
             recList.append(item);
             
+            var parser = new DOMParser();
+            var itemObject = parser.parseFromString(item, "text/html");
+            
             // Add the recitation object and the id for the goto button.
             recitations.push(recitationObject);
-            clickableRecs.push(item);
+            clickableRecs.push(itemObject.activeElement);
             
 //            var s1 = 'recitation_img_' + recitationObject.title;
 //            var s2 = 'goToPoemPageBtn_' + recitationObject.title;
@@ -42,9 +45,10 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     
     // Print out all the recitation objects.
     for(var i = 0; i < recitations.length; i++) {
-        // Add an 'onclick' attribute for each clickable recitation.
-        var itm = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitations[i].title + "' width='120' height='120' src='" + recitations[i].image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitations[i].title + "' style='color:black;' onclick='goToPoemPageWithRecitation(recitations[i])'>" + recitations[i].title + "</button></li>";
-        clickableRecs[i] = itm;
+        clickableRecs[i].onclick = function() {
+            goToPoemPageWithRecitation(recitations[i]);
+        };
+        
         
         console.log(recitations[i]);
         console.log(clickableRecs[i]);
