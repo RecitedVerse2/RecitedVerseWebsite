@@ -16,7 +16,6 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         
         if(listOfObjects.hasOwnProperty(recitation)) {
             var recitationObject = listOfObjects[recitation];
-            console.log(recitationObject);
             
             var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;'>" + recitationObject.title + "</button>";
             var imageItem = "<img id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'>";
@@ -29,9 +28,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var btnClicker = document.getElementById(s1);
             var imgClicker = document.getElementById(s2);
             
-            btnClicker.onclick = function() {
-                console.log(recitationObject);
-            };
+            btnClicker.setAttribute("onclick","console.log('working!')");
             
         }
     }
