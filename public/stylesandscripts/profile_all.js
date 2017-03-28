@@ -39,6 +39,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
 //        console.log(btnIDs[i]);
 //        console.log(recitations[i]);
         var btnElement = document.getElementById(btnIDs[i]);
+        console.log(btnElement);
         btnElement.onclick = function() {
             goToPoemPageWithRecitation(btnIDs[i]);
         }
