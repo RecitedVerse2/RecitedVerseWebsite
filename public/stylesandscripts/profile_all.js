@@ -32,11 +32,11 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var s2 = 'recitation_img_'+recitationObject.title;
             
             var btnElement = document.getElementById(s1);
-            btnElement.setAttribute("onclick","var strID = '" + s1 + "'; goToPoemPageWithRecitation(strID)");
+            btnElement.setAttribute("onclick","var strID = '" + s1 + "'; goToPoemPageWithRecitation(strID);");
             
-//            btnIDs.push(s1);
-//            imgIDs.push(s2);
-//            recitations.push(recitationObject);
+            btnIDs.push(s1);
+            imgIDs.push(s2);
+            recitations.push(recitationObject);
             continue;
         }
     } // End of for-loop
