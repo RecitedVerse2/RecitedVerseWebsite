@@ -18,13 +18,13 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         if(listOfObjects.hasOwnProperty(recitation)) {
             var recitationObject = listOfObjects[recitation];
             
-            var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;'>" + recitationObject.title + "</button>";
+            var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;' onclick='console.log(recitationObject);'>" + recitationObject.title + "</button>";
             var imageItem = "<img id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'>";
             var listItem = "<li class='recitation_item' style='font-size:15px;'>"+imageItem+goToBtn+"</li>";
             recList.append(listItem);
             
-            var parser = new DOMParser();
-            var itemObject = parser.parseFromString(goToBtn, "text/html");
+//            var parser = new DOMParser();
+//            var itemObject = parser.parseFromString(goToBtn, "text/html");
             
             // Add the recitation object and the id for the goto button.
             recitations.push(recitationObject);
@@ -35,10 +35,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     
     // Print out all the recitation objects.
     for(var i = 0; i < recitations.length; i++) {
-        var json = JSON.stringify(recitations[i]);
-        clickableRecs[i].lastChild.onclick = function() {
-            console.log(json);
-        }
+        
     }
     
 });
