@@ -47,7 +47,7 @@ function goToPoemPageWithRecitation(btnID) {
     if (typeof(Storage) !== "undefined") {
         
         console.log(btnID);
-        var index = btnIDs.indexOf(btnID, [0,btnIDs.length]);
+        var index = btnIDs.indexOf(btnID);
         console.log("INDEX: "+index);
         console.log(recitations[index]);
         
