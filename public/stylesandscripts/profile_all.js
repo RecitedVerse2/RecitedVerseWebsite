@@ -2,6 +2,8 @@ var recGrid = $('.recitations_grid');
 var recList = $('.recitations_list');
 
 
+var recitations = [];
+
 
 // Load the current user.
 if (typeof(Storage) !== "undefined") { currentUser = JSON.parse(window.localStorage.getItem("current_user")); }
@@ -22,13 +24,19 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var listItem = "<li class='recitation_item' style='font-size:15px;'>"+imageItem+goToBtn+"</li>";
             recList.append(listItem);
             
-            
             var s1 = 'goToPoemPageBtn_'+recitationObject.title;
             var s2 = 'recitation_img_'+recitationObject.title;
             var btnClicker = document.getElementById(s1);
             var imgClicker = document.getElementById(s2);
             
-            btnClicker.setAttribute("onclick","console.log('recitationObject')");
+            recitations.push({
+                s1:recitationObject
+            });
+            
+            btnClicker.onclick = function() {
+                console.log(recitations[0][s1]);
+                recitations.pop();
+            }
             
         }
     }
