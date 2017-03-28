@@ -42,12 +42,12 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     
     // Print out all the recitation objects.
     for(var i = 0; i < recitations.length; i++) {
-        console.log(recitations[i]);
-        console.log(clickableRecs[i]);
-        
         // Add an 'onclick' attribute for each clickable recitation.
         var itm = "<li class='recitation_item' style='font-size:15px;'><img id='recitation_img_" + recitations[i].title + "' width='120' height='120' src='" + recitations[i].image + "' alt='image'><button class='goToBtn' id='goToPoemPageBtn_" + recitations[i].title + "' style='color:black;' onclick='goToPoemPageWithRecitation(recitations[i])'>" + recitations[i].title + "</button></li>";
         clickableRecs[i] = itm;
+        
+        console.log(recitations[i]);
+        console.log(clickableRecs[i]);
     }
     
 });
