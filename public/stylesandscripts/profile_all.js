@@ -36,12 +36,9 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     // Print out all the recitation objects.
     for(var i = 0; i < recitations.length; i++) {
         var json = JSON.stringify(recitations[i]);
-        clickableRecs[i].onclick = function() {
+        clickableRecs[i].lastChild.onclick = function() {
             console.log(json);
         }
-        clickableRecs.click(function() {
-            console.log(json);
-        });
     }
     
 });
