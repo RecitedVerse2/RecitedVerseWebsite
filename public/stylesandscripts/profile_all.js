@@ -36,14 +36,23 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     
     
     for(var i = 0; i < recitations.length; i++) {
-        console.log(btnIDs[i]);
-        console.log(recitations[i]);
+//        console.log(btnIDs[i]);
+//        console.log(recitations[i]);
+        goToPoemPageWithRecitation(btnIDs[i]);
     } 
 });
 
-function goToPoemPageWithRecitation(recitation) {
+function goToPoemPageWithRecitation(btnID) {
     // Quickly set the value of the recitation you want to look at.
     if (typeof(Storage) !== "undefined") {
+        
+        console.log(btnID);
+        var index = btnIDs.indexOf(btnID, [0,btnIDs.length]);
+        console.log("INDEX: "+index);
+        config.log(recitations[index]);
+        
+        
+        
         window.sessionStorage.setItem("recitation_to_look_at", recitation);
         document.location = "https://recitedverse.herokuapp.com/poem";
     }
