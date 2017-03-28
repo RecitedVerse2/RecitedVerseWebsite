@@ -28,7 +28,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             
             // Add the recitation object and the id for the goto button.
             recitations.push(recitationObject);
-            clickableRecs.push(itemObject.activeElement);
+            clickableRecs.push(itemObject.documentElement);
         }
     }
 
@@ -36,7 +36,9 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     // Print out all the recitation objects.
     for(var i = 0; i < recitations.length; i++) {
         var json = JSON.stringify(recitations[i]);
-        clickableRecs[i].setAttribute("onclick","console.log(" + json + ")");
+        clickableRecs[i].onclick = function() {
+            console.log(json);
+        }
     }
     
 });
