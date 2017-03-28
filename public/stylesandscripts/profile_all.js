@@ -20,7 +20,8 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             recList.append(item);
             
             // Add the recitation object and the id for the goto button.
-            recitations.push({"goTo_"+recitationObject.title:recitationObject});
+            var s = "goTo_"+recitationObject.title;
+            recitations.push({s:recitationObject});
             
 //            var s1 = 'recitation_img_' + recitationObject.title;
 //            var s2 = 'goToPoemPageBtn_' + recitationObject.title;
