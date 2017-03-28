@@ -26,8 +26,8 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             recList.append(listItem);
             
             
-            var s1 = 'goToPoemPageBtn_'+recitations[i].title;
-            var s2 = 'recitation_img_'+recitations[i].title;
+            var s1 = 'goToPoemPageBtn_'+recitationObject.title;
+            var s2 = 'recitation_img_'+recitationObject.title;
             var btnClicker = document.getElementById(s1);
             var imgClicker = document.getElementById(s2);
             
