@@ -49,11 +49,11 @@ function goToPoemPageWithRecitation(btnID) {
         console.log(btnID);
         var index = btnIDs.indexOf(btnID, [0,btnIDs.length]);
         console.log("INDEX: "+index);
-        config.log(recitations[index]);
+        console.log(recitations[index]);
         
         
         
-        window.sessionStorage.setItem("recitation_to_look_at", recitation);
-        document.location = "https://recitedverse.herokuapp.com/poem";
-    }
+//        window.sessionStorage.setItem("recitation_to_look_at", recitation);
+//        document.location = "https://recitedverse.herokuapp.com/poem";
+//    }
 };
