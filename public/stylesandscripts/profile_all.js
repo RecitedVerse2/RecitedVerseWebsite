@@ -3,6 +3,7 @@ var recList = $('.recitations_list');
 
 
 var btnIDs = [];
+var imgIDs = [];
 var recitations = [];
 
 
@@ -28,26 +29,31 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             
             // Get a reference to the id that each button element has.
             var s1 = 'goToPoemPageBtn_'+recitationObject.title;
+            var s2 = 'recitation_img_'+recitationObject.title;
             
-            btnIDs.push(s1);
-            recitations.push(recitationObject);
+            var btnElement = document.getElementById(s1);
+            btnElement.setAttribute("onclick","var strID = '" + s1 + "'; goToPoemPageWithRecitation(strID)");
+            
+//            btnIDs.push(s1);
+//            imgIDs.push(s2);
+//            recitations.push(recitationObject);
             continue;
         }
     } // End of for-loop
     
     
     // Go through each element and set the onclick attribute to go to the poem at the index.
-    for(var i = 0; i < recitations.length; i++) {
-        var btnElement = document.getElementById(btnIDs[i]);
-        btnElement.setAttribute("onclick","var strID = btnIDs[" + i + "]; goToPoemPageWithRecitation(strID)")
-    } 
+//    for(var i = 0; i < recitations.length; i++) {
+//        var btnElement = document.getElementById(btnIDs[i]);
+//        var imgElement = document.getElementById(imgIDs[i]);
+//        btnElement.setAttribute("onclick","var strID = btnIDs[" + i + "]; goToPoemPageWithRecitation(strID)")
+//    } 
 });
 
 
 /** Goes to the poem page with the id of the poem that was clicked on (really the id for the button that knows which
 poem to go to). */
 function goToPoemPageWithRecitation(btnID) {
-    // Quickly set the value of the recitation you want to look at.
     if (typeof(Storage) !== "undefined") {
         
         //console.log(btnID);
@@ -58,5 +64,19 @@ function goToPoemPageWithRecitation(btnID) {
         
         window.sessionStorage.setItem("recitation_to_look_at", JSON.stringify(theRecitation));
         document.location = "https://recitedverse.herokuapp.com/poem";
+    }
+};
+
+
+
+/** Plays the audio of the recitation when the image is clicked. This should interact with the audio player to
+display information about what is playing. */
+function playRecitation(imgID) {
+    if (typeof(Storage) !== "undefined") {
+        
+        var index = imgIDs.indexOf(imgID);
+        var theRecitation = recitations[index];
+        
+        
     }
 };

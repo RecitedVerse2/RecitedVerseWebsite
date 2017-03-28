@@ -1,0 +1,12 @@
+body {
+    background-color: rgb(242,244,248);
+}
+
+.poem_area {
+    position: relative;
+    left: 6%;
+    top: 50px;
+    width: 94%;
+    height: 400px;
+    background-color: white;
+}
