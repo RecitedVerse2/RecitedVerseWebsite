@@ -31,6 +31,9 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var btnClicker = document.getElementById(s1);
             var imgClicker = document.getElementById(s2);
             
+            btnClicker.onclick = function() {
+                console.log(recitationObject);
+            };
             
             recitations.push(recitationObject);
             clickables.push(btnClicker);
@@ -38,11 +41,11 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     }
     
     
-    for(var i = 0; i < recitations.length; i++) {
-        clickables[i].onclick = function() {
-            console.log(recitations[i]);
-        };
-    }
+//    for(var i = 0; i < recitations.length; i++) {
+//        clickables[i].onclick = function() {
+//            console.log(recitations[i]);
+//        };
+//    }
     
 });
 
