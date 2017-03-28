@@ -28,7 +28,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var btnClicker = document.getElementById(s1);
             var imgClicker = document.getElementById(s2);
             
-            btnClicker.setAttribute("onclick","console.log('working!')");
+            btnClicker.setAttribute("onclick","console.log('recitationObject')");
             
         }
     }
