@@ -35,7 +35,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
     
     // Print out all the recitation objects.
     for(var i = 0; i < recitations.length; i++) {
-        var json = JSON.parse(recitations[i]);
+        var json = JSON.stringify(recitations[i]);
         clickableRecs[i].setAttribute("onclick","goToPoemPageWithRecitation(" + json + ")");
         
         
