@@ -55,5 +55,5 @@ function goToPoemPageWithRecitation(btnID) {
         
 //        window.sessionStorage.setItem("recitation_to_look_at", recitation);
 //        document.location = "https://recitedverse.herokuapp.com/poem";
-//    }
+    }
 };
