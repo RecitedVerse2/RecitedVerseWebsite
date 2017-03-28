@@ -28,7 +28,7 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             
             // Add the recitation object and the id for the goto button.
             recitations.push(recitationObject);
-            clickableRecs.push(itemObject.documentElement);
+            clickableRecs.push(itemObject.activeElement);
         }
     }
 
@@ -39,6 +39,9 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
         clickableRecs[i].onclick = function() {
             console.log(json);
         }
+        clickableRecs.click(function() {
+            console.log(json);
+        });
     }
     
 });
