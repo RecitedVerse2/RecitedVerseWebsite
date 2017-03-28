@@ -2,8 +2,6 @@ var recGrid = $('.recitations_grid');
 var recList = $('.recitations_list');
 
 
-var recitations = [];
-
 
 // Load the current user.
 if (typeof(Storage) !== "undefined") { currentUser = JSON.parse(window.localStorage.getItem("current_user")); }
@@ -29,17 +27,14 @@ fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(s
             var btnClicker = document.getElementById(s1);
             var imgClicker = document.getElementById(s2);
             
-            recitations.push({
-                s1:recitationObject
-            });
-            
             btnClicker.onclick = function() {
-                console.log(recitations[0]);
-                recitations.pop();
+                console.log(recitationObject);
+                continue;
             }
+    
             
         }
-    }
+    } // End of for-loop
     
 });
 
