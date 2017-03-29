@@ -78,7 +78,9 @@
     
     <div class="title_area">
         <p id="audio_title"></p>
-        <input type="range" id="seekSlider">
+        <div style="display:table;">
+            <p style="display:table-cell;" id="curtimetext">0:00</p> <input style="display:table-cell;" type="range" id="seekSlider"> <p style="display:table-cell;" id="durtimetext">0:00</p>
+        </div>
     </div>
     
     
@@ -104,6 +106,10 @@
     var shuffleBtn = document.getElementById('shuffle_audio_btn');
     var loopBtn = document.getElementById('loop_audio_btn');
     var title = document.getElementById('audio_title');
+    
+    var seekSlider = document.getElementById('seekSlider');
+    var curTimeText = document.getElementById("curtimetext");
+    var durTimeText = document.getElementById("durtimetext");
     
     var recitation;
     var recording = new Audio();
@@ -140,11 +146,33 @@
         
         // Play the audio
         recording.play();
+        
+        // Add the listener to update the audio bar
+        recording.addEventListener("timeupdate", seekTimeUpdate );
     };
     
     
+    function seekTimeUpdate() {
+        var newTime = recording.currentTime * (100 / recording.duration);
+        seekSlider.value = newTime;
+        var curmins = Math.floor(recording.currentTime / 60);
+        var cursecs = Math.floor(recording.currentTime - curmins * 60);
+        var durmins = Math.floor(recording.duration / 60);
+        var dursecs = Math.floor(recording.duration - durmins * 60);
+        if(cursecs < 10) { cursecs = "0"+cursecs; }
+        if(dursecs < 10) { dursecs = "0"+dursecs; }
+        if(curmins < 10) { curmins = "0"+curmins; }
+        if(durmins < 10) { durmins = "0"+durmins; }
+        curTimeText.innerHTML = curmins+":"+cursecs;
+        durTimeText.innerHTML = durmins+":"+dursecs;
+    }
     
-    /* Button clicks */
+    
+    
+    
+    
+    /* Button Clicks */
+    
     loopBtn.onclick = function() {
         if(recording != null) { 
             recording.loop = !recording.loop;
