@@ -21,16 +21,15 @@ if (typeof(Storage) !== "undefined") {
     var recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
     console.log(recitation);
     console.log(recitation["author"]);
-    console.log(recitation.author);
     
     
     /* SET VARIABLES */
     imageView.src = recitation["image"];
-    titleAuthorArea.value = recitation["title"] + " by " + recitation["author"];
-    recitedByArea.value = "Recited by " + recitation["recited_by"] + ", Published: " + recitation["published"] + ", Genre: " + recitation["genre"];
-    descriptionArea.value = recitation["description"];
+    titleAuthorArea.innerHTML = recitation["title"] + " by " + recitation["author"];
+    recitedByArea.innerHTML = "Recited by " + recitation["recited_by"] + ", Published: " + recitation["published"] + ", Genre: " + recitation["genre"];
+    descriptionArea.innerHTML = recitation["description"];
     
-    playLabel.value = recitation["plays"];
-    likeLabel.value = recitation["likes"];
-    favoriteLabel.value = recitation["favorites"];
+    playLabel.innerHTML = recitation["plays"];
+    likeLabel.innerHTML = recitation["likes"];
+    favoriteLabel.innerHTML = recitation["favorites"];
 };
