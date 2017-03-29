@@ -74,7 +74,7 @@
     <div class="title_area">
         <p id="audio_title"></p>
         <div id="sliderArea" style="position: relative; display:table; margin: auto;">
-            <span style="display:table-cell;" id="curtimetext">0:00</span> <input style="display:table-cell;" type="range" id="seekSlider" min="0" max="100" value="0" step="1"> <span style="display:table-cell;" id="durtimetext">0:00</span>
+            <span style="display:table-cell;" id="curtimetext">0:00</span>&nbsp;&nbsp;&nbsp;<input style="width: 300px; display:table-cell;" type="range" id="seekSlider" min="0" max="100" value="0" step="1">&nbsp;&nbsp;&nbsp;<span style="display:table-cell;" id="durtimetext">0:00</span>
         </div>
     </div>
     
@@ -175,16 +175,10 @@
         
         // See if it is at the end.
         if(recording.currentTime == recording.duration) {
-            if(recording.loop == false) {
-                recitation.plays += 1;
-                recording.currentTime = 0;
-                fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
-                return;
-            } else {
-                recitation.plays += 1;
-                fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
-                return;
-            }
+            recitation.plays += 1;
+            recording.currentTime = 0;
+            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+            return;
         }
     }
     
