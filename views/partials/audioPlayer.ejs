@@ -110,15 +110,8 @@
     
     if (typeof(Storage) !== "undefined") {
         recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
-    }
-    
-    
-    
-    function audioPlayer_playRecitation() {
-        // Set the title area
-        title.innerHTML = "<b>" + recitation.title + "</b>, Recited By: " + recitation.recited_by;
         
-        // Load and play the recording
+        // Load the recording
         storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
             // This can be downloaded directly:
             var xhr = new XMLHttpRequest();
@@ -130,9 +123,17 @@
             xhr.send();
 
             recording.src = url;
-            recording.play();   
         });
+    }
+    
+    
+    
+    function audioPlayer_playRecitation() {
+        // Set the title area
+        title.innerHTML = "<b>" + recitation.title + "</b>, Recited By: " + recitation.recited_by;
         
+        // Play the audio
+        recording.play();
     };
     
     
