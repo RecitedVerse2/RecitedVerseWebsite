@@ -32,14 +32,12 @@
     /* The title area. */
     .title_area {
         position: absolute;
-        left: 17%;
         width: 70%;
         height: 55px;
         text-align: center;
     }
     .sliderArea {
         position: relative;
-        left: 25%;
         width: 50%;
         text-align: center;
     }
@@ -81,7 +79,7 @@
     <div class="title_area">
         <p id="audio_title"></p>
         <div id="sliderArea" style="display:table;">
-            <p style="display:table-cell;" id="curtimetext">0:00</p> <input style="display:table-cell;" type="range" id="seekSlider"> <p style="display:table-cell;" id="durtimetext">0:00</p>
+            <span style="display:table-cell;" id="curtimetext">0:00</span> <input style="display:table-cell;" type="range" id="seekSlider" min="0" max="100" value="0" step="1"> <span style="display:table-cell;" id="durtimetext">0:00</span>
         </div>
     </div>
     
@@ -114,7 +112,7 @@
     var durTimeText = document.getElementById("durtimetext");
     
     var recitation;
-    var seeking;
+    var seeking = false;
     var recording = new Audio();
     
     
@@ -138,6 +136,7 @@
                 xhr.send();
 
                 recording.src = url;
+                recording.addEventListener("timeupdate", seekTimeUpdate );
             });
         }
     }
@@ -154,7 +153,6 @@
         seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
         seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
         seekSlider.addEventListener("mouseup", function() { seeking = false; } );
-        recording.addEventListener("timeupdate", seekTimeUpdate );
     };
     
     
