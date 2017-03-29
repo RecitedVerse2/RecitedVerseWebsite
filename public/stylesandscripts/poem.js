@@ -61,18 +61,21 @@ if (typeof(Storage) !== "undefined") {
 
         if(!arr.includes(s)) {
             recitation.likes += 1;
-            favoriteLabel.innerHTML = recitation["likes"];
+            likeLabel.innerHTML = recitation["likes"];
             currentUser["likes"].push(s);
 
             // Save to firebase.
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+            fireRef.child("Users").child(currentUser["userID"]).update(currentUser);
+            return;
         } else {
-            recitation.favorites -= 1;
-            favoriteLabel.innerHTML = recitation["likes"];
+            recitation.likes -= 1;
+            likeLabel.innerHTML = recitation["likes"];
             remove(currentUser["likes"], s);
             
             // Save to firebase.
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+            fireRef.child("Users").child(currentUser["userID"]).update(currentUser);
             return;
         }
     };
@@ -89,6 +92,7 @@ if (typeof(Storage) !== "undefined") {
 
             // Save to firebase.
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+            fireRef.child("Users").child(currentUser["userID"]).update(currentUser);
             return;
         } else {
             recitation.favorites -= 1;
@@ -97,6 +101,7 @@ if (typeof(Storage) !== "undefined") {
             
             // Save to firebase.
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+            fireRef.child("Users").child(currentUser["userID"]).update(currentUser);
             return;
         }
     };
