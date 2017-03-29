@@ -15,14 +15,44 @@
         <% include ../partials/audioPlayer.ejs %>
         
         
-        
+        <!-- The overall poem area (the entire white background area). -->
         <div class="poem_area">
-        
-            <h5>Title</h5>
             
-        
+            <!-- The information area that goes horizontally. -->
+            <div class="horizontal_info_section">
+            
+                <!-- The first vertical section (just holds the image). -->
+                <div class="vertical_image_section">
+                    <img id="poem_image" src="" alt="image" width="200" height="200 ">
+                </div>
+                
+                
+                <!-- The second vertical section (holds the title, description, author, published, genre, and recited by)-->
+                <div class="vertical_info_section">
+                    <h4>Title by Author</h4>
+                    <br>
+                    <p>Recited By - Published - Genre</p>
+                    <p>Description</p>
+                    
+                    <div class="description_buttons_section">
+                        <button class="description_button fa fa-play" id="description_play_button"></button>
+                        <button class="description_button fa fa-thumbs-up" id="description_like_button"></button>
+                        <button class="description_button fa fa-heart" id="description_favorite_button"></button>
+                    </div>
+                </div>
+                
+                
+                <!-- The last vertical section (holds plays, likes, favorites)-->
+                <div class="vertical_numbers_section">
+                    <p class="fa fa-play">&nbsp;1,2345</p>
+                    <br>
+                    <p class="fa fa-thumbs-up">&nbsp;78</p>
+                    <br>
+                    <p class="fa fa-heart">&nbsp;59</p>
+                </div>
+                
+            </div>
         </div>
-        
         
         
         
