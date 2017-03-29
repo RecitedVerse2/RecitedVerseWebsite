@@ -57,7 +57,8 @@ if (typeof(Storage) !== "undefined") {
             likeBtn.onclick = function() {
                 var s = recitation["title"] + " " + recitation["author"];
                 var arr = currentUser["likes"];
-
+                if(arr === undefined || arr == null) { arr = []; }
+                
                 if(!arr.includes(s)) {
                     recitation.likes += 1;
                     likeLabel.innerHTML = recitation["likes"];
@@ -82,6 +83,7 @@ if (typeof(Storage) !== "undefined") {
             favoriteBtn.onclick = function() {
                 var s = recitation["title"] + " " + recitation["author"];
                 var arr = currentUser["favorites"];
+                if(arr === undefined || arr == null) { arr = []; }
 
                 // If it's already there, remove it. If not, add it.
                 if(!arr.includes(s)) {
