@@ -71,7 +71,11 @@ body {
 #poem_image {
     position: relative;
     top: 20%;
+    width: 200px;
+    height: 200px;
+/*
     width: 80%;
     height: 60%;
+*/
     text-align: center;
 }
