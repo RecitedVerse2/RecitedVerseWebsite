@@ -32,14 +32,14 @@
     /* The title area. */
     .title_area {
         position: absolute;
-        width: 70%;
+        left: 50%;
+        width: 100%;
         height: 55px;
-        text-align: center;
     }
     .sliderArea {
         position: relative;
+        left: 50%;
         width: 50%;
-        text-align: center;
     }
     
     
@@ -149,11 +149,6 @@
         // Play the audio
         recording.play();
         
-        
-        var durmins = Math.floor(recording.duration / 60);
-        var dursecs = Math.floor(recording.duration - durmins * 60);
-        durTimeText.innerHTML = durmins+":"+dursecs;
-        
         // Add the listener to update the audio bar
         seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
         seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
@@ -175,11 +170,14 @@
         seekSlider.value = newTime;
         var curmins = Math.floor(recording.currentTime / 60);
         var cursecs = Math.floor(recording.currentTime - curmins * 60);
+        var durmins = Math.floor(recording.duration / 60);
+        var dursecs = Math.floor(recording.duration - durmins * 60);
         if(cursecs < 10) { cursecs = "0"+cursecs; }
         if(dursecs < 10) { dursecs = "0"+dursecs; }
         if(curmins < 10) { curmins = "0"+curmins; }
         if(durmins < 10) { durmins = "0"+durmins; }
         curTimeText.innerHTML = curmins+":"+cursecs;
+        durTimeText.innerHTML = durmins+":"+dursecs;
     }
     
     
