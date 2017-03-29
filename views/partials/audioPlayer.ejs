@@ -113,6 +113,23 @@
     
     
     function audioPlayer_playRecitation() {
-        title.innerHTML = recitation.title + "<br>Recited By:" + recitation.recited_by;
+        // Set the title area
+        title.innerHTML = "<b>" + recitation.title + "</b>, Recited By: " + recitation.recited_by;
+        
+        // Load the recording
+        storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
+            // This can be downloaded directly:
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function(event) {
+                var blob = xhr.response;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+
+            recording.src = url;
+            recording.play();   
+        });
+        
     };
 </script>
