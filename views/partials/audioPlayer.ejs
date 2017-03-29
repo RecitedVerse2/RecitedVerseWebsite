@@ -175,10 +175,16 @@
         
         // See if it is at the end.
         if(recording.currentTime == recording.duration) {
-            recitation.plays += 1;
-            recording.currentTime = 0;
-            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
-            return;
+            if(recording.loop == false) {
+                recitation.plays += 1;
+                recording.currentTime = 0;
+                fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+                return;
+            } else {
+                recitation.plays += 1;
+                fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+                return;
+            }
         }
     }
     
