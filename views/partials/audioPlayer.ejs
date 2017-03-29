@@ -7,6 +7,7 @@
         height: 55px;
         z-index: 25;
         color: white;
+        display: table;
         text-align: center;
         background-color: rgb(76, 182, 203);
     } 
@@ -22,34 +23,29 @@
     
     /* The audio player section. */
     .audio_buttons {
-        position: absolute;
+        position: relative;
         width: 20%;
         height: 55px;
         padding-top: 7px;
-    }
-    
-    
+        display: table-cell;
+        background-color:lightcoral;
+    }   
     /* The title area. */
     .title_area {
-        position: absolute;
-        left: 50%;
-        width: 100%;
-        height: 55px;
-    }
-    .sliderArea {
         position: relative;
-        left: 50%;
-        width: 50%;
+        width: 70%;
+        height: 55px;
+        display: table-cell;
+        background-color: lightgreen;
     }
-    
-    
     /* The repeat/shuffle area. */
     .right_buttons {
-        position: absolute;
-        left: 90%;
+        position: relative;
         width: 10%;
         height: 55px;
         padding-top: 7px;
+        display: table-cell;
+        background-color: orange;
     }
     .fa-random, .fa-repeat {
         border: none;
@@ -77,8 +73,8 @@
     
     
     <div class="title_area">
-        <p id="audio_title"></p>
-        <div id="sliderArea" style="display:table;">
+        <p id="audio_title">Title by Author</p>
+        <div id="sliderArea" style="position: relative; display:table; margin: auto;">
             <span style="display:table-cell;" id="curtimetext">0:00</span> <input style="display:table-cell;" type="range" id="seekSlider" min="0" max="100" value="0" step="1"> <span style="display:table-cell;" id="durtimetext">0:00</span>
         </div>
     </div>
@@ -136,7 +132,6 @@
                 xhr.send();
 
                 recording.src = url;
-                
             });
         }
     }
