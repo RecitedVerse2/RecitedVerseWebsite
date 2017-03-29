@@ -62,7 +62,8 @@ if (typeof(Storage) !== "undefined") {
                 if(!arr.includes(s)) {
                     recitation.likes += 1;
                     likeLabel.innerHTML = recitation["likes"];
-                    currentUser["likes"].push(s);
+                    arr.push(s);
+                    currentUser["likes"] = arr;
 
                     // Save to firebase.
                     fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
@@ -71,7 +72,8 @@ if (typeof(Storage) !== "undefined") {
                 } else {
                     recitation.likes -= 1;
                     likeLabel.innerHTML = recitation["likes"];
-                    remove(currentUser["likes"], s);
+                    remove(arr, s);
+                    currentUser["likes"] = arr;
 
                     // Save to firebase.
                     fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
@@ -89,7 +91,8 @@ if (typeof(Storage) !== "undefined") {
                 if(!arr.includes(s)) {
                     recitation.favorites += 1;
                     favoriteLabel.innerHTML = recitation["favorites"];
-                    currentUser["favorites"].push(s);
+                    arr.push(s);
+                    currentUser["favorites"] = arr;
 
                     // Save to firebase.
                     fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
@@ -98,7 +101,8 @@ if (typeof(Storage) !== "undefined") {
                 } else {
                     recitation.favorites -= 1;
                     favoriteLabel.innerHTML = recitation["favorites"];
-                    remove(currentUser["favorites"], s);
+                    remove(arr, s);
+                    currentUser["favorites"] = arr;
 
                     // Save to firebase.
                     fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
