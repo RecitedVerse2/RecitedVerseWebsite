@@ -51,7 +51,7 @@ if (typeof(Storage) !== "undefined") {
 
 
             playBtn.onclick = function() {
-
+                
             };
 
             likeBtn.onclick = function() {

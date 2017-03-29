@@ -92,10 +92,27 @@
 
 
 <script>
+    /* Variables */
     var stepbackBtn = document.getElementById('stepBackBtn');
     var playBtn = document.getElementById('playBtn');
     var stepforwardBtn = document.getElementById('stepForwardBtn');
-
+    var title = document.getElementById('audio_title');
+    
+    var recitation;
+    var recording;
     
     
+    
+    
+    /* Methods */
+    
+    if (typeof(Storage) !== "undefined") {
+        recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
+    }
+    
+    
+    
+    function playRecitation() {
+        title.innerHTML = recitation.title + "<br>Recited By:" + recitation.recited_by;
+    };
 </script>
