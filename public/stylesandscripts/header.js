@@ -49,6 +49,8 @@ menuBtn.click(function() {
         $('.ep_content_container_expanded').removeClass('ep_content_container');
         $('.upload_area').addClass('upload_area_expanded');
         $('.upload_area_expanded').removeClass('upload_area');
+        $('.poem_area').addClass('poem_area_expanded');
+        $('.poem_area_expanded').removeClass('poem_area');
         
     } else {
         menu.addClass('rv_menu');
@@ -74,6 +76,8 @@ menuBtn.click(function() {
         $('.ep_content_container').removeClass('ep_content_container_expanded');
         $('.upload_area_expanded').addClass('upload_area');
         $('.upload_area').removeClass('upload_area_expanded');
+        $('.poem_area_expanded').addClass('poem_area');
+        $('.poem_area').removeClass('poem_area_expanded');
         
     }
 });

@@ -10,6 +10,17 @@ body {
     height: 300px;
     color: rgb(152, 152, 152);
     background-color: white;
+    transition: all 0.3s ease;
+}
+.poem_area_expanded {
+    position: relative;
+    left: 12%;
+    top: 50px;
+    width: 88%;
+    height: 300px;
+    color: rgb(152, 152, 152);
+    background-color: white;
+    transition: all 0.3s ease;
 }
 
 
@@ -34,6 +45,7 @@ body {
 }
 .vertical_numbers_section {
     position: relative;
+    top: -70px;
     width: 10%;
     height: 100%;
     text-align: right;
