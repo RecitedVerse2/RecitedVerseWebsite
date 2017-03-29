@@ -41,11 +41,31 @@ playBtn.onclick = function() {
 };
 
 likeBtn.onclick = function() {
-    recitation.likes += 1;
-    playLabel.innerHTML = recitation["plays"];
+    var s = recitation["title"] + " " + recitation["author"];
+    
+    if(!currentUser["likes"].includes(s)) {
+        recitation.likes += 1;
+        favoriteLabel.innerHTML = recitation["likes"];
+        currentUser["likes"].push(s);
+        
+        // Save to firebase.
+        fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+    } else {
+        return;
+    }
 };
 
 favoriteBtn.onclick = function() {
-    recitation.favorites += 1;
-    favoriteLabel.innerHTML = recitation["favorites"];
+    var s = recitation["title"] + " " + recitation["author"];
+    
+    if(!currentUser["favorites"].includes(s)) {
+        recitation.likes += 1;
+        favoriteLabel.innerHTML = recitation["favorites"];
+        currentUser["favorites"].push(s);
+        
+        // Save to firebase.
+        fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+    } else {
+        return;
+    }
 };

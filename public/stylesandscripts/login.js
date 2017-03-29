@@ -52,6 +52,8 @@ loginBtn.onclick = function() {
         var backgrounImg = snapshot.val()["backgroundImage"];
         var bio = snapshot.val()["bio"];
         var social = snapshot.val()["social_media_links"];
+        var likes = snapshot.val()["likes"];
+        var favorites = snapshot.val()["favorites"];
 
         if(em === email && pass == password) {
             currentUser = {
@@ -64,7 +66,9 @@ loginBtn.onclick = function() {
                 "followers" : 0,
                 "following" : 0,
                 "bio" : bio,
-                "social_media_links" : social
+                "social_media_links" : social,
+                "likes":likes,
+                "favorites":favorites
             };
             
             if (typeof(Storage) !== "undefined") {
