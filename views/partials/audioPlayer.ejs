@@ -112,6 +112,7 @@
     var durTimeText = document.getElementById("durtimetext");
     
     var recitation;
+    var seeking;
     var recording = new Audio();
     
     
@@ -148,9 +149,20 @@
         recording.play();
         
         // Add the listener to update the audio bar
+        seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
+        seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
+        seekSlider.addEventListener("mouseup", function() { seeking = false; } );
         recording.addEventListener("timeupdate", seekTimeUpdate );
     };
     
+    
+    function seek(event) {
+        if(seeking == true) {
+            seekSlider.value = event.clientX - seekSlider.offsetLeft;
+            var seekto = recording.duration * (seekSlider.value / 100);
+            recording.currentTime = seekto;
+        }
+    }
     
     function seekTimeUpdate() {
         var newTime = recording.currentTime * (100 / recording.duration);
