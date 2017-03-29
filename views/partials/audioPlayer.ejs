@@ -151,6 +151,7 @@
     };
     
     
+    /* For when the user wants to seek through the audio. */
     function seek(event) {
         if(seeking == true) {
             seekSlider.value = event.clientX - seekSlider.offsetLeft;
@@ -159,6 +160,8 @@
         }
     }
     
+    
+    /* Constantly going through the slider time. */
     function seekTimeUpdate() {
         var newTime = recording.currentTime * (100 / recording.duration);
         seekSlider.value = newTime;
@@ -173,7 +176,7 @@
         curTimeText.innerHTML = curmins+":"+cursecs;
         durTimeText.innerHTML = durmins+":"+dursecs;
         
-        // See if it is at the end.
+        // See if it is at the end, then increment the play count.
         if(recording.currentTime == recording.duration) {
             recitation.plays += 1;
             recording.currentTime = 0;
