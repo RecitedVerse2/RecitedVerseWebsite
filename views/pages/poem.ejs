@@ -23,16 +23,16 @@
             
                 <!-- The first vertical section (just holds the image). -->
                 <div class="vertical_image_section">
-                    <img id="poem_image" src="" alt="image" width="200" height="200 ">
+                    <img id="poem_image" src="" alt="image" width="200" height="200">
                 </div>
                 
                 
                 <!-- The second vertical section (holds the title, description, author, published, genre, and recited by)-->
                 <div class="vertical_info_section">
-                    <h4 id="titleAuthorArea">Title by Author</h4>
+                    <h4 id="titleAuthorArea"></h4>
                     <br>
-                    <p id="recBy_Pub_Gen">Recited By - Published - Genre</p>
-                    <p id="descr_area">Description</p>
+                    <p id="recBy_Pub_Gen"></p>
+                    <p id="descr_area"></p>
                     
                     <div class="description_buttons_section">
                         <button class="description_button fa fa-play" id="description_play_button"></button>
@@ -44,11 +44,17 @@
                 
                 <!-- The last vertical section (holds plays, likes, favorites)-->
                 <div class="vertical_numbers_section">
-                    12,345&nbsp;<p id="poem_play_label" class="fa fa-play"></p>
+                    <p id="poem_play_label">
+                        <span class="fa fa-play"></span>
+                    </p>&nbsp;
                     <br>
-                    78&nbsp;<p id="poem_like_label" class="fa fa-thumbs-up"></p>
+                    <p id="poem_like_label">
+                        <span class="fa fa-thumbs-up"></span>
+                    </p>&nbsp;
                     <br>
-                    59&nbsp;<p id="poem_favorite_label" class="fa fa-heart"></p>&nbsp;
+                    <p id="poem_favorite_label">
+                        <span class="fa fa-heart"></span>
+                    </p>&nbsp;
                 </div>
                 
             </div>

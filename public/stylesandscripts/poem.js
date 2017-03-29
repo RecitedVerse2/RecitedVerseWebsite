@@ -8,6 +8,7 @@ if (typeof(Storage) !== "undefined") {
     var imageView = document.getElementById('poem_image');
     var titleAuthorArea = document.getElementById('titleAuthorArea');
     var recitedByArea = document.getElementById('recBy_Pub_Gen');
+    var descriptionArea = document.getElementById('descr_area');
     
     var playBtn = document.getElementById('description_play_button');
     var likeBtn = document.getElementById('description_like_button');
@@ -23,7 +24,8 @@ if (typeof(Storage) !== "undefined") {
     /* SET VARIABLES */
     imageView.src = recitation.image;
     titleAuthorArea.value = recitation.title + " by " + recitation.author;
-    recitedByArea.value = "Recited by " + recitation.recited_by;
+    recitedByArea.value = "Recited by " + recitation.recited_by + ", Published: " + recitation.published + ", Genre: " + recitation.genre;
+    descriptionArea.value = recitation.description;
     
     playLabel.value = recitation.plays;
     likeLabel.value = recitation.likes;
