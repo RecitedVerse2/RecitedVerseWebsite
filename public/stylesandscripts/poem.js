@@ -24,7 +24,7 @@ if (typeof(Storage) !== "undefined") {
         var recObject = snapshot.val();
         recitation = recObject;
         console.log(recitation);
-    };
+    });
     
     
     /* SET VARIABLES */
