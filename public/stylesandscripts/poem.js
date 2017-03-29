@@ -18,10 +18,13 @@ var recitation;
 
 if (typeof(Storage) !== "undefined") {
     currentUser = JSON.parse(window.localStorage.getItem("current_user"));
-    
     recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
-    console.log(recitation);
-    console.log(recitation["author"]);
+    
+    fireRef.child('Recitations').child(currentUser["userID"]).child(recitation["title"]).on('value', function(snapshot) {
+        var recObject = snapshot.val();
+        recitation = recObject;
+        console.log(recitation);
+    };
     
     
     /* SET VARIABLES */
