@@ -1,6 +1,8 @@
 if (typeof(Storage) !== "undefined") {
+    currentUser = JSON.parse(window.localStorage.getItem("current_user"));
+    
     var recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
-    console.log(recitation);
+    console.log("RECITATION:"+recitation);
     
     
     /* GET VARIABLES */
