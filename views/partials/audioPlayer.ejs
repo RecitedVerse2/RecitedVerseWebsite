@@ -83,8 +83,8 @@
     
     
     <div class="right_buttons">
-        <button class="fa fa-random"></button>
-        <button class="fa fa-repeat"></button>
+        <button class="fa fa-random" id="shuffle_audio_btn"></button>
+        <button class="fa fa-repeat" id="loop_audio_btn"></button>
     </div>
 </div>
 
@@ -96,10 +96,12 @@
     var stepbackBtn = document.getElementById('stepBackBtn');
     var playBtn = document.getElementById('playBtn');
     var stepforwardBtn = document.getElementById('stepForwardBtn');
+    var shuffleBtn = document.getElementById('shuffle_audio_btn');
+    var loopBtn = document.getElementById('loop_audio_btn');
     var title = document.getElementById('audio_title');
     
     var recitation;
-    var recording;
+    var recording = new Audio();
     
     
     
@@ -116,7 +118,7 @@
         // Set the title area
         title.innerHTML = "<b>" + recitation.title + "</b>, Recited By: " + recitation.recited_by;
         
-        // Load the recording
+        // Load and play the recording
         storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
             // This can be downloaded directly:
             var xhr = new XMLHttpRequest();
@@ -132,4 +134,12 @@
         });
         
     };
+    
+    
+    
+    /* Button clicks */
+    loopBtn.onclick = function() {
+        if(recording != null) { recording.loop = true; }
+    };
+    
 </script>
