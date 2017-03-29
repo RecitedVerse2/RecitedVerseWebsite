@@ -114,6 +114,7 @@
     /* Methods */
     
     if (typeof(Storage) !== "undefined") {
+        currentUser = JSON.parse(window.localStorage.getItem("current_user"));
         recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
         
         // Load the recording
