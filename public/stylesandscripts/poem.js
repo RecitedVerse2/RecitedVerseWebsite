@@ -33,39 +33,44 @@ if (typeof(Storage) !== "undefined") {
     playLabel.innerHTML = recitation["plays"];
     likeLabel.innerHTML = recitation["likes"];
     favoriteLabel.innerHTML = recitation["favorites"];
-};
-
-
-playBtn.onclick = function() {
     
-};
-
-likeBtn.onclick = function() {
-    var s = recitation["title"] + " " + recitation["author"];
     
-    if(!currentUser["likes"].includes(s)) {
-        recitation.likes += 1;
-        favoriteLabel.innerHTML = recitation["likes"];
-        currentUser["likes"].push(s);
-        
-        // Save to firebase.
-        fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
-    } else {
-        return;
-    }
-};
-
-favoriteBtn.onclick = function() {
-    var s = recitation["title"] + " " + recitation["author"];
     
-    if(!currentUser["favorites"].includes(s)) {
-        recitation.likes += 1;
-        favoriteLabel.innerHTML = recitation["favorites"];
-        currentUser["favorites"].push(s);
-        
-        // Save to firebase.
-        fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
-    } else {
-        return;
-    }
+    
+    
+    playBtn.onclick = function() {
+
+    };
+
+    likeBtn.onclick = function() {
+        var s = recitation["title"] + " " + recitation["author"];
+        var arr = currentUser["likes"];
+
+        if(!arr.includes(s)) {
+            recitation.likes += 1;
+            favoriteLabel.innerHTML = recitation["likes"];
+            currentUser["likes"].push(s);
+
+            // Save to firebase.
+            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+        } else {
+            return;
+        }
+    };
+
+    favoriteBtn.onclick = function() {
+        var s = recitation["title"] + " " + recitation["author"];
+        var arr = currentUser["favorites"];
+
+        if(!arr.includes(s)) {
+            recitation.likes += 1;
+            favoriteLabel.innerHTML = recitation["favorites"];
+            currentUser["favorites"].push(s);
+
+            // Save to firebase.
+            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+        } else {
+            return;
+        }
+    };
 };
