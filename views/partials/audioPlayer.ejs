@@ -35,6 +35,7 @@
         left: 17%;
         width: 70%;
         height: 55px;
+        text-align: center;
     }
     .sliderArea {
         position: relative;
@@ -120,31 +121,26 @@
     
     
     /* Methods */
-    
-    if (typeof(Storage) !== "undefined") {
-        currentUser = JSON.parse(window.localStorage.getItem("current_user"));
-        recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
-        
-        // Load the recording
-        storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
-            // This can be downloaded directly:
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = function(event) {
-                var blob = xhr.response;
-            };
-            xhr.open('GET', url);
-            xhr.send();
+    function initPlayer() {
+        if (typeof(Storage) !== "undefined") {
+            currentUser = JSON.parse(window.localStorage.getItem("current_user"));
+            recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
 
-            recording.src = url;
-            // Add the listener to update the audio bar
-            seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
-            seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
-            seekSlider.addEventListener("mouseup", function() { seeking = false; } );
-            recording.addEventListener("timeupdate", seekTimeUpdate );
-        });
+            // Load the recording
+            storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
+                // This can be downloaded directly:
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = 'blob';
+                xhr.onload = function(event) {
+                    var blob = xhr.response;
+                };
+                xhr.open('GET', url);
+                xhr.send();
+
+                recording.src = url;
+            });
+        }
     }
-    
     
     
     function audioPlayer_playRecitation() {
@@ -153,6 +149,12 @@
         
         // Play the audio
         recording.play();
+        
+        // Add the listener to update the audio bar
+        seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
+        seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
+        seekSlider.addEventListener("mouseup", function() { seeking = false; } );
+        recording.addEventListener("timeupdate", seekTimeUpdate );
     };
     
     
@@ -192,4 +194,6 @@
         }
     };
     
+    
+    window.addEventListener("load", initPlayer);
 </script>
