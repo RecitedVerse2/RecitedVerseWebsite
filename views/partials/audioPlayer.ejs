@@ -136,7 +136,7 @@
                 xhr.send();
 
                 recording.src = url;
-                recording.addEventListener("timeupdate", seekTimeUpdate );
+                
             });
         }
     }
@@ -149,10 +149,16 @@
         // Play the audio
         recording.play();
         
+        
+        var durmins = Math.floor(recording.duration / 60);
+        var dursecs = Math.floor(recording.duration - durmins * 60);
+        durTimeText.innerHTML = durmins+":"+dursecs;
+        
         // Add the listener to update the audio bar
         seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
         seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
         seekSlider.addEventListener("mouseup", function() { seeking = false; } );
+        recording.addEventListener("timeupdate", seekTimeUpdate );
     };
     
     
@@ -169,14 +175,11 @@
         seekSlider.value = newTime;
         var curmins = Math.floor(recording.currentTime / 60);
         var cursecs = Math.floor(recording.currentTime - curmins * 60);
-        var durmins = Math.floor(recording.duration / 60);
-        var dursecs = Math.floor(recording.duration - durmins * 60);
         if(cursecs < 10) { cursecs = "0"+cursecs; }
         if(dursecs < 10) { dursecs = "0"+dursecs; }
         if(curmins < 10) { curmins = "0"+curmins; }
         if(durmins < 10) { durmins = "0"+durmins; }
         curTimeText.innerHTML = curmins+":"+cursecs;
-        durTimeText.innerHTML = durmins+":"+dursecs;
     }
     
     
