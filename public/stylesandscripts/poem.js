@@ -37,6 +37,19 @@ if (typeof(Storage) !== "undefined") {
     
     
     
+    /* FUNCTIONS */
+    
+    function remove(arr) {
+        var what, a = arguments, L = a.length, ax;
+        while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax= arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+            }
+        }
+        return arr;
+    }
+
     
     playBtn.onclick = function() {
 
@@ -54,6 +67,12 @@ if (typeof(Storage) !== "undefined") {
             // Save to firebase.
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
         } else {
+            recitation.favorites -= 1;
+            favoriteLabel.innerHTML = recitation["likes"];
+            remove(currentUser["likes"], s);
+            
+            // Save to firebase.
+            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
             return;
         }
     };
@@ -62,14 +81,22 @@ if (typeof(Storage) !== "undefined") {
         var s = recitation["title"] + " " + recitation["author"];
         var arr = currentUser["favorites"];
 
+        // If it's already there, remove it. If not, add it.
         if(!arr.includes(s)) {
-            recitation.likes += 1;
+            recitation.favorites += 1;
             favoriteLabel.innerHTML = recitation["favorites"];
             currentUser["favorites"].push(s);
 
             // Save to firebase.
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+            return;
         } else {
+            recitation.favorites -= 1;
+            favoriteLabel.innerHTML = recitation["favorites"];
+            remove(currentUser["favorites"], s);
+            
+            // Save to firebase.
+            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
             return;
         }
     };
