@@ -175,8 +175,8 @@
         
         // See if it is at the end.
         if(recording.currentTime == recording.duration) {
+            recording.currentTime = 0;
             recitation.plays += 1;
-            recitation.plays -= 1;
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
             return;
         }
