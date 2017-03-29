@@ -172,6 +172,12 @@
         if(durmins < 10) { durmins = "0"+durmins; }
         curTimeText.innerHTML = curmins+":"+cursecs;
         durTimeText.innerHTML = durmins+":"+dursecs;
+        
+        // See if it is at the end.
+        if(recording.currentTime == recording.duration) {
+            recitation.plays += 1;
+            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+        }
     }
     
     
