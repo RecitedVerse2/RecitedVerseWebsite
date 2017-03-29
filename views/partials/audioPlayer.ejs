@@ -40,6 +40,7 @@
         position: relative;
         left: 25%;
         width: 50%;
+        text-align: center;
     }
     
     
@@ -136,6 +137,11 @@
             xhr.send();
 
             recording.src = url;
+            // Add the listener to update the audio bar
+            seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
+            seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
+            seekSlider.addEventListener("mouseup", function() { seeking = false; } );
+            recording.addEventListener("timeupdate", seekTimeUpdate );
         });
     }
     
@@ -144,16 +150,9 @@
     function audioPlayer_playRecitation() {
         // Set the title area
         title.innerHTML = "<b>" + recitation.title + "</b>, Recited By: " + recitation.recited_by;
-        durTimeText.innerHTML = recording.duration;
         
         // Play the audio
         recording.play();
-        
-        // Add the listener to update the audio bar
-        seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
-        seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
-        seekSlider.addEventListener("mouseup", function() { seeking = false; } );
-        recording.addEventListener("timeupdate", seekTimeUpdate );
     };
     
     
