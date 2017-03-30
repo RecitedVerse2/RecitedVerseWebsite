@@ -34,6 +34,8 @@ if (typeof(Storage) !== "undefined") {
             likeLabel.innerHTML = recitation["likes"];
             favoriteLabel.innerHTML = recitation["favorites"];
 
+            // Set the title of the page.
+            document.head.title = "Recited Verse - " + recitation.title;
 
 
 
