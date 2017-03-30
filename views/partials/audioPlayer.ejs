@@ -134,6 +134,12 @@
                 xhr.send();
 
                 recording.src = url;
+                
+                // Add the listener to update the audio bar
+                seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
+                seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
+                seekSlider.addEventListener("mouseup", function() { seeking = false; } );
+                recording.addEventListener("timeupdate", seekTimeUpdate );
             });
         }
     }
@@ -143,23 +149,8 @@
         // Set the title area
         title.innerHTML = "<b style='font-size:15px;'>" + recitation.title + "</b>";
         
-        
-        var durmins = Math.floor(recording.duration / 60);
-        var dursecs = Math.floor(recording.duration - durmins * 60);
-        if(durmins < 10) { durmins = "0"+durmins; }
-        if(dursecs < 10) { dursecs = "0"+dursecs; }
-        durTimeText.innerHTML = durmins+":"+dursecs;
-        console.log(durmins);
-        console.log(dursecs);
-        
         // Play the audio
         recording.play();
-        
-        // Add the listener to update the audio bar
-        seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
-        seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
-        seekSlider.addEventListener("mouseup", function() { seeking = false; } );
-        recording.addEventListener("timeupdate", seekTimeUpdate );
     };
     
     
@@ -179,9 +170,16 @@
         seekSlider.value = newTime;
         var curmins = Math.floor(recording.currentTime / 60);
         var cursecs = Math.floor(recording.currentTime - curmins * 60);
+        var durmins = Math.floor(recording.duration / 60);
+        var dursecs = Math.floor(recording.duration - durmins * 60);
         if(cursecs < 10) { cursecs = "0"+cursecs; }
+        if(dursecs < 10) { dursecs = "0"+dursecs; }
         if(curmins < 10) { curmins = "0"+curmins; }
+        if(durmins < 10) { durmins = "0"+durmins; }
         curTimeText.innerHTML = curmins+":"+cursecs;
+        durTimeText.innerHTML = durmins+":"+dursecs;
+        console.log(durmins);
+        console.log(dursecs);
         
         // See if it is at the end, then increment the play count.
         if(recording.currentTime == recording.duration) {
