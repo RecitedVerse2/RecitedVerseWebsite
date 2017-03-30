@@ -127,19 +127,12 @@
                 // This can be downloaded directly:
                 var xhr = new XMLHttpRequest();
                 xhr.responseType = 'blob';
-                xhr.onload = function(event) {
-                    var blob = xhr.response;
-                };
+                xhr.onload = function(event) { var blob = xhr.response; };
                 xhr.open('GET', url);
                 xhr.send();
-
                 recording.src = url;
-                
-                // Add the listener to update the audio bar
-                seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
-                seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
-                seekSlider.addEventListener("mouseup", function() { seeking = false; } );
-                recording.addEventListener("timeupdate", seekTimeUpdate );
+                console.log("DURATION:");
+                console.log(recording.duration);
             });
         }
     }
@@ -151,7 +144,24 @@
         
         // Play the audio
         recording.play();
+        
+        // Add the listener to update the audio bar
+        seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
+        seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
+        seekSlider.addEventListener("mouseup", function() { seeking = false; } );
+        recording.addEventListener("timeupdate", seekTimeUpdate );
     };
+    
+    
+    function updatePlayCount() {
+        // See if it is at the end, then increment the play count.
+        if(recording.currentTime == recording.duration) {
+            recitation.plays += 1;
+            recording.currentTime = 0;
+            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+            return;
+        }
+    }
     
     
     /* For when the user wants to seek through the audio. */
@@ -173,21 +183,13 @@
         var durmins = Math.floor(recording.duration / 60);
         var dursecs = Math.floor(recording.duration - durmins * 60);
         if(cursecs < 10) { cursecs = "0"+cursecs; }
-        if(dursecs < 10) { dursecs = "0"+dursecs; }
         if(curmins < 10) { curmins = "0"+curmins; }
+        if(dursecs < 10) { dursecs = "0"+dursecs; }
         if(durmins < 10) { durmins = "0"+durmins; }
         curTimeText.innerHTML = curmins+":"+cursecs;
         durTimeText.innerHTML = durmins+":"+dursecs;
         console.log(durmins);
         console.log(dursecs);
-        
-        // See if it is at the end, then increment the play count.
-        if(recording.currentTime == recording.duration) {
-            recitation.plays += 1;
-            recording.currentTime = 0;
-            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
-            return;
-        }
     }
     
     

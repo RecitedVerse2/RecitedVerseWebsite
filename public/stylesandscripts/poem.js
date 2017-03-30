@@ -112,11 +112,14 @@ if (typeof(Storage) !== "undefined") {
                     return;
                 }
             };
-        });
-    });
+        
+        }); // End of loading recitation.
+        
+    }); // End of loading user.
+    
+    
+    window.addEventListener('timeupdate', updatePlayCount);
 };
-
-
 
 
 function loadCurrentUser(callback) {
