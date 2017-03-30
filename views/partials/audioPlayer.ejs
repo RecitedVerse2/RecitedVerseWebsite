@@ -132,6 +132,7 @@
                 xhr.send();
                 recording.src = url;
                 recording.loop = false;
+                recording.play();
                 console.log(recording);
             });
         }
@@ -145,14 +146,14 @@
         // Play the audio
         recording.play();
 
-//        console.log("DURATION:");
-//        console.log(recording.duration);
+        console.log("DURATION:");
+        console.log(recording.duration);
         
         // Add the listener to update the audio bar
         seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
         seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
         seekSlider.addEventListener("mouseup", function() { seeking = false; } );
-        //recording.addEventListener("timeupdate", seekTimeUpdate );
+        recording.addEventListener("timeupdate", seekTimeUpdate );
     };
     
     
