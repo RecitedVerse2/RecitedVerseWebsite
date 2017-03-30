@@ -146,8 +146,8 @@
         
         var durmins = Math.floor(recording.duration / 60);
         var dursecs = Math.floor(recording.duration - durmins * 60);
-        if(curmins < 10) { curmins = "0"+curmins; }
         if(durmins < 10) { durmins = "0"+durmins; }
+        if(dursecs < 10) { dursecs = "0"+dursecs; }
         durTimeText.innerHTML = durmins+":"+dursecs;
         console.log(durmins);
         console.log(dursecs);
@@ -180,7 +180,7 @@
         var curmins = Math.floor(recording.currentTime / 60);
         var cursecs = Math.floor(recording.currentTime - curmins * 60);
         if(cursecs < 10) { cursecs = "0"+cursecs; }
-        if(dursecs < 10) { dursecs = "0"+dursecs; }
+        if(curmins < 10) { curmins = "0"+curmins; }
         curTimeText.innerHTML = curmins+":"+cursecs;
         
         // See if it is at the end, then increment the play count.
