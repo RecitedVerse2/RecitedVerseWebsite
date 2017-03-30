@@ -178,6 +178,8 @@
         if(durmins < 10) { durmins = "0"+durmins; }
         curTimeText.innerHTML = curmins+":"+cursecs;
         durTimeText.innerHTML = durmins+":"+dursecs;
+        console.log(durmins);
+        console.log(dursecs);
         
         // See if it is at the end, then increment the play count.
         if(recording.currentTime == recording.duration) {
