@@ -131,9 +131,7 @@
                 xhr.open('GET', url);
                 xhr.send();
                 recording.src = url;
-                recording.play();
-                console.log("DURATION:");
-                console.log(recording.duration);
+                recording.loop = false;
             });
         }
     }
@@ -145,6 +143,9 @@
         
         // Play the audio
         recording.play();
+
+        console.log("DURATION:");
+        console.log(recording.duration);
         
         // Add the listener to update the audio bar
         seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
