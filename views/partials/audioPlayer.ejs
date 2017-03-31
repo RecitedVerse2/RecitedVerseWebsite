@@ -132,7 +132,6 @@
                 xhr.send();
                 recording.src = url;
                 recording.loop = false;
-                console.log(recording.src);
             });
         }
     }
@@ -144,9 +143,6 @@
         
         // Play the audio
         recording.play();
-
-        console.log("DURATION:");
-        console.log(recording.duration);
         
         // Add the listener to update the audio bar
         seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
@@ -158,9 +154,8 @@
     
     function updatePlayCount() {
         // See if it is at the end, then increment the play count.
-        if(recording.currentTime == recording.duration) {
+        if(recording.ended == true) {
             recitation.plays += 1;
-            console.log("Updated play count.");
             recording.currentTime = 0;
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
             return;
