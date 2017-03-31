@@ -196,10 +196,10 @@
     }
     
     
+    
     /******************
     *      OTHER      *
     *******************/
-    
     
     /** Updates the play count in firebase everytime the audio has reached the end. */
     function updatePlayCount() {
@@ -256,6 +256,19 @@
         }
     });
     
+    stepbackBtn.onclick = function() {
+        if(recording != undefined && recording != null) {
+            recording.currentTime = 0;
+            recording.pause();
+        }
+    };
+    
+    stepforwardBtn.onclick = function() {
+        if(recording != undefined && recording != null) {
+            recording.currentTime = recording.duration;
+            recording.pause();
+        }
+    };
     
     window.addEventListener("load", initPlayer);
 </script>
