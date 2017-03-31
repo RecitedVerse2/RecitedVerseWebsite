@@ -130,23 +130,21 @@
                 // Check if the XMLHttpRequest object has a "withCredentials" property.
                 // "withCredentials" only exists on XMLHTTPRequest2 objects.
                 if ("withCredentials" in xhr) {
-                    xhr.open(method, url, true);
+                    xhr.open('GET', url, true);
                 } else if (typeof XDomainRequest != "undefined") {
                     // Otherwise, check if XDomainRequest.
                     // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
                     xhr = new XDomainRequest();
-                    xhr.open(method, url);
+                    xhr.open('GET', url);
                 } else {
                     // Otherwise, CORS is not supported by the browser.
                     xhr = null;
+                    throw new Error('CORS not supported'); 
                 }
-                if (!xhr) { throw new Error('CORS not supported'); }
                 
                 
-                xhr.onload = function() {
-                    var responseText = xhr.responseText;
-                    console.log(responseText);
-                    // process the response.
+                xhr.onload = function(event) {
+                    var blob = xhr.respone;
                 };
 
                 xhr.onerror = function() {
