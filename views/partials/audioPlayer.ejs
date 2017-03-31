@@ -146,6 +146,7 @@
                 xhr.onload = function(event) {
                     var blob = xhr.respone;
                     recording.src = url;
+                    recording.loop = false;
                 };
 
                 xhr.onerror = function() {
