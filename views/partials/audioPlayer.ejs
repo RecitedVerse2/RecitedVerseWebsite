@@ -127,13 +127,39 @@
             storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
                 // This can be downloaded directly:
                 var xhr = new XMLHttpRequest();
-                xhr.responseType = 'blob';
-                xhr.onload = function(event) { var blob = xhr.response; };
-                xhr.open('GET', url);
-                xhr.send();
-                recording.src = url;
-                recording.loop = false;
-                recording.addEventListener("loadeddata", function() { console.log(recording.duration); } );
+                // Check if the XMLHttpRequest object has a "withCredentials" property.
+                // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, true);
+                } else if (typeof XDomainRequest != "undefined") {
+                    // Otherwise, check if XDomainRequest.
+                    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+                    xhr = new XDomainRequest();
+                    xhr.open(method, url);
+                } else {
+                    // Otherwise, CORS is not supported by the browser.
+                    xhr = null;
+                }
+                if (!xhr) { throw new Error('CORS not supported'); }
+                
+                
+                xhr.onload = function() {
+                    var responseText = xhr.responseText;
+                    console.log(responseText);
+                    // process the response.
+                };
+
+                xhr.onerror = function() {
+                    console.log('There was an error!');
+                };
+                
+                
+//                xhr.responseType = 'blob';
+//                xhr.onload = function(event) { var blob = xhr.response; };
+//                xhr.open('GET', url);
+//                xhr.send();
+//                recording.src = url;
+//                recording.loop = false;
             });
         }
     }
