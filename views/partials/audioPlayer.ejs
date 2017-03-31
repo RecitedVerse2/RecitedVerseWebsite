@@ -246,7 +246,9 @@
     playPauseBtn.click(function() {
         if(recording != undefined && recording != null) {
             if(playPauseBtn.hasClass("fa-pause")) {
-                recording.paused = true;
+                recording.pause();
+                playPauseBtn.addClass('fa-play');
+                playPauseBtn.removeClass('fa-pause');
             } else {
                 audioPlayer_playRecitation();
             }
