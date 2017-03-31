@@ -177,9 +177,8 @@
     
     /** Updates the icon on the audio player button when the audio should be played or paused. */
     function changeButtonIcon() {
-        console.log("Working");
         if(recording != undefined && recording != null) {
-            if(recording.ended == false) {
+            if(recording.ended == false || recording.currentTime == 0) {
                 playPauseBtn.addClass('fa-pause');
                 playPauseBtn.removeClass('fa-play');
             } else {
