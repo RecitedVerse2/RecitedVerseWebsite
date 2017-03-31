@@ -177,10 +177,12 @@
             playPauseBtn.addClass("fa-pause");
             playPauseBtn.removeClass("fa-play");
             recording.play();
+            return;
         } else {
             playPauseBtn.addClass("fa-play");
             playPauseBtn.removeClass("fa-pause");
             recording.pause();
+            return;
         }
     }
     
