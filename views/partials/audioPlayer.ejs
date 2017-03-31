@@ -126,8 +126,8 @@
             // Load the recording
             storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
                 var xhr = createCORSRequest('GET', url);
-                xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
                 xhr.send();
+                xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
                     
                 xhr.onload = function() {
                     var responseText = xhr.responseText;
