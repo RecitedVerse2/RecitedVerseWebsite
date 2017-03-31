@@ -172,21 +172,6 @@
         }
     }
     
-    function updateButtons() {
-        if(recording.ended == false) {
-            playPauseBtn.addClass("fa-pause");
-            playPauseBtn.removeClass("fa-play");
-            recording.play();
-            return;
-        } else {
-            playPauseBtn.addClass("fa-play");
-            playPauseBtn.removeClass("fa-pause");
-            recording.pause();
-            return;
-        }
-    }
-    
-    
     /* For when the user wants to seek through the audio. */
     function seek(event) {
         if(seeking == true) {
@@ -213,7 +198,6 @@
         durTimeText.innerHTML = durmins+":"+dursecs;
         
         updatePlayCount();
-        updateButtons();
     }
     
     
