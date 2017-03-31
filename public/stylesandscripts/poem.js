@@ -4,9 +4,6 @@ var titleAuthorArea = document.getElementById('title_author_area');
 var recitedByArea = document.getElementById('recBy_Pub_Gen');
 var descriptionArea = document.getElementById('descr_area');
 var transcriptViewer = $('#transcript_viewing_area');
-var paraObj = "<p id='transcript'></p>";
-transcriptViewer.append(paraObj);
-var transcriptParagraph = document.getElementById('transcript');
 
 var playBtn = document.getElementById('description_play_button');
 var likeBtn = document.getElementById('description_like_button');
@@ -119,6 +116,10 @@ if (typeof(Storage) !== "undefined") {
             };
         
             viewTranscriptBtn.onclick = function() {
+                var paraObj = "<p id='transcript'></p>";
+                transcriptViewer.append(paraObj);
+                
+                var transcriptParagraph = document.getElementById('transcript');
                 transcriptParagraph.innerHTML = recitation["text"];
                 
                 if(transcriptViewer.css('visibility') == "visible") {
