@@ -145,6 +145,7 @@
         title.innerHTML = "<b style='font-size:15px;'>" + recitation.title + "</b>";
         
         // Play the audio
+        recording.currentTime = 0;
         recording.muted = false;
         recording.play();
 
