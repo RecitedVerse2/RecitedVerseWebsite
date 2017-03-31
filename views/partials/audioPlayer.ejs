@@ -245,10 +245,10 @@
     playPauseBtn.click(function() {
         if(recording != undefined && recording != null) {
             if(recording.ended == false || recording.currentTime != 0) {
-                recording.pause();
+                recording.paused = true;
             }
             if(recording.ended == true || recording.currentTime == 0 || recording.paused == true) {
-                recording.play();
+                audioPlayer_playRecitation();
             }
         }
     });
