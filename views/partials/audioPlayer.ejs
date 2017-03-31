@@ -100,7 +100,7 @@
 <script>
     /* Variables */
     var stepbackBtn = document.getElementById('stepBackBtn');
-    var playPauseBtn = $('#playBtn');
+    var playPauseBtn = document.getElementById('playBtn');
     var stepforwardBtn = document.getElementById('stepForwardBtn');
     var shuffleBtn = document.getElementById('shuffle_audio_btn');
     var loopBtn = document.getElementById('loop_audio_btn');
@@ -147,6 +147,10 @@
     }
  
     
+    /*********************
+    *    AUDIO SEEKING   *
+    **********************/
+    
     function audioPlayer_playRecitation() {
         // Set the title area
         title.innerHTML = "<b style='font-size:15px;'>" + recitation.title + "</b>";
@@ -159,38 +163,8 @@
         seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
         seekSlider.addEventListener("mouseup", function() { seeking = false; } );
         recording.addEventListener("timeupdate", seekTimeUpdate );
-        //playPauseBtn.addEventListener("timeupdate", changeButtonIcon );
         recording.addEventListener("timeupdate", changeButtonIcon );
     };
-    
-    
-    /** Updates the play count in firebase everytime the audio has reached the end. */
-    function updatePlayCount() {
-        // See if it is at the end, then increment the play count.
-        if(recording.ended == true) {
-            recitation.plays += 1;
-            recording.currentTime = 0;
-            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
-            return;
-        }
-    }
-    
-    /** Updates the icon on the audio player button when the audio should be played or paused. */
-    function changeButtonIcon() {
-        if(recording != undefined && recording != null) {
-            if(recording.ended == false || recording.currentTime != 0) {
-                playPauseBtn.addClass('fa-pause');
-                playPauseBtn.removeClass('fa-play');
-            }
-            if(recording.ended == true || recording.currentTime == 0) {
-                playPauseBtn.addClass('fa-play');
-                playPauseBtn.removeClass('fa-pause');
-            }
-        } else {
-            playPauseBtn.addClass('fa-play');
-            playPauseBtn.removeClass('fa-pause');
-        }
-    }
     
     
     /* For when the user wants to seek through the audio. */
@@ -222,6 +196,40 @@
     }
     
     
+    /******************
+    *      OTHER      *
+    *******************/
+    
+    
+    /** Updates the play count in firebase everytime the audio has reached the end. */
+    function updatePlayCount() {
+        // See if it is at the end, then increment the play count.
+        if(recording.ended == true) {
+            recitation.plays += 1;
+            recording.currentTime = 0;
+            fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
+            return;
+        }
+    }
+    
+    /** Updates the icon on the audio player button when the audio should be played or paused. */
+    function changeButtonIcon() {
+        if(recording != undefined && recording != null) {
+            if(recording.ended == false || recording.currentTime != 0 || recording.paused == false) {
+                playPauseBtn.addClass('fa-pause');
+                playPauseBtn.removeClass('fa-play');
+            }
+            if(recording.ended == true || recording.currentTime == 0 || recording.paused == true) {
+                playPauseBtn.addClass('fa-play');
+                playPauseBtn.removeClass('fa-pause');
+            }
+        } else {
+            playPauseBtn.addClass('fa-play');
+            playPauseBtn.removeClass('fa-pause');
+        }
+    }
+    
+    
     
     
     
@@ -231,6 +239,15 @@
         if(recording != null) { 
             recording.loop = !recording.loop;
             if(recording.loop == true) { loopBtn.style.color = "red"; } else { loopBtn.style.color = "white"; }
+        }
+    };
+    
+    playPauseBtn.onclick = function() {
+        if(recording.ended == false || recording.currentTime != 0 || recording.paused == false) {
+            recording.pause();
+        }
+        if(recording.ended == true || recording.currentTime == 0 || recording.paused == true) {
+            recording.play();
         }
     };
     
