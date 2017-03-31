@@ -167,6 +167,8 @@
         if(recording.ended == true) {
             recitation.plays += 1;
             recording.currentTime = 0;
+            playPauseBtn.addClass("fa-play");
+            playPauseBtn.removeClass("fa-pause");
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
             return;
         }
@@ -177,20 +179,12 @@
         if(recording.ended == false) {
             playPauseBtn.addClass("fa-pause");
             playPauseBtn.removeClass("fa-play");
-            playPauseBtn.attr("onclick","playPause(false);");
+            recording.pause();
         } else {
             // Play
             playPauseBtn.addClass("fa-play");
             playPauseBtn.removeClass("fa-pause");
-            playPauseBtn.attr("onclick","playPause(true);");
-        }
-    }
-    
-    function playPause(val) {
-        if(val == true) {
             recording.play();
-        } else {
-            recording.pause();
         }
     }
     
