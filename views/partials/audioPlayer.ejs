@@ -132,8 +132,7 @@
                 xhr.send();
                 recording.src = url;
                 recording.loop = false;
-                recording.muted = true;
-                recording.play();
+                console.log(recording.src);
             });
         }
     }
@@ -144,8 +143,6 @@
         title.innerHTML = "<b style='font-size:15px;'>" + recitation.title + "</b>";
         
         // Play the audio
-        recording.currentTime = 0;
-        recording.muted = false;
         recording.play();
 
         console.log("DURATION:");
