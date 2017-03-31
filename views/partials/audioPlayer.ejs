@@ -77,9 +77,7 @@
     <div class="title_area">
         <p id="audio_title"></p>
         <div id="sliderArea" style="position: relative; display:table; margin: auto;">
-            <audio id="rv_loaded_audio" preload="none" controls>
-                <source src="/path/to/the/source" type="audio/mp3" codecs="mp3"/>
-            </audio>
+            <audio id="rv_loaded_audio" preload="none"> <source src="" type="audio/mp3" codecs="mp3"/> </audio>
             <span style="display:table-cell;" id="curtimetext">0:00</span>&nbsp;&nbsp;&nbsp;<input style="width: 300px; display:table-cell;" type="range" id="seekSlider" min="0" max="100" value="0" step="1">&nbsp;&nbsp;&nbsp;<span style="display:table-cell;" id="durtimetext">0:00</span>
         </div>
     </div>
@@ -148,10 +146,11 @@
         recording.play();
         
         // Add the listener to update the audio bar
+        recording.addEventListener("loadeddata", seekTimeUpdate );
         seekSlider.addEventListener("mousedown", function(event) { seeking = true; seek(event); } );
         seekSlider.addEventListener("mousemove", function(event) { seek(event); } );
         seekSlider.addEventListener("mouseup", function() { seeking = false; } );
-        recording.addEventListener("timeupdate", seekTimeUpdate );
+        //recording.addEventListener("timeupdate", seekTimeUpdate );
     };
     
     
