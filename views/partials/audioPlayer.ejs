@@ -100,7 +100,7 @@
 <script>
     /* Variables */
     var stepbackBtn = document.getElementById('stepBackBtn');
-    var playBtn = document.getElementById('playBtn');
+    var playPauseBtn = document.getElementById('playBtn');
     var stepforwardBtn = document.getElementById('stepForwardBtn');
     var shuffleBtn = document.getElementById('shuffle_audio_btn');
     var loopBtn = document.getElementById('loop_audio_btn');
@@ -172,6 +172,24 @@
         }
     }
     
+    function updateButtons() {
+        // Pause
+        if(recording.ended == false) {
+            playPauseBtn.setAttribute("onclick","playPause(false);");
+        } else {
+            // Play
+            playPauseBtn.setAttribute("onclick","playPause(true);");
+        }
+    }
+    
+    function playPause(val) {
+        if(val == true) {
+            recording.play();
+        } else {
+            recording.pause();
+        }
+    }
+    
     
     /* For when the user wants to seek through the audio. */
     function seek(event) {
@@ -199,6 +217,7 @@
         durTimeText.innerHTML = durmins+":"+dursecs;
         
         updatePlayCount();
+        updateButtons();
     }
     
     
