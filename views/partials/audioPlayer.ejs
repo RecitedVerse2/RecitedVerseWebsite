@@ -100,7 +100,7 @@
 <script>
     /* Variables */
     var stepbackBtn = document.getElementById('stepBackBtn');
-    var playPauseBtn = document.getElementById('playBtn');
+    var playPauseBtn = $('#playBtn');
     var stepforwardBtn = document.getElementById('stepForwardBtn');
     var shuffleBtn = document.getElementById('shuffle_audio_btn');
     var loopBtn = document.getElementById('loop_audio_btn');
@@ -175,9 +175,13 @@
     function updateButtons() {
         // Pause
         if(recording.ended == false) {
+            playPauseBtn.addClass("fa-pause");
+            playPauseBtn.removeClass("fa-play");
             playPauseBtn.setAttribute("onclick","playPause(false);");
         } else {
             // Play
+            playPauseBtn.addClass("fa-play");
+            playPauseBtn.removeClass("fa-pause");
             playPauseBtn.setAttribute("onclick","playPause(true);");
         }
     }
