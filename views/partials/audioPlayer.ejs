@@ -177,6 +177,7 @@
     
     /** Updates the icon on the audio player button when the audio should be played or paused. */
     function changeButtonIcon() {
+        console.log("Working");
         if(recording != undefined && recording != null) {
             if(recording.ended == false) {
                 playPauseBtn.addClass('fa-pause');
@@ -185,6 +186,9 @@
                 playPauseBtn.addClass('fa-play');
                 playPauseBtn.removeClass('fa-pause');
             }
+        } else {
+            playPauseBtn.addClass('fa-play');
+            playPauseBtn.removeClass('fa-pause');
         }
     }
     
@@ -213,8 +217,6 @@
         if(durmins < 10) { durmins = "0"+durmins; }
         curTimeText.innerHTML = curmins+":"+cursecs;
         durTimeText.innerHTML = durmins+":"+dursecs;
-        
-        console.log(recording.seekable.end(0));
         
         updatePlayCount();
     }
