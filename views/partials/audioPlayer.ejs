@@ -125,16 +125,9 @@
 
             // Load the recording
             storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
-                var xhr = createCORSRequest('GET', url);
-                
-//                xhr.responseType = 'blob';
-//                xhr.onload = function(event) { var blob = xhr.response; };
-//                xhr.open('GET', url);
-//                xhr.send();
+                var xhr = createCORSRequest('POST', url);
                 recording.src = url;
                 recording.loop = false;
-                
-                console.log(recording);
             });
         }
     }
