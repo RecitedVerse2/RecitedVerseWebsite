@@ -100,7 +100,7 @@
 <script>
     /* Variables */
     var stepbackBtn = document.getElementById('stepBackBtn');
-    var playPauseBtn = document.getElementById('playBtn');
+    var playPauseBtn = $('#playBtn');
     var stepforwardBtn = document.getElementById('stepForwardBtn');
     var shuffleBtn = document.getElementById('shuffle_audio_btn');
     var loopBtn = document.getElementById('loop_audio_btn');
@@ -242,14 +242,14 @@
         }
     };
     
-    playPauseBtn.onclick = function() {
+    playPauseBtn.click(function() {
         if(recording.ended == false || recording.currentTime != 0 || recording.paused == false) {
             recording.pause();
         }
         if(recording.ended == true || recording.currentTime == 0 || recording.paused == true) {
             recording.play();
         }
-    };
+    });
     
     
     window.addEventListener("load", initPlayer);
