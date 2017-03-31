@@ -232,7 +232,9 @@
     
     
     
-    /* Button Clicks */
+    /*******************
+    *   BUTTON CLICKS  *
+    ********************/
     
     loopBtn.onclick = function() {
         if(recording != null) { 
@@ -243,10 +245,9 @@
     
     playPauseBtn.click(function() {
         if(recording != undefined && recording != null) {
-            if(recording.ended == false || recording.currentTime != 0) {
+            if(recording.hasClass("fa-pause")) {
                 recording.paused = true;
-            }
-            if(recording.ended == true || recording.currentTime == 0 || recording.paused == true) {
+            } else {
                 audioPlayer_playRecitation();
             }
         }
