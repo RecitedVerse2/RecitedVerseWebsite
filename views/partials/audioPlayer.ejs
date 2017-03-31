@@ -167,24 +167,20 @@
         if(recording.ended == true) {
             recitation.plays += 1;
             recording.currentTime = 0;
-            playPauseBtn.addClass("fa-play");
-            playPauseBtn.removeClass("fa-pause");
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
             return;
         }
     }
     
     function updateButtons() {
-        // Pause
         if(recording.ended == false) {
             playPauseBtn.addClass("fa-pause");
             playPauseBtn.removeClass("fa-play");
-            recording.pause();
+            recording.play();
         } else {
-            // Play
             playPauseBtn.addClass("fa-play");
             playPauseBtn.removeClass("fa-pause");
-            recording.play();
+            recording.pause();
         }
     }
     
