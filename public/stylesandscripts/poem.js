@@ -3,6 +3,9 @@ var imageView = document.getElementById('poem_image');
 var titleAuthorArea = document.getElementById('title_author_area');
 var recitedByArea = document.getElementById('recBy_Pub_Gen');
 var descriptionArea = document.getElementById('descr_area');
+var transcriptViewer = $('#transcript_viewing_area');
+var paraObj = "<p id='transcript'></p>";
+transcriptViewer.append(paraObj);
 var transcriptParagraph = document.getElementById('transcript');
 
 var playBtn = document.getElementById('description_play_button');
@@ -117,12 +120,11 @@ if (typeof(Storage) !== "undefined") {
         
             viewTranscriptBtn.onclick = function() {
                 transcriptParagraph.innerHTML = recitation["text"];
-                console.log(transcriptParagraph.style.visibility);
                 
-                if(transcriptParagraph.style.visibility == "hidden") {
-                    transcriptParagraph.style.visibility = "visible";
+                if(transcriptViewer.css('visibility') == "visible") {
+                    transcriptViewer.css('visibility', 'hidden');
                 } else {
-                    transcriptParagraph.style.visibility = "hidden";
+                    transcriptViewer.css('visibility', 'visible');
                 }
             };
             
