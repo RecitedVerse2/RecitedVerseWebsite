@@ -3,10 +3,12 @@ var imageView = document.getElementById('poem_image');
 var titleAuthorArea = document.getElementById('title_author_area');
 var recitedByArea = document.getElementById('recBy_Pub_Gen');
 var descriptionArea = document.getElementById('descr_area');
+var transcriptParagraph = document.getElementById('transcript');
 
 var playBtn = document.getElementById('description_play_button');
 var likeBtn = document.getElementById('description_like_button');
 var favoriteBtn = document.getElementById('description_favorite_button');
+var viewTranscriptBtn = document.getElementById('view_transcript_btn');
 
 var playLabel = document.getElementById('poem_play_label');
 var likeLabel = document.getElementById('poem_like_label');
@@ -113,6 +115,17 @@ if (typeof(Storage) !== "undefined") {
                 }
             };
         
+            viewTranscriptBtn.onclick = function() {
+                transcriptParagraph.innerHTML = recitation["text"];
+                console.log(transcriptParagraph.style.visibility);
+                
+                if(transcriptParagraph.style.visibility == "hidden") {
+                    transcriptParagraph.style.visibility = "visible";
+                } else {
+                    transcriptParagraph.style.visibility = "hidden";
+                }
+            };
+            
         }); // End of loading recitation.
         
     }); // End of loading user.
