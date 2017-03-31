@@ -206,7 +206,7 @@
         // See if it is at the end, then increment the play count.
         if(recording.ended == true) {
             recitation.plays += 1;
-            recitation.currentTime = 0;
+            recording.currentTime = 0;
             fireRef.child("Recitations").child(currentUser["userID"]).child(recitation["title"]).set(recitation);
             return;
         }

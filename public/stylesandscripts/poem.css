@@ -22,27 +22,6 @@ body {
     background-color: white;
     transition: all 0.3s ease;
 }
-.transcript_viewing_area {
-    position: relative;
-    left: 6%;
-    top: 30px;
-    width: 94%;
-    height: 300px;
-    color: black;
-    z-index: -5;
-    background-color: white;
-    transition: all 0.3s ease;
-}
-.transcript_viewing_area_expanded {
-    position: relative;
-    left: 12%;
-    top: 30px;
-    width: 88%;
-    height: 300px;
-    color: black;
-    background-color: white;
-    transition: all 0.3s ease;
-}
 
 .horizontal_info_section {
     position: relative;
@@ -87,7 +66,7 @@ body {
     display: table-cell;
 }
 
-#transcript {
+.transcript_btn_holder {
     text-align: center;
 }
 #view_transcript_btn {

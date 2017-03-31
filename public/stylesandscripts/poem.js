@@ -3,12 +3,11 @@ var imageView = document.getElementById('poem_image');
 var titleAuthorArea = document.getElementById('title_author_area');
 var recitedByArea = document.getElementById('recBy_Pub_Gen');
 var descriptionArea = document.getElementById('descr_area');
-var transcriptViewer = $('#transcript_viewing_area');
 
 var playBtn = document.getElementById('description_play_button');
 var likeBtn = document.getElementById('description_like_button');
 var favoriteBtn = document.getElementById('description_favorite_button');
-var viewTranscriptBtn = document.getElementById('view_transcript_btn');
+var viewTranscriptBtn = $('#view_transcript_btn');
 
 var playLabel = document.getElementById('poem_play_label');
 var likeLabel = document.getElementById('poem_like_label');
@@ -35,10 +34,13 @@ if (typeof(Storage) !== "undefined") {
             playLabel.innerHTML = recitation["plays"];
             likeLabel.innerHTML = recitation["likes"];
             favoriteLabel.innerHTML = recitation["favorites"];
+            
+            transcriptParagraph.innerHTML = recitation["text"];
+            viewTranscriptBtn.attr('data-content',recitation["text"]);
 
             // Set the title of the page.
             document.head.title = "Recited Verse - " + recitation.title;
-
+            
 
 
             /* FUNCTIONS */
@@ -116,17 +118,7 @@ if (typeof(Storage) !== "undefined") {
             };
         
             viewTranscriptBtn.onclick = function() {
-                var paraObj = "<p id='transcript'></p>";
-                transcriptViewer.append(paraObj);
-                
-                var transcriptParagraph = document.getElementById('transcript');
-                transcriptParagraph.innerHTML = recitation["text"];
-                
-                if(transcriptViewer.css('visibility') == "visible") {
-                    transcriptViewer.css('visibility', 'hidden');
-                } else {
-                    transcriptViewer.css('visibility', 'visible');
-                }
+                $('[data-toggle="popover"]').popover();
             };
             
         }); // End of loading recitation.

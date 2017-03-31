@@ -81,7 +81,8 @@ logoutBtn.onclick = function() {
     if (typeof(Storage) !== "undefined") {
         window.localStorage.removeItem("current_user");
         fireAuth.signOut();
-        document.location = "https://recitedverse.herokuapp.com/login";
+        //document.location = "https://recitedverse.herokuapp.com/login";
+        document.location.href = "login";
     }
 };
 
