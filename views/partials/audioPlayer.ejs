@@ -134,7 +134,6 @@
                 recording.loop = false;
                 recording.muted = true;
                 recording.play();
-                console.log(recording);
             });
         }
     }
@@ -196,8 +195,8 @@
         if(durmins < 10) { durmins = "0"+durmins; }
         curTimeText.innerHTML = curmins+":"+cursecs;
         durTimeText.innerHTML = durmins+":"+dursecs;
-        console.log(durmins);
-        console.log(dursecs);
+        
+        updatePlayCount();
     }
     
     
