@@ -116,9 +116,6 @@ if (typeof(Storage) !== "undefined") {
         }); // End of loading recitation.
         
     }); // End of loading user.
-    
-    
-    window.addEventListener('timeupdate', updatePlayCount);
 };
 
 

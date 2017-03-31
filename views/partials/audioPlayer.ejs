@@ -132,6 +132,8 @@
                 xhr.send();
                 recording.src = url;
                 recording.loop = false;
+                recording.preload = false;
+                recording.codecs = "mp3";
             });
         }
     }
