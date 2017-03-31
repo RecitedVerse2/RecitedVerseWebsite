@@ -160,7 +160,7 @@
         seekSlider.addEventListener("mouseup", function() { seeking = false; } );
         recording.addEventListener("timeupdate", seekTimeUpdate );
         //playPauseBtn.addEventListener("timeupdate", changeButtonIcon );
-        recording.change( changeButtonIcon );
+        recording.addEventListener("timeupdate", changeButtonIcon );
     };
     
     
