@@ -215,7 +215,7 @@
     /** Updates the icon on the audio player button when the audio should be played or paused. */
     function changeButtonIcon() {
         if(recording != undefined && recording != null) {
-            if(recording.ended == false || recording.currentTime != 0 || recording.paused == false) {
+            if(recording.ended == false || recording.currentTime != 0) {
                 playPauseBtn.addClass('fa-pause');
                 playPauseBtn.removeClass('fa-play');
             }
@@ -243,11 +243,13 @@
     };
     
     playPauseBtn.click(function() {
-        if(recording.ended == false || recording.currentTime != 0 || recording.paused == false) {
-            recording.pause();
-        }
-        if(recording.ended == true || recording.currentTime == 0 || recording.paused == true) {
-            recording.play();
+        if(recording != undefined && recording != null) {
+            if(recording.ended == false || recording.currentTime != 0) {
+                recording.pause();
+            }
+            if(recording.ended == true || recording.currentTime == 0 || recording.paused == true) {
+                recording.play();
+            }
         }
     });
     
