@@ -84,27 +84,27 @@ menuBtn.click(function() {
 
 // Each menu button.
 homeBtn.click(function() {
-    document.location = "https://recitedverse.herokuapp.com/home";
+    document.location.href = "home";
 });
 albumsBtn.click(function() {
-    document.location = "https://recitedverse.herokuapp.com/albums";
+    document.location.href = "albums";
 });
 artistsBtn.click(function() {
-    document.location = "https://recitedverse.herokuapp.com/artists";
+    document.location.href = "artists";
 });
 genresBtn.click(function() {
-    document.location = "https://recitedverse.herokuapp.com/genres";
+    document.location.href = "genres";
 });
 myAccountBtn.click(function() {
     if(currentUser != null) {
-        document.location = "https://recitedverse.herokuapp.com/profile";
+        document.location.href = "profile";
     } else {
-        document.location = "https://recitedverse.herokuapp.com/login";    
+        document.location.href = "login";
     }
 });
 goToLoginBtn.click(function() {
-    document.location = "https://recitedverse.herokuapp.com/login";
+    document.location.href = "login";
 });
 goToRegisterBtn.click(function() {
-    document.location = "https://recitedverse.herokuapp.com/signup";
+    document.location.href = "signup";
 });

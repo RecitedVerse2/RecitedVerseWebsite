@@ -17,6 +17,11 @@ var recitation;
 
 
 
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+});
+
+
 if (typeof(Storage) !== "undefined") {
     currentUser = JSON.parse(window.localStorage.getItem("current_user"));
     recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
@@ -35,7 +40,6 @@ if (typeof(Storage) !== "undefined") {
             likeLabel.innerHTML = recitation["likes"];
             favoriteLabel.innerHTML = recitation["favorites"];
             
-            transcriptParagraph.innerHTML = recitation["text"];
             viewTranscriptBtn.attr('data-content',recitation["text"]);
 
             // Set the title of the page.
@@ -118,7 +122,7 @@ if (typeof(Storage) !== "undefined") {
             };
         
             viewTranscriptBtn.onclick = function() {
-                $('[data-toggle="popover"]').popover();
+                console.log('worked');
             };
             
         }); // End of loading recitation.

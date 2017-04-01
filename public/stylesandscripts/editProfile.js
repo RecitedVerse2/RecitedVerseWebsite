@@ -117,5 +117,5 @@ function saveToFirebase(obj) {
     if (typeof(Storage) !== "undefined") {
         window.localStorage.setItem("current_user", JSON.stringify(obj));
     }
-    document.location = "https://recitedverse.herokuapp.com/profile";
+    document.location.href = "profile";
 }

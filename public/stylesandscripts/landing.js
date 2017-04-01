@@ -24,9 +24,9 @@ mailingListBtn.onclick = function() {
 };
 
 loginBtn.onclick = function() {
-    document.location = "https://recitedverse.herokuapp.com/login";
+    document.location.href = "login";
 }
 
 signupBtn.onclick = function() {
-    document.location = "https://recitedverse.herokuapp.com/signup";
+    document.location.href = "signup";
 }

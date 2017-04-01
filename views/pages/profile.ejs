@@ -56,7 +56,7 @@
                     <li><a data-toggle="tab" href="#liked">Liked</a></li>
                     <li><a data-toggle="tab" href="#favorites">Favorites</a></li>
                     <li><a data-toggle="tab" href="#playlists">Playlists</a></li>
-                    <button class="pill_button" id="upload_recitation_btn">Upload new recitation</button>
+                    <button class="pill_button" data-toggle="modal" data-target="#myModal" onclick="requestPermission();">Upload new recitation</button>
                 </ul>
 
                 <!-- The content that goes into each tab. You can just use exteral ejs files for this so it's not too crowded here. -->
@@ -81,14 +81,64 @@
                         <% include ../partials/profile_playlists.ejs %>
                     </div>
                 </div>
-            </div>
-            
+            </div>    
         </div>
+        
+        
+        <!-- Modal for uploading recitation -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Upload Recitation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="upload_area" style="text-align:center;">
+                            <h5 class="page_text">Poem Name: <input type="text" class="inp" id="recitation_name_field" placeholder="Enter the name of the poem"> </h5>
+                            <h5 class="page_text">Author: <input type="text" class="inp"  id="recitation_author_field" placeholder="Enter the author's name"> </h5>
+                            <h5 class="page_text">Published: <input type="text" class="inp"  id="recitation_publication_field" placeholder="Year of publication"> </h5>
+                            <h5 class="page_text">Genre: <input type="text" class="inp"  id="recitation_genre_field" placeholder="Enter the genre of the poem"> </h5>
+                            <h5 class="page_text">Written Text: </h5>
+                            <textarea class="inp" id="recitation_text_field" rows="15" cols="35"></textarea>
+                            <h5 class="page_text">Description (Optional): </h5>
+                            <textarea class="inp" id="recitation_description_field" rows="5" cols="30"></textarea>
+                            <h5 class="page_text">Image (Optional):</h5>
+                            <img id="poem_image" width="200px" height="200px" src="https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/EmptyPhoto.png?alt=media&token=ad015bcd-7435-4ba3-a8aa-574e169e9911" alt="poem_photo">
+                            <br><br>
+                            <button class="pill_btn" id="addPhotoBtn">Add Photo</button>
+                            <br><br><br>
+
+                            <h5 class="page_text">Upload a recording from a file</h5>
+                            <button class="pill_btn" id="fromFileBtn">Upload</button>
+                            <br><br><p class="page_text">Or</p>
+                            <h5 class="page_text">Record a recitation here.</h5>
+                            <p id="canvas_holder" class="canvas_holder"><canvas class="visualizer"></canvas></p>
+                            <div class="mediaButtons">
+                                <button id="recordBtn" class="roundBtn fa fa-microphone"></button>
+                                <button id="stopRecBtn" class="roundBtn fa fa-stop-circle-o"></button>
+                                <button id="playAudioBtn" class="roundBtn fa fa-play"></button>
+                                <button id="pauseBtn" class="roundBtn fa fa-pause"></button>
+                                <button id="stopBtn" class="roundBtn fa fa-stop"></button>
+                                <button id="clearBtn" class="roundBtn fa fa-trash"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="pill_btn" id="submit_recitation_btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
         
         
         <!--    All of the javascript.    -->
         <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+        <script type="text/javascript" src="https://adeolauthman.squarespace.com/s/AUAudioRecorder.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script type="text/javascript" src="/stylesandscripts/firebaseconfig.js"></script>
         <script type="text/javascript" src="/stylesandscripts/profile.js"></script>

@@ -124,11 +124,13 @@
             recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
 
             // Load the recording
-            storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
-                var xhr = createCORSRequest('POST', url);
-                recording.src = url;
-                recording.loop = false;
-            });
+            if(currentUser != null && recitation != null) {
+                storageRef.child(currentUser["userID"]).child(recitation.title).getDownloadURL().then(function(url) {
+                    var xhr = createCORSRequest('POST', url);
+                    recording.src = url;
+                    recording.loop = false;
+                });
+            }
         }
     }
     

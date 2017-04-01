@@ -76,7 +76,7 @@ loginBtn.onclick = function() {
                 window.localStorage.setItem("current_user", JSON.stringify(currentUser));
             }
             
-            document.location = "https://recitedverse.herokuapp.com/home";
+            document.location.href = "home";
         } else {
             currentUser = null;
             return;

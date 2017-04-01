@@ -71,7 +71,7 @@ createAccountBtn.onclick = function() {
                 }
 
                 // Go to the user's profile page.
-                document.location = "https://recitedverse.herokuapp.com/profile";
+                document.location.href = "profile";
                 
             }); // End of creating the user.
         
