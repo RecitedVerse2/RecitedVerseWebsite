@@ -1,5 +1,6 @@
 var profilePicture = document.getElementById('profile_picture');
 var backgroundPicture = document.getElementById('background_picture');
+
 var fullNameField = document.getElementById('ep_fullname_field');
 var emailField = document.getElementById('ep_email_field');
 var passwordField1 = document.getElementById('ep_password1_field');
@@ -15,6 +16,8 @@ var linkedinLink = document.getElementById('linkedinLink');
 var instagramLink = document.getElementById('instagramLink');
 var twitterLink = document.getElementById('twitterLink');
 
+var profilePicInput = document.getElementById('profilepicfile');
+var backgroundPicInput = document.getElementById('backgroundimgfile');
 
 
 $(document).ready(function() {
@@ -38,10 +41,10 @@ $(document).ready(function() {
         fullNameField.value = currentUser["fullname"];
         emailField.value = currentUser["email"];
         bioField.value = currentUser["bio"];
-        facebookLink.value = currentUser["social_media_links"][0];
-        linkedinLink.value = currentUser["social_media_links"][1];
-        instagramLink.value = currentUser["social_media_links"][2];
-        twitterLink.value = currentUser["social_media_links"][3];
+        facebookLink.value = currentUser["social_media_links"][0] || "";
+        linkedinLink.value = currentUser["social_media_links"][1] || "";
+        instagramLink.value = currentUser["social_media_links"][2] || "";
+        twitterLink.value = currentUser["social_media_links"][3] || "";
     }
 });
 
@@ -86,10 +89,14 @@ saveBtn.onclick = function() {
     
     
     var social = [];
-    social.push(facebookLink.value);
-    social.push(linkedinLink.value);
-    social.push(instagramLink.value);
-    social.push(twitterLink.value);
+    var fbLink = facebookLink.value || "";
+    var liLink = linkedinLink.value || "";
+    var inLink = instagramLink.value || "";
+    var twLink = twitterLink.value || "";
+    social.push(fbLink);
+    social.push(liLink);
+    social.push(inLink);
+    social.push(twLink);
     currentUser["social_media_links"] = social;
     
     saveToFirebase(currentUser);
@@ -100,22 +107,73 @@ saveBtn.onclick = function() {
 /*
     Button for selecting a profile/background picture.
 */
-choosePicture.onclick = function() {
-    
+function changeProfilePicture(e) {
+    profilePicture.src = e;
+};
+function changeBackgroundPicture(e) {
+    backgroundPicture.src = e;
+}
+
+profilePicInput.onchange = function(e) {
+    var file    = profilePicInput.files[0];
+    var reader  = new FileReader();
+
+    reader.addEventListener("load", function () {  changeProfilePicture(reader.result); }, false);
+
+    if (file) { reader.readAsDataURL(file); }
+};
+backgroundPicInput.onchange = function() {
+    var file    = backgroundPicInput.files[0];
+    var reader  = new FileReader();
+
+    reader.addEventListener("load", function () {  changeBackgroundPicture(reader.result); }, false);
+
+    if (file) { reader.readAsDataURL(file); }
 };
 
-chooseBackground.onclick = function() {
-    
-};
+
 
 
 /*
     Saves the object to firebase.
 */
 function saveToFirebase(obj) {
-    fireRef.child('Users').child(''+obj["userID"]).set(obj);
-    if (typeof(Storage) !== "undefined") {
-        window.localStorage.setItem("current_user", JSON.stringify(obj));
-    }
-    document.location.href = "profile";
+    uploadNewProfilePicture(obj, function() {
+        uploadNewBackgroundPicture(obj, function() {
+            document.location.href = "profile";
+        });
+    });
 }
+
+
+function uploadNewProfilePicture(obj, callback) {
+    if(profilePicture.src != obj["photoURL"]) { 
+        storageRef.child(obj["userID"]).child("profilePicture").putString(profilePicture.src, 'data_url').then(function(snapshot) {
+            obj["photoURL"] = snapshot.downloadURL;
+            fireRef.child("Users").child(obj["userID"]).update(obj);
+            if (typeof(Storage) !== "undefined") { window.localStorage.setItem("current_user", JSON.stringify(obj)); }
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
+
+function uploadNewBackgroundPicture(obj, callback) {
+    if(backgroundPicture.src != obj["backgroundImage"]) { 
+        storageRef.child(obj["userID"]).child("backgroundPicture").putString(backgroundPicture.src, 'data_url').then(function(snapshot) {
+            obj["backgroundImage"] = snapshot.downloadURL;
+            fireRef.child("Users").child(obj["userID"]).update(obj);
+            if (typeof(Storage) !== "undefined") { window.localStorage.setItem("current_user", JSON.stringify(obj)); }
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
+
+
+
+
+
+

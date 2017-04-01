@@ -61,20 +61,6 @@
     height: 100px;
     background-color: lightgray;
 }
-#choose_background_picture_btn {
-    width: 200px;
-    height: 45px;
-    text-align: center;
-    background-color: rgb(76, 182, 203);
-    -webkit-transition-duration: 0.4s;
-}
-#choose_background_picture_btn:hover {
-    width: 200px;
-    height: 45px;
-    text-align: center;
-    background-color: rgb(76, 132, 183);
-    -webkit-transition-duration: 0.4s;
-}
 
 
 .ep_about_area {
@@ -108,9 +94,45 @@
 #save_btn:hover {
     background-color: rgb(76, 132, 183);
 }
-#choose_profile_picture_btn {
-    background-color: rgb(76, 182, 203);
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
-#choose_profile_picture_btn:hover {
+.inputfile + #labelForProfilePicFile {
+    width: 150px;
+    height: 40px;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 10px;
+    display: inline-block;
+    background-color: rgb(76, 182, 203);
+    -webkit-transition-duration: 0.4s;
+}
+.inputfile:focus + #labelForProfilePicFile,.inputfile + #labelForProfilePicFile:hover {
     background-color: rgb(76, 132, 183);
+    -webkit-transition-duration: 0.4s;
+}
+
+.inputfile + #labelForBackgroundPicFile {
+    width: 200px;
+    height: 45px;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 12px;
+    display: inline-block;
+    background-color: rgb(76, 182, 203);
+    -webkit-transition-duration: 0.4s;
+}
+.inputfile:focus + #labelForBackgroundPicFile,.inputfile + #labelForBackgroundPicFile:hover {
+    background-color: rgb(76, 132, 183);
+    -webkit-transition-duration: 0.4s;
 }

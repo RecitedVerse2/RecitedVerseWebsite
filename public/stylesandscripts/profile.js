@@ -340,8 +340,7 @@ submitRecBtn.onclick = function() {
             storageRef.child(currentUser["userID"]).child(name).put(audio).then(function() {
                 document.location.href = "profile";
             });
-            subm
-            itRecBtn.setAttribute('data-dismiss','modal');  // Allow the submit button to dismiss the modal.
+            submitRecBtn.setAttribute('data-dismiss','modal');  // Allow the submit button to dismiss the modal.
         
         } else {
             submitRecBtn.innerHTML = "There was a problem uploading the recitation. Please reload and try again.";

@@ -65,7 +65,7 @@ if (typeof(Storage) !== "undefined") {
             };
 
             likeBtn.onclick = function() {
-                var s = recitation["title"] + " " + recitation["author"];
+                var s = recitation["title"] + "-" + recitation["recited_by"];
                 var arr = currentUser["likes"];
                 if(arr === undefined || arr == null) { arr = []; }
                 
@@ -93,7 +93,7 @@ if (typeof(Storage) !== "undefined") {
             };
 
             favoriteBtn.onclick = function() {
-                var s = recitation["title"] + " " + recitation["author"];
+                var s = recitation["title"] + "-" + recitation["recited_by"];
                 var arr = currentUser["favorites"];
                 if(arr === undefined || arr == null) { arr = []; }
 
@@ -122,7 +122,7 @@ if (typeof(Storage) !== "undefined") {
             };
         
             viewTranscriptBtn.onclick = function() {
-                console.log('worked');
+                //console.log('worked');
             };
             
         }); // End of loading recitation.
