@@ -6,44 +6,43 @@ var btnIDs = [];
 var imgIDs = [];
 var recitations = [];
 
-
 // Load the current user.
 if (typeof(Storage) !== "undefined") { currentUser = JSON.parse(window.localStorage.getItem("current_user")); }
 
 
 // Load all of the recitations.
-fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(snapshot) {
-    var listOfObjects = snapshot.val();
-    
-    // So bascially, for each recitation in the list of recitations...
-    for(var recitation in listOfObjects) {
-        
-        if(listOfObjects.hasOwnProperty(recitation)) {
-            var recitationObject = listOfObjects[recitation];
-            
-            // Create the html elements.
-            var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + recitationObject.title + "' style='color:black;'>" + recitationObject.title + "</button>";
-            var imageItem = "<img class='general_rec_image' id='recitation_img_" + recitationObject.title + "' width='120' height='120' src='" + recitationObject.image + "' alt='image'>";
-            var listItem = "<li class='recitation_item' style='font-size:15px;'>"+imageItem+goToBtn+"</li>";
-            recList.append(listItem);
-            
-            // Get a reference to the id that each button element has.
-            var s1 = 'goToPoemPageBtn_'+recitationObject.title;
-            var s2 = 'recitation_img_'+recitationObject.title;
-            
-            var btnElement = document.getElementById(s1);
-            var imgElement = document.getElementById(s2);
-            
-            btnElement.setAttribute("onclick","var strID = '" + s1 + "'; goToPoemPageWithRecitation(strID);");
-            imgElement.setAttribute("onclick","var strID = '" + s2 + "'; playRecitation(strID);");
-            
-            btnIDs.push(s1);
-            imgIDs.push(s2);
-            recitations.push(recitationObject);
-            continue;
+fireRef.child('Recitations').child(currentUser["userID"]).once('value', function(snapshot) {
+    /* Go through each recitation that the user has. If the array of recitations does not contain 
+    that recitation, then add it. */
+    snapshot.forEach(function(recitationObject) {
+        if(!recitations.includes(recitationObject)) {
+            recitations.push(recitationObject.val());
         }
-    } // End of for-loop
+    });
     
+    /* Sort that array of recitations based on their timestamps. */
+    recitations.sort(function(a,b){ return b.timestamp - a.timestamp; });
+
+    /* Now go through each recitation in the array and create page elements for users to go to them. */
+    recitations.forEach(function(i, index, array) {
+        var rec = recitations[index];
+        
+        // Create html elements.
+        var goToBtn = "<button class='goToBtn' id='goToPoemPageBtn_" + rec.title + "' style='color:black;'>" + rec.title + "</button>";
+        var imageItem = "<img class='general_rec_image' id='recitation_img_" + rec.title + "' width='120' height='120' src='" + rec.image + "' alt='image'>";
+        var listItem = "<li class='recitation_item' style='font-size:15px;'>"+imageItem+goToBtn+"</li>";
+        recList.append(listItem);
+        
+        // Find those elements add give them click properties.
+        var s1 = 'goToPoemPageBtn_'+rec.title;
+        var s2 = 'recitation_img_'+rec.title;
+        btnIDs.push(s1);
+        imgIDs.push(s2);
+        var btnElement = document.getElementById(s1);
+        var imgElement = document.getElementById(s2);
+        btnElement.setAttribute("onclick","var strID = '" + s1 + "'; goToPoemPageWithRecitation(strID);");
+        imgElement.setAttribute("onclick","var strID = '" + s2 + "'; playRecitation(strID);");
+    });
 });
 
 

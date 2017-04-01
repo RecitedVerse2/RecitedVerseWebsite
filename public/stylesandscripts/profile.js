@@ -351,7 +351,8 @@ submitRecBtn.onclick = function() {
             "plays":0,
             "likes":0,
             "favorites":0,
-            "comments":[]
+            "comments":[],
+            "timestamp":firebase.database.ServerValue.TIMESTAMP
         };
         
         
@@ -360,11 +361,12 @@ submitRecBtn.onclick = function() {
         if(myRecording != null) {
             
             /* Save it to the database under Recitations->UserID->AutoID:Dictionary*/
-            fireRef.child("Recitations").child(currentUser["userID"]).child(name).set(dictionary);
+            fireRef.child("Recitations").child(currentUser["userID"]).child(name).setWithPriority(dictionary, 0 - Date.now());
             
             /* Save the actual audio to the storage. */
             storageRef.child(currentUser["userID"]).child(name).put(myRecording).then(function() {
-                document.location.href = "profile";
+                //document.location.href = "profile";
+                console.log("Uploaded");
             });
             
             submitRecBtn.setAttribute('data-dismiss','modal');  // Allow the submit button to dismiss the modal.
@@ -376,7 +378,8 @@ submitRecBtn.onclick = function() {
             
             /* Save the actual audio to the storage. */
             storageRef.child(currentUser["userID"]).child(name).putString(audio.src, 'data_url').then(function(snapshot) {
-                document.location.href = "profile";
+                //document.location.href = "profile";
+                console.log("Uploaded");
             });
             submitRecBtn.setAttribute('data-dismiss','modal');  // Allow the submit button to dismiss the modal.
         
@@ -389,6 +392,7 @@ submitRecBtn.onclick = function() {
     
     if(!valueExists(name)) { nameField.style.borderColor = "red"; }
     if(!valueExists(author)) { authorField.style.borderColor = "red"; }
+    if(!valueExists(recBy)) { recitedByField.style.borderColor = "red"; }
     if(!valueExists(published)) { publicationField.style.borderColor = "red"; }
     if(!valueExists(genre)) { genreField.style.borderColor = "red"; }
     if(!valueExists(text)) { poemText.style.borderColor = "red"; }
