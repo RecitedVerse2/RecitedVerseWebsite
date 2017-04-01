@@ -43,7 +43,8 @@ loginBtn.onclick = function() {
     });
     
     var user = fireAuth.currentUser;
-    fireRef.child('Users').child(user.uid).once('value').then(function(snapshot) {
+    if(user) {
+        fireRef.child('Users').child(user.uid).once('value').then(function(snapshot) {
         var email = snapshot.val()["email"];
         var fullname = snapshot.val()["fullname"];
         var password = snapshot.val()["password"];
@@ -82,4 +83,5 @@ loginBtn.onclick = function() {
             return;
         }
     });
+    }
 };
