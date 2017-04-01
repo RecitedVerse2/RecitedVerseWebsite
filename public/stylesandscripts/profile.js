@@ -37,8 +37,14 @@ var canvasCtx = canvas.getContext("2d");
 var source;
 var createTwice = false;
 
+
+/************************
+*     UPLOADING STUFF   *
+*************************/
+
 var nameField = document.getElementById('recitation_name_field');
 var authorField = document.getElementById('recitation_author_field');
+var recitedByField = document.getElementById('recitation_recitedby_field');
 var publicationField = document.getElementById('recitation_publication_field');
 var genreField = document.getElementById('recitation_genre_field');
 var poemText = document.getElementById('recitation_text_field');
@@ -50,8 +56,15 @@ var submitRecBtn = document.getElementById('submit_recitation_btn');
 
 
 
+/************************
+*     FILE UPLOADING    *
+*************************/
 
+var poemImage = document.getElementById('poem_image');
 
+var photoUploadInput = document.getElementById('recImageFile');
+var audioFileInput = document.getElementById('fileRecitation');
+var fileLabel = $('#filenameLabel');
 
 
 
@@ -69,6 +82,30 @@ function valueExists(element) {
         return false;
     }
 }
+
+
+function uploadRecPhoto(e) {
+    poemImage.src = e;
+};
+function uploadAudioFile(e) {
+    audio = new Audio();
+    audio.src = e;
+    fileLabel.addClass('fa');
+    fileLabel.addClass('fa-check');
+};
+photoUploadInput.onchange = function() {
+    var file    = photoUploadInput.files[0];
+    var reader  = new FileReader();
+    reader.addEventListener("load", function () { uploadRecPhoto(reader.result); }, false);
+    if (file) { reader.readAsDataURL(file); }
+};
+audioFileInput.onchange = function() {
+    var file    = audioFileInput.files[0];
+    var reader  = new FileReader();
+    reader.addEventListener("load", function () { uploadAudioFile(reader.result); }, false);
+    if (file) { reader.readAsDataURL(file); }
+};
+
 
 
 
@@ -284,13 +321,14 @@ clearBtn.onclick = function() {
 submitRecBtn.onclick = function() {
     var name = nameField.value;
     var author = authorField.value;
+    var recBy = recitedByField.value;
     var published = publicationField.value;
     var genre = genreField.value;
     var text = poemText.value;
     var description = descriptionField.value;
     var image = imageField.src;
     
-    if(valueExists(name) && valueExists(author) && valueExists(published) && valueExists(genre) && valueExists(image)
+    if(valueExists(name) && valueExists(author) && valueExists(recBy) && valueExists(published) && valueExists(genre) && valueExists(image)
       && valueExists(text) && valueExists(audio)) {
         
         if(!valueExists(description)) { description = ""; }        
@@ -309,7 +347,7 @@ submitRecBtn.onclick = function() {
             "text":text,
             "description":description,
             "image":image,
-            "recited_by":currentUser["fullname"],
+            "recited_by":recBy,
             "plays":0,
             "likes":0,
             "favorites":0,
@@ -337,7 +375,7 @@ submitRecBtn.onclick = function() {
             fireRef.child("Recitations").child(currentUser["userID"]).child(name).set(dictionary);
             
             /* Save the actual audio to the storage. */
-            storageRef.child(currentUser["userID"]).child(name).put(audio).then(function() {
+            storageRef.child(currentUser["userID"]).child(name).putString(audio.src, 'data_url').then(function(snapshot) {
                 document.location.href = "profile";
             });
             submitRecBtn.setAttribute('data-dismiss','modal');  // Allow the submit button to dismiss the modal.

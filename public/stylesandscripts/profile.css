@@ -220,3 +220,46 @@ body {
     margin-right: 20px;
     background-color: rgb(76, 152, 233);
 }
+
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + #fromFileBtn {
+    width: 90;
+    height: 25px;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 3px;
+    display: inline-block;
+	background-color: #ADD8E6;
+    -webkit-transition-duration: 0.4s;
+}
+.inputfile:focus + #fromFileBtn,.inputfile + #fromFileBtn:hover {
+    background-color: #ADB8F9;
+    -webkit-transition-duration: 0.4s;
+}
+
+.inputfile + #addPhotoBtn {
+    width: 90;
+    height: 25px;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 3px;
+    display: inline-block;
+	background-color: #ADD8E6;
+    -webkit-transition-duration: 0.4s;
+}
+.inputfile:focus + #addPhotoBtn,.inputfile + #addPhotoBtn:hover {
+    background-color: #ADB8F9;
+    -webkit-transition-duration: 0.4s;
+}
