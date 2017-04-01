@@ -366,7 +366,6 @@ submitRecBtn.onclick = function() {
             /* Save the actual audio to the storage. */
             storageRef.child(currentUser["userID"]).child(name).put(myRecording).then(function() {
                 //document.location.href = "profile";
-                console.log("Uploaded");
             });
             
             submitRecBtn.setAttribute('data-dismiss','modal');  // Allow the submit button to dismiss the modal.
@@ -379,7 +378,6 @@ submitRecBtn.onclick = function() {
             /* Save the actual audio to the storage. */
             storageRef.child(currentUser["userID"]).child(name).putString(audio.src, 'data_url').then(function(snapshot) {
                 //document.location.href = "profile";
-                console.log("Uploaded");
             });
             submitRecBtn.setAttribute('data-dismiss','modal');  // Allow the submit button to dismiss the modal.
         

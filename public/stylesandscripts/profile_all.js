@@ -11,7 +11,7 @@ if (typeof(Storage) !== "undefined") { currentUser = JSON.parse(window.localStor
 
 
 // Load all of the recitations.
-fireRef.child('Recitations').child(currentUser["userID"]).once('value', function(snapshot) {
+fireRef.child('Recitations').child(currentUser["userID"]).on('value', function(snapshot) {
     /* Go through each recitation that the user has. If the array of recitations does not contain 
     that recitation, then add it. */
     snapshot.forEach(function(recitationObject) {
