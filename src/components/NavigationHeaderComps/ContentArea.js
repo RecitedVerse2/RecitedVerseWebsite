@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-
+// For each page, this is where the actual content will be rendered
 class ContentArea extends Component {
 
     getContentAreaStyle() {
@@ -18,11 +18,7 @@ class ContentArea extends Component {
     render() {
         return (
             <div style={this.getContentAreaStyle()}>
-
-                <h1>
-                    {this.props.headerTitle}
-                </h1>
-
+                {this.props.contentAreaContent}
             </div>
         );
     }
