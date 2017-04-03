@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+   <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/stylesandscripts/editProfile.css" />
+        <title>Recited Verse - Profile</title>
+    </head>
+    
+    
+    
+    <body>
+        <% include ../partials/header.ejs %>
+        <% include ../partials/audioPlayer.ejs %>
+        
+    
+        <!-- The overall container for the edit profile page. -->
+        <div class="ep_content_container">
+            
+            <!-- The header -->
+            <h3 class="ep_header">Edit Profile</h3>
+            
+            <!-- The place where you choose a profile picture. -->
+            <div class="profile_picture_area"> 
+                <img id="profile_picture" src="" alt="profile picture">
+                <br><br>
+                <form action="" style="text-align: center;">
+                    <input type="file" name="profpicfile" id="profilepicfile" class="inputfile" accept="image/x-png" multiple="false">
+                    <label id="labelForProfilePicFile" for="profilepicfile">Choose Profile Picture</label>
+                </form>
+            </div>
+            
+            
+            <!-- The place where you choose a background picture. -->
+            <div class="background_picture_area"> 
+                <img id="background_picture" src="" alt="background picture">
+                <br><br>
+                <form action="" style="text-align: center;">
+                    <input type="file" name="backgroundfile" id="backgroundimgfile" class="inputfile" accept="image/x-png" multiple="false">
+                    <label id="labelForBackgroundPicFile" for="backgroundimgfile">Choose Background Picture</label>
+                </form>
+            </div>
+            
+            
+            <!-- The input fields. -->
+            <div class="ep_about_area">
+                <p><b>Personal Information</b></p>
+                Full Name: &nbsp;&nbsp;&nbsp; <input type="text" class="ep_field" id="ep_fullname_field" placeholder="Change your full name">
+                <br><br>
+                Email: &nbsp;&nbsp;&nbsp; <input type="email" class="ep_field" id="ep_email_field" placeholder="Change your email">
+                <br><br>
+                Password: &nbsp;&nbsp;&nbsp; <input type="text" class="ep_field" id="ep_password1_field" placeholder="Change your password">
+                <br><br>
+                Re-enter Password: &nbsp;&nbsp;&nbsp; <input type="text" class="ep_field" id="ep_password2_field" placeholder="Re-enter your new password">
+                <br><br><br><br>
+                
+                <p><b>Profile</b></p>
+                Bio: &nbsp;&nbsp;&nbsp; <textarea id="ep_bio_field"></textarea>
+                <br><br><br>
+                Social Media Links: &nbsp;&nbsp;&nbsp; 
+                <br>
+                <p>
+                    <label for="cbox1">Facebook</label>
+                    <input type="url" id="facebookLink" class="ep_field" placeholder="Enter the url to your Facebook page" >
+                    <br>
+                    <label for="cbox1">LinkedIn</label>
+                    <input type="url" id="linkedinLink" class="ep_field" placeholder="Enter the url to your LinkedIn page" >
+                    <br>
+                    <label for="cbox1">Instagram</label>
+                    <input type="url" id="instagramLink" class="ep_field" placeholder="Enter the url to your Instagram page" >
+                    <br>
+                    <label for="cbox1">Twitter</label>
+                    <input type="url" id="twitterLink" class="ep_field" placeholder="Enter the url to your Twitter page" >
+                </p>
+                
+            
+                <!-- The button to save the changes -->
+                <br><br><br><br>
+                <button class="rect_button" id="save_btn">Save Changes</button>
+                <br><br><br><br><br><br><br><br>
+            </div>
+        </div>
+        
+        
+        <!--    All of the javascript.    -->
+        <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="/stylesandscripts/firebaseconfig.js"></script>
+        <script type="text/javascript" src="/stylesandscripts/editProfile.js"></script>
+    </body>
+    
+</html>

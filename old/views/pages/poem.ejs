@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+   <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/stylesandscripts/poem.css" />
+    </head>
+
+
+    <body>
+        <% include ../partials/header.ejs %>
+        <% include ../partials/audioPlayer.ejs %>
+        
+        
+        <!-- The overall poem area (the entire white background area). -->
+        <div class="poem_area">
+            
+            <!-- The information area that goes horizontally. -->
+            <div class="horizontal_info_section">
+            
+                <!-- The first vertical section (just holds the image). -->
+                <div class="vertical_image_section">
+                    <img id="poem_image" src="" alt="image" width="200" height="200">
+                </div>
+                
+                
+                <!-- The second vertical section (holds the title, description, author, published, genre, and recited by)-->
+                <div class="vertical_info_section">
+                    <h4 id="title_author_area"></h4>
+                    <br>
+                    <p id="recBy_Pub_Gen"></p>
+                    <p id="descr_area"></p>
+                    
+                    <div class="description_buttons_section">
+                        <button class="description_button fa fa-play" id="description_play_button"></button>
+                        <button class="description_button fa fa-thumbs-up" id="description_like_button"></button>
+                        <button class="description_button fa fa-heart" id="description_favorite_button"></button>
+                    </div>
+                </div>
+                
+                
+                <!-- The last vertical section (holds plays, likes, favorites)-->
+                <div class="vertical_numbers_section">
+                    <div style="display:table; float: right;">
+                        <p style="display:table-cell;" id="poem_play_label"></p>&nbsp;<p style="display:table-cell;" class="fa fa-play"></p>
+                    </div>
+                    <br>
+                    <div style="display:table; float: right;">
+                        <p style="display:table-cell;" id="poem_like_label"></p>&nbsp;<p style="display:table-cell;" class="fa fa-thumbs-up"></p>
+                    </div>
+                    <br>
+                    <div style="display:table; float: right;">
+                        <p style="display:table-cell;" id="poem_favorite_label"></p>&nbsp;<p style="display:table-cell;" class="fa fa-heart"></p>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div style="position: relative; background-color: white; width: 100%; text-align: center;">
+                <button id="view_transcript_btn" data-toggle="popover" data-placement="bottom" title="Poem Transcript">Click to view transcript</button>
+            </div>
+        </div>
+        
+        
+        
+        
+        
+        <!--    All of the javascript.    -->
+        <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="/stylesandscripts/firebaseconfig.js"></script>
+        <script type="text/javascript" src="/stylesandscripts/poem.js"></script>
+    </body>
+    
+</html>

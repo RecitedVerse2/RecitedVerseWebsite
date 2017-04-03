@@ -1,26 +1,21 @@
 {
-  "name": "RecitedVerse",
-  "version": "0.0.1",
-  "description": "A website for sharing poetry recitations.",
-  "engines": {
-    "node": "6.8.1"
-  },
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
+  "name": "react-template",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "ejs": "2.4.1",
-    "express": "4.13.3"
+    "history": "^4.6.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/RecitedVerse/RecitedVerseWebsite"
+  "devDependencies": {
+    "react-scripts": "0.9.5"
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
 }
