@@ -18,7 +18,7 @@ class ContentArea extends Component {
     render() {
         return (
             <div style={this.getContentAreaStyle()}>
-                {this.props.contentAreaContent}
+                {this.props.children}
             </div>
         );
     }

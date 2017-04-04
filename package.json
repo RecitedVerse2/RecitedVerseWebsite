@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "firebase": "^3.7.4",
     "history": "^4.6.1",
     "react": "^15.4.2",
+    "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
+    "react-modal": "^1.7.3",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0"
   },

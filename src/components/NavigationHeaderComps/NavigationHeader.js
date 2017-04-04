@@ -9,7 +9,7 @@ class NavigationHeader extends Component {
             position: 'absolute',
             top: '0px',
             left: '6%',
-            width: '100%',
+            width: '94%',
             height: '45px',
             backgroundColor: 'dodgerblue'
         };

@@ -34,7 +34,7 @@ class Login extends Component {
             color: 'cornflowerblue',
             border: '1.5px solid cornflowerblue',
             width: '40%',
-            height: '55%'
+            height: '40%'
         };
     }
     getBtnStyle() {
@@ -55,8 +55,7 @@ class Login extends Component {
                 </NavigationHeader>
 
 
-                <ContentArea backgroundColor='rgb(242,244,248)' contentAreaContent={
-
+                <ContentArea backgroundColor='rgb(242,244,248)'>
                     <div style={this.getLoginBoxStyle()}>
                         <h2>Login</h2>
                         <input className="round_input" id='input1' type="email" placeholder="Enter your email"/>
@@ -72,8 +71,7 @@ class Login extends Component {
                         </PillButton>
                         <br /> <br />
                     </div>
-
-                }></ContentArea>
+                </ContentArea>
 
             </div>
         );

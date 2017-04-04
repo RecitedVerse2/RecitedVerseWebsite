@@ -13,8 +13,7 @@ class LandingVideo extends Component {
             "left":"0px",
             "width":"100%",
             "height":"60%",
-            "zIndex":"-100",
-            "backgroundColor":"green"
+            "zIndex":"-100"
         };
     }
 
