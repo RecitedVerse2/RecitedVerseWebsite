@@ -4,3 +4,80 @@
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+.inp {
+    width: 300px;
+    margin: 10px;
+}
+.pill_btn {
+    width: 100px;
+    height: 25px;
+    border: none;
+    text-align: center;
+    border-radius: 25px;
+    background-color: lightblue;
+    -webkit-transition-duration: 0.2s;
+}
+.pill_btn:hover {
+    width: 100px;
+    height: 25px;
+    border: none;
+    text-align: center;
+    border-radius: 25px;
+    background-color: cornflowerblue;
+    -webkit-transition-duration: 0.2s;
+}
+.roundBtn {
+	border-radius: 25px;
+	border-style: none;
+	border: none;
+	outline: none;
+    text-decoration: none;
+	background-color: #ADD8E6;
+	-webkit-transition-duration: 0.4s;
+	width: 50px;
+	height: 50px;
+}
+.roundBtn:hover {
+    background-color: #ADB8F9;
+}
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + #fromFileBtn {
+    width: 90;
+    height: 25px;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 3px;
+    display: inline-block;
+	background-color: #ADD8E6;
+    -webkit-transition-duration: 0.4s;
+}
+.inputfile:focus + #fromFileBtn,.inputfile + #fromFileBtn:hover {
+    background-color: #ADB8F9;
+    -webkit-transition-duration: 0.4s;
+}
+
+.inputfile + #addPhotoBtn {
+    width: 90;
+    height: 25px;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 3px;
+    display: inline-block;
+	background-color: #ADD8E6;
+    -webkit-transition-duration: 0.4s;
+}
+.inputfile:focus + #addPhotoBtn,.inputfile + #addPhotoBtn:hover {
+    background-color: #ADB8F9;
+    -webkit-transition-duration: 0.4s;
+}
