@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import PillButton from '../PillButton';
 import TabContent from './TabContent';
 import UploadBox from './UploadBox';
+
+import _ from '../../css/TabPane.css';
 
 
 class TabPane extends Component {
     constructor() {
         super();
         this.state = {showUploadModal:false};
+        Tabs.setUseDefaultStyles(false);
     }
 
     /**********************
@@ -24,29 +27,34 @@ class TabPane extends Component {
     render() {
         return (
             <div>
-                <UploadBox shouldShow={this.state.showUploadModal} shouldClose={()=>{this.handleCloseModal()}}>
-
-                </UploadBox>
-
-                <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
-                    <Tab eventKey={1} title="All">
-                        <TabContent></TabContent>
-                    </Tab>
-                    <Tab eventKey={2} title="Popular">
-                        <TabContent></TabContent>
-                    </Tab>
-                    <Tab eventKey={3} title="Liked">
-                        <TabContent></TabContent>
-                    </Tab>
-                    <Tab eventKey={3} title="Favorites">
-                        <TabContent></TabContent>
-                    </Tab>
-                    <Tab eventKey={3} title="Playlists">
-                        <TabContent></TabContent>
-                    </Tab>
-                </Tabs>
-
+                <UploadBox shouldShow={this.state.showUploadModal} shouldClose={()=>{this.handleCloseModal()}}></UploadBox>
                 <PillButton title='Upload new recitation' clickFunction={()=>{this.handleOpenModal()}}></PillButton>
+
+                <Tabs onSelect={this.handleSelect} selectedIndex={0}>
+                    <TabList>
+                        <Tab className='tab'>All</Tab>
+                        <Tab className='tab'>Popular</Tab>
+                        <Tab className='tab'>Liked</Tab>
+                        <Tab className='tab'>Favorites</Tab>
+                        <Tab className='tab'>Playlists</Tab>
+                    </TabList>
+
+                    <TabPanel>
+                        <TabContent><h1>Header1</h1></TabContent>
+                    </TabPanel>
+                    <TabPanel>
+                        <TabContent><h1>Header2</h1></TabContent>
+                    </TabPanel>
+                    <TabPanel>
+                        <TabContent><h1>Header3</h1></TabContent>
+                    </TabPanel>
+                    <TabPanel>
+                        <TabContent><h1>Header4</h1></TabContent>
+                    </TabPanel>
+                    <TabPanel>
+                        <TabContent><h1>Header5</h1></TabContent>
+                    </TabPanel>
+                </Tabs>
             </div>
         );
     }
