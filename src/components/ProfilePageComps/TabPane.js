@@ -24,34 +24,47 @@ class TabPane extends Component {
     handleOpenModal() { this.setState({ showUploadModal: true }); }
 
 
+    /**********************
+    *                     *
+    *        STYLES       *
+    *                     *
+    ***********************/
+    getTabPaneStyle() {
+        return {
+            position:'relative',
+            top:'100px'
+        };
+    }
+
+
     render() {
         return (
             <div>
                 <UploadBox shouldShow={this.state.showUploadModal} shouldClose={()=>{this.handleCloseModal()}}></UploadBox>
                 <PillButton title='Upload new recitation' clickFunction={()=>{this.handleOpenModal()}}></PillButton>
 
-                <Tabs onSelect={this.handleSelect} selectedIndex={0}>
-                    <TabList>
-                        <Tab className='tab'>All</Tab>
-                        <Tab className='tab'>Popular</Tab>
-                        <Tab className='tab'>Liked</Tab>
-                        <Tab className='tab'>Favorites</Tab>
-                        <Tab className='tab'>Playlists</Tab>
+                <Tabs onSelect={this.handleSelect} selectedIndex={0} style={this.getTabPaneStyle()}>
+                    <TabList style={{position:'relative',left:'-25px'}}>
+                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">All</Tab>
+                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">Popular</Tab>
+                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">Liked</Tab>
+                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">Favorites</Tab>
+                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">Playlists</Tab>
                     </TabList>
 
-                    <TabPanel>
+                    <TabPanel className="tabPanel">
                         <TabContent><h1>Header1</h1></TabContent>
                     </TabPanel>
-                    <TabPanel>
+                    <TabPanel className="tabPanel">
                         <TabContent><h1>Header2</h1></TabContent>
                     </TabPanel>
-                    <TabPanel>
+                    <TabPanel className="tabPanel">
                         <TabContent><h1>Header3</h1></TabContent>
                     </TabPanel>
-                    <TabPanel>
+                    <TabPanel> className="tabPanel"
                         <TabContent><h1>Header4</h1></TabContent>
                     </TabPanel>
-                    <TabPanel>
+                    <TabPanel className="tabPanel">
                         <TabContent><h1>Header5</h1></TabContent>
                     </TabPanel>
                 </Tabs>
