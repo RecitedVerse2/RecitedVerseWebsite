@@ -1,0 +1,32 @@
+/* The audio player section. */
+.audio_buttons_section {
+    position: relative;
+    width: 15%;
+    height: 55px;
+    padding-top: 10px;
+    display: table-cell;
+}
+/* The title area. */
+.title_area {
+    position: relative;
+    width: 75%;
+    height: 55px;
+    padding-top: 10px;
+    padding-right: 50px;
+    display: table-cell;
+}
+/* The repeat/shuffle area. */
+.right_buttons {
+    position: relative;
+    width: 10%;
+    height: 55px;
+    padding-top: 20px;
+    display: table-cell;
+}
+
+.fa-random, .fa-repeat {
+    border: none;
+    font-size: 15px;
+    color: white;
+    background-color: rgba(0,0,0,0);
+}

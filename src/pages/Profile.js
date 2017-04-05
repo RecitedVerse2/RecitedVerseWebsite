@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Image, circle } from 'react-bootstrap';
 
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
@@ -45,7 +46,9 @@ class Profile extends Component {
 
                         <div className="profile_info_area">
                             <div className="profile_picture_area">
-                                <img id="profile_picture" src='' alt="ppi" />
+                                {/*<img id="profile_picture" src='' alt="ppi" />*/}
+                                <Image src='' circle/>
+                                <br/><br/><br/><br/><br/>
 
                                 <h4 id="profile_name">Full Name</h4>
                                 <p id="profile_bio">Bio</p>
