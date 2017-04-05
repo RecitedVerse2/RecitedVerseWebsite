@@ -2,20 +2,6 @@ body {
     background-color: rgb(242,244,248);
 }
 
-.login_signup_box {
-    position: relative;
-    top: 100px;
-    margin: auto;
-    text-align: center;
-    border-radius: 25px;
-    border-color: cornflowerblue;
-    background-color: ghostwhite;
-    color: cornflowerblue;
-    border: 1.5px solid cornflowerblue;
-    width: 40%;
-    height: 40%;
-}
-
 .round_input {
     border-radius: 25px;
     border-style: none;
@@ -39,9 +25,9 @@ body {
     padding: 10px;
     -webkit-transition-duration: 0.4s;
 }
-#login_btn {
-    width: 80px;
+#createAccount_btn {
+    width: 120px;
     font-size: 12px;
     background-color: cornflowerblue;
 }
-#login_btn:hover { background-color: royalblue; }
+#createAccount_btn:hover { background-color: royalblue; }
