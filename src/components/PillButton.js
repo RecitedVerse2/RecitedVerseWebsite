@@ -12,9 +12,10 @@ class PillButton extends Component {
             height: this.props.height,
             border: 'none',
             borderRadius: '25px',
+            color: this.props.color || 'black',
             backgroundColor: this.props.btnColor || 'lightgray',
             WebkitTransitionDuration: '0.3s',
-            cursor: 'pointer'
+            cursor: 'pointer',
         }
     }
     getHoverStyles() {
@@ -23,6 +24,7 @@ class PillButton extends Component {
             height: this.props.height,
             border: 'none',
             borderRadius: '25px',
+            color: this.props.color || 'black',
             backgroundColor: this.props.hoverColor || 'gray',
             WebkitTransitionDuration: '0.3s',
             cursor: 'pointer'
@@ -34,13 +36,13 @@ class PillButton extends Component {
         if(this.state.hover) {
             return (
                 <button style={this.getHoverStyles()} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseLeave.bind(this)} onClick={this.handleClick.bind(this)}>
-                    {this.props.title}
+                    {this.props.children}
                 </button>
             );
         } else {
             return (
                 <button style={this.getStyles()} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseLeave.bind(this)} onClick={this.handleClick.bind(this)}>
-                    {this.props.title}
+                    {this.props.children}
                 </button>
             );
         }

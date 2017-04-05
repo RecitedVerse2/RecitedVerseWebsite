@@ -24,7 +24,11 @@ class NavigationHeader extends Component {
             zIndex: '10',
             fontSize: '17px',
             backgroundColor: 'white',
-      	    transition: 'all 0.3s ease'
+      	    transition: 'all 0.3s ease',
+            backgroundImage: 'none',
+            outline: '0',
+            WebkitBoxShadow: 'none',
+            boxShadow: 'none'
         };
     }
     getMenuBarStyle() {
@@ -48,11 +52,21 @@ class NavigationHeader extends Component {
                 </div>
 
                 <div style={this.getMenuBarStyle()}>
-                    <RectButton title='|||' width='100%' height='45px' backgroundColor='rgb(84,92,166)' hoverColor='darkslateblue' clickFunction={this.toggleMenu()}></RectButton>
-                    <RectButton title="Home" width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('home')}}></RectButton>
-                    <RectButton title="My Account" width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('profile')}}></RectButton>
-                    <RectButton title="Login" width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('login')}}></RectButton>
-                    <RectButton title="Register" width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('signup')}}></RectButton>
+                    <RectButton width='100%' height='45px' backgroundColor='rgb(84,92,166)' hoverColor='darkslateblue' clickFunction={this.toggleMenu()}>
+                        <p style={{fontSize:'12px',paddingTop:'10px'}} className='fa fa-bars'></p>
+                    </RectButton>
+                    <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('home')}}>
+                        <p style={{fontSize:'15px'}} className='fa fa-home'></p>
+                    </RectButton>
+                    <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('profile')}}>
+                        <p style={{fontSize:'15px'}} className='fa fa-user'></p>
+                    </RectButton>
+                    <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('login')}}>
+                        <p style={{fontSize:'15px'}} className='fa fa-sign-in'></p>
+                    </RectButton>
+                    <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('signup')}}>
+                        <p style={{fontSize:'15px'}} className='fa fa-user-plus'></p>
+                    </RectButton>
                 </div>
             </div>
         );

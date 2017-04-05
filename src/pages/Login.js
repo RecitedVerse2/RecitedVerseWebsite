@@ -15,10 +15,6 @@ class Login extends Component {
         this.state = {};
     }
 
-    componentDidMount() {
-
-    }
-
 
 
     // The styling.
@@ -34,7 +30,10 @@ class Login extends Component {
             color: 'cornflowerblue',
             border: '1.5px solid cornflowerblue',
             width: '40%',
-            height: '40%'
+            height: '40%',
+            fontFamily: '-apple-system',
+            fontSize: '13px',
+            fontWeight: '500'
         };
     }
     getBtnStyle() {
@@ -57,7 +56,7 @@ class Login extends Component {
 
                 <ContentArea backgroundColor='rgb(242,244,248)'>
                     <div style={this.getLoginBoxStyle()}>
-                        <h2>Login</h2>
+                        <h2 style={{fontFamily: '-apple-system',fontSize: '25px',fontWeight: '500'}}>Login</h2>
                         <input className="round_input" id='input1' type="email" placeholder="Enter your email"/>
                         <br /><br />
                         <input className="round_input" id='input2' type="password" placeholder="Enter your password"/>
@@ -65,9 +64,10 @@ class Login extends Component {
                         <p id="status_label" style={{color: 'red', visibility: 'hidden'}}>Incorrect Email or Password.</p>
 
                         <PillButton style={this.getBtnStyle()}
-                                    title='Login' width='80px' height='30px'
+                                    width='80px' height='30px'
                                     btnColor='cornflowerblue' hoverColor='royalblue'
                                     clickFunction={()=>{this.loginUser();}}>
+                                    Login
                         </PillButton>
                         <br /> <br />
                     </div>

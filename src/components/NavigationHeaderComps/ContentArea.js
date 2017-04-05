@@ -10,7 +10,7 @@ class ContentArea extends Component {
             left: '6%',
             width: '94%',
             height: '100%',
-            backgroundColor: 'rgb(242,244,248)'
+            backgroundColor: this.props.backgroundColor || 'rgb(242,244,248)'
         };
     }
 

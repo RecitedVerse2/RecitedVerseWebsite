@@ -1,75 +1,109 @@
 import React, { Component } from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-
-import PillButton from '../PillButton';
-import TabContent from './TabContent';
-import UploadBox from './UploadBox';
-
-import _ from '../../css/TabPane.css';
+import { Tabs, Tab, TabContent } from 'react-bootstrap';
 
 
 class TabPane extends Component {
-    constructor() {
-        super();
-        this.state = {showUploadModal:false};
-        Tabs.setUseDefaultStyles(false);
-    }
-
-    /**********************
-    *                     *
-    *    MODAL CONTROLS   *
-    *                     *
-    ***********************/
-    handleCloseModal() { this.setState({ showUploadModal: false }); }
-    handleOpenModal() { this.setState({ showUploadModal: true }); }
-
 
     /**********************
     *                     *
     *        STYLES       *
     *                     *
     ***********************/
+    getTabHolderStyle() {
+        return {
+            position:'relative',
+            top:'140px',
+            left:'1%',
+            width:'98%',
+            height:'500px',
+            backgroundColor:'white'
+        };
+    }
     getTabPaneStyle() {
         return {
             position:'relative',
-            top:'100px'
+            zIndex:'10'
+        };
+    }
+    getTabStyle() {
+        return {
+            position:'relative',
+            top:'0px',
+            left:'0px',
+            margin:'0px',
+            padding:'0px'
         };
     }
 
 
+
     render() {
         return (
-            <div>
-                <UploadBox shouldShow={this.state.showUploadModal} shouldClose={()=>{this.handleCloseModal()}}></UploadBox>
-                <PillButton title='Upload new recitation' clickFunction={()=>{this.handleOpenModal()}}></PillButton>
+            <div style={this.getTabHolderStyle()}>
+                <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" style={this.getTabPaneStyle()}>
+                    <Tab eventKey={1} title="All">
+                        <TabContent style={this.getTabStyle()}>
+                            <h1>All</h1>
+                        </TabContent>
+                    </Tab>
 
-                <Tabs onSelect={this.handleSelect} selectedIndex={0} style={this.getTabPaneStyle()}>
-                    <TabList style={{position:'relative',left:'-25px'}}>
-                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">All</Tab>
-                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">Popular</Tab>
-                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">Liked</Tab>
-                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">Favorites</Tab>
-                        <Tab className='tab' activeTabClassName="is-active" disabledTabClassName="is-disabled">Playlists</Tab>
-                    </TabList>
+                    <Tab eventKey={2} title="Popular" style={this.getTabStyle()}>
+                        <TabContent style={this.getTabStyle()}>
+                            <h1>Popular</h1>
+                        </TabContent>
+                    </Tab>
 
-                    <TabPanel className="tabPanel">
-                        <TabContent><h1>Header1</h1></TabContent>
-                    </TabPanel>
-                    <TabPanel className="tabPanel">
-                        <TabContent><h1>Header2</h1></TabContent>
-                    </TabPanel>
-                    <TabPanel className="tabPanel">
-                        <TabContent><h1>Header3</h1></TabContent>
-                    </TabPanel>
-                    <TabPanel> className="tabPanel"
-                        <TabContent><h1>Header4</h1></TabContent>
-                    </TabPanel>
-                    <TabPanel className="tabPanel">
-                        <TabContent><h1>Header5</h1></TabContent>
-                    </TabPanel>
+                    <Tab eventKey={3} title="Liked" style={this.getTabStyle()}>
+                        <TabContent style={this.getTabStyle()}>
+                            <h1>Liked</h1>
+                        </TabContent>
+                    </Tab>
+
+                    <Tab eventKey={4} title="Favorites" style={this.getTabStyle()}>
+                        <TabContent style={this.getTabStyle()}>
+                            <h1>Favorites</h1>
+                        </TabContent>
+                    </Tab>
+
+                    <Tab eventKey={5} title="Playlists" style={this.getTabStyle()}>
+                        <TabContent style={this.getTabStyle()}>
+                            <h1>Playlists</h1>
+                        </TabContent>
+                    </Tab>
                 </Tabs>
             </div>
         );
     }
 }
+
 export default TabPane;
+
+
+
+
+
+// <Tabs onSelect={this.handleSelect} selectedIndex={0} style={this.getTabPaneStyle()}>
+//     <TabList className='tabList'>
+//         <Tab className='tab'>All</Tab>
+//         <Tab className='tab'>Popular</Tab>
+//         <Tab className='tab'>Liked</Tab>
+//         <Tab className='tab'>Favorites</Tab>
+//         <Tab className='tab'>Playlists</Tab>
+//     </TabList>
+//
+//     <TabPanel className="tabPanel">
+//         <TabContent><h1>Header1</h1></TabContent>
+//     </TabPanel>
+//     <TabPanel className="tabPanel">
+//         <TabContent><h1>Header2</h1></TabContent>
+//     </TabPanel>
+//     <TabPanel className="tabPanel">
+//         <TabContent><h1>Header3</h1></TabContent>
+//     </TabPanel>
+//     <TabPanel> className="tabPanel"
+//         <TabContent><h1>Header4</h1></TabContent>
+//     </TabPanel>
+//     <TabPanel className="tabPanel">
+//         <TabContent><h1>Header5</h1></TabContent>
+//     </TabPanel>
+// </Tabs>

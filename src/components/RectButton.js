@@ -40,13 +40,13 @@ class RectButton extends Component {
         if(this.state.hover) {
             return (
                 <button style={this.getHoverStyles()} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseLeave.bind(this)} onClick={this.handleClick.bind(this)}>
-                    {this.props.title}
+                    {this.props.children}
                 </button>
             );
         } else {
             return (
                 <button style={this.getMenuBtnStyle()} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseLeave.bind(this)} onClick={this.handleClick.bind(this)}>
-                    {this.props.title}
+                    {this.props.children}
                 </button>
             );
         }
