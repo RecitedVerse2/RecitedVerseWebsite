@@ -40,7 +40,7 @@ class Profile extends Component {
 
 
                     <ContentHeader top="200px" height="350px">
-                        <button id="edit_profile_btn">Edit Profile</button>
+                        <button id="edit_profile_btn" onClick={()=>{this.goToPage('editprofile')}}>Edit Profile</button>
                         <button id="logout_btn">Logout</button>
 
                         <div className="profile_info_area">
@@ -74,6 +74,12 @@ class Profile extends Component {
     }
 
 
+
+    /**********************
+    *                     *
+    *   UTILITY METHODS   *
+    *                     *
+    ***********************/
 
     // Goes to the particular page necessary for the navigation bar.
     goToPage(page) { this.props.history.push('/'+page); }

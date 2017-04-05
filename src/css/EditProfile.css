@@ -1,0 +1,63 @@
+
+#profile_picture {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: lightgray;
+}
+#background_picture {
+    position: relative;
+    width: 350px;
+    height: 100px;
+    background-color: lightgray;
+}
+#labelForProfilePicFile, #labelForBackgroundPicFile {
+    text-align: center;
+}
+
+.inputField {
+    width: 300px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + #labelForProfilePicFile {
+    width: 150px;
+    height: 40px;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 10px;
+    display: inline-block;
+    background-color: rgb(76, 182, 203);
+    -webkit-transition-duration: 0.4s;
+}
+.inputfile:focus + #labelForProfilePicFile,.inputfile + #labelForProfilePicFile:hover {
+    background-color: rgb(76, 132, 183);
+    -webkit-transition-duration: 0.4s;
+}
+
+.inputfile + #labelForBackgroundPicFile {
+    width: 200px;
+    height: 45px;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 12px;
+    display: inline-block;
+    background-color: rgb(76, 182, 203);
+    -webkit-transition-duration: 0.4s;
+}
+.inputfile:focus + #labelForBackgroundPicFile,.inputfile + #labelForBackgroundPicFile:hover {
+    background-color: rgb(76, 132, 183);
+    -webkit-transition-duration: 0.4s;
+}

@@ -16,6 +16,7 @@ class RectButton extends Component {
             border: 'none',
             fontSize: '11px',
             fontFamily: '-apple-system',
+            color: this.props.textColor || 'white',
             backgroundColor: this.props.backgroundColor || 'gray',
             WebkitTransitionDuration: '0.3s'
         }
@@ -30,6 +31,7 @@ class RectButton extends Component {
             border: 'none',
             fontSize: '11px',
             fontFamily: '-apple-system',
+            color: this.props.textColor || 'white',
             backgroundColor: this.props.hoverColor || 'gray',
             WebkitTransitionDuration: '0.3s'
         }
