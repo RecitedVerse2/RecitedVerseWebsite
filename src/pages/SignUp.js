@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as firebase from 'firebase';
 
 import AudioPlayer from '../components/AudioPlayer';
 
@@ -67,7 +68,7 @@ class SignUp extends Component {
 
                         <PillButton style={this.getBtnStyle()}
                                     width='80px' height='30px'
-                                    btnColor='cornflowerblue' hoverColor='royalblue'>
+                                    btnColor='cornflowerblue' hoverColor='royalblue' clickFunction={()=>{this.handleSignUp()}}>
                                     Sign Up
                         </PillButton>
                         <br /><br />
@@ -80,6 +81,23 @@ class SignUp extends Component {
     }
 
 
+    /**********************
+    *                     *
+    *    BUTTON CLICKS    *
+    *                     *
+    ***********************/
+
+    handleSignUp() {
+        console.log("Working!");
+    };
+
+
+
+    /**********************
+    *                     *
+    *   UTILITY METHODS   *
+    *                     *
+    ***********************/
 
     // Goes to the particular page necessary for the navigation bar.
     goToPage(page) { this.props.history.push('/'+page); }
