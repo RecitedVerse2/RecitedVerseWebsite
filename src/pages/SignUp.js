@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import AudioPlayer from '../components/AudioPlayer';
+
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import PillButton from '../components/PillButton';
@@ -71,6 +73,8 @@ class SignUp extends Component {
                         <br /><br />
                     </div>
                 </ContentArea>
+
+                <AudioPlayer></AudioPlayer>
             </div>
         );
     }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import AudioPlayer from '../components/AudioPlayer';
+
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 
@@ -13,6 +15,9 @@ class Home extends Component {
                 </NavigationHeader>
 
                 <ContentArea headerTitle="Home Page!" backgroundColor='lightgreen'></ContentArea>
+
+
+                <AudioPlayer></AudioPlayer>
             </div>
         );
     }

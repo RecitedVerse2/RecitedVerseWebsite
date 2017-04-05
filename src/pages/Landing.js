@@ -6,9 +6,19 @@ import MainPointsSection from '../components/LandingPageComps/MainPointsSection'
 
 // The landing page for RecitedVerse.
 class Landing extends Component {
+
+    getStyles = () => {
+        return {
+            position:'absolute',
+            left:'0px',
+            top:'0px'
+        };
+    };
+
+
     render() {
         return (
-            <div style={{position:'absolute',left:'0px',top:'0px'}}>
+            <div style={this.getStyles()}>
                 <LandingVideo loginBtn={this.goToLogin.bind(this)}
                               signupBtn={this.goToSignup.bind(this)}>
                 </LandingVideo>

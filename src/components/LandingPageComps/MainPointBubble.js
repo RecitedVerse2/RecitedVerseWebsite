@@ -4,7 +4,9 @@ class MainPointsBubble extends Component {
 
     getStyles() {
         return {
-            display: 'inline-block',
+            position:'relative',
+            top:'20px',
+            display: 'table-cell',
             wordWrap: 'normal',
             verticalAlign: 'top',
             fontSize: '15px',
@@ -19,7 +21,7 @@ class MainPointsBubble extends Component {
             <div style={this.getStyles()}>
                     <img src={this.props.src} alt="img" width={165} height={165} />
                     <br />
-                    <h3 style={{textAlign:'center'}}>{this.props.title}</h3>
+                    <h2 style={{textAlign:'center'}}>{this.props.title}</h2>
                     <p style={{textAlign:'center'}}>{this.props.description}</p>
             </div>
         );

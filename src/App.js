@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import AudioPlayer from './components/AudioPlayer';
-
 import Landing from './pages/Landing';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
@@ -26,7 +24,6 @@ class App extends Component {
                     <Route path="/profile" component={Profile}></Route>
                     <Route path="/editprofile" component={EditProfile}></Route>
                     <Route path="/poem" component={Poem}></Route>
-                    <AudioPlayer></AudioPlayer>
                 </div>
             </BrowserRouter>
         );

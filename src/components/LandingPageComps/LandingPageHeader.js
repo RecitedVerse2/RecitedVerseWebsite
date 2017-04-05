@@ -7,11 +7,14 @@ class LandingPageHeader extends Component {
 
     getLPHStyles() {
         return {
-            'position': 'relative',
-            'top': '-450px',
-            'width': '100%',
-            'zIndex': '10',
-            'textAlign': 'center'
+            position: 'relative',
+            top: '-450px',
+            width: '100%',
+            zIndex: '10',
+            textAlign: 'center',
+            fontFamily: '-apple-system',
+            fontSize: '13px',
+            fontWeight: '500'
         };
     }
 
@@ -24,8 +27,13 @@ class LandingPageHeader extends Component {
                     <h2 style={{color: 'white', fontStyle: 'italic', fontSize: 30}}>Recited Verse</h2>
                     <h3 style={{color: 'white', fontStyle: 'italic', fontSize: 23}}>A free treasury of online poetry recitations</h3>
 
-                    <PillButton width='60px' height='30px' title="Login" hoverColor="rgb(135, 206, 235)" clickFunction={()=>{this.props.loginBtn()}}/>&nbsp;&nbsp;&nbsp;
-                    <PillButton width='60px' height='30px' title="Sign Up" hoverColor="rgb(135, 206, 235)" clickFunction={()=>{this.props.signupBtn()}}/>
+                    <PillButton width='60px' height='30px' hoverColor="rgb(135, 206, 235)" clickFunction={()=>{this.props.loginBtn()}}>
+                        Login
+                    </PillButton>
+                    &nbsp;&nbsp;&nbsp;
+                    <PillButton width='60px' height='30px' hoverColor="rgb(135, 206, 235)" clickFunction={()=>{this.props.signupBtn()}}>
+                        Sign Up
+                    </PillButton>
                     <br/><br/><br/>
             </div>
         );

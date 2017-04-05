@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Image, circle } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
+
+import AudioPlayer from '../components/AudioPlayer';
 
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
@@ -72,6 +74,8 @@ class Profile extends Component {
                     </TabPane>
 
                 </ContentArea>
+
+                <AudioPlayer></AudioPlayer>
             </div>
         );
     }
