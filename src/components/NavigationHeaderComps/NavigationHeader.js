@@ -21,7 +21,7 @@ class NavigationHeader extends Component {
             width: '94%',
             height: '45px',
             border: 'none',
-            zIndex: '10',
+            zIndex: '90',
             fontSize: '17px',
             backgroundColor: 'white',
       	    transition: 'all 0.3s ease',
@@ -58,7 +58,7 @@ class NavigationHeader extends Component {
                     <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('home')}}>
                         <p style={{fontSize:'15px'}} className='fa fa-home'></p>
                     </RectButton>
-                    <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('profile')}}>
+                    <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.handleGoToProfile()}}>
                         <p style={{fontSize:'15px'}} className='fa fa-user'></p>
                     </RectButton>
                     <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('login')}}>
@@ -85,6 +85,13 @@ class NavigationHeader extends Component {
             this.props.goToLogin();
         } else if(page === 'signup') {
             this.props.goToSignUp();
+        }
+    }
+    handleGoToProfile() {
+        if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
+            this.goTo('profile')
+        } else {
+            this.goTo('login');
         }
     }
 }

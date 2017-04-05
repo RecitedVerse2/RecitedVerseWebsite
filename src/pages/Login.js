@@ -68,7 +68,7 @@ class Login extends Component {
                         <PillButton style={this.getBtnStyle()}
                                     width='80px' height='30px'
                                     btnColor='cornflowerblue' hoverColor='royalblue'
-                                    clickFunction={()=>{this.loginUser();}}>
+                                    clickFunction={this.loginUser.bind(this)}>
                                     Login
                         </PillButton>
                         <br /> <br />
@@ -96,8 +96,7 @@ class Login extends Component {
 
         if(this.valueExists(email) && this.valueExists(password)) {
             var fireAuth = firebase.auth();
-            var fireRef = firebase.database().ref();
-            var gotUser = true;
+            var hist = this.props.history;
 
             fireAuth.signInWithEmailAndPassword(email, password).catch(function(error) {
                 // Handle Errors here.
@@ -107,25 +106,23 @@ class Login extends Component {
                     statusLabel.style.color = "red";
                     statusLabel.innerHTML = "Incorrect Email or Password.";
                     statusLabel.style.visibility = "visible";
-                    gotUser = false;
                     return;
                 } else if(errorCode === 'auth/user-not-found') {
                     statusLabel.style.color = "red";
                     statusLabel.innerHTML = "No user was found with that email and password.";
                     statusLabel.style.visibility = "visible";
-                    gotUser = false;
                     return;
                 }
             });
 
-            if(gotUser === true) {
-                var user = fireAuth.currentUser;
-                if(user) {
-                    this.loadCurrentUser(fireRef, fireAuth, email, password, user.uid);
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    window.localStorage.setItem('currentUID',user.uid);
+                    hist.push('/profile');
                 } else {
-                    console.log("Problem logging in");
-                } // End of if-statement.
-            }
+                    return;
+                }
+            });
         }
     }
 
@@ -147,51 +144,6 @@ class Login extends Component {
             return false;
         }
     }
-
-
-    // Loads and returns the current user object.
-    loadCurrentUser(fireRef, fireAuth, email, password, uid) {
-        var currentUser;
-        var hist = this.props.history;
-
-        fireRef.child('Users').child(uid).once('value').then(function(snapshot) {
-            var em = snapshot.val()["email"];
-            var fullname = snapshot.val()["fullname"];
-            var pass = snapshot.val()["password"];
-            var userID = snapshot.val()["userID"];
-            var photoURL = snapshot.val()["photoURL"];
-            var backgrounImg = snapshot.val()["backgroundImage"];
-            var bio = snapshot.val()["bio"];
-            var social = snapshot.val()["social_media_links"];
-            var likes = snapshot.val()["likes"];
-            var favorites = snapshot.val()["favorites"];
-
-            if(em === email && pass === password) {
-                currentUser = {
-                    "fullname" : fullname,
-                    "email" : email,
-                    "password" : password,
-                    "userID" : userID,
-                    "photoURL" : photoURL,
-                    "backgroundImage" : backgrounImg,
-                    "followers" : 0,
-                    "following" : 0,
-                    "bio" : bio,
-                    "social_media_links" : social,
-                    "likes":likes,
-                    "favorites":favorites
-                };
-
-                if (typeof(Storage) !== "undefined") { window.localStorage.setItem("current_user", JSON.stringify(currentUser)); }
-                hist.push('/home');
-            } else {
-                if (typeof(Storage) !== "undefined") { window.localStorage.removeItem("current_user"); }
-                return;
-            }
-
-        }); // End of firebase observe.
-    }
-
 
     // Goes to the particular page necessary for the navigation bar.
     goToPage(page) { this.props.history.push('/'+page); }
