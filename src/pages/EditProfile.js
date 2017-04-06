@@ -6,12 +6,19 @@ import AudioPlayer from '../components/AudioPlayer';
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import RectButton from '../components/RectButton';
+import FileChooserForm from '../components/FileChooserForm';
 
 import _ from '../css/EditProfile.css';
 
 
 // This is where users edit their profiles.
 class EditProfile extends Component {
+    /**********************
+    *                     *
+    *       LOADING       *
+    *                     *
+    ***********************/
+
     constructor() {
         super();
 
@@ -75,6 +82,26 @@ class EditProfile extends Component {
 
 
 
+    /**********************
+    *                     *
+    *        STYLES       *
+    *                     *
+    ***********************/
+    getFormButtonStyle() {
+        return {
+            width: '200px',
+            height: '40px',
+            color: 'black',
+            cursor: 'pointer',
+            fontSize: '14px',
+            fontWeight: '400',
+            paddingTop: '10px',
+            textAlign: 'center',
+            display: 'inline-block',
+            backgroundColor: 'rgb(76, 182, 203)',
+            WebkitTransitionDuration: '0.4s'
+        };
+    }
 
 
 
@@ -88,22 +115,25 @@ class EditProfile extends Component {
 
 
                 <ContentArea>
-                    <div style={{position:'relative',left:'20px',color:'rgb(128,128,128)'}}>
+                    <div style={{position:'relative',paddingLeft:'20px',color:'rgb(128,128,128)'}}>
                         <h3 className="ep_header">Edit Profile</h3>
 
                         <img id="profile_picture" src={this.state.profileSrc} alt="ppi" />
                         <br /><br />
-                        <form action style={{textAlign: 'left'}}>
-                            <input type="file" name="profpicfile" id="profilepicfile" className="inputfile" accept="image/x-png" multiple="false" />
-                            <label id="labelForProfilePicFile" htmlFor="profilepicfile" onChange={this.handleProfilePictureChange.bind(this)}>Choose Profile Picture</label>
-                        </form>
+
+                        <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='profilepicfile' multiple='false' fileSelectedHandler={this.handleProfilePictureChange.bind(this)}>
+                            Choose Profile Picture
+                        </FileChooserForm>
+
                         <br/>
+
                         <img id="background_picture" src={this.state.backgroundSrc} alt="bpi" />
                         <br /><br />
-                        <form action style={{textAlign: 'left'}}>
-                            <input type="file" name="backgroundfile" id="backgroundimgfile" className="inputfile" accept="image/x-png" multiple="false" />
-                            <label id="labelForBackgroundPicFile" htmlFor="backgroundimgfile" onChange={this.onBackgroundPictureChange.bind(this)}>Choose Background Picture</label>
-                        </form>
+
+                        <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='backgroundimgfile' multiple='false' fileSelectedHandler={this.handleBackgroundPictureChange.bind(this)}>
+                            Choose Background Picture
+                        </FileChooserForm>
+
                         <br/>
 
                         <h4><b>Personal Information</b></h4>
@@ -117,7 +147,7 @@ class EditProfile extends Component {
                         <br /><br /><br />
 
                         <h4><b>Profile</b></h4>
-                        Bio: &nbsp;&nbsp;&nbsp; <textarea id="ep_bio_field" value={this.state.bio}/>
+                        Bio: &nbsp;&nbsp;&nbsp; <textarea id="ep_bio_field" placeholder={this.state.bio}/>
                         <br /><br /><br />
 
 
@@ -224,13 +254,15 @@ class EditProfile extends Component {
     handleProfilePictureChange = function(e) {
         var file    = document.getElementById('profilepicfile').files[0];
         var reader  = new FileReader();
-        reader.addEventListener("load", function () {  this.changeProfilePicture(reader.result); }, false);
+        const MyClass = this;
+        reader.addEventListener("load", function () {  MyClass.changeProfilePicture(reader.result); }, false);
         if (file) { reader.readAsDataURL(file); }
     };
-    onBackgroundPictureChange = function() {
+    handleBackgroundPictureChange = function() {
         var file    = document.getElementById('backgroundimgfile').files[0];
         var reader  = new FileReader();
-        reader.addEventListener("load", function () {  this.changeBackgroundPicture(reader.result); }, false);
+        const MyClass = this;
+        reader.addEventListener("load", function () {  MyClass.changeBackgroundPicture(reader.result); }, false);
         if (file) { reader.readAsDataURL(file); }
     };
 
@@ -238,9 +270,10 @@ class EditProfile extends Component {
         Saves the object to firebase.
     */
     saveToFirebase(changes) {
+        firebase.database().ref().child("Users").child(this.state.uid).update(changes);
+
         this.uploadNewProfilePicture(() => {
             this.uploadNewBackgroundPicture(() => {
-                firebase.database().ref().child("Users").child(this.state.uid).update(changes);
                 this.props.history.push('profile');
             });
         });
@@ -266,7 +299,7 @@ class EditProfile extends Component {
         if(backgroundPicture.src !== this.state.backgroundSrc) {
             firebase.storage().ref().child(this.state.uid).child("backgroundPicture").putString(backgroundPicture.src, 'data_url').then(snapshot => {
                 var updates = {
-                    'backgroundImage':this.state.backgroundSrc
+                    'backgroundImage':snapshot.downloadURL
                 }
                 firebase.database().ref().child("Users").child(this.state.uid).update(updates);
                 callback();
@@ -289,18 +322,18 @@ class EditProfile extends Component {
     // Renames the keys in the dictionary so that they fit the way they are in Firebase.
     renameKeys(changes) {
         var newChanges = {
-            'backgroundImage':changes[''],
-            'bio':changes[''],
-            'email':changes[''],
-            'favorites':changes[''],
-            'followers':changes[''],
-            'following:'changes[''],
-            'fullname':changes[''],
-            'likes':changes[''],
-            'password':changes[''],
-            'photoURL':changes[''],
-            'social_media_links':changes[''],
-            'userID':changes['']
+            'backgroundImage':changes['backgroundSrc'],
+            'bio':changes['bio'],
+            'email':changes['email'],
+            'favorites':changes['favorites'],
+            'followers':changes['followers'],
+            'following':changes['following'],
+            'fullname':changes['fullName'],
+            'likes':changes['likes'],
+            'password':changes['password'],
+            'photoURL':changes['profileSrc'],
+            'social_media_links':[changes['fb'],changes['li'],changes['in'],changes['tw']],
+            'userID':changes['uid']
         };
         return newChanges;
     }

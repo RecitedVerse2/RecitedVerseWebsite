@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 
+import FileChooserForm from '../FileChooserForm';
+
 import _ from '../../css/UploadBox.css';
 
 
@@ -30,7 +32,21 @@ class UploadBox extends Component {
             color: 'lightsteelblue'
         };
     }
-
+    getFormButtonStyle() {
+        return {
+            width: '100px',
+            height: '30px',
+            color: 'black',
+            cursor: 'pointer',
+            fontSize: '12px',
+            fontWeight: '400',
+            paddingTop: '8px',
+            textAlign: 'center',
+            display: 'inline-block',
+            backgroundColor: 'rgb(76, 182, 203)',
+            WebkitTransitionDuration: '0.4s'
+        };
+    }
 
 
 
@@ -56,17 +72,19 @@ class UploadBox extends Component {
                     <img width="200px" height="200px" src="https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FEmptyPhoto.png?alt=media&token=ce1a33f5-f1d6-4f22-a6f8-8ab40cbd5c83" alt="poem_photo"/>
                     <br/><br/>
 
-                    <form style={{textAlign: 'center'}}>
-                        <input type="file" name="recImage" id="recImageFile" className="inputfile" accept="image/x-png" multiple="false" />
-                        <label id="addPhotoBtn" className="pill_btn" htmlFor="recImageFile">Add Photo</label>
-                    </form>
+                    <FileChooserForm style={{textAlign: 'center'}} formButtonStyle={this.getFormButtonStyle()} formButtonId='addPhotoBtn' formButtonClass='pill_btn' name='recImageFile' accept='image/x-png' multiple='false'
+                                    fileSelectedHandler={()=>{}}>
+                        Add Photo
+                    </FileChooserForm>
+
                     <br />
                     <h5 className="page_text">Upload a recording from a file</h5>
-                    <form style={{textAlign: 'center'}}>
-                        <input type="file" name="fileRec" id="fileRecitation" className="inputfile" accept="audio/x-mpeg" multiple="false" />
-                        <label id="fromFileBtn" className="pill_btn" htmlFor="fileRecitation">Upload</label>
+                    <FileChooserForm style={{textAlign: 'center'}} formButtonStyle={this.getFormButtonStyle()} formButtonId='fromFileBtn' formButtonClass='pill_btn' name='fileRecitation' accept='audio/x-mpeg' multiple='false'
+                                    fileSelectedHandler={()=>{}}>
+                        Upload
                         <p id="filenameLabel" style={{color: 'limegreen'}} />
-                    </form>
+                    </FileChooserForm>
+
                     <p className="page_text">Or</p>
                     <h5 className="page_text">Record a recitation here.</h5>
                     <p id="canvas_holder" className="canvas_holder"><canvas className="visualizer" /></p>
