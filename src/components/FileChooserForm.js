@@ -24,7 +24,7 @@ class FileChooserForm extends Component {
                        className="inputfile"
                        accept={this.props.accept || '*'}
                        multiple={this.props.multiple || 'false'}
-                       onChange={this.props.fileSelectedHandler || this.handleLoaded.bind(this)}
+                       onChange={this.handleLoaded.bind(this)}
                        style={this.getStyles()} />
 
                 <label htmlFor={this.props.name}
@@ -39,8 +39,16 @@ class FileChooserForm extends Component {
     };
 
 
-    handleLoaded(urls) {
-        return urls;
+    handleLoaded(e) {
+        var file = document.getElementById(this.props.name).files[0];
+        var reader  = new FileReader();
+        const thisClass = this;
+        reader.addEventListener("load", function () {
+            if(thisClass.props.fileSelectedHandler) {
+                thisClass.props.fileSelectedHandler(reader.result);
+            }
+         }, false);
+        if (file) { reader.readAsDataURL(file); }
     };
 
     handleError(err) {

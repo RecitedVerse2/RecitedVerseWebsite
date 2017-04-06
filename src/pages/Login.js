@@ -41,12 +41,23 @@ class Login extends Component {
     getBtnStyle() {
         return {
             textAlign: 'center',
-            borderRadius: '25px',
-            borderStyle: 'none',
             padding: '10px',
             WebkitTransitionDuration: '0.4s'
         };
     }
+    getPBS() {
+        return {
+            width: '80px',
+            height: '30px',
+            border: 'none',
+            borderRadius: '25px',
+            textColor: 'black',
+            backgroundColor: 'cornflowerblue',
+            hoverColor: 'royalblue',
+            clickFunction: ()=>{this.loginUser()}
+        }
+    }
+
 
 
     render() {
@@ -65,12 +76,7 @@ class Login extends Component {
                         <br /><br />
                         <p id="status_label" style={{color: 'red', visibility: 'hidden'}}>Incorrect Email or Password.</p>
 
-                        <PillButton style={this.getBtnStyle()}
-                                    width='80px' height='30px'
-                                    btnColor='cornflowerblue' hoverColor='royalblue'
-                                    clickFunction={this.loginUser.bind(this)}>
-                                    Login
-                        </PillButton>
+                        <PillButton {...this.getPBS()} style={this.getBtnStyle()}> Login </PillButton>
                         <br /> <br />
                     </div>
                 </ContentArea>

@@ -21,6 +21,17 @@ class AudioPlayer extends Component {
             backgroundColor:'rgb(76, 182, 203)'
         };
     }
+    getCBS() {
+        return {
+            width: '45px',
+            height: '45px',
+            border:'2px white solid',
+            textColor:'white',
+            backgroundColor:'rgba(0,0,0,0)',
+            hoverColor:'#ADB8F9',
+            WebkitTransitionDuration:'0.4s'
+        };
+    }
 
 
     render() {
@@ -28,15 +39,15 @@ class AudioPlayer extends Component {
             <div style={this.getAPStyles()}>
 
                 <div className="audio_buttons_section">
-                    <CircleButton width='45px' height='45px' color='white' border='2px white solid' btnColor='rgba(0,0,0,0)'>
+                    <CircleButton {...this.getCBS()} >
                         <p className='fa fa-step-backward' style={{paddingTop:'10px'}}></p>
                     </CircleButton>
 
-                    <CircleButton width='45px' height='45px' color='white' border='2px white solid' btnColor='rgba(0,0,0,0)'>
+                    <CircleButton {...this.getCBS()}>
                         <p className='fa fa-play' style={{paddingTop:'10px'}}></p>
                     </CircleButton>
 
-                    <CircleButton width='45px' height='45px' color='white' border='2px white solid' btnColor='rgba(0,0,0,0)'>
+                    <CircleButton {...this.getCBS()}>
                         <p className='fa fa-step-forward' style={{paddingTop:'10px'}}></p>
                     </CircleButton>
                 </div>

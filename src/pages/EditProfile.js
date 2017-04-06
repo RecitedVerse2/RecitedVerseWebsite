@@ -121,7 +121,8 @@ class EditProfile extends Component {
                         <img id="profile_picture" src={this.state.profileSrc} alt="ppi" />
                         <br /><br />
 
-                        <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='profilepicfile' multiple='false' fileSelectedHandler={this.handleProfilePictureChange.bind(this)}>
+                        <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='profilepicfile' multiple='false'
+                            fileSelectedHandler={(e)=>{this.changeProfilePicture(e)}}>
                             Choose Profile Picture
                         </FileChooserForm>
 
@@ -130,7 +131,8 @@ class EditProfile extends Component {
                         <img id="background_picture" src={this.state.backgroundSrc} alt="bpi" />
                         <br /><br />
 
-                        <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='backgroundimgfile' multiple='false' fileSelectedHandler={this.handleBackgroundPictureChange.bind(this)}>
+                        <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='backgroundimgfile' multiple='false'
+                            fileSelectedHandler={(e)=>{this.changeBackgroundPicture(e)}}>
                             Choose Background Picture
                         </FileChooserForm>
 
@@ -251,20 +253,6 @@ class EditProfile extends Component {
         document.getElementById('background_picture').src = e;
     };
 
-    handleProfilePictureChange = function(e) {
-        var file    = document.getElementById('profilepicfile').files[0];
-        var reader  = new FileReader();
-        const MyClass = this;
-        reader.addEventListener("load", function () {  MyClass.changeProfilePicture(reader.result); }, false);
-        if (file) { reader.readAsDataURL(file); }
-    };
-    handleBackgroundPictureChange = function() {
-        var file    = document.getElementById('backgroundimgfile').files[0];
-        var reader  = new FileReader();
-        const MyClass = this;
-        reader.addEventListener("load", function () {  MyClass.changeBackgroundPicture(reader.result); }, false);
-        if (file) { reader.readAsDataURL(file); }
-    };
 
     /*
         Saves the object to firebase.

@@ -41,6 +41,18 @@ class SignUp extends Component {
             WebkitTransitionDuration: '0.4s'
         };
     }
+    getPBS() {
+        return {
+            width: '80px',
+            height: '30px',
+            border: 'none',
+            borderRadius: '25px',
+            textColor: 'black',
+            backgroundColor: 'cornflowerblue',
+            hoverColor: 'royalblue',
+            clickFunction: ()=>{this.handleSignUp()}
+        }
+    }
 
 
 
@@ -66,11 +78,7 @@ class SignUp extends Component {
                         <input className="round_input" type="password" placeholder="Re-enter your password" id='password_field_2'/>
                         <p id="status_label" style={{color: 'red', visibility: 'hidden'}}>The passwords do not match.</p>
 
-                        <PillButton style={this.getBtnStyle()}
-                                    width='80px' height='30px'
-                                    btnColor='cornflowerblue' hoverColor='royalblue' clickFunction={()=>{this.handleSignUp()}}>
-                                    Sign Up
-                        </PillButton>
+                        <PillButton {...this.getPBS()} style={this.getBtnStyle()}> Sign Up </PillButton>
                         <br /><br />
                     </div>
                 </ContentArea>

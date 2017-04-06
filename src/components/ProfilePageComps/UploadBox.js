@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 
 import FileChooserForm from '../FileChooserForm';
+import CircleButton from '../CircleButton';
 
 import _ from '../../css/UploadBox.css';
 
@@ -47,7 +48,15 @@ class UploadBox extends Component {
             WebkitTransitionDuration: '0.4s'
         };
     }
-
+    getCBS() {
+        return {
+            width: '50px',
+            height: '50px',
+            backgroundColor:'#ADD8E6',
+            hoverColor:'#ADB8F9',
+            WebkitTransitionDuration:'0.4s'
+        };
+    }
 
 
 
@@ -69,32 +78,32 @@ class UploadBox extends Component {
                     <h5>Description (Optional): </h5>
                     <textarea rows="5" cols="30"></textarea>
                     <h5>Image (Optional):</h5>
-                    <img width="200px" height="200px" src="https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FEmptyPhoto.png?alt=media&token=ce1a33f5-f1d6-4f22-a6f8-8ab40cbd5c83" alt="poem_photo"/>
+                    <img id='poem_image' width="200px" height="200px" src="https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FEmptyPhoto.png?alt=media&token=ce1a33f5-f1d6-4f22-a6f8-8ab40cbd5c83" alt="poem_photo"/>
                     <br/><br/>
 
-                    <FileChooserForm style={{textAlign: 'center'}} formButtonStyle={this.getFormButtonStyle()} formButtonId='addPhotoBtn' formButtonClass='pill_btn' name='recImageFile' accept='image/x-png' multiple='false'
-                                    fileSelectedHandler={()=>{}}>
+                    <FileChooserForm formButtonStyle={this.getFormButtonStyle()} formButtonId='addPhotoBtn' formButtonClass='pill_btn' name='recImageFile' accept='image/x-png' multiple='false'
+                                    fileSelectedHandler={(e)=>{this.uploadRecitationImage(e)}}>
                         Add Photo
                     </FileChooserForm>
 
                     <br />
                     <h5 className="page_text">Upload a recording from a file</h5>
-                    <FileChooserForm style={{textAlign: 'center'}} formButtonStyle={this.getFormButtonStyle()} formButtonId='fromFileBtn' formButtonClass='pill_btn' name='fileRecitation' accept='audio/x-mpeg' multiple='false'
-                                    fileSelectedHandler={()=>{}}>
+                    <FileChooserForm formButtonStyle={this.getFormButtonStyle()} formButtonId='fromFileBtn' formButtonClass='pill_btn' name='fileRecitation' accept='audio/x-mpeg' multiple='false'
+                                    fileSelectedHandler={(e)=>{}}>
                         Upload
                         <p id="filenameLabel" style={{color: 'limegreen'}} />
                     </FileChooserForm>
 
                     <p className="page_text">Or</p>
                     <h5 className="page_text">Record a recitation here.</h5>
-                    <p id="canvas_holder" className="canvas_holder"><canvas className="visualizer" /></p>
+                    {/*<p id="canvas_holder" className="canvas_holder"><canvas className="visualizer" /></p>*/}
                     <div className="mediaButtons">
-                        <button id="recordBtn" className="roundBtn fa fa-microphone"/>
-                        <button id="stopRecBtn" className="roundBtn fa fa-stop-circle-o" />
-                        <button id="playAudioBtn" className="roundBtn fa fa-play" />
-                        <button id="pauseBtn" className="roundBtn fa fa-pause" />
-                        <button id="stopBtn" className="roundBtn fa fa-stop" />
-                        <button id="clearBtn" className="roundBtn fa fa-trash" />
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('recording');}}><p className="fa fa-microphone"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('stopped rec');}}><p className="fa fa-stop-circle-o"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('playing');}}><p className="fa fa-play"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('paused');}}><p className="fa fa-pause"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('stop');}}><p className="fa fa-stop"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('trashed');}}><p className="fa fa-trash"></p></CircleButton>
                     </div>
                 </Modal.Body>
 
@@ -104,6 +113,24 @@ class UploadBox extends Component {
             </Modal>
         );
     }
+
+
+
+    /**********************
+    *                     *
+    *    BUTTON CLICKS    *
+    *                     *
+    ***********************/
+
+    uploadRecitationImage(e) {
+        var poemImage = document.getElementById('poem_image');
+        poemImage.src = e;
+    };
+
+    uploadAudioFile(e) {
+
+    }
+
 }
 
 
