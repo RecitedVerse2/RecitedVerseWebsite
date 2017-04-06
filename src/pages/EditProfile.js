@@ -36,6 +36,7 @@ class EditProfile extends Component {
             if(snapshot != null) {
                 var email = snapshot.val()["email"];
                 var fullname = snapshot.val()["fullname"];
+                var password = snapshot.val()['password'];
                 var userID = snapshot.val()["userID"];
                 var photoURL = snapshot.val()["photoURL"];
                 var backgroundImg = snapshot.val()["backgroundImage"];
@@ -47,20 +48,20 @@ class EditProfile extends Component {
                 var fing = snapshot.val()["following"];
 
                 var dict = {
-                    email:email || "Change your email",
-                    password:"Change your password",
+                    email:email,
+                    password:password,
                     likes:likes,
                     favorites:favorites,
                     profileSrc:photoURL,
                     backgroundSrc:backgroundImg,
-                    fullName:fullname || 'Change your full name',
-                    bio:bio || 'Bio',
+                    fullName:fullname,
+                    bio:bio,
                     followers:fs,
                     following:fing,
-                    fb:social[0] || 'Link to your Facebook page',
-                    li:social[1] || 'Link to your LinkedIn page',
-                    in:social[2] || 'Link to your Instagram page',
-                    tw:social[3] || 'Link to your Twitter page',
+                    fb:social[0],
+                    li:social[1],
+                    in:social[2],
+                    tw:social[3],
                     uid:userID
                 };
                 this.setState(dict);
@@ -94,25 +95,25 @@ class EditProfile extends Component {
                         <br /><br />
                         <form action style={{textAlign: 'left'}}>
                             <input type="file" name="profpicfile" id="profilepicfile" className="inputfile" accept="image/x-png" multiple="false" />
-                            <label id="labelForProfilePicFile" htmlFor="profilepicfile">Choose Profile Picture</label>
+                            <label id="labelForProfilePicFile" htmlFor="profilepicfile" onChange={this.handleProfilePictureChange.bind(this)}>Choose Profile Picture</label>
                         </form>
                         <br/>
                         <img id="background_picture" src={this.state.backgroundSrc} alt="bpi" />
                         <br /><br />
                         <form action style={{textAlign: 'left'}}>
                             <input type="file" name="backgroundfile" id="backgroundimgfile" className="inputfile" accept="image/x-png" multiple="false" />
-                            <label id="labelForBackgroundPicFile" htmlFor="backgroundimgfile">Choose Background Picture</label>
+                            <label id="labelForBackgroundPicFile" htmlFor="backgroundimgfile" onChange={this.onBackgroundPictureChange.bind(this)}>Choose Background Picture</label>
                         </form>
                         <br/>
 
                         <h4><b>Personal Information</b></h4>
-                        Full Name: &nbsp;&nbsp;&nbsp; <input type="text" className="inputField" placeholder={this.state.fullName}/>
+                        Full Name: &nbsp;&nbsp;&nbsp; <input id='fullNameField' type="text" className="inputField" placeholder={this.state.fullName}/>
                         <br /><br />
-                        Email: &nbsp;&nbsp;&nbsp; <input type="email" className="inputField" placeholder={this.state.email}/>
+                        Email: &nbsp;&nbsp;&nbsp; <input id='emailField'  type="email" className="inputField" placeholder={this.state.email}/>
                         <br /><br />
-                        Password: &nbsp;&nbsp;&nbsp; <input type="text" className="inputField" placeholder={this.state.password}/>
+                        Password: &nbsp;&nbsp;&nbsp; <input type="text" id='passwordField1' className="inputField" placeholder="Enter a new password"/>
                         <br /><br />
-                        Re-enter Password: &nbsp;&nbsp;&nbsp; <input type="text" className="inputField" placeholder="Re-enter your new password" />
+                        Re-enter Password: &nbsp;&nbsp;&nbsp; <input id='passwordField2' type="text" className="inputField" placeholder="Re-enter your new password" />
                         <br /><br /><br />
 
                         <h4><b>Profile</b></h4>
@@ -135,7 +136,10 @@ class EditProfile extends Component {
                         <input type="url" id="twitterLink" className="inputField" placeholder={this.state.tw}/>
                         </p>
                         <br /><br /><br /><br />
-                        <RectButton width='140px' height='40px' textColor='black' backgroundColor='rgb(76, 182, 203)' hoverColor='rgb(76, 132, 183)'><h5>Save Changes</h5></RectButton>
+                        <RectButton width='140px' height='40px' textColor='black' backgroundColor='rgb(76, 182, 203)' hoverColor='rgb(76, 132, 183)'
+                            clickFunction={this.handleSaveChanges.bind(this)}>
+                            <h5>Save Changes</h5>
+                        </RectButton>
                         <br /><br /><br /><br /><br /><br /><br /><br />
                     </div>
                 </ContentArea>
@@ -145,6 +149,160 @@ class EditProfile extends Component {
                 <AudioPlayer></AudioPlayer>
             </div>
         );
+    }
+
+
+
+
+    /**********************
+    *                     *
+    *    BUTTON CLICKS    *
+    *                     *
+    ***********************/
+
+    handleSaveChanges() {
+        var fullname = document.getElementById('fullNameField').value || this.state.fullName;
+        var email = document.getElementById('emailField').value || this.state.email;
+        var password1 = document.getElementById('passwordField1').value || this.state.password;
+        var password2 = document.getElementById('passwordField2').value || this.state.password;
+        var bio = document.getElementById('ep_bio_field').value || this.state.bio;
+
+        var changes = this.state;
+
+        if( fullname !== "" && fullname !== null ) {
+            changes["fullName"] = fullname;
+        }
+        if( email !== "" && email !== null && email !== changes["email"]) {
+            var user = firebase.auth().currentUser;
+            user.updateEmail(email).then(function() {
+                changes["email"] = email;
+            }, function(error) {
+                alert('That email is already in use.');
+                return;
+            });
+        }
+        if( password1 !== "" && password1 !== null ) {
+            if( password2 !== "" && password2 !== null ) {
+                if(password1 === password2) {
+                    changes["password"] = password1;
+                }
+
+            }
+        }
+        if( bio !== "" && bio !== null ) {
+            changes["bio"] = bio;
+        }
+
+        var social = [];
+        var fbLink = document.getElementById('facebookLink').value || "";
+        var liLink = document.getElementById('linkedinLink').value || "";
+        var inLink = document.getElementById('instagramLink').value || "";
+        var twLink = document.getElementById('twitterLink').value || "";
+        social.push(fbLink);
+        social.push(liLink);
+        social.push(inLink);
+        social.push(twLink);
+        changes["social_media_links"] = social;
+
+        // Rename the keys to how they appear in Firebase.
+        changes = this.renameKeys(changes);
+
+        this.saveToFirebase(changes);
+    };
+
+
+    /*
+        Button for selecting a profile/background picture.
+    */
+    changeProfilePicture(e) {
+        document.getElementById('profile_picture').src = e;
+    };
+    changeBackgroundPicture(e) {
+        document.getElementById('background_picture').src = e;
+    };
+
+    handleProfilePictureChange = function(e) {
+        var file    = document.getElementById('profilepicfile').files[0];
+        var reader  = new FileReader();
+        reader.addEventListener("load", function () {  this.changeProfilePicture(reader.result); }, false);
+        if (file) { reader.readAsDataURL(file); }
+    };
+    onBackgroundPictureChange = function() {
+        var file    = document.getElementById('backgroundimgfile').files[0];
+        var reader  = new FileReader();
+        reader.addEventListener("load", function () {  this.changeBackgroundPicture(reader.result); }, false);
+        if (file) { reader.readAsDataURL(file); }
+    };
+
+    /*
+        Saves the object to firebase.
+    */
+    saveToFirebase(changes) {
+        this.uploadNewProfilePicture(() => {
+            this.uploadNewBackgroundPicture(() => {
+                firebase.database().ref().child("Users").child(this.state.uid).update(changes);
+                this.props.history.push('profile');
+            });
+        });
+    }
+
+    uploadNewProfilePicture(callback) {
+        var profilePicture = document.getElementById('profile_picture');
+        if(profilePicture.src !== this.state.profileSrc) {
+            firebase.storage().ref().child(this.state.uid).child("profilePicture").putString(profilePicture.src, 'data_url').then(snapshot => {
+                var updates = {
+                    'photoURL':snapshot.downloadURL
+                }
+                firebase.database().ref().child("Users").child(this.state.uid).update(updates);
+                callback();
+            });
+        } else {
+            callback();
+        }
+    }
+
+    uploadNewBackgroundPicture(callback) {
+        var backgroundPicture = document.getElementById('background_picture');
+        if(backgroundPicture.src !== this.state.backgroundSrc) {
+            firebase.storage().ref().child(this.state.uid).child("backgroundPicture").putString(backgroundPicture.src, 'data_url').then(snapshot => {
+                var updates = {
+                    'backgroundImage':this.state.backgroundSrc
+                }
+                firebase.database().ref().child("Users").child(this.state.uid).update(updates);
+                callback();
+            });
+        } else {
+            callback();
+        }
+    }
+
+
+
+
+
+    /**********************
+    *                     *
+    *   UTILITY METHODS   *
+    *                     *
+    ***********************/
+
+    // Renames the keys in the dictionary so that they fit the way they are in Firebase.
+    renameKeys(changes) {
+        var newChanges = {
+            'backgroundImage':changes[''],
+            'bio':changes[''],
+            'email':changes[''],
+            'favorites':changes[''],
+            'followers':changes[''],
+            'following:'changes[''],
+            'fullname':changes[''],
+            'likes':changes[''],
+            'password':changes[''],
+            'photoURL':changes[''],
+            'social_media_links':changes[''],
+            'userID':changes['']
+        };
+        return newChanges;
     }
 
 
