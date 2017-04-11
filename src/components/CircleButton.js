@@ -43,7 +43,6 @@ class CircleButton extends Component {
             backgroundColor: this.props.backgroundColor,
             WebkitTransitionDuration: '0.3s',
             cursor: 'pointer',
-            paddingTop:'10px'
         }
     }
     getHoverStyles() {
@@ -58,7 +57,6 @@ class CircleButton extends Component {
             backgroundColor: this.props.hoverColor,
             WebkitTransitionDuration: '0.3s',
             cursor: 'pointer',
-            paddingTop:'10px'
         }
     }
 

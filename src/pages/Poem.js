@@ -237,9 +237,7 @@ class Poem extends Component {
     }
 
     playRecitation() {
-        const fireRef = firebase.database().ref();
-
-
+        
     }
 
 
