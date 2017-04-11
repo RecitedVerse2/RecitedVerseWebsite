@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
+import audioRec from 'au-audio-recorder';
 
 import FileChooserForm from '../FileChooserForm';
 import CircleButton from '../CircleButton';
@@ -9,6 +10,11 @@ import _ from '../../css/UploadBox.css';
 
 // The box for uploading recitations.
 class UploadBox extends Component {
+
+    componentDidMount() {
+        audioRec.requestPermission();
+    }
+
 
     /**********************
     *                     *
@@ -98,13 +104,15 @@ class UploadBox extends Component {
                     <h5 className="page_text">Record a recitation here.</h5>
                     {/*<p id="canvas_holder" className="canvas_holder"><canvas className="visualizer" /></p>*/}
                     <div className="mediaButtons">
-                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('recording');}}><p className="fa fa-microphone"></p></CircleButton>
-                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('stopped rec');}}><p className="fa fa-stop-circle-o"></p></CircleButton>
-                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('playing');}}><p className="fa fa-play"></p></CircleButton>
-                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('paused');}}><p className="fa fa-pause"></p></CircleButton>
-                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('stop');}}><p className="fa fa-stop"></p></CircleButton>
-                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={()=>{console.log('trashed');}}><p className="fa fa-trash"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={this.handleRecord.bind(this)}><p className="fa fa-microphone"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={this.handleEndRecord.bind(this)}><p className="fa fa-stop-circle-o"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={this.handlePlay.bind(this)}><p className="fa fa-play"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={this.handlePause.bind(this)}><p className="fa fa-pause"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={this.handleStop.bind(this)}><p className="fa fa-stop"></p></CircleButton>
+                        <CircleButton {...this.getCBS()} style={{paddingTop:'10px'}} clickFunction={this.handleClear.bind(this)}><p className="fa fa-trash"></p></CircleButton>
                     </div>
+                    <br/>
+                    <p id='statusLabel'></p>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -131,6 +139,81 @@ class UploadBox extends Component {
 
     }
 
+
+
+    /**********************
+    *                     *
+    *    AUDIO RECORDER   *
+    *                     *
+    ***********************/
+
+    handleRecord() {
+        audioRec.startRecording();
+        var statusLabel = document.getElementById('statusLabel');
+        statusLabel.innerHTML = 'Recording...';
+        statusLabel.style.WebkitTransitionDuration = '0s';
+        statusLabel.style.opacity = '1';
+    }
+
+    handleEndRecord() {
+        audioRec.stopRecording();
+        var statusLabel = document.getElementById('statusLabel');
+        statusLabel.innerHTML = '';
+        statusLabel.style.WebkitTransitionDuration = '0s';
+        statusLabel.style.opacity = '1';
+    }
+
+    handlePlay() {
+        if(audioRec.getRecording() !== null) {
+            audioRec.play();
+            var statusLabel = document.getElementById('statusLabel');
+            statusLabel.innerHTML = 'Playing...';
+            statusLabel.style.WebkitTransitionDuration = '0s';
+            statusLabel.style.opacity = '1';
+        }
+    }
+
+    handlePause() {
+        audioRec.pause();
+        var statusLabel = document.getElementById('statusLabel');
+        statusLabel.innerHTML = '';
+        statusLabel.style.WebkitTransitionDuration = '0s';
+        statusLabel.style.opacity = '1';
+    }
+
+    handleStop() {
+        audioRec.stop();
+        var statusLabel = document.getElementById('statusLabel');
+        statusLabel.innerHTML = '';
+        statusLabel.style.WebkitTransitionDuration = '0s';
+        statusLabel.style.opacity = '1';
+    }
+
+    handleClear() {
+        audioRec.clear();
+        var statusLabel = document.getElementById('statusLabel');
+        statusLabel.innerHTML = 'Cleared';
+        statusLabel.style.WebkitTransitionDuration = '0s';
+        statusLabel.style.opacity = '1';
+
+        setTimeout(() => {
+            statusLabel.style.WebkitTransitionDuration = '0.5s';
+            statusLabel.style.opacity = '0';
+            setTimeout(()=> {
+                this.removeClearMessage();
+            }, 500);
+        }, 1000);
+    }
+
+    removeClearMessage() {
+        var statusLabel = document.getElementById('statusLabel');
+        statusLabel.innerHTML = '';
+    }
+
+    stoppedPlaying() {
+        var statusLabel = document.getElementById('statusLabel');
+        statusLabel.innerHTML = '';
+    }
 }
 
 

@@ -4,21 +4,41 @@ import RectButton from '../RectButton';
 
 // The header that appears on every page. This is the sidebar menu and the search bar at the top.
 class NavigationHeader extends Component {
+    constructor() {
+        super();
+        this.state = {
+            isOpen:false,
+            left: '6%',
+            searchWidth:'94%',
+            menuWidth:'6%',
+            homeName:'',
+            profileName:'',
+            signInName:'',
+            registerName:'',
+            textColor:'rgba(0,0,0,0)'
+        };
+    }
+
+    /**********************
+    *                     *
+    *        STYLES       *
+    *                     *
+    ***********************/
+
     getSearchDivStyles() {
         return {
             position: 'absolute',
             top: '0px',
-            left: '6%',
+            left: this.state.left,
             width: '94%',
-            height: '45px',
-            backgroundColor: 'dodgerblue'
+            height: '45px'
         };
     }
     getSearchBarStyles() {
         return {
             position: 'fixed',
-            left: '6%',
-            width: '94%',
+            left: this.state.left,
+            width: this.state.searchWidth,
             height: '45px',
             border: 'none',
             zIndex: '90',
@@ -36,36 +56,59 @@ class NavigationHeader extends Component {
             position: 'fixed',
             left: '0px',
             top: '0px',
-            width: '6%',
+            width: this.state.menuWidth,
             height: '200%',
             backgroundColor: 'rgb(90,106,122)',
-          	transition: 'all 0.3s ease'
+          	transition: 'all 0.3s ease',
+            zIndex: '90'
         };
     }
+    getMenuItemStyles() {
+        return {
+            fontSize:'12px',
+            color: this.state.textColor,
+            WebkitTransitionDuration: '0.5s'
+        }
+    }
 
+
+
+    /**********************
+    *                     *
+    *        RENDER       *
+    *                     *
+    ***********************/
 
     render() {
         return (
             <div>
-                <div style={this.getSearchDivStyles()}>
+                <div  id='rv_searchBar' style={this.getSearchDivStyles()}>
                     <input style={this.getSearchBarStyles()} type="search" placeholder=" Search..." />
                 </div>
 
-                <div style={this.getMenuBarStyle()}>
-                    <RectButton width='100%' height='45px' backgroundColor='rgb(84,92,166)' hoverColor='darkslateblue' clickFunction={this.toggleMenu()}>
-                        <p style={{fontSize:'12px',paddingTop:'10px'}} className='fa fa-bars'></p>
+                <div id='rv_menuBar' style={this.getMenuBarStyle()}>
+                    <RectButton width='100%' height='45px' backgroundColor='rgb(84,92,166)' hoverColor='darkslateblue' clickFunction={this.toggleMenu.bind(this)}>
+                        <h6 style={{fontSize:'15px',paddingTop:'10px'}} className='fa fa-bars'></h6>
                     </RectButton>
                     <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('home')}}>
-                        <p style={{fontSize:'15px'}} className='fa fa-home'></p>
+                        <h6 style={{fontSize:'15px'}} className='fa fa-home'>
+                            <p style={this.getMenuItemStyles()}>{this.state.homeName}</p>
+                        </h6>
                     </RectButton>
                     <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.handleGoToProfile()}}>
-                        <p style={{fontSize:'15px'}} className='fa fa-user'></p>
+                        <h6 style={{fontSize:'15px'}} className='fa fa-user'>
+                            <p style={this.getMenuItemStyles()}>{this.state.profileName}</p>
+                        </h6>
                     </RectButton>
                     <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('login')}}>
-                        <p style={{fontSize:'15px'}} className='fa fa-sign-in'></p>
+                        <h6 style={{fontSize:'15px'}} className='fa fa-sign-in'>
+                            <p style={this.getMenuItemStyles()}>{this.state.signInName}</p>
+                        </h6>
                     </RectButton>
                     <RectButton width='100%' height='45px' backgroundColor='rgb(98,119,140)' hoverColor='rgb(90,100,150)' clickFunction={()=>{this.goTo('signup')}}>
-                        <p style={{fontSize:'15px'}} className='fa fa-user-plus'></p>
+                        <h6 style={{fontSize:'15px'}} className='fa fa-user-plus'>
+                            <p style={this.getMenuItemStyles()}>{this.state.registerName}</p>
+                        </h6>
                     </RectButton>
                 </div>
             </div>
@@ -73,10 +116,30 @@ class NavigationHeader extends Component {
     }
 
 
-    toggleMenu() {
 
+    /**********************
+    *                     *
+    *       METHODS       *
+    *                     *
+    ***********************/
+
+    toggleMenu() {
+        this.setState({
+            isOpen: this.state.isOpen === false ? true : false,
+            left: this.state.left === '6%' ? '12%' : '6%',
+            searchWidth: this.state.searchWidth === '94%' ? '94%' : '88%',
+            menuWidth: this.state.menuWidth === '6%' ? '12%' : '6%',
+            textColor: this.state.textColor === 'rgba(0,0,0,0)' ? 'rgba(255,255,255,1)' : 'rgba(0,0,0,0)',
+            homeName: this.state.homeName === '' ? 'Home' : '',
+            profileName: this.state.profileName === '' ? 'Profile' : '',
+            signInName: this.state.signInName === '' ? 'Sign In' : '',
+            registerName: this.state.registerName === '' ? 'Register' : ''
+        });
     }
     goTo(page) {
+        if(this.state.isOpen === true) {
+            this.toggleMenu();
+        }
         if(page === 'home') {
             this.props.goToHome();
         } else if(page === 'profile') {

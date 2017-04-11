@@ -55,7 +55,7 @@ class CircleButton extends Component {
         	outline: 'none',
             textDecoration: 'none',
             color: this.props.textColor,
-            backgroundColor: this.props.backgroundColor,
+            backgroundColor: this.props.hoverColor,
             WebkitTransitionDuration: '0.3s',
             cursor: 'pointer',
             paddingTop:'10px'
