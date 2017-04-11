@@ -8,6 +8,10 @@
     width: 300px;
     margin: 10px;
 }
+#uploadAudioCheck {
+    visibility: hidden;
+    color: limegreen;
+}
 .pill_btn {
     width: 100px;
     height: 25px;
