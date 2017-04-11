@@ -1,0 +1,21 @@
+.recitation_item {
+    box-sizing: border-box;
+    padding-right: 20px;
+    width: 16.666%;
+    float: left;
+}
+.recitation_item {
+    display: list-item;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    list-style-type: none;
+/*        text-align: -webkit-match-parent;*/
+}
+.general_rec_image:hover {
+    border: 4px cornflowerblue solid;
+}
+.goToBtn {
+    border: none;
+    background: rgba(0,0,0,0);
+}

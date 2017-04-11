@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Tabs, Tab, TabContent } from 'react-bootstrap';
+import RecitationsArea from './RecitationsArea';
 
 
 class TabPane extends Component {
@@ -15,7 +16,6 @@ class TabPane extends Component {
             top:'140px',
             left:'1%',
             width:'98%',
-            height:'500px',
             backgroundColor:'white'
         };
     }
@@ -43,31 +43,31 @@ class TabPane extends Component {
                 <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" style={this.getTabPaneStyle()}>
                     <Tab eventKey={1} title="All">
                         <TabContent style={this.getTabStyle()}>
-                            <h1>All</h1>
+                            <RecitationsArea></RecitationsArea>
                         </TabContent>
                     </Tab>
 
                     <Tab eventKey={2} title="Popular" style={this.getTabStyle()}>
                         <TabContent style={this.getTabStyle()}>
-                            <h1>Popular</h1>
+                            <RecitationsArea></RecitationsArea>
                         </TabContent>
                     </Tab>
 
                     <Tab eventKey={3} title="Liked" style={this.getTabStyle()}>
                         <TabContent style={this.getTabStyle()}>
-                            <h1>Liked</h1>
+                            <RecitationsArea></RecitationsArea>
                         </TabContent>
                     </Tab>
 
                     <Tab eventKey={4} title="Favorites" style={this.getTabStyle()}>
                         <TabContent style={this.getTabStyle()}>
-                            <h1>Favorites</h1>
+                            <RecitationsArea></RecitationsArea>
                         </TabContent>
                     </Tab>
 
                     <Tab eventKey={5} title="Playlists" style={this.getTabStyle()}>
                         <TabContent style={this.getTabStyle()}>
-                            <h1>Playlists</h1>
+                            <RecitationsArea></RecitationsArea>
                         </TabContent>
                     </Tab>
                 </Tabs>
