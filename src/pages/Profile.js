@@ -127,7 +127,7 @@ class Profile extends Component {
 
 
 
-                    <TabPane>
+                    <TabPane goToPoemPage={()=>{this.props.history.push('/poem');}}>
 
                     </TabPane>
 

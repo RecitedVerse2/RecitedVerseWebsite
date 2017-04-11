@@ -43,7 +43,7 @@ class TabPane extends Component {
                 <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" style={this.getTabPaneStyle()}>
                     <Tab eventKey={1} title="All">
                         <TabContent style={this.getTabStyle()}>
-                            <RecitationsArea></RecitationsArea>
+                            <RecitationsArea goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationsArea>
                         </TabContent>
                     </Tab>
 
@@ -73,6 +73,11 @@ class TabPane extends Component {
                 </Tabs>
             </div>
         );
+    }
+
+
+    handleGoToPoemPage() {
+        this.props.goToPoemPage();
     }
 }
 
