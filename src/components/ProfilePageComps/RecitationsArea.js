@@ -21,8 +21,11 @@ class RecitationsArea extends Component {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((recitationObject) => {
+                // Make a new recitation component and push it onto the array
                 var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
                 recs.push(rec);
+
+                // Sort the array by key, which is the timestamp.
                 recs.sort(function(a,b){ return b.key - a.key; });
                 this.setState({recitations:recs});
             });

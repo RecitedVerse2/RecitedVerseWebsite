@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Popover, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import * as firebase from 'firebase';
 
 import AudioPlayer from '../components/AudioPlayer';
 
@@ -12,11 +13,53 @@ import _ from '../css/Poem.css';
 
 // The generic poem page for each recitation.
 class Poem extends Component {
-    render() {
+    constructor() {
+        super();
+
+        this.state = {
+            image:'',
+            title:'',
+            author:'',
+            recitedBy:'',
+            published:'',
+            genre:'',
+            description:'',
+            likes: 0,
+            plays: 0,
+            favorites: 0,
+            text:''
+        };
+    }
+
+    componentDidMount() {
         const currentRec = JSON.parse(window.sessionStorage.getItem('recitation_to_look_at'));
+        const fireRef = firebase.database().ref();
+        fireRef.child('Recitations').child(window.localStorage.getItem('currentUID')).child(currentRec.title).on('value', (snapshot)=> {
+            var rec = snapshot.val();
+
+            this.setState({
+                image: rec.image,
+                title: rec.title,
+                author: rec.author,
+                recitedBy: rec.recited_by,
+                published: rec.published,
+                genre: rec.genre,
+                description: rec.description,
+                likes: rec.likes,
+                plays: rec.plays,
+                favorites: rec.favorites,
+                text: rec.text
+            });
+        });
+    }
+
+
+
+
+    render() {
         const popoverBottom = (
             <Popover id="popover-positioned-bottom" title="Transcript">
-                {currentRec.text}
+                {this.state.text}
             </Popover>
         );
 
@@ -31,38 +74,38 @@ class Poem extends Component {
 
                         <div className="horizontal_info_section">
                             <div className="vertical_image_section">
-                                <img id="poem_image" src={currentRec.image} alt="im" width={200} height={200} />
+                                <img id="poem_image" src={this.state.image} alt="im" width={200} height={200} />
                             </div>
 
                             <div className="vertical_info_section">
-                                <h4 id="title_author_area">{currentRec.title} by {currentRec.author}</h4>
+                                <h4 id="title_author_area">{this.state.title} by {this.state.author}</h4>
                                 <br />
-                                <p id="recBy_Pub_Gen">Recited By: {currentRec.recited_by} <br/> Published: {currentRec.published} <br/> Genre: {currentRec.genre}</p>
-                                <p id="descr_area">{currentRec.description}</p>
+                                <p id="recBy_Pub_Gen">Recited By: {this.state.recitedBy} <br/> Published: {this.state.published} <br/> Genre: {this.state.genre}</p>
+                                <p id="descr_area">{this.state.description}</p>
                                 <div className="description_buttons_section">
-                                    <OverlayTrigger delayShow='1000' placement="bottom" overlay={<Tooltip id="tooltip">Play</Tooltip>}>
-                                        <button className="description_button fa fa-play"/>
+                                    <OverlayTrigger delayShow={1000} placement="bottom" overlay={<Tooltip id="tooltip">Play</Tooltip>}>
+                                        <button className="description_button fa fa-play" onClick={this.playRecitation.bind(this)}/>
                                     </OverlayTrigger>
-                                    <OverlayTrigger delayShow='1000' placement="bottom" overlay={<Tooltip id="tooltip">Like</Tooltip>}>
-                                        <button className="description_button fa fa-thumbs-up"/>
+                                    <OverlayTrigger delayShow={1000} placement="bottom" overlay={<Tooltip id="tooltip">Like</Tooltip>}>
+                                        <button className="description_button fa fa-thumbs-up" onClick={this.likeRecitation.bind(this)}/>
                                     </OverlayTrigger>
-                                    <OverlayTrigger delayShow='1000' placement="bottom" overlay={<Tooltip id="Favorite">Favorite</Tooltip>}>
-                                        <button className="description_button fa fa-heart"/>
+                                    <OverlayTrigger delayShow={1000} placement="bottom" overlay={<Tooltip id="Favorite">Favorite</Tooltip>}>
+                                        <button className="description_button fa fa-heart" onClick={this.favoriteRecitation.bind(this)}/>
                                     </OverlayTrigger>
                                 </div>
                             </div>
 
                             <div className="vertical_numbers_section">
                                 <div style={{display: 'table', float: 'right'}}>
-                                    <p style={{display: 'table-cell'}} id="poem_play_label" />{currentRec.plays}&nbsp;<p style={{display: 'table-cell'}} className="fa fa-play" />
+                                    <p style={{display: 'table-cell'}} id="poem_play_label" />{this.state.plays}&nbsp;<p style={{display: 'table-cell'}} className="fa fa-play" />
                                 </div>
                                 <br />
                                 <div style={{display: 'table', float: 'right'}}>
-                                    <p style={{display: 'table-cell'}} id="poem_like_label" />{currentRec.likes}&nbsp;<p style={{display: 'table-cell'}} className="fa fa-thumbs-up" />
+                                    <p style={{display: 'table-cell'}} id="poem_like_label" />{this.state.likes}&nbsp;<p style={{display: 'table-cell'}} className="fa fa-thumbs-up" />
                                 </div>
                                 <br />
                                 <div style={{display: 'table', float: 'right'}}>
-                                    <p style={{display: 'table-cell'}} id="poem_favorite_label" />{currentRec.favorites}&nbsp;<p style={{display: 'table-cell'}} className="fa fa-heart" />
+                                    <p style={{display: 'table-cell'}} id="poem_favorite_label" />{this.state.favorites}&nbsp;<p style={{display: 'table-cell'}} className="fa fa-heart" />
                                 </div>
                             </div>
                         </div>
@@ -85,8 +128,141 @@ class Poem extends Component {
 
 
 
+    /**********************
+    *                     *
+    *    BUTTON CLICKS    *
+    *                     *
+    ***********************/
+
+    likeRecitation() {
+        const fireRef = firebase.database().ref();
+        const uid = window.localStorage.getItem('currentUID');
+
+        fireRef.child('Users').child(uid).once('value').then((snap)=>{
+            var likes = snap.val().likes || [];
+
+            if(!likes.includes(this.state.title+'-'+this.state.recitedBy)) {
+                // eslint-disable-next-line
+                var dict = {
+                    image: this.state.image,
+                    title: this.state.title,
+                    author: this.state.author,
+                    recited_by: this.state.recitedBy,
+                    published: this.state.published,
+                    genre: this.state.genre,
+                    description: this.state.description,
+                    likes: this.state.likes + 1,
+                    plays: this.state.plays,
+                    favorites: this.state.favorites,
+                    text: this.state.text
+                };
+
+                likes.push(this.state.title+'-'+this.state.recitedBy);
+                fireRef.child('Users').child(uid).child('likes').set(likes);
+                fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
+                return;
+            } else {
+                // eslint-disable-next-line
+                var dict = {
+                    image: this.state.image,
+                    title: this.state.title,
+                    author: this.state.author,
+                    recited_by: this.state.recitedBy,
+                    published: this.state.published,
+                    genre: this.state.genre,
+                    description: this.state.description,
+                    likes: this.state.likes - 1,
+                    plays: this.state.plays,
+                    favorites: this.state.favorites,
+                    text: this.state.text
+                };
+
+                this.remove(likes, this.state.title+'-'+this.state.recitedBy);
+                fireRef.child('Users').child(uid).child('likes').set(likes);
+                fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
+                return;
+            }
+        });
+    }
+
+    favoriteRecitation() {
+        const fireRef = firebase.database().ref();
+        const uid = window.localStorage.getItem('currentUID');
+
+        fireRef.child('Users').child(uid).once('value').then((snap)=>{
+            var favorites = snap.val().favorites || [];
+
+            if(!favorites.includes(this.state.title+'-'+this.state.recitedBy)) {
+                // eslint-disable-next-line
+                var dict = {
+                    image: this.state.image,
+                    title: this.state.title,
+                    author: this.state.author,
+                    recited_by: this.state.recitedBy,
+                    published: this.state.published,
+                    genre: this.state.genre,
+                    description: this.state.description,
+                    likes: this.state.likes,
+                    plays: this.state.plays,
+                    favorites: this.state.favorites + 1,
+                    text: this.state.text
+                };
+
+                favorites.push(this.state.title+'-'+this.state.recitedBy);
+                fireRef.child('Users').child(uid).child('favorites').set(favorites);
+                fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
+                return;
+            } else {
+                // eslint-disable-next-line
+                var dict = {
+                    image: this.state.image,
+                    title: this.state.title,
+                    author: this.state.author,
+                    recited_by: this.state.recitedBy,
+                    published: this.state.published,
+                    genre: this.state.genre,
+                    description: this.state.description,
+                    likes: this.state.likes,
+                    plays: this.state.plays,
+                    favorites: this.state.favorites - 1,
+                    text: this.state.text
+                };
+
+                this.remove(favorites, this.state.title+'-'+this.state.recitedBy);
+                fireRef.child('Users').child(uid).child('favorites').set(favorites);
+                fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
+                return;
+            }
+        });
+    }
+
+    playRecitation() {
+        const fireRef = firebase.database().ref();
 
 
+    }
+
+
+
+
+    /**********************
+    *                     *
+    *   UTILITY METHODS   *
+    *                     *
+    ***********************/
+
+    // Removes an item from an array.
+    remove(arr) {
+        var what, a = arguments, L = a.length, ax;
+        while (L > 1 && arr.length) {
+            what = a[--L];
+            // eslint-disable-next-line
+            while ((ax= arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+            }
+        }
+        return arr;
+    }
 
     // Goes to the particular page necessary for the navigation bar.
     goToPage(page) { this.props.history.push('/'+page); }
