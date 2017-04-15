@@ -3,7 +3,6 @@ import { Image } from 'react-bootstrap';
 import * as firebase from 'firebase';
 
 import AudioPlayer from '../components/AudioPlayer';
-
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';

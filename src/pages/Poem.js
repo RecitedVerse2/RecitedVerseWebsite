@@ -3,7 +3,6 @@ import { Popover, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import * as firebase from 'firebase';
 
 import AudioPlayer from '../components/AudioPlayer';
-
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
@@ -27,28 +26,40 @@ class Poem extends Component {
             likes: 0,
             plays: 0,
             favorites: 0,
-            text:''
+            text:'',
+            recitation:null,
+            audio:null
         };
     }
 
     componentDidMount() {
         const currentRec = JSON.parse(window.sessionStorage.getItem('recitation_to_look_at'));
         const fireRef = firebase.database().ref();
+        const storageRef = firebase.storage().ref();
+
         fireRef.child('Recitations').child(window.localStorage.getItem('currentUID')).child(currentRec.title).on('value', (snapshot)=> {
             var rec = snapshot.val();
 
-            this.setState({
-                image: rec.image,
-                title: rec.title,
-                author: rec.author,
-                recitedBy: rec.recited_by,
-                published: rec.published,
-                genre: rec.genre,
-                description: rec.description,
-                likes: rec.likes,
-                plays: rec.plays,
-                favorites: rec.favorites,
-                text: rec.text
+            storageRef.child(window.localStorage.getItem('currentUID')).child(rec.title).getDownloadURL().then( (url) => {
+                var audio = new Audio(url);
+                audio.loop = false;
+
+                this.setState({
+                    image: rec.image,
+                    title: rec.title,
+                    author: rec.author,
+                    recitedBy: rec.recited_by,
+                    published: rec.published,
+                    genre: rec.genre,
+                    description: rec.description,
+                    likes: rec.likes,
+                    plays: rec.plays,
+                    favorites: rec.favorites,
+                    text: rec.text,
+                    recitation:rec,
+                    audio:audio
+                });
+
             });
         });
     }
@@ -84,7 +95,7 @@ class Poem extends Component {
                                 <p id="descr_area">{this.state.description}</p>
                                 <div className="description_buttons_section">
                                     <OverlayTrigger delayShow={1000} placement="bottom" overlay={<Tooltip id="tooltip">Play</Tooltip>}>
-                                        <button className="description_button fa fa-play" onClick={this.playRecitation.bind(this)}/>
+                                        <button className="description_button fa fa-play" onClick={this.playRecitation.bind(this)} ref={(button)=>{this.playBtn = button}}/>
                                     </OverlayTrigger>
                                     <OverlayTrigger delayShow={1000} placement="bottom" overlay={<Tooltip id="tooltip">Like</Tooltip>}>
                                         <button className="description_button fa fa-thumbs-up" onClick={this.likeRecitation.bind(this)}/>
@@ -118,10 +129,7 @@ class Poem extends Component {
                     </ContentHeader>
                 </ContentArea>
 
-
-
-
-                <AudioPlayer></AudioPlayer>
+                <AudioPlayer poemPlayBtn={this.playBtn} ref={(AudioPlayer)=>{this.audioPlayer = AudioPlayer}}></AudioPlayer>
             </div>
         );
     }
@@ -154,7 +162,9 @@ class Poem extends Component {
                     likes: this.state.likes + 1,
                     plays: this.state.plays,
                     favorites: this.state.favorites,
-                    text: this.state.text
+                    text: this.state.text,
+                    recitation:this.state.recitation,
+                    audio: this.state.audio
                 };
 
                 likes.push(this.state.title+'-'+this.state.recitedBy);
@@ -174,7 +184,9 @@ class Poem extends Component {
                     likes: this.state.likes - 1,
                     plays: this.state.plays,
                     favorites: this.state.favorites,
-                    text: this.state.text
+                    text: this.state.text,
+                    recitation:this.state.recitation,
+                    audio: this.state.audio
                 };
 
                 this.remove(likes, this.state.title+'-'+this.state.recitedBy);
@@ -205,7 +217,9 @@ class Poem extends Component {
                     likes: this.state.likes,
                     plays: this.state.plays,
                     favorites: this.state.favorites + 1,
-                    text: this.state.text
+                    text: this.state.text,
+                    recitation:this.state.recitation,
+                    audio: this.state.audio
                 };
 
                 favorites.push(this.state.title+'-'+this.state.recitedBy);
@@ -225,7 +239,9 @@ class Poem extends Component {
                     likes: this.state.likes,
                     plays: this.state.plays,
                     favorites: this.state.favorites - 1,
-                    text: this.state.text
+                    text: this.state.text,
+                    recitation:this.state.recitation,
+                    audio: this.state.audio
                 };
 
                 this.remove(favorites, this.state.title+'-'+this.state.recitedBy);
@@ -237,7 +253,11 @@ class Poem extends Component {
     }
 
     playRecitation() {
-        
+        this.audioPlayer.updateAP(this.state.audio);
+
+        if(!this.playBtn.className.includes('pause')) {
+            this.audioPlayer.handlePlay(this.state.audio);
+        }
     }
 
 

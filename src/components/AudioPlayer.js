@@ -15,29 +15,22 @@ class AudioPlayer extends Component {
 
     constructor() {
         super();
-
         this.state = {
-            audioTitle:'',
-            recording:null
+            audio:null,
+            ended:false
         }
     }
 
     componentDidMount() {
-        var recitation = JSON.parse(window.sessionStorage.getItem("recitation_to_look_at"));
-        var currentUID = window.localStorage.getItem('currentUID');
+        const cpri = JSON.parse(window.sessionStorage.getItem('currently_playing_recitation_info'));
+        if(cpri !== null) {
 
-        var storageRef = firebase.storage().ref();
-        storageRef.child(currentUID).child(recitation.title).getDownloadURL().then( (url) => {
-            //var xhr = this.createCORSRequest('POST', url);
-            var audio = new Audio();
-            audio.src = url;
-            audio.loop = false;
-            this.setState({
-                audioTitle:recitation.title,
-                recording:audio
-            });
-        });
+
+
+
+        }
     }
+
 
 
     /**********************
@@ -84,8 +77,8 @@ class AudioPlayer extends Component {
                         <p className='fa fa-step-backward' style={{paddingTop:'10px'}}></p>
                     </CircleButton>
 
-                    <CircleButton {...this.getCBS()}>
-                        <p className='fa fa-play' style={{paddingTop:'10px'}}></p>
+                    <CircleButton {...this.getCBS()} clickFunction={this.handlePlay.bind(this)}>
+                        <p className='fa fa-play' style={{paddingTop:'10px'}} ref={(p)=>{this.playIcon = p;}}></p>
                     </CircleButton>
 
                     <CircleButton {...this.getCBS()}>
@@ -96,7 +89,7 @@ class AudioPlayer extends Component {
 
 
                 <div className="title_area">
-                    <p id="audio_title">{this.state.audioTitle}</p>
+                    <p id="audio_title"></p>
                     <div id="sliderArea" style={{position: 'relative', display: 'table', margin: 'auto'}}>
                         <audio id="rv_loaded_audio" preload="none"></audio>
                         <span style={{display: 'table-cell'}} id="curtimetext">0:00</span>&nbsp;&nbsp;&nbsp;<input style={{width: 300, display: 'table-cell'}} type="range" id="seekSlider" min={0} max={100} defaultValue={0} step={1} />&nbsp;&nbsp;&nbsp;<span style={{display: 'table-cell'}} id="durtimetext">0:00</span>
@@ -118,6 +111,21 @@ class AudioPlayer extends Component {
     *                     *
     ***********************/
 
+    handlePlay() {
+        if(this.state.audio) {
+            if(this.state.audio.paused === true) {
+                this.props.poemPlayBtn.className = 'description_button fa fa-pause';
+                this.playIcon.className = 'fa fa-pause';
+                this.state.audio.play();
+            } else {
+                this.props.poemPlayBtn.className = 'description_button fa fa-play';
+                this.playIcon.className = 'fa fa-play';
+                this.state.audio.pause();
+            }
+            window.sessionStorage.setItem('currently_playing_recitation_info', JSON.stringify(this.state));
+        }
+    }
+
 
 
     /**********************
@@ -126,17 +134,8 @@ class AudioPlayer extends Component {
     *                     *
     ***********************/
 
-    createCORSRequest(method, url) {
-        var xhr = new XMLHttpRequest();
-        if ("withCredentials" in xhr) {
-            xhr.open(method, url, true);
-        } else if (typeof XDomainRequest !== "undefined") {
-            xhr = new XDomainRequest();
-            xhr.open(method, url);
-        } else {
-            xhr = null;
-        }
-        return xhr;
+    updateAP(aud) {
+        this.setState({audio:aud});
     }
 }
 
