@@ -41,7 +41,8 @@ body {
     height: 30px;
     border: none;
     margin: 10px;
-    color: gray;
+    color:gray;
+    background-color:lightgray;
     border-radius: 100%;
     display: table-cell;
 }

@@ -32,35 +32,7 @@ class Poem extends Component {
     }
 
     componentDidMount() {
-        const currentRec = JSON.parse(window.sessionStorage.getItem('recitation_to_look_at'));
-        const fireRef = firebase.database().ref();
-        const storageRef = firebase.storage().ref();
-
-        fireRef.child('Recitations').child(window.localStorage.getItem('currentUID')).child(currentRec.title).on('value', (snapshot)=> {
-            var rec = snapshot.val();
-
-            storageRef.child(window.localStorage.getItem('currentUID')).child(rec.title).getDownloadURL().then( (url) => {
-                var audio = new Audio(url);
-                audio.loop = false;
-
-                this.setState({
-                    image: rec.image,
-                    title: rec.title,
-                    author: rec.author,
-                    recitedBy: rec.recited_by,
-                    published: rec.published,
-                    genre: rec.genre,
-                    description: rec.description,
-                    likes: rec.likes,
-                    plays: rec.plays,
-                    favorites: rec.favorites,
-                    text: rec.text,
-                    recitation:rec,
-                    audio:audio
-                });
-
-            });
-        });
+        this.reloadPoemDataFromFirebase(true);
     }
 
 
@@ -167,6 +139,7 @@ class Poem extends Component {
                 likes.push(this.state.title+'-'+this.state.recitedBy);
                 fireRef.child('Users').child(uid).child('likes').set(likes);
                 fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
+                this.reloadPoemDataFromFirebase(false);
                 return;
             } else {
                 // eslint-disable-next-line
@@ -189,6 +162,7 @@ class Poem extends Component {
                 this.remove(likes, this.state.title+'-'+this.state.recitedBy);
                 fireRef.child('Users').child(uid).child('likes').set(likes);
                 fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
+                this.reloadPoemDataFromFirebase(false);
                 return;
             }
         });
@@ -222,6 +196,7 @@ class Poem extends Component {
                 favorites.push(this.state.title+'-'+this.state.recitedBy);
                 fireRef.child('Users').child(uid).child('favorites').set(favorites);
                 fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
+                this.reloadPoemDataFromFirebase(false);
                 return;
             } else {
                 // eslint-disable-next-line
@@ -244,6 +219,7 @@ class Poem extends Component {
                 this.remove(favorites, this.state.title+'-'+this.state.recitedBy);
                 fireRef.child('Users').child(uid).child('favorites').set(favorites);
                 fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
+                this.reloadPoemDataFromFirebase(false);
                 return;
             }
         });
@@ -281,6 +257,57 @@ class Poem extends Component {
 
     // Goes to the particular page necessary for the navigation bar.
     goToPage(page) { this.props.history.push('/'+page); }
+
+
+    reloadPoemDataFromFirebase(loadAudio) {
+        const currentRec = JSON.parse(window.sessionStorage.getItem('recitation_to_look_at'));
+        const fireRef = firebase.database().ref();
+        const storageRef = firebase.storage().ref();
+
+        fireRef.child('Recitations').child(window.localStorage.getItem('currentUID')).child(currentRec.title).once('value').then((snapshot)=> {
+            var rec = snapshot.val();
+
+            if(loadAudio === true) {
+                storageRef.child(window.localStorage.getItem('currentUID')).child(rec.title).getDownloadURL().then( (url) => {
+                    var audio = new Audio(url);
+                    audio.loop = false;
+
+                    this.setState({
+                        image: rec.image,
+                        title: rec.title,
+                        author: rec.author,
+                        recitedBy: rec.recited_by,
+                        published: rec.published,
+                        genre: rec.genre,
+                        description: rec.description,
+                        likes: rec.likes,
+                        plays: rec.plays,
+                        favorites: rec.favorites,
+                        text: rec.text,
+                        recitation:rec,
+                        audio:audio
+                    });
+
+                });
+            } else {
+                this.setState({
+                    image: rec.image,
+                    title: rec.title,
+                    author: rec.author,
+                    recitedBy: rec.recited_by,
+                    published: rec.published,
+                    genre: rec.genre,
+                    description: rec.description,
+                    likes: rec.likes,
+                    plays: rec.plays,
+                    favorites: rec.favorites,
+                    text: rec.text,
+                    recitation:rec,
+                    audio:this.state.audio || null
+                });
+            }
+        });
+    }
 }
 
 export default Poem;

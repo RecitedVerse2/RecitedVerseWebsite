@@ -59,12 +59,8 @@ class Profile extends Component {
         };
 
         if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
-            firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).on('value', onUserDataChanged.bind(this));
+            firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).once('value').then(onUserDataChanged);
         }
-    }
-
-    componentWillUnmount() {
-
     }
 
 
@@ -120,10 +116,10 @@ class Profile extends Component {
 
                                 <br/>
                                 <div>
-                                    <button id='facebookBtn' className='fa fa-facebook'></button>
-                                    <button id='linkedinBtn' className='fa fa-linkedin'></button>
-                                    <button id='instagramBtn' className='fa fa-instagram'></button>
-                                    <button id='twitterBtn' className='fa fa-twitter'></button>
+                                    <button id='facebookBtn' className='fa fa-facebook' onClick={()=>{window.location = this.state.social[0]}}></button>
+                                    <button id='linkedinBtn' className='fa fa-linkedin' onClick={()=>{window.location = this.state.social[1]}}></button>
+                                    <button id='instagramBtn' className='fa fa-instagram' onClick={()=>{window.location = this.state.social[2]}}></button>
+                                    <button id='twitterBtn' className='fa fa-twitter' onClick={()=>{window.location = this.state.social[3]}}></button>
                                 </div>
                             </div>
                         </div>

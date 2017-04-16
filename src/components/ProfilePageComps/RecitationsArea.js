@@ -17,7 +17,7 @@ class RecitationsArea extends Component {
         const fireRef = firebase.database().ref();
         var recs = [];
 
-        fireRef.child('Recitations').child(window.localStorage.getItem('currentUID')).on('value', (snapshot)=> {
+        fireRef.child('Recitations').child(window.localStorage.getItem('currentUID')).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((recitationObject) => {
