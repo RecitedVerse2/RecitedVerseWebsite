@@ -115,11 +115,12 @@ class Poem extends Component {
     likeRecitation() {
         const fireRef = firebase.database().ref();
         const uid = window.localStorage.getItem('currentUID');
+        const currentRec = JSON.parse(window.sessionStorage.getItem('recitation_to_look_at'));
 
         fireRef.child('Users').child(uid).once('value').then((snap)=>{
             var likes = snap.val().likes || [];
 
-            if(!likes.includes(this.state.title+'-'+this.state.uid)) {
+            if(!likes.includes(this.state.title+'-'+currentRec.uploaderID)) {
                 // eslint-disable-next-line
                 var dict = {
                     uploaderID:this.state.uploaderID,
@@ -138,7 +139,7 @@ class Poem extends Component {
                     audio: this.state.audio
                 };
 
-                likes.push(this.state.title+'-'+this.state.uploaderID);
+                likes.push(this.state.title+'-'+currentRec.uploaderID);
                 fireRef.child('Users').child(uid).child('likes').set(likes);
                 fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
                 this.reloadPoemDataFromFirebase(false);
@@ -162,7 +163,7 @@ class Poem extends Component {
                     audio: this.state.audio
                 };
 
-                this.remove(likes, this.state.title+'-'+this.state.uploaderID);
+                this.remove(likes, this.state.title+'-'+currentRec.uploaderID);
                 fireRef.child('Users').child(uid).child('likes').set(likes);
                 fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
                 this.reloadPoemDataFromFirebase(false);
@@ -174,11 +175,12 @@ class Poem extends Component {
     favoriteRecitation() {
         const fireRef = firebase.database().ref();
         const uid = window.localStorage.getItem('currentUID');
+        const currentRec = JSON.parse(window.sessionStorage.getItem('recitation_to_look_at'));
 
         fireRef.child('Users').child(uid).once('value').then((snap)=>{
             var favorites = snap.val().favorites || [];
 
-            if(!favorites.includes(this.state.title+'-'+this.state.uploaderID)) {
+            if(!favorites.includes(this.state.title+'-'+currentRec.uploaderID)) {
                 // eslint-disable-next-line
                 var dict = {
                     uploaderID:this.state.uploaderID,
@@ -197,7 +199,7 @@ class Poem extends Component {
                     audio: this.state.audio
                 };
 
-                favorites.push(this.state.title+'-'+this.state.uploaderID);
+                favorites.push(this.state.title+'-'+currentRec.uploaderID);
                 fireRef.child('Users').child(uid).child('favorites').set(favorites);
                 fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
                 this.reloadPoemDataFromFirebase(false);
@@ -221,7 +223,7 @@ class Poem extends Component {
                     audio: this.state.audio
                 };
 
-                this.remove(favorites, this.state.title+'-'+this.state.uploaderID);
+                this.remove(favorites, this.state.title+'-'+currentRec.uploaderID);
                 fireRef.child('Users').child(uid).child('favorites').set(favorites);
                 fireRef.child('Recitations').child(uid).child(this.state.title).update(dict);
                 this.reloadPoemDataFromFirebase(false);
