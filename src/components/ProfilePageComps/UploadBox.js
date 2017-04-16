@@ -285,6 +285,7 @@ class UploadBox extends Component {
 
             /* Create dictionary for the recitation. */
             var dictionary = {
+                "uploaderID":window.localStorage.getItem('currentUID'),
                 "title":poemName.value,
                 "author":poemAuthor.value,
                 "published":poemPublished.value,

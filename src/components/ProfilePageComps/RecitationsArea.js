@@ -46,7 +46,7 @@ class RecitationsArea extends Component {
 
 
 
-
+    // Load all of the user's recitations
     loadUserRecs(fireRef, recs) {
         fireRef.child('Recitations').child(window.localStorage.getItem('currentUID')).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
@@ -70,15 +70,31 @@ class RecitationsArea extends Component {
     }
 
 
+    // Load all of the recitations that the user has liked
     loadLiked(fireRef, recs) {
         var onUserDataChanged = (snapshot) => {
             if(snapshot != null) {
                 var likes = snapshot.val()["likes"];
 
-                likes.forEach((obj)=>{
-                    console.log(obj);
+                likes.forEach((recID)=>{
+                    var name = recID.substring(0,recID.indexOf('-'));
+                    var uploaderid = recID.substring(recID.indexOf('-')+1);
+
+                    firebase.database().ref().child("Recitations").child(uploaderid).child(name).once('value').then( (snapshot) => {
+                        var recitationObject = snapshot.val();
+                        // Make a new recitation component and push it onto the array
+                        var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
+                        recs.push(rec);
+
+                        // Sort the array by key, which is the timestamp.
+                        if(this.props.sortBy === 'timestamp') {
+                            recs.sort(function(a,b){ return b.key - a.key; });
+                        } else {
+                            recs.sort(function(a,b){ return b.likes - a.likes; });
+                        }
+                        this.setState({recitations:recs});
+                    })
                 })
-                
             }
         };
 
