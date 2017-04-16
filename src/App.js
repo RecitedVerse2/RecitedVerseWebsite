@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
+import AudioPlayer from './components/AudioPlayer';
+
 import Landing from './pages/Landing';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
@@ -17,13 +19,15 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div>
+                    <AudioPlayer ref={(AudioPlayer)=>{this.ap = AudioPlayer}}></AudioPlayer>
+
                     <Route exact path="/" component={Landing}></Route>
                     <Route path="/home" component={Home}></Route>
                     <Route path="/signup" component={SignUp}></Route>
                     <Route path="/login" component={Login}></Route>
                     <Route path="/profile" component={Profile}></Route>
                     <Route path="/editprofile" component={EditProfile}></Route>
-                    <Route path="/poem" component={Poem}></Route>
+                    <Route path="/poem" component={Poem} audioPlayer={this.ap}></Route>
                 </div>
             </BrowserRouter>
         );

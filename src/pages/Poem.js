@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Popover, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import * as firebase from 'firebase';
 
-import AudioPlayer from '../components/AudioPlayer';
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
@@ -128,8 +127,6 @@ class Poem extends Component {
 
                     </ContentHeader>
                 </ContentArea>
-
-                <AudioPlayer poemPlayBtn={this.playBtn} ref={(AudioPlayer)=>{this.audioPlayer = AudioPlayer}}></AudioPlayer>
             </div>
         );
     }
@@ -253,10 +250,10 @@ class Poem extends Component {
     }
 
     playRecitation() {
-        this.audioPlayer.updateAP(this.state.audio);
+        this.props.audioPlayer.setAP(this.state.audio);
 
         if(!this.playBtn.className.includes('pause')) {
-            this.audioPlayer.handlePlay(this.state.audio);
+            this.props.ap.handlePlay(this.state.audio);
         }
     }
 

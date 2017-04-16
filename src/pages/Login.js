@@ -3,7 +3,6 @@ import * as firebase from 'firebase';
 
 import _ from '../css/Login.css';
 
-import AudioPlayer from '../components/AudioPlayer';
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import PillButton from '../components/PillButton';
@@ -80,7 +79,6 @@ class Login extends Component {
                     </div>
                 </ContentArea>
 
-                <AudioPlayer></AudioPlayer>
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import * as firebase from 'firebase';
 
 import CircleButton from './CircleButton';
+import Clock from './Clock';
 
 import _ from '../css/AudioPlayer.css';
 
@@ -71,7 +71,6 @@ class AudioPlayer extends Component {
     render() {
         return (
             <div style={this.getAPStyles()}>
-
                 <div className="audio_buttons_section">
                     <CircleButton {...this.getCBS()} >
                         <p className='fa fa-step-backward' style={{paddingTop:'10px'}}></p>
@@ -100,6 +99,9 @@ class AudioPlayer extends Component {
                     <button className="fa fa-random"/>
                     <button className="fa fa-repeat"/>
                 </div>
+
+
+                <Clock onupdate={this.updateAP.bind(this)}></Clock>
             </div>
         );
     }
@@ -134,8 +136,21 @@ class AudioPlayer extends Component {
     *                     *
     ***********************/
 
-    updateAP(aud) {
+    setAP(aud) {
         this.setState({audio:aud});
+    }
+
+    updateAP() {
+        if(this.state.audio !== null) {
+            if(this.state.audio.ended === true) {
+                this.props.poemPlayBtn.className = 'description_button fa fa-play';
+                this.playIcon.className = 'fa fa-play';
+                this.state.audio.pause();
+            } else {
+                this.props.poemPlayBtn.className = 'description_button fa fa-pause';
+                this.playIcon.className = 'fa fa-pause';
+            }
+        }
     }
 }
 

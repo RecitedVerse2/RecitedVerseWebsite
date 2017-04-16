@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-import AudioPlayer from '../components/AudioPlayer';
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import RectButton from '../components/RectButton';
@@ -26,23 +25,19 @@ class EditProfile extends Component {
             backgroundSrc:'',
             email:'',
             fullName:'',
-            password:'',
             bio:'',
             likes:'',
             favorites:'',
-            followers:0,
-            following:0,
-            social:[],
+            social:['','','',''],
             uid:''
         };
     }
 
     componentDidMount() {
-        var onUserDataChanged = function(snapshot) {
+        var onUserDataChanged = (snapshot) => {
             if(snapshot != null) {
                 var email = snapshot.val()["email"];
                 var fullname = snapshot.val()["fullname"];
-                var password = snapshot.val()['password'];
                 var userID = snapshot.val()["userID"];
                 var photoURL = snapshot.val()["photoURL"];
                 var backgroundImg = snapshot.val()["backgroundImage"];
@@ -50,20 +45,15 @@ class EditProfile extends Component {
                 var social = snapshot.val()["social_media_links"];
                 var likes = snapshot.val()["likes"];
                 var favorites = snapshot.val()["favorites"];
-                var fs = snapshot.val()["followers"];
-                var fing = snapshot.val()["following"];
 
                 var dict = {
                     email:email,
-                    password:password,
                     likes:likes,
                     favorites:favorites,
                     profileSrc:photoURL,
                     backgroundSrc:backgroundImg,
                     fullName:fullname,
                     bio:bio,
-                    followers:fs,
-                    following:fing,
                     fb:social[0],
                     li:social[1],
                     in:social[2],
@@ -71,10 +61,14 @@ class EditProfile extends Component {
                     uid:userID
                 };
                 this.setState(dict);
+                this.fbfield.value = social[0] || '';
+                this.lifield.value = social[1] || '';
+                this.infield.value = social[2] || '';
+                this.twfield.value = social[3] || '';
             }
         };
         if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
-            firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).on('value', onUserDataChanged.bind(this));
+            firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).once('value').then(onUserDataChanged);
         }
     }
 
@@ -155,16 +149,16 @@ class EditProfile extends Component {
                         <h4>Social Media Links: &nbsp;&nbsp;&nbsp;</h4>
                         <br />
                         <p><label htmlFor="cbox1">Facebook:&nbsp;&nbsp;</label>
-                        <input type="url" id="facebookLink" className="inputField" placeholder={this.state.fb}/>
+                        <input ref={(input)=>{this.fbfield = input}} type="url" id="facebookLink" className="inputField"/><button onClick={()=>{this.fbfield.value = ''}}>x</button>
                         <br /><br />
                         <label htmlFor="cbox1">LinkedIn:&nbsp;&nbsp;</label>
-                        <input type="url" id="linkedinLink" className="inputField" placeholder={this.state.li}/>
+                        <input ref={(input)=>{this.lifield = input}} type="url" id="linkedinLink" className="inputField"/><button onClick={()=>{this.lifield.value = ''}}>x</button>
                         <br /><br />
                         <label htmlFor="cbox1">Instagram:&nbsp;&nbsp;</label>
-                        <input type="url" id="instagramLink" className="inputField" placeholder={this.state.in}/>
+                        <input ref={(input)=>{this.infield = input}} type="url" id="instagramLink" className="inputField"/><button onClick={()=>{this.infield.value = ''}}>x</button>
                         <br /><br />
                         <label htmlFor="cbox1">Twitter:&nbsp;&nbsp;</label>
-                        <input type="url" id="twitterLink" className="inputField" placeholder={this.state.tw}/>
+                        <input ref={(input)=>{this.twfield = input}} type="url" id="twitterLink" className="inputField"/><button onClick={()=>{this.twfield.value = ''}}>x</button>
                         </p>
                         <br /><br /><br /><br />
                         <RectButton width='140px' height='40px' textColor='black' backgroundColor='rgb(76, 182, 203)' hoverColor='rgb(76, 132, 183)'
@@ -175,7 +169,6 @@ class EditProfile extends Component {
                     </div>
                 </ContentArea>
 
-                <AudioPlayer></AudioPlayer>
             </div>
         );
     }
@@ -192,17 +185,18 @@ class EditProfile extends Component {
     handleSaveChanges() {
         var fullname = document.getElementById('fullNameField').value || this.state.fullName;
         var email = document.getElementById('emailField').value || this.state.email;
-        var password1 = document.getElementById('passwordField1').value || this.state.password;
-        var password2 = document.getElementById('passwordField2').value || this.state.password;
+        var password1 = document.getElementById('passwordField1').value || '';
+        var password2 = document.getElementById('passwordField2').value || '';
         var bio = document.getElementById('ep_bio_field').value || this.state.bio;
 
+        var user = firebase.auth().currentUser;
         var changes = this.state;
 
         if( fullname !== "" && fullname !== null ) {
             changes["fullName"] = fullname;
         }
         if( email !== "" && email !== null && email !== changes["email"]) {
-            var user = firebase.auth().currentUser;
+
             user.updateEmail(email).then(function() {
                 changes["email"] = email;
             }, function(error) {
@@ -213,7 +207,12 @@ class EditProfile extends Component {
         if( password1 !== "" && password1 !== null ) {
             if( password2 !== "" && password2 !== null ) {
                 if(password1 === password2) {
-                    changes["password"] = password1;
+                    user.updatePassword(password1).then(function() {
+                        return;
+                    }, function(error) {
+                        alert('Error changing password.');
+                        return;
+                    });
                 }
 
             }
@@ -222,15 +221,7 @@ class EditProfile extends Component {
             changes["bio"] = bio;
         }
 
-        var social = [];
-        var fbLink = document.getElementById('facebookLink').value || "";
-        var liLink = document.getElementById('linkedinLink').value || "";
-        var inLink = document.getElementById('instagramLink').value || "";
-        var twLink = document.getElementById('twitterLink').value || "";
-        social.push(fbLink);
-        social.push(liLink);
-        social.push(inLink);
-        social.push(twLink);
+        var social = [this.fbfield.value,this.lifield.value,this.infield.value,this.twfield.value];
         changes["social_media_links"] = social;
 
         // Rename the keys to how they appear in Firebase.
@@ -311,13 +302,10 @@ class EditProfile extends Component {
             'bio':changes['bio'],
             'email':changes['email'],
             'favorites':changes['favorites'],
-            'followers':changes['followers'],
-            'following':changes['following'],
             'fullname':changes['fullName'],
             'likes':changes['likes'],
-            'password':changes['password'],
             'photoURL':changes['profileSrc'],
-            'social_media_links':[changes['fb'],changes['li'],changes['in'],changes['tw']],
+            'social_media_links':changes['social_media_links'],
             'userID':changes['uid']
         };
         return newChanges;

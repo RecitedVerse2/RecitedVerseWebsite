@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Image } from 'react-bootstrap';
+import { Image, Popover, OverlayTrigger } from 'react-bootstrap';
+
 import * as firebase from 'firebase';
 
-import AudioPlayer from '../components/AudioPlayer';
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
@@ -26,19 +26,16 @@ class Profile extends Component {
             backgroundSrc:'',
             fullName:'',
             bio:'',
-            followers:0,
-            following:0,
-            social:[],
+            social:['','','',''],
             uid:''
         };
     }
 
     componentDidMount() {
-        var onUserDataChanged = function(snapshot) {
+        var onUserDataChanged = (snapshot) => {
             if(snapshot != null) {
                  //var email = snapshot.val()["email"];
                 var fullname = snapshot.val()["fullname"];
-                //var password = snapshot.val()["password"];
                 var userID = snapshot.val()["userID"];
                 var photoURL = snapshot.val()["photoURL"];
                 var backgroundImg = snapshot.val()["backgroundImage"];
@@ -46,8 +43,6 @@ class Profile extends Component {
                 var social = snapshot.val()["social_media_links"];
                 //var likes = snapshot.val()["likes"];
                 //var favorites = snapshot.val()["favorites"];
-                var fs = snapshot.val()["followers"];
-                var fing = snapshot.val()["following"];
 
                 var dict = {
                     showUploadModal:false,
@@ -55,12 +50,11 @@ class Profile extends Component {
                     backgroundSrc:backgroundImg,
                     fullName:fullname,
                     bio:bio,
-                    followers:fs,
-                    following:fing,
                     social:social,
                     uid:userID
                 };
                 this.setState(dict);
+                this.updateSocialButtons();
             }
         };
 
@@ -87,6 +81,14 @@ class Profile extends Component {
 
 
     render() {
+        const popover = (
+            <Popover id="popover-positioned-left" title="Profile" style={{textAlign:'center'}}>
+                <button className='edit_buttons' onClick={()=>{this.goToPage('editprofile')}}>Edit Profile</button>
+                <br/>
+                <button className='edit_buttons' onClick={()=>{this.handleLogout()}}>Logout</button>
+            </Popover>
+        );
+
         return (
             <div>
                 <NavigationHeader goToHome={()=>{this.goToPage('home')}} goToProfile={()=>{this.goToPage('profile')}} goToLogin={()=>{this.goToPage('login')}} goToSignUp={()=>{this.goToPage('signup')}}>
@@ -100,8 +102,12 @@ class Profile extends Component {
 
 
                     <ContentHeader top="200px" height="350px">
-                        <button id="edit_profile_btn" onClick={()=>{this.goToPage('editprofile')}}>Edit Profile</button>
-                        <button id="logout_btn" onClick={this.handleLogout.bind(this)}>Logout</button>
+                        <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+                            <button id='edit_profile_btn' data-toggle="popover" data-placement="left">
+                                ...
+                            </button>
+                        </OverlayTrigger>
+
 
                         <div className="profile_info_area">
                             <div className="profile_picture_area">
@@ -111,9 +117,14 @@ class Profile extends Component {
 
                                 <h4 id="profile_name">{this.state.fullName}</h4>
                                 <p id="profile_bio">{this.state.bio}</p>
-                                <p id="profile_followers">Followers: {this.state.followers}</p>
-                                <p id="profile_following">Following: {this.state.following}</p>
 
+                                <br/>
+                                <div>
+                                    <button id='facebookBtn' className='fa fa-facebook'></button>
+                                    <button id='linkedinBtn' className='fa fa-linkedin'></button>
+                                    <button id='instagramBtn' className='fa fa-instagram'></button>
+                                    <button id='twitterBtn' className='fa fa-twitter'></button>
+                                </div>
                             </div>
                         </div>
 
@@ -131,8 +142,6 @@ class Profile extends Component {
                     </TabPane>
 
                 </ContentArea>
-
-                <AudioPlayer></AudioPlayer>
             </div>
         );
     }
@@ -163,6 +172,40 @@ class Profile extends Component {
     *   UTILITY METHODS   *
     *                     *
     ***********************/
+
+    // Update the social media buttons on the profile page.
+    updateSocialButtons() {
+        if(this.state.social) {
+            if(this.state.social[0] !== '') {
+                document.getElementById('facebookBtn').style.opacity = '1';
+                document.getElementById('facebookBtn').disabled = false;
+            } else {
+                document.getElementById('facebookBtn').style.opacity = '0.25';
+                document.getElementById('facebookBtn').disabled = true;
+            }
+            if(this.state.social[1] !== '') {
+                document.getElementById('linkedinBtn').disabled = false;
+                document.getElementById('linkedinBtn').style.opacity = '1';
+            } else {
+                document.getElementById('linkedinBtn').disabled = true;
+                document.getElementById('linkedinBtn').style.opacity = '0.25';
+            }
+            if(this.state.social[2] !== '') {
+                document.getElementById('instagramBtn').disabled = false;
+                document.getElementById('instagramBtn').style.opacity = '1';
+            } else {
+                document.getElementById('instagramBtn').disabled = true;
+                document.getElementById('instagramBtn').style.opacity = '0.25';
+            }
+            if(this.state.social[3] !== '') {
+                document.getElementById('twitterBtn').disabled = false;
+                document.getElementById('twitterBtn').style.opacity = '1';
+            } else {
+                document.getElementById('twitterBtn').disabled = true;
+                document.getElementById('twitterBtn').style.opacity = '0.25';
+            }
+        }
+    }
 
     // Goes to the particular page necessary for the navigation bar.
     goToPage(page) { this.props.history.push('/'+page); }
