@@ -1,12 +1,34 @@
 import React, { Component } from 'react';
+import * as firebase from 'firebase';
 
 import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
 import RectButton from '../components/RectButton';
+import HorizontalView from '../components/HomePageComponents/HorizontalView';
+import RecitationItem from '../components/ProfilePageComps/RecitationItem';
 
 // This is the home page.
 class Home extends Component {
+    /**********************
+    *                     *
+    *    INITIALIZATION   *
+    *                     *
+    ***********************/
+
+    constructor() {
+        super();
+        this.state = {popular:[],recent:[]}
+    }
+
+    componentDidMount() {
+        const fireRef = firebase.database().ref();
+
+        this.loadMostPopular(fireRef);
+        this.loadMostRecent(fireRef);
+    }
+
+
 
     /**********************
     *                     *
@@ -53,6 +75,15 @@ class Home extends Component {
             hoverColor:'rgb(52, 153, 170)'
         };
     }
+    horizontalScrollProps() {
+        return {
+            pageLock:false,
+            reverseScroll:false,
+            style:{},
+            config:{stiffness:0,damping:1}
+        };
+    }
+
 
 
 
@@ -66,17 +97,26 @@ class Home extends Component {
                 <ContentArea>
                     <br/><br/><br/>
                     <h4 style={this.textHeaderStyles()}>Check out what's trending on Recited Verse</h4>
-                    <ContentHeader {...this.trendingHeaderStyles()}>
 
+                    {/* This is where all of the popular recitations go. */}
+                    <ContentHeader {...this.trendingHeaderStyles()}>
+                        <HorizontalView>
+                            {this.state.popular}
+                        </HorizontalView>
                     </ContentHeader>
+
                     <br/>
                     <RectButton {...this.ROTDProps()}>Recitation of the Day</RectButton>
 
 
                     <br/><br/><br/><br/><br/><br/><br/>
                     <h4 style={this.textHeaderStyles()}>See what people are uploading right now!</h4>
-                    <ContentHeader {...this.recentHeaderStyles()}>
 
+                    {/* This is where all of the recent recitations go. */}
+                    <ContentHeader {...this.recentHeaderStyles()}>
+                        <HorizontalView>
+                            {this.state.recent}
+                        </HorizontalView>
                     </ContentHeader>
 
                     <br/><br/><br/><br/><br/><br/><br/>
@@ -88,6 +128,61 @@ class Home extends Component {
         );
     }
 
+
+
+
+    /**********************
+    *                     *
+    *       UTILITY       *
+    *                     *
+    ***********************/
+
+    // Loads the 20 most popular recitations.
+    loadMostPopular(fireRef) {
+        var recs = [];
+        fireRef.child('Recitations').orderByChild('likes').limitToFirst(20).once('value').then((snapshot)=> {
+            /* Go through each recitation that the user has. If the array of recitations does not contain
+            that recitation, then add it. */
+            snapshot.forEach((recitationObject) => {
+                // Make a new recitation component and push it onto the array
+                var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
+                recs.push(rec);
+
+                // Sort the array by the number of likes.
+                recs.sort(function(a,b){ return b.likes - a.likes; });
+                this.setState({popular:recs});
+            });
+
+        });
+    }
+
+
+    // Loads the 20 most recently uploaded recitations.
+    loadMostRecent(fireRef) {
+        var recs = [];
+        var nowMS = Date.now();
+        fireRef.child('Recitations').orderByChild('timestamp').endAt(nowMS).limitToFirst(20).once('value').then((snapshot)=> {
+            /* Go through each recitation that the user has. If the array of recitations does not contain
+            that recitation, then add it. */
+            snapshot.forEach((recitationObject) => {
+                // Make a new recitation component and push it onto the array
+                var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
+                recs.push(rec);
+
+                // Sort the array by the number of likes.
+                recs.sort(function(a,b){ return b.timestamp - a.timestamp; });
+                this.setState({recent:recs});
+            });
+
+        });
+    }
+
+
+
+    // Handles going to the poem page.
+    handleGoToPoemPage() {
+        this.props.history.push('/poem');
+    }
 
     // Goes to the particular page necessary for the navigation bar.
     goToPage(page) { this.props.history.push('/'+page); }

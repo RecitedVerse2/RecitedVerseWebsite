@@ -84,7 +84,7 @@ class RecitationsArea extends Component {
                             var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
                             recs.push(rec);
 
-                            // Sort the array by key, which is the timestamp.
+                            // Sort the array by likes
                             if(this.props.sortBy === 'timestamp') {
                                 recs.sort(function(a,b){ return b.key - a.key; });
                             } else {
@@ -117,11 +117,11 @@ class RecitationsArea extends Component {
                             var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
                             recs.push(rec);
 
-                            // Sort the array by key, which is the timestamp.
+                            // Sort the array by favorites
                             if(this.props.sortBy === 'timestamp') {
                                 recs.sort(function(a,b){ return b.key - a.key; });
                             } else {
-                                recs.sort(function(a,b){ return b.likes - a.likes; });
+                                recs.sort(function(a,b){ return b.favorites - a.favorites; });
                             }
                             this.setState({recitations:recs});
                         })
