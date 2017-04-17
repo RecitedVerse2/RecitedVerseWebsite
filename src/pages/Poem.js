@@ -135,7 +135,6 @@ class Poem extends Component {
                     plays: this.state.plays,
                     favorites: this.state.favorites,
                     text: this.state.text,
-                    recitation:this.state.recitation,
                     audio: this.state.audio
                 };
 
@@ -159,7 +158,6 @@ class Poem extends Component {
                     plays: this.state.plays,
                     favorites: this.state.favorites,
                     text: this.state.text,
-                    recitation:this.state.recitation,
                     audio: this.state.audio
                 };
 
@@ -195,7 +193,6 @@ class Poem extends Component {
                     plays: this.state.plays,
                     favorites: this.state.favorites + 1,
                     text: this.state.text,
-                    recitation:this.state.recitation,
                     audio: this.state.audio
                 };
 
@@ -219,7 +216,6 @@ class Poem extends Component {
                     plays: this.state.plays,
                     favorites: this.state.favorites - 1,
                     text: this.state.text,
-                    recitation:this.state.recitation,
                     audio: this.state.audio
                 };
 

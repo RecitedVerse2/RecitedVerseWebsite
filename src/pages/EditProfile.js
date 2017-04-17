@@ -26,8 +26,8 @@ class EditProfile extends Component {
             email:'',
             fullName:'',
             bio:'',
-            likes:'',
-            favorites:'',
+            likes:[],
+            favorites:[],
             social:['','','',''],
             uid:''
         };
@@ -224,9 +224,12 @@ class EditProfile extends Component {
         var social = [this.fbfield.value,this.lifield.value,this.infield.value,this.twfield.value];
         changes["social_media_links"] = social;
 
+
+        changes['favorites'] = this.state.favorites || [];
+        changes['likes'] = this.state.likes || [];
+
         // Rename the keys to how they appear in Firebase.
         changes = this.renameKeys(changes);
-
         this.saveToFirebase(changes);
     };
 

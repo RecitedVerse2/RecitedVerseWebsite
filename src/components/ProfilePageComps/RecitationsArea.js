@@ -21,7 +21,8 @@ class RecitationsArea extends Component {
             this.loadLiked(fireRef, recs);
             return;
         } else if(this.props.loadFavorited === true) {
-
+            this.loadFavorited(fireRef, recs);
+            return;
         } else {
             this.loadUserRecs(fireRef, recs);
             return;
@@ -76,25 +77,63 @@ class RecitationsArea extends Component {
             if(snapshot != null) {
                 var likes = snapshot.val()["likes"];
 
-                likes.forEach((recID)=>{
-                    var name = recID.substring(0,recID.indexOf('-'));
-                    var uploaderid = recID.substring(recID.indexOf('-')+1);
+                if(likes !== undefined && likes !== null) {
+                    likes.forEach((recID)=>{
+                        var name = recID.substring(0,recID.indexOf('-'));
+                        var uploaderid = recID.substring(recID.indexOf('-')+1);
 
-                    firebase.database().ref().child("Recitations").child(uploaderid).child(name).once('value').then( (snapshot) => {
-                        var recitationObject = snapshot.val();
-                        // Make a new recitation component and push it onto the array
-                        var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
-                        recs.push(rec);
+                        firebase.database().ref().child("Recitations").child(uploaderid).child(name).once('value').then( (snapshot) => {
+                            var recitationObject = snapshot.val();
+                            // Make a new recitation component and push it onto the array
+                            var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
+                            recs.push(rec);
 
-                        // Sort the array by key, which is the timestamp.
-                        if(this.props.sortBy === 'timestamp') {
-                            recs.sort(function(a,b){ return b.key - a.key; });
-                        } else {
-                            recs.sort(function(a,b){ return b.likes - a.likes; });
-                        }
-                        this.setState({recitations:recs});
+                            // Sort the array by key, which is the timestamp.
+                            if(this.props.sortBy === 'timestamp') {
+                                recs.sort(function(a,b){ return b.key - a.key; });
+                            } else {
+                                recs.sort(function(a,b){ return b.likes - a.likes; });
+                            }
+                            this.setState({recitations:recs});
+                        })
                     })
-                })
+                }
+            }
+        };
+
+        if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
+            firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).once('value').then(onUserDataChanged);
+        }
+    }
+
+
+    // Load all of the recitations that the user has liked
+    loadFavorited(fireRef, recs) {
+        var onUserDataChanged = (snapshot) => {
+            if(snapshot != null) {
+                var favorites = snapshot.val()["favorites"];
+
+                if(favorites !== undefined && favorites !== null) {
+                    favorites.forEach((recID)=>{
+                        var name = recID.substring(0,recID.indexOf('-'));
+                        var uploaderid = recID.substring(recID.indexOf('-')+1);
+
+                        firebase.database().ref().child("Recitations").child(uploaderid).child(name).once('value').then( (snapshot) => {
+                            var recitationObject = snapshot.val();
+                            // Make a new recitation component and push it onto the array
+                            var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
+                            recs.push(rec);
+
+                            // Sort the array by key, which is the timestamp.
+                            if(this.props.sortBy === 'timestamp') {
+                                recs.sort(function(a,b){ return b.key - a.key; });
+                            } else {
+                                recs.sort(function(a,b){ return b.likes - a.likes; });
+                            }
+                            this.setState({recitations:recs});
+                        })
+                    })
+                }
             }
         };
 
