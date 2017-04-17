@@ -17,8 +17,8 @@ class ContentArea extends Component {
         return {
             position: 'absolute',
             top: '45px',
-            left: this.state.contentLeft,
-            width: this.state.contentWidth,
+            left: this.state.contentLeft || '6%',
+            width: this.state.contentWidth || '94%',
             height: '100%',
             backgroundColor: this.props.backgroundColor || 'rgb(242,244,248)'
         };
