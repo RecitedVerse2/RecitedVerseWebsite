@@ -49,11 +49,10 @@ class RecitationsArea extends Component {
 
     // Load all of the user's recitations
     loadUserRecs(fireRef, recs) {
-        fireRef.child('Recitations').child(window.localStorage.getItem('currentUID')).once('value').then((snapshot)=> {
+        fireRef.child('Recitations').orderByChild('uploaderID').equalTo(window.localStorage.getItem('currentUID')).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((recitationObject) => {
-
                 // Make a new recitation component and push it onto the array
                 var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
                 recs.push(rec);
@@ -79,10 +78,7 @@ class RecitationsArea extends Component {
 
                 if(likes !== undefined && likes !== null) {
                     likes.forEach((recID)=>{
-                        var name = recID.substring(0,recID.indexOf('-'));
-                        var uploaderid = recID.substring(recID.indexOf('-')+1);
-
-                        firebase.database().ref().child("Recitations").child(uploaderid).child(name).once('value').then( (snapshot) => {
+                        firebase.database().ref().child("Recitations").child(recID).once('value').then( (snapshot) => {
                             var recitationObject = snapshot.val();
                             // Make a new recitation component and push it onto the array
                             var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
@@ -115,10 +111,7 @@ class RecitationsArea extends Component {
 
                 if(favorites !== undefined && favorites !== null) {
                     favorites.forEach((recID)=>{
-                        var name = recID.substring(0,recID.indexOf('-'));
-                        var uploaderid = recID.substring(recID.indexOf('-')+1);
-
-                        firebase.database().ref().child("Recitations").child(uploaderid).child(name).once('value').then( (snapshot) => {
+                        firebase.database().ref().child("Recitations").child(recID).once('value').then( (snapshot) => {
                             var recitationObject = snapshot.val();
                             // Make a new recitation component and push it onto the array
                             var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>

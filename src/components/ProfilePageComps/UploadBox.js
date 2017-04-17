@@ -282,9 +282,11 @@ class UploadBox extends Component {
             // Save that dictionary to the Firebase database.
             // Save the audio to the Firebase storage.
             // Return from this method.
+            var fp = fireRef.child("Recitations").push();
 
             /* Create dictionary for the recitation. */
             var dictionary = {
+                "id":fp.key,
                 "uploaderID":window.localStorage.getItem('currentUID'),
                 "title":poemName.value,
                 "author":poemAuthor.value,
@@ -307,20 +309,20 @@ class UploadBox extends Component {
             if(myRecording != null) {
 
                 /* Save it to the database under Recitations->UserID->AutoID:Dictionary*/
-                fireRef.child("Recitations").child(currentUserID).child(poemName.value).setWithPriority(dictionary, 0 - Date.now());
+                fp.setWithPriority(dictionary, 0 - Date.now());
 
                 /* Save the actual audio to the storage. */
-                storageRef.child(currentUserID).child(poemName.value).put(myRecording).then(function() {
+                storageRef.child(currentUserID).child(dictionary['id']).put(myRecording).then(function() {
                     props.onHide();
                 });
 
             } else if(this.valueExists(this.state.audioObj)) {
 
                 /* Save it to the database under Recitations->UserID->AutoID:Dictionary*/
-                fireRef.child("Recitations").child(currentUserID).child(poemName.value).set(dictionary);
+                fp.set(dictionary);
 
                 /* Save the actual audio to the storage. */
-                storageRef.child(currentUserID).child(poemName.value).putString(this.state.audioObj.src, 'data_url').then(function(snapshot) {
+                storageRef.child(currentUserID).child(dictionary['id']).putString(this.state.audioObj.src, 'data_url').then(function(snapshot) {
                     props.onHide();
                 });
 

@@ -60,6 +60,7 @@ class Profile extends Component {
 
         if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
             firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).once('value').then(onUserDataChanged);
+
         }
     }
 
