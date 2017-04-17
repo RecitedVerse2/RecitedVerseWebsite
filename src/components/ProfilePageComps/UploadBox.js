@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 
 import FileChooserForm from '../FileChooserForm';
 import CircleButton from '../CircleButton';
+import Clock from '../Clock';
 
 import _ from '../../css/UploadBox.css';
 
@@ -83,6 +84,8 @@ class UploadBox extends Component {
     render() {
         return (
             <Modal {...this.props} aria-labelledby="contained-modal-title-sm">
+                <Clock onupdate={this.handleStopPlaying.bind(this)}></Clock>
+
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-sm">Upload Recitation</Modal.Title>
                 </Modal.Header>
@@ -350,9 +353,24 @@ class UploadBox extends Component {
         statusLabel.innerHTML = '';
     }
 
-    stoppedPlaying() {
+    handleStopPlaying() {
         var statusLabel = document.getElementById('statusLabel');
-        statusLabel.innerHTML = '';
+
+        if(this.state.audioObj !== null) {
+            if(this.state.audioObj.ended === true) {
+                statusLabel.innerHTML = '';
+                var a = this.state.audioObj;
+                a.pause();
+                a.currentTime = 0;
+                this.setState({
+                    audioObj:a
+                });
+            }
+        } else {
+            if(audioRec.isFinished() === true) {
+                statusLabel.innerHTML = '';
+            }
+        }
     }
 
 
