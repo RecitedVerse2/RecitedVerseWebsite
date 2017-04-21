@@ -141,13 +141,13 @@ class NavigationHeader extends Component {
             this.toggleMenu();
         }
         if(page === 'home') {
-            this.props.goToHome();
+            this.props.history.push('home');
         } else if(page === 'profile') {
-            this.props.goToProfile();
+            this.props.history.push('profile');
         } else if(page === 'login') {
-            this.props.goToLogin();
+            this.props.history.push('login');
         } else if(page === 'signup') {
-            this.props.goToSignUp();
+            this.props.history.push('signup');
         }
     }
     handleGoToProfile() {

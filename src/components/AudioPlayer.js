@@ -15,20 +15,11 @@ class AudioPlayer extends Component {
 
     constructor() {
         super();
-        this.state = {
-            audio:null,
-            ended:false
-        }
+
     }
 
     componentDidMount() {
-        const cpri = JSON.parse(window.sessionStorage.getItem('currently_playing_recitation_info'));
-        if(cpri !== null) {
 
-
-
-
-        }
     }
 
 
@@ -88,7 +79,7 @@ class AudioPlayer extends Component {
 
 
                 <div className="title_area">
-                    <p id="audio_title"></p>
+                    <p id="audio_title">{this.props.RTP.name}</p>
                     <div id="sliderArea" style={{position: 'relative', display: 'table', margin: 'auto'}}>
                         <audio id="rv_loaded_audio" preload="none"></audio>
                         <span style={{display: 'table-cell'}} id="curtimetext">0:00</span>&nbsp;&nbsp;&nbsp;<input style={{width: 300, display: 'table-cell'}} type="range" id="seekSlider" min={0} max={100} defaultValue={0} step={1} />&nbsp;&nbsp;&nbsp;<span style={{display: 'table-cell'}} id="durtimetext">0:00</span>
@@ -114,18 +105,7 @@ class AudioPlayer extends Component {
     ***********************/
 
     handlePlay() {
-        if(this.state.audio) {
-            if(this.state.audio.paused === true) {
-                this.props.poemPlayBtn.className = 'description_button fa fa-pause';
-                this.playIcon.className = 'fa fa-pause';
-                this.state.audio.play();
-            } else {
-                this.props.poemPlayBtn.className = 'description_button fa fa-play';
-                this.playIcon.className = 'fa fa-play';
-                this.state.audio.pause();
-            }
-            window.sessionStorage.setItem('currently_playing_recitation_info', JSON.stringify(this.state));
-        }
+
     }
 
 
@@ -136,21 +116,8 @@ class AudioPlayer extends Component {
     *                     *
     ***********************/
 
-    setAP(aud) {
-        this.setState({audio:aud});
-    }
-
     updateAP() {
-        if(this.state.audio !== null) {
-            if(this.state.audio.ended === true) {
-                this.props.poemPlayBtn.className = 'description_button fa fa-play';
-                this.playIcon.className = 'fa fa-play';
-                this.state.audio.pause();
-            } else {
-                this.props.poemPlayBtn.className = 'description_button fa fa-pause';
-                this.playIcon.className = 'fa fa-pause';
-            }
-        }
+        
     }
 }
 

@@ -3,7 +3,6 @@ import { Image, Popover, OverlayTrigger } from 'react-bootstrap';
 
 import * as firebase from 'firebase';
 
-import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
 import TabPane from '../components/ProfilePageComps/TabPane';
@@ -88,10 +87,6 @@ class Profile extends Component {
 
         return (
             <div>
-                <NavigationHeader goToHome={()=>{this.goToPage('home')}} goToProfile={()=>{this.goToPage('profile')}} goToLogin={()=>{this.goToPage('login')}} goToSignUp={()=>{this.goToPage('signup')}}>
-                </NavigationHeader>
-
-
                 <ContentArea>
                     <div className="profile_background_area">
                         <img id="profile_background" src={this.state.backgroundSrc} alt="pbi" width="100%" height="100%" />
@@ -134,7 +129,7 @@ class Profile extends Component {
 
 
 
-                    <TabPane goToPoemPage={()=>{this.props.history.push('/poem');}}>
+                    <TabPane navHeader={this.props.navHeader}>
 
                     </TabPane>
 
@@ -204,8 +199,6 @@ class Profile extends Component {
         }
     }
 
-    // Goes to the particular page necessary for the navigation bar.
-    goToPage(page) { this.props.history.push('/'+page); }
 }
 
 export default Profile;

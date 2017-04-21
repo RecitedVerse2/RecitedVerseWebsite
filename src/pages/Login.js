@@ -3,7 +3,6 @@ import * as firebase from 'firebase';
 
 import _ from '../css/Login.css';
 
-import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import PillButton from '../components/PillButton';
 
@@ -61,10 +60,6 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <NavigationHeader goToHome={()=>{this.goToPage('home')}} goToProfile={()=>{this.goToPage('profile')}} goToLogin={()=>{this.goToPage('login')}} goToSignUp={()=>{this.goToPage('signup')}}>
-                </NavigationHeader>
-
-
                 <ContentArea backgroundColor='rgb(242,244,248)'>
                     <div style={this.getLoginBoxStyle()}>
                         <h2 style={{fontFamily: '-apple-system',fontSize: '25px',fontWeight: '500'}}>Login</h2>

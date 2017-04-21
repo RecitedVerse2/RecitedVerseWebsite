@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 import _ from '../../css/RecitationItem.css';
 
 
@@ -20,7 +19,7 @@ class RecitationItem extends Component {
     goToPoemPage() {
         if (typeof(Storage) !== "undefined") {
             window.sessionStorage.setItem("recitation_to_look_at", JSON.stringify(this.props.recitation));
-            this.props.goToPoemPage();
+            this.props.navHeader.props.history.push('poem');
         }
     }
 

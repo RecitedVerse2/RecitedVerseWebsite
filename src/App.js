@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import AudioPlayer from './components/AudioPlayer';
-
+import NavigationHeader from './components/NavigationHeaderComps/NavigationHeader';
 import Landing from './pages/Landing';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
@@ -12,22 +11,84 @@ import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Poem from './pages/Poem';
 
+import AudioPlayer from './components/AudioPlayer';
+
+
+// REDUX
+const defaultState = {
+    id:'',
+    uploaderID:'',
+    image:'',
+    title:'',
+    author:'',
+    recitedBy:'',
+    published:'',
+    genre:'',
+    description:'',
+    likes: '',
+    plays: '',
+    favorites: '',
+    text:'',
+    recitation:null,
+    audio:null
+}
+const audioplayer = (state = defaultState, action) => {
+    switch (action.type) {
+        case 'SET':
+            state.id = action.id;
+            state.uploaderID=action.uploaderID;
+            state.image=action.image;
+            state.title=action.title;
+            state.author=action.author;
+            state.recitedBy=action.recitedBy;
+            state.published=action.published;
+            state.genre=action.genre;
+            state.description=action.description;
+            state.likes=action.likes;
+            state.plays=action.plays;
+            state.favorites=action.favorites;
+            state.text=action.text;
+            state.recitation=action.recitation;
+            state.audio=action.audio;
+            console.log(state);
+            return state;
+        default:
+            return state;
+    }
+};
+import { createStore } from 'redux';
+const store = createStore(audioplayer);
+
+
+
 
 // This component just handles the routing between pages.
 class App extends Component {
     render() {
+        const NavHeader = new NavigationHeader();
+        const NavHeaderComp = () => {return NavHeader}
+        const LandingPage = () => {return <Landing rStore={store}></Landing>}
+        const HomePage = () => {return <Home navHeader={NavHeader} rStore={store}></Home>}
+        const SignUpPage = () => {return <SignUp rStore={store}></SignUp>}
+        const LoginPage = () => {return <Login rStore={store}></Login>}
+        const ProfilePage = () => {return <Profile navHeader={NavHeader} rStore={store}></Profile>}
+        const EditProfilePage = () => {return <EditProfile rStore={store}></EditProfile>}
+        const PoemPage = () => {return <Poem rStore={store}></Poem>}
+
+
         return (
             <BrowserRouter>
                 <div>
-                    <AudioPlayer ref={(AudioPlayer)=>{this.ap = AudioPlayer}}></AudioPlayer>
+                    <AudioPlayer RTP={store.getState()}></AudioPlayer>
 
-                    <Route exact path="/" component={Landing}></Route>
-                    <Route path="/home" component={Home}></Route>
-                    <Route path="/signup" component={SignUp}></Route>
-                    <Route path="/login" component={Login}></Route>
-                    <Route path="/profile" component={Profile}></Route>
-                    <Route path="/editprofile" component={EditProfile}></Route>
-                    <Route path="/poem" component={Poem} audioPlayer={this.ap}></Route>
+                    <Route path='*' component={NavHeaderComp}></Route>
+                    <Route exact path="/" component={LandingPage}></Route>
+                    <Route path="/home" component={HomePage}></Route>
+                    <Route path="/signup" component={SignUpPage}></Route>
+                    <Route path="/login" component={LoginPage}></Route>
+                    <Route path="/profile" component={ProfilePage}></Route>
+                    <Route path="/editprofile" component={EditProfilePage}></Route>
+                    <Route path="/poem" component={PoemPage}></Route>
                 </div>
             </BrowserRouter>
         );

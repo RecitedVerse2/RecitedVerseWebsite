@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as firebase from 'firebase';
 
+
+// FIREBASE
+import * as firebase from 'firebase';
 var config = {
     apiKey: "AIzaSyAliB2PpmncS1gNmKtOoIeQ4LgC74cpFUw",
     authDomain: "recitedverse-6efe4.firebaseapp.com",
@@ -12,7 +14,8 @@ var config = {
 firebase.initializeApp(config);
 
 
-
 import App from './App';
 
-ReactDOM.render( <App />,document.getElementById('root') );
+ReactDOM.render(
+    <App />, document.getElementById('root')
+);

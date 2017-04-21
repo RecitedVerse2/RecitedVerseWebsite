@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import PillButton from '../components/PillButton';
 
@@ -57,13 +56,6 @@ class SignUp extends Component {
     render() {
         return (
             <div>
-                <NavigationHeader goToHome={()=>{this.goToPage('home')}} goToProfile={()=>{this.goToPage('profile')}} goToLogin={()=>{this.goToPage('login')}} goToSignUp={()=>{this.goToPage('signup')}}>
-                </NavigationHeader>
-
-
-
-
-
                 <ContentArea>
                     <div style={this.getSignupBoxStyle()}>
                         <h2>Sign Up</h2>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Popover, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import * as firebase from 'firebase';
 
-import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
 
@@ -34,7 +33,26 @@ class Poem extends Component {
     }
 
     componentDidMount() {
-        this.reloadPoemDataFromFirebase(true);
+        this.reloadPoemDataFromFirebase(true, () => {
+            this.props.rStore.dispatch({
+                type:'SET',
+                id:this.state.id,
+                uploaderID:this.state.uploaderID,
+                image:this.state.image,
+                title:this.state.title,
+                author:this.state.author,
+                recitedBy:this.state.recitedBy,
+                published:this.state.published,
+                genre:this.state.genre,
+                description:this.state.description,
+                likes: this.state.likes,
+                plays: this.state.plays,
+                favorites: this.state.favorites,
+                text:this.state.text,
+                recitation:this.state.recitation,
+                audio:this.state.audio
+            });
+        });
     }
 
 
@@ -49,10 +67,6 @@ class Poem extends Component {
 
         return (
             <div>
-                <NavigationHeader goToHome={()=>{this.goToPage('home')}} goToProfile={()=>{this.goToPage('profile')}} goToLogin={()=>{this.goToPage('login')}} goToSignUp={()=>{this.goToPage('signup')}}>
-                </NavigationHeader>
-
-
                 <ContentArea>
                     <ContentHeader height='350px'>
 
@@ -112,6 +126,24 @@ class Poem extends Component {
     *    BUTTON CLICKS    *
     *                     *
     ***********************/
+
+    playRecitation() {
+        const store = this.props.rStore.getState();
+
+        if(store.audio !== null) {
+            if(store.audio.ended === false) {
+                store.audio.currentTime = store.audio.duration;
+                store.audio = this.state.audio;
+            } else {
+                if(!this.playBtn.className.includes('pause')) {
+                    store.audio.play();
+                } else {
+                    store.audio.pause();
+                }
+            }
+        }
+    }
+
 
     likeRecitation() {
         const fireRef = firebase.database().ref();
@@ -233,16 +265,6 @@ class Poem extends Component {
         });
     }
 
-    playRecitation() {
-        this.props.audioPlayer.setAP(this.state.audio);
-
-        if(!this.playBtn.className.includes('pause')) {
-            this.props.ap.handlePlay(this.state.audio);
-        }
-    }
-
-
-
 
     /**********************
     *                     *
@@ -263,11 +285,8 @@ class Poem extends Component {
         return arr;
     }
 
-    // Goes to the particular page necessary for the navigation bar.
-    goToPage(page) { this.props.history.push('/'+page); }
 
-
-    reloadPoemDataFromFirebase(loadAudio) {
+    reloadPoemDataFromFirebase(loadAudio, callback) {
         const currentRec = JSON.parse(window.sessionStorage.getItem('recitation_to_look_at'));
         const fireRef = firebase.database().ref();
         const storageRef = firebase.storage().ref();
@@ -298,6 +317,9 @@ class Poem extends Component {
                         audio:audio
                     });
 
+                    if(callback !== undefined && callback !== null) {
+                        callback();
+                    }
                 });
             } else {
                 this.setState({
@@ -318,6 +340,9 @@ class Poem extends Component {
                     recitation:rec,
                     audio:this.state.audio || null
                 });
+                if(callback !== undefined && callback !== null) {
+                    callback();
+                }
             }
         });
     }

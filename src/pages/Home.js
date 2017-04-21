@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
 import RectButton from '../components/RectButton';
@@ -91,9 +90,6 @@ class Home extends Component {
     render() {
         return (
             <div style={{textAlign:'center'}}>
-                <NavigationHeader goToHome={()=>{this.goToPage('home')}} goToProfile={()=>{this.goToPage('profile')}} goToLogin={()=>{this.goToPage('login')}} goToSignUp={()=>{this.goToPage('signup')}}>
-                </NavigationHeader>
-
                 <ContentArea>
                     <br/><br/><br/>
                     <h4 style={this.textHeaderStyles()}>Check out what's trending on Recited Verse</h4>
@@ -145,7 +141,7 @@ class Home extends Component {
             that recitation, then add it. */
             snapshot.forEach((recitationObject) => {
                 // Make a new recitation component and push it onto the array
-                var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
+                var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} navHeader={this.props.navHeader}></RecitationItem>
                 recs.push(rec);
 
                 // Sort the array by the number of likes.
@@ -166,7 +162,7 @@ class Home extends Component {
             that recitation, then add it. */
             snapshot.forEach((recitationObject) => {
                 // Make a new recitation component and push it onto the array
-                var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} goToPoemPage={this.handleGoToPoemPage.bind(this)}></RecitationItem>
+                var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} navHeader={this.props.navHeader}></RecitationItem>
                 recs.push(rec);
 
                 // Sort the array by the number of likes.
@@ -176,16 +172,6 @@ class Home extends Component {
 
         });
     }
-
-
-
-    // Handles going to the poem page.
-    handleGoToPoemPage() {
-        this.props.history.push('/poem');
-    }
-
-    // Goes to the particular page necessary for the navigation bar.
-    goToPage(page) { this.props.history.push('/'+page); }
 }
 
 export default Home;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-import NavigationHeader from '../components/NavigationHeaderComps/NavigationHeader';
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import RectButton from '../components/RectButton';
 import FileChooserForm from '../components/FileChooserForm';
@@ -101,12 +100,6 @@ class EditProfile extends Component {
     render() {
         return (
             <div>
-                <NavigationHeader goToHome={()=>{this.goToPage('home')}} goToProfile={()=>{this.goToPage('profile')}} goToLogin={()=>{this.goToPage('login')}} goToSignUp={()=>{this.goToPage('signup')}}>
-                </NavigationHeader>
-
-
-
-
                 <ContentArea>
                     <div style={{position:'relative',paddingLeft:'20px',color:'rgb(128,128,128)'}}>
                         <h3 className="ep_header">Edit Profile</h3>
