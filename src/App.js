@@ -30,7 +30,8 @@ const defaultState = {
     favorites: '',
     text:'',
     recitation:null,
-    audio:null
+    audio:null,
+    lastPlayed:null
 }
 const audioplayer = (state = defaultState, action) => {
     switch (action.type) {
@@ -50,11 +51,32 @@ const audioplayer = (state = defaultState, action) => {
             state.text=action.text;
             state.recitation=action.recitation;
             state.audio=action.audio;
+            state.lastPlayed=action.lastPlayed;
             console.log(state);
-            return state;
-        default:
-            return state;
+            break;
+        case 'CLEAR':
+            state.id = '';
+            state.uploaderID='';
+            state.image='';
+            state.title='';
+            state.author='';
+            state.recitedBy='';
+            state.published='';
+            state.genre='';
+            state.description='';
+            state.likes='';
+            state.plays='';
+            state.favorites='';
+            state.text='';
+            state.recitation=null;
+            state.audio=null;
+            state.lastPlayed=null;
+            console.log(state);
+            break;
+        default: break;
     }
+
+    return state;
 };
 import { createStore } from 'redux';
 const store = createStore(audioplayer);

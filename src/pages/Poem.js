@@ -34,24 +34,23 @@ class Poem extends Component {
 
     componentDidMount() {
         this.reloadPoemDataFromFirebase(true, () => {
-            this.props.rStore.dispatch({
-                type:'SET',
-                id:this.state.id,
-                uploaderID:this.state.uploaderID,
-                image:this.state.image,
-                title:this.state.title,
-                author:this.state.author,
-                recitedBy:this.state.recitedBy,
-                published:this.state.published,
-                genre:this.state.genre,
-                description:this.state.description,
-                likes: this.state.likes,
-                plays: this.state.plays,
-                favorites: this.state.favorites,
-                text:this.state.text,
-                recitation:this.state.recitation,
-                audio:this.state.audio
-            });
+            const store = this.props.rStore.getState();
+
+            // Play or pause the audio.
+            if(store.audio !== null) {
+
+                // If you look at a poem and it has the same id that was just loaded...
+                if(store.id === this.state.id) {
+                    if(store.audio.ended === false) {
+                        this.playBtn.className = 'description_button fa fa-pause';
+                    } else {
+                        this.playBtn.className = 'description_button fa fa-play';
+                    }
+                } else {
+                    // Otherwise, clear to make sure that the newest data is gathered.
+                    this.props.rStore.dispatch({type:'CLEAR'});
+                }
+            }
         });
     }
 
@@ -130,19 +129,43 @@ class Poem extends Component {
     playRecitation() {
         const store = this.props.rStore.getState();
 
-        if(store.audio !== null) {
-            if(store.audio.ended === false) {
-                store.audio.currentTime = store.audio.duration;
-                store.audio = this.state.audio;
+        // First, check the symbol on the play/pause button.
+        if(this.playBtn.className.includes('pause')) {
+            // If it is a pause button, then you can assume that the rStore audio is not null.
+            store.audio.pause();
+            this.playBtn.className = 'description_button fa fa-play';
+        } else {
+
+            if(store.audio !== null) {
+                store.audio.play();
+                this.playBtn.className = 'description_button fa fa-pause';
             } else {
-                if(!this.playBtn.className.includes('pause')) {
-                    store.audio.play();
-                } else {
-                    store.audio.pause();
-                }
+                // This else does NOT assume that there is an audio object.
+                // Get the newest data.
+                this.props.rStore.dispatch({
+                    type:'SET',
+                    id:this.state.id,
+                    uploaderID:this.state.uploaderID,
+                    image:this.state.image,
+                    title:this.state.title,
+                    author:this.state.author,
+                    recitedBy:this.state.recitedBy,
+                    published:this.state.published,
+                    genre:this.state.genre,
+                    description:this.state.description,
+                    likes: this.state.likes,
+                    plays: this.state.plays,
+                    favorites: this.state.favorites,
+                    text:this.state.text,
+                    recitation:this.state.recitation,
+                    audio:this.state.audio,
+                    lastAudio:this.state.audio
+                });
+                store.audio.play();
+                this.playBtn.className = 'description_button fa fa-pause';
             }
         }
-    }
+    } // End of method.
 
 
     likeRecitation() {
