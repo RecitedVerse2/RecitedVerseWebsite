@@ -28,7 +28,8 @@ class Poem extends Component {
             favorites: 0,
             text:'',
             recitation:null,
-            audio:null
+            audio:null,
+            differentRec:false
         };
     }
 
@@ -47,8 +48,24 @@ class Poem extends Component {
                         this.playBtn.className = 'description_button fa fa-play';
                     }
                 } else {
-                    // Otherwise, clear to make sure that the newest data is gathered.
-                    this.props.rStore.dispatch({type:'CLEAR'});
+                    this.setState({
+                        id:this.state.id,
+                        uploaderID:this.state.uploaderID,
+                        image:this.state.image,
+                        title:this.state.title,
+                        author:this.state.author,
+                        recitedBy:this.state.recitedBy,
+                        published:this.state.published,
+                        genre:this.state.genre,
+                        description:this.state.description,
+                        likes: this.state.likes,
+                        plays: this.state.plays,
+                        favorites: this.state.favorites,
+                        text:this.state.text,
+                        recitation:this.state.recitation,
+                        audio:this.state.audio,
+                        differentRec:true
+                    });
                 }
             }
         });
@@ -134,14 +151,42 @@ class Poem extends Component {
             // If it is a pause button, then you can assume that the rStore audio is not null.
             store.audio.pause();
             this.playBtn.className = 'description_button fa fa-play';
+
+        // If it does not have a pause sign...
         } else {
 
-            if(store.audio !== null) {
+            // If this is a different recitation...
+            if(this.state.differentRec === true) {
+                // Pause whatever audio is currently playing.
+                if(store.audio !== null) { store.audio.pause(); }
+
+                // Clear the store data.
+                this.props.rStore.dispatch({type:'CLEAR'});
+
+                // Set the new data and play that.
+                this.props.rStore.dispatch({
+                    type:'SET',
+                    id:this.state.id,
+                    uploaderID:this.state.uploaderID,
+                    image:this.state.image,
+                    title:this.state.title,
+                    author:this.state.author,
+                    recitedBy:this.state.recitedBy,
+                    published:this.state.published,
+                    genre:this.state.genre,
+                    description:this.state.description,
+                    likes: this.state.likes,
+                    plays: this.state.plays,
+                    favorites: this.state.favorites,
+                    text:this.state.text,
+                    recitation:this.state.recitation,
+                    audio:this.state.audio,
+                    lastAudio:this.state.audio
+                });
                 store.audio.play();
                 this.playBtn.className = 'description_button fa fa-pause';
             } else {
-                // This else does NOT assume that there is an audio object.
-                // Get the newest data.
+                // Set the new data and play that.
                 this.props.rStore.dispatch({
                     type:'SET',
                     id:this.state.id,

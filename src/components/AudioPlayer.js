@@ -7,22 +7,6 @@ import _ from '../css/AudioPlayer.css';
 
 // This is the audio player.
 class AudioPlayer extends Component {
-    /**********************
-    *                     *
-    *    INITIALIZATION   *
-    *                     *
-    ***********************/
-
-    constructor() {
-        super();
-
-    }
-
-    componentDidMount() {
-
-    }
-
-
 
     /**********************
     *                     *
@@ -117,7 +101,7 @@ class AudioPlayer extends Component {
     ***********************/
 
     updateAP() {
-        
+
     }
 }
 
