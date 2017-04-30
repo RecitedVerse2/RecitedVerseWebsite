@@ -337,10 +337,12 @@ class Poem extends Component {
 
         // Change to play/pause button when audio is/isn't playing.
         if(store.audio !== null) {
-            if(store.audio.paused === true || store.audio.ended === true) {
-                this.playBtn.className = 'description_button fa fa-play';
-            } else {
-                this.playBtn.className = 'description_button fa fa-pause';
+            if(store.id === this.state.id) {
+                if(store.audio.paused === true || store.audio.ended === true) {
+                    this.playBtn.className = 'description_button fa fa-play';
+                } else {
+                    this.playBtn.className = 'description_button fa fa-pause';
+                }
             }
         }
     }
