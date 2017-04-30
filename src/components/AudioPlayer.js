@@ -63,7 +63,7 @@ class AudioPlayer extends Component {
         return (
             <div style={this.getAPStyles()}>
                 <div className="audio_buttons_section">
-                    <CircleButton {...this.getCBS()} >
+                    <CircleButton {...this.getCBS()} clickFunction={this.handleStepbackward.bind(this)}>
                         <p className='fa fa-step-backward' style={{paddingTop:'10px'}}></p>
                     </CircleButton>
 
@@ -71,7 +71,7 @@ class AudioPlayer extends Component {
                         <p className='fa fa-play' style={{paddingTop:'10px'}} ref={(p)=>{this.playIcon = p;}}></p>
                     </CircleButton>
 
-                    <CircleButton {...this.getCBS()}>
+                    <CircleButton {...this.getCBS()} clickFunction={this.handleStepforward.bind(this)}>
                         <p className='fa fa-step-forward' style={{paddingTop:'10px'}}></p>
                     </CircleButton>
                 </div>
@@ -126,6 +126,23 @@ class AudioPlayer extends Component {
         if(store.audio !== null) {
             store.audio.loop = store.audio.loop === true ? false : true;
             this.loopBtn.style.color = this.loopBtn.style.color === 'white' ? 'red' : 'white';
+        }
+    }
+
+
+    handleStepforward() {
+        const store = this.props.rStore.getState();
+
+        if(store.audio !== null) {
+            store.audio.currentTime = store.audio.duration;
+        }
+    }
+
+    handleStepbackward() {
+        const store = this.props.rStore.getState();
+
+        if(store.audio !== null) {
+            store.audio.currentTime = 0;
         }
     }
 
