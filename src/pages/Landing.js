@@ -31,10 +31,10 @@ class Landing extends Component {
 
 
     goToLogin() {
-        this.props.history.push('/login');
+        this.props.navHeader.goTo('login');
     }
     goToSignup() {
-        this.props.history.push('/signup');
+        this.props.navHeader.goTo('signup');
     }
     submitToMailingList() {
         console.log('On mailing list!');

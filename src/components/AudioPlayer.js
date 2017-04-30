@@ -10,6 +10,22 @@ class AudioPlayer extends Component {
 
     /**********************
     *                     *
+    *    INITIALIZATION   *
+    *                     *
+    ***********************/
+
+    constructor() {
+        super();
+        this.state = {}
+    }
+
+    componentDidMount() {
+
+    }
+
+
+    /**********************
+    *                     *
     *        STYLES       *
     *                     *
     ***********************/
@@ -63,10 +79,12 @@ class AudioPlayer extends Component {
 
 
                 <div className="title_area">
-                    <p id="audio_title">{this.props.RTP.name}</p>
+                    <p id="audio_title">{this.state.title}</p>
                     <div id="sliderArea" style={{position: 'relative', display: 'table', margin: 'auto'}}>
                         <audio id="rv_loaded_audio" preload="none"></audio>
-                        <span style={{display: 'table-cell'}} id="curtimetext">0:00</span>&nbsp;&nbsp;&nbsp;<input style={{width: 300, display: 'table-cell'}} type="range" id="seekSlider" min={0} max={100} defaultValue={0} step={1} />&nbsp;&nbsp;&nbsp;<span style={{display: 'table-cell'}} id="durtimetext">0:00</span>
+                        <span style={{display: 'table-cell'}} id="curtimetext">0:00</span>
+                            &nbsp;&nbsp;&nbsp;<input style={{width: 300, display: 'table-cell'}} type="range" id="seekSlider" min={0} max={100} defaultValue={0} step={1}/>&nbsp;&nbsp;&nbsp;
+                        <span style={{display: 'table-cell'}} id="durtimetext">0:00</span>
                     </div>
                 </div>
 
@@ -89,7 +107,17 @@ class AudioPlayer extends Component {
     ***********************/
 
     handlePlay() {
+        const store = this.props.rStore.getState();
 
+        if(store.audio !== null) {
+            if(store.audio.paused === true || store.audio.ended === true) {
+                store.audio.play();
+                this.playIcon.className = 'fa fa-pause';
+            } else {
+                store.audio.pause();
+                this.playIcon.className = 'fa fa-play';
+            }
+        }
     }
 
 
@@ -101,7 +129,17 @@ class AudioPlayer extends Component {
     ***********************/
 
     updateAP() {
+        const store = this.props.rStore.getState();
+        this.setState(store);
 
+        // Change to play/pause button when audio is/isn't playing.
+        if(store.audio !== null) {
+            if(store.audio.paused === true || store.audio.ended === true) {
+                this.playIcon.className = 'fa fa-play';
+            } else {
+                this.playIcon.className = 'fa fa-pause';
+            }
+        }
     }
 }
 

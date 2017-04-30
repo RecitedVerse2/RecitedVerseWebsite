@@ -79,7 +79,7 @@ class Profile extends Component {
     render() {
         const popover = (
             <Popover id="popover-positioned-left" title="Profile" style={{textAlign:'center'}}>
-                <button className='edit_buttons' onClick={()=>{this.goToPage('editprofile')}}>Edit Profile</button>
+                <button className='edit_buttons' onClick={()=>{this.props.navHeader.goTo('editprofile')}}>Edit Profile</button>
                 <br/>
                 <button className='edit_buttons' onClick={()=>{this.handleLogout()}}>Logout</button>
             </Popover>

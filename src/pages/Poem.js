@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
 import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
+import Clock from '../components/Clock';
 
 import _ from '../css/Poem.css';
 
@@ -28,8 +29,7 @@ class Poem extends Component {
             favorites: 0,
             text:'',
             recitation:null,
-            audio:null,
-            differentRec:false
+            audio:null
         };
     }
 
@@ -37,35 +37,22 @@ class Poem extends Component {
         this.reloadPoemDataFromFirebase(true, () => {
             const store = this.props.rStore.getState();
 
-            // Play or pause the audio.
+            // If there is already an audio object in the store...
             if(store.audio !== null) {
 
                 // If you look at a poem and it has the same id that was just loaded...
                 if(store.id === this.state.id) {
+
+                    // If the audio is still playing, then make it a pause button. Otherwise, play button.
                     if(store.audio.ended === false) {
                         this.playBtn.className = 'description_button fa fa-pause';
                     } else {
                         this.playBtn.className = 'description_button fa fa-play';
                     }
+
+                // If it is a different recitation...
                 } else {
-                    this.setState({
-                        id:this.state.id,
-                        uploaderID:this.state.uploaderID,
-                        image:this.state.image,
-                        title:this.state.title,
-                        author:this.state.author,
-                        recitedBy:this.state.recitedBy,
-                        published:this.state.published,
-                        genre:this.state.genre,
-                        description:this.state.description,
-                        likes: this.state.likes,
-                        plays: this.state.plays,
-                        favorites: this.state.favorites,
-                        text:this.state.text,
-                        recitation:this.state.recitation,
-                        audio:this.state.audio,
-                        differentRec:true
-                    });
+
                 }
             }
         });
@@ -131,6 +118,8 @@ class Poem extends Component {
 
                     </ContentHeader>
                 </ContentArea>
+
+                <Clock onupdate={this.update.bind(this)}></Clock>
             </div>
         );
     }
@@ -146,24 +135,17 @@ class Poem extends Component {
     playRecitation() {
         const store = this.props.rStore.getState();
 
-        // First, check the symbol on the play/pause button.
+        // If the button has a pause symbol, then just pause the store's audio object.
         if(this.playBtn.className.includes('pause')) {
-            // If it is a pause button, then you can assume that the rStore audio is not null.
+
             store.audio.pause();
             this.playBtn.className = 'description_button fa fa-play';
 
         // If it does not have a pause sign...
         } else {
 
-            // If this is a different recitation...
-            if(this.state.differentRec === true) {
-                // Pause whatever audio is currently playing.
-                if(store.audio !== null) { store.audio.pause(); }
-
-                // Clear the store data.
-                this.props.rStore.dispatch({type:'CLEAR'});
-
-                // Set the new data and play that.
+            // First set the audio if it is null. Then play it.
+            if(store.audio === null) {
                 this.props.rStore.dispatch({
                     type:'SET',
                     id:this.state.id,
@@ -180,34 +162,44 @@ class Poem extends Component {
                     favorites: this.state.favorites,
                     text:this.state.text,
                     recitation:this.state.recitation,
-                    audio:this.state.audio,
-                    lastAudio:this.state.audio
+                    audio:this.state.audio
                 });
                 store.audio.play();
                 this.playBtn.className = 'description_button fa fa-pause';
-            } else {
-                // Set the new data and play that.
-                this.props.rStore.dispatch({
-                    type:'SET',
-                    id:this.state.id,
-                    uploaderID:this.state.uploaderID,
-                    image:this.state.image,
-                    title:this.state.title,
-                    author:this.state.author,
-                    recitedBy:this.state.recitedBy,
-                    published:this.state.published,
-                    genre:this.state.genre,
-                    description:this.state.description,
-                    likes: this.state.likes,
-                    plays: this.state.plays,
-                    favorites: this.state.favorites,
-                    text:this.state.text,
-                    recitation:this.state.recitation,
-                    audio:this.state.audio,
-                    lastAudio:this.state.audio
-                });
-                store.audio.play();
-                this.playBtn.className = 'description_button fa fa-pause';
+            }
+            // Otherwise, if there is already an audio object.
+            else {
+
+                // If the recitation that you are looking at has the same src as the one in the store...
+                if(store.audio.src === this.state.audio.src) {
+                    store.audio.play();
+                    this.playBtn.className = 'description_button fa fa-pause';
+                }
+                // Otherwise, clear and play the new audio.
+                else {
+                    store.audio.pause();
+                    this.props.rStore.dispatch({
+                        type:'SET',
+                        id:this.state.id,
+                        uploaderID:this.state.uploaderID,
+                        image:this.state.image,
+                        title:this.state.title,
+                        author:this.state.author,
+                        recitedBy:this.state.recitedBy,
+                        published:this.state.published,
+                        genre:this.state.genre,
+                        description:this.state.description,
+                        likes: this.state.likes,
+                        plays: this.state.plays,
+                        favorites: this.state.favorites,
+                        text:this.state.text,
+                        recitation:this.state.recitation,
+                        audio:this.state.audio
+                    });
+                    store.audio.play();
+                    this.playBtn.className = 'description_button fa fa-pause';
+                }
+
             }
         }
     } // End of method.
@@ -339,6 +331,20 @@ class Poem extends Component {
     *   UTILITY METHODS   *
     *                     *
     ***********************/
+
+    update() {
+        const store = this.props.rStore.getState();
+
+        // Change to play/pause button when audio is/isn't playing.
+        if(store.audio !== null) {
+            if(store.audio.paused === true || store.audio.ended === true) {
+                this.playBtn.className = 'description_button fa fa-play';
+            } else {
+                this.playBtn.className = 'description_button fa fa-pause';
+            }
+        }
+    }
+
 
     // Removes an item from an array.
     remove(arr) {

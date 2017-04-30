@@ -148,6 +148,8 @@ class NavigationHeader extends Component {
             this.props.history.push('login');
         } else if(page === 'signup') {
             this.props.history.push('signup');
+        } else if(page === 'editprofile') {
+            this.props.history.push('editprofile');
         }
     }
     handleGoToProfile() {

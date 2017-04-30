@@ -89,19 +89,19 @@ class App extends Component {
     render() {
         const NavHeader = new NavigationHeader();
         const NavHeaderComp = () => {return NavHeader}
-        const LandingPage = () => {return <Landing rStore={store}></Landing>}
+        const LandingPage = () => {return <Landing navHeader={NavHeader} rStore={store}></Landing>}
         const HomePage = () => {return <Home navHeader={NavHeader} rStore={store}></Home>}
-        const SignUpPage = () => {return <SignUp rStore={store}></SignUp>}
-        const LoginPage = () => {return <Login rStore={store}></Login>}
+        const SignUpPage = () => {return <SignUp navHeader={NavHeader} rStore={store}></SignUp>}
+        const LoginPage = () => {return <Login navHeader={NavHeader} rStore={store}></Login>}
         const ProfilePage = () => {return <Profile navHeader={NavHeader} rStore={store}></Profile>}
-        const EditProfilePage = () => {return <EditProfile rStore={store}></EditProfile>}
-        const PoemPage = () => {return <Poem rStore={store}></Poem>}
+        const EditProfilePage = () => {return <EditProfile navHeader={NavHeader} rStore={store}></EditProfile>}
+        const PoemPage = () => {return <Poem navHeader={NavHeader} rStore={store}></Poem>}
 
 
         return (
             <BrowserRouter>
                 <div>
-                    <AudioPlayer RTP={store.getState()}></AudioPlayer>
+                    <AudioPlayer rStore={store}></AudioPlayer>
 
                     <Route path='*' component={NavHeaderComp}></Route>
                     <Route exact path="/" component={LandingPage}></Route>
