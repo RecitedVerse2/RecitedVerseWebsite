@@ -83,7 +83,7 @@ class NavigationHeader extends Component {
         return (
             <div>
                 <div  id='rv_searchBar' style={this.getSearchDivStyles()}>
-                    <input style={this.getSearchBarStyles()} type="search" placeholder=" Search..." />
+                    <input ref={(input)=>{this.searchinput = input}} style={this.getSearchBarStyles()} type="search" placeholder=" Search..." onKeyPress={this.handleSearch.bind(this)}/>
                 </div>
 
                 <div id='rv_menuBar' style={this.getMenuBarStyle()}>
@@ -136,6 +136,14 @@ class NavigationHeader extends Component {
             registerName: this.state.registerName === '' ? 'Register' : ''
         });
     }
+
+    handleSearch(e) {
+        if(e.key === 'Enter') {
+            this.goTo('search');
+            window.sessionStorage.setItem('Last_Search', this.searchinput.value);
+        }
+    }
+
     goTo(page) {
         if(this.state.isOpen === true) {
             this.toggleMenu();
@@ -150,6 +158,8 @@ class NavigationHeader extends Component {
             this.props.history.push('signup');
         } else if(page === 'editprofile') {
             this.props.history.push('editprofile');
+        } else if(page === 'search') {
+            this.props.history.push('search');
         }
     }
     handleGoToProfile() {

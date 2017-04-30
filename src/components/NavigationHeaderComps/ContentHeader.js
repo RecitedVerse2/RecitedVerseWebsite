@@ -11,6 +11,7 @@ class ContentHeader extends Component {
             left:'1%',
             width:'98%',
             height:this.props.height || '400px',
+            padding:this.props.padding || '0px',
             backgroundColor: 'white'
         };
     }

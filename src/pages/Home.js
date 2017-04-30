@@ -117,7 +117,7 @@ class Home extends Component {
 
                     <br/><br/><br/><br/><br/><br/><br/>
                     <p style={this.textHeaderStyles()}>Don't have an account? Sign up here!</p>
-                    <RectButton {...this.SUProps()} clickFunction={()=>{this.props.history.push('/signup')}}>Sign Up</RectButton>
+                    <RectButton {...this.SUProps()} clickFunction={()=>{this.props.navHeader.goTo('/signup')}}>Sign Up</RectButton>
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 </ContentArea>
             </div>

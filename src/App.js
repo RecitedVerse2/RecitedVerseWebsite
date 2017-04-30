@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Poem from './pages/Poem';
+import Search from './pages/Search';
 
 import AudioPlayer from './components/AudioPlayer';
 
@@ -96,7 +97,7 @@ class App extends Component {
         const ProfilePage = () => {return <Profile navHeader={NavHeader} rStore={store}></Profile>}
         const EditProfilePage = () => {return <EditProfile navHeader={NavHeader} rStore={store}></EditProfile>}
         const PoemPage = () => {return <Poem navHeader={NavHeader} rStore={store}></Poem>}
-
+        const SearchPage = () => {return <Search navHeader={NavHeader} rStore={store}></Search>}
 
         return (
             <BrowserRouter>
@@ -111,6 +112,7 @@ class App extends Component {
                     <Route path="/profile" component={ProfilePage}></Route>
                     <Route path="/editprofile" component={EditProfilePage}></Route>
                     <Route path="/poem" component={PoemPage}></Route>
+                    <Route path="/search" component={SearchPage}></Route>
                 </div>
             </BrowserRouter>
         );

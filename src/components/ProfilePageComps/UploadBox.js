@@ -235,7 +235,7 @@ class UploadBox extends Component {
         } else {
             if(audioRec.getRecording() !== null) {
                 audioRec.stop();
-                statusLabel.innerHTML = 'Playing...';
+                statusLabel.innerHTML = '';
                 statusLabel.style.WebkitTransitionDuration = '0s';
                 statusLabel.style.opacity = '1';
             }
