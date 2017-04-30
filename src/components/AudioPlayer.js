@@ -89,8 +89,7 @@ class AudioPlayer extends Component {
                 </div>
 
                 <div className="right_buttons">
-                    <button className="fa fa-random"/>
-                    <button className="fa fa-repeat"/>
+                    <button style={{color:'white'}} className="fa fa-repeat" onClick={this.handleLoop.bind(this)} ref={(button)=>{this.loopBtn = button}}/>
                 </div>
 
 
@@ -117,6 +116,16 @@ class AudioPlayer extends Component {
                 store.audio.pause();
                 this.playIcon.className = 'fa fa-play';
             }
+        }
+    }
+
+
+    handleLoop() {
+        const store = this.props.rStore.getState();
+
+        if(store.audio !== null) {
+            store.audio.loop = store.audio.loop === true ? false : true;
+            this.loopBtn.style.color = this.loopBtn.style.color === 'white' ? 'red' : 'white';
         }
     }
 
