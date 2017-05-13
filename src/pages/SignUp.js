@@ -10,6 +10,11 @@ import _ from '../css/SignUp.css';
 // This is where users can register for accounts on RecitedVerse.com
 class SignUp extends Component {
 
+    componentDidMount() {
+        this.props.navHeader.unhide();
+    }
+
+
     // The styling.
     getSignupBoxStyle() {
         return {

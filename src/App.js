@@ -89,20 +89,21 @@ const store = createStore(audioplayer);
 class App extends Component {
     render() {
         const NavHeader = new NavigationHeader();
+        const AudioPlayerObj = <AudioPlayer rStore={store}></AudioPlayer>;
         const NavHeaderComp = () => {return NavHeader}
-        const LandingPage = () => {return <Landing navHeader={NavHeader} rStore={store}></Landing>}
-        const HomePage = () => {return <Home navHeader={NavHeader} rStore={store}></Home>}
-        const SignUpPage = () => {return <SignUp navHeader={NavHeader} rStore={store}></SignUp>}
-        const LoginPage = () => {return <Login navHeader={NavHeader} rStore={store}></Login>}
-        const ProfilePage = () => {return <Profile navHeader={NavHeader} rStore={store}></Profile>}
-        const EditProfilePage = () => {return <EditProfile navHeader={NavHeader} rStore={store}></EditProfile>}
-        const PoemPage = () => {return <Poem navHeader={NavHeader} rStore={store}></Poem>}
-        const SearchPage = () => {return <Search navHeader={NavHeader} rStore={store}></Search>}
+        const LandingPage = () => {return <Landing audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}></Landing>}
+        const HomePage = () => {return <Home audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}></Home>}
+        const SignUpPage = () => {return <SignUp audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}></SignUp>}
+        const LoginPage = () => {return <Login audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}></Login>}
+        const ProfilePage = () => {return <Profile audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}></Profile>}
+        const EditProfilePage = () => {return <EditProfile audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}></EditProfile>}
+        const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}></Poem>}
+        const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}></Search>}
 
         return (
             <BrowserRouter>
                 <div>
-                    <AudioPlayer rStore={store}></AudioPlayer>
+                    {AudioPlayerObj}
 
                     <Route path='*' component={NavHeaderComp}></Route>
                     <Route exact path="/" component={LandingPage}></Route>

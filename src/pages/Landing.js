@@ -7,6 +7,12 @@ import MainPointsSection from '../components/LandingPageComps/MainPointsSection'
 // The landing page for RecitedVerse.
 class Landing extends Component {
 
+    componentDidMount() {
+        this.props.navHeader.hide();
+        console.log(this.props.audioPlayer);
+    }
+
+
     getStyles = () => {
         return {
             position:'absolute',

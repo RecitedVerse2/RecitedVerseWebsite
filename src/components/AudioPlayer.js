@@ -14,8 +14,8 @@ class AudioPlayer extends Component {
     *                     *
     ***********************/
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {}
     }
 
@@ -29,6 +29,16 @@ class AudioPlayer extends Component {
     *        STYLES       *
     *                     *
     ***********************/
+
+    // Attemps to hide the audio player
+    hide() {
+        this.ap.style.opacity = '0';
+    }
+
+    // Unhides the audio player
+    unhide() {
+        this.ap.style.opacity = '1';
+    }
 
     getAPStyles() {
         return {
@@ -61,7 +71,7 @@ class AudioPlayer extends Component {
 
     render() {
         return (
-            <div style={this.getAPStyles()}>
+            <div ref={(AudioPlayer)=>{this.ap = AudioPlayer}} style={this.getAPStyles()}>
                 <div className="audio_buttons_section">
                     <CircleButton {...this.getCBS()} clickFunction={this.handleStepbackward.bind(this)}>
                         <p className='fa fa-step-backward' style={{paddingTop:'10px'}}></p>

@@ -25,6 +25,16 @@ class NavigationHeader extends Component {
     *                     *
     ***********************/
 
+    // Attemps to hide the navigation header
+    hide() {
+        this.nh.style.opacity = '0';
+    }
+
+    // Unhides the navigation header.
+    unhide() {
+        this.nh.style.opacity = '1';
+    }
+
     getSearchDivStyles() {
         return {
             position: 'absolute',
@@ -81,7 +91,7 @@ class NavigationHeader extends Component {
 
     render() {
         return (
-            <div>
+            <div ref={(NavigationHeader)=>{this.nh = NavigationHeader}}>
                 <div  id='rv_searchBar' style={this.getSearchDivStyles()}>
                     <input ref={(input)=>{this.searchinput = input}} style={this.getSearchBarStyles()} type="search" placeholder=" Search..." onKeyPress={this.handleSearch.bind(this)}/>
                 </div>

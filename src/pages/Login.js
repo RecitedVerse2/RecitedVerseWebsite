@@ -14,6 +14,9 @@ class Login extends Component {
         this.state = {};
     }
 
+    componentDidMount() {
+        this.props.navHeader.unhide();
+    }
 
 
     // The styling.
@@ -93,7 +96,6 @@ class Login extends Component {
 
         if(this.valueExists(email) && this.valueExists(password)) {
             var fireAuth = firebase.auth();
-            var hist = this.props.history;
 
             fireAuth.signInWithEmailAndPassword(email, password).catch(function(error) {
                 // Handle Errors here.
@@ -112,10 +114,10 @@ class Login extends Component {
                 }
             });
 
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     window.localStorage.setItem('currentUID',user.uid);
-                    hist.push('/profile');
+                    this.props.navHeader.goTo('profile');
                 } else {
                     return;
                 }

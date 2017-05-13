@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import * as firebase from 'firebase';
 
 import ContentArea from '../components/NavigationHeaderComps/ContentArea';
-import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
+import RecitationItem from '../components/ProfilePageComps/RecitationItem';
+import SearchUserResult from '../components/SearchPageComps/SearchUserResult';
 
 // This is the search results page.
 class Search extends Component {
@@ -11,8 +13,16 @@ class Search extends Component {
     *                     *
     ***********************/
 
-    componentDidMount() {
+    constructor() {
+        super();
 
+        this.state = {recitations:[]}
+    }
+
+    componentDidMount() {
+        this.props.navHeader.unhide();
+
+        this.loadResults('recitations');
     }
 
 
@@ -22,20 +32,25 @@ class Search extends Component {
     *                     *
     ***********************/
 
-    headerStyles = ()=>{
+    optionsAreaStyles() {
         return {
-            height:'200px',
-            padding:'20px'
+            position:'absolute',
+            top:'50px',
+            left:'1%',
+            width:'18%',
+            height:'100px',
+            paddingLeft:'10px',
+            backgroundColor:'white'
         }
     }
 
     resultsAreaStyles() {
         return {
-            position:'relative',
+            position:'absolute',
             top:'50px',
-            width:'98%',
-            margin:'auto',
-            textAlign:'center',
+            left:'20%',
+            width:'79%',
+            height:'500px',
             backgroundColor:'white'
         }
     }
@@ -52,16 +67,16 @@ class Search extends Component {
         return (
             <div>
                 <ContentArea>
-                    <ContentHeader {...this.headerStyles()} style={{textAlign:'center'}}>
-                        <h4>Search By:</h4><br/>
-                        <input type="radio" name="searchType" onClick={this.handleChangeSearchType.bind(this)} value="Recitations"/>&nbsp;Reciations
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="searchType" onClick={this.handleChangeSearchType.bind(this)} value="Users"/>&nbsp;Users<br/>
-                    </ContentHeader>
-
+                    <div className='options_area' style={this.optionsAreaStyles()}>
+                        <h5 style={{textAlign:'center'}}>Search</h5>
+                        <input type="radio" defaultChecked='true' name="search_options" value="Recitations" onChange={this.handleChangeSearchType.bind(this)}/>&nbsp;&nbsp;&nbsp;Recitations<br/>
+                        <input type="radio" name="search_options" value="Users" onChange={this.handleChangeSearchType.bind(this)}/>&nbsp;&nbsp;&nbsp;Users<br/>
+                    </div>
 
                     <div className='results_area' style={this.resultsAreaStyles()}>
-
+                        <ul id="recitations_list" style={{padding:'10px'}}>
+                            {this.state.recitations}
+                        </ul>
                     </div>
                 </ContentArea>
             </div>
@@ -77,13 +92,47 @@ class Search extends Component {
     ***********************/
 
     // Loads the data for the search
-    loadResults(criteria) {
-        
+    loadResults(type) {
+        var search = window.sessionStorage.getItem('Last_Search');
+        var recs = [];
+        var fireRef = firebase.database().ref();
+
+        if(type === 'recitations') {
+            fireRef.child('Recitations').orderByChild('title').startAt(search).once('value').then((snapshot)=> {
+                /* Go through each recitation that the user has. If the array of recitations does not contain
+                that recitation, then add it. */
+                snapshot.forEach((recitationObject) => {
+                    // Make a new recitation component and push it onto the array
+                    var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} navHeader={this.props.navHeader}></RecitationItem>
+                    recs.push(rec);
+
+                    // Sort the array by key, which is the timestamp.
+                    recs.sort(function(a,b){ return b.key - a.key; });
+                    this.setState({recitations:recs});
+                });
+            });
+        } else {
+            fireRef.child('Users').orderByChild('fullname').startAt(search).once('value').then((snapshot)=> {
+                snapshot.forEach((userObject) => {
+                    var rec = <SearchUserResult key={userObject.val().userID} userObject={userObject.val()} navHeader={this.props.navHeader}></SearchUserResult>
+                    recs.push(rec);
+
+                    // Sort the array by key, which is the timestamp.
+                    recs.sort(function(a,b){ return b.key - a.key; });
+                    this.setState({recitations:recs});
+                });
+            });
+        }
     }
 
 
-    handleChangeSearchType() {
-
+    handleChangeSearchType(e) {
+        var type = e.target.value;
+        if(type === 'Recitations') {
+            this.loadResults('recitations');
+        } else {
+            this.loadResults('users');
+        }
     }
 }
 

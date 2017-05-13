@@ -33,6 +33,8 @@ class EditProfile extends Component {
     }
 
     componentDidMount() {
+        this.props.navHeader.unhide();
+        
         var onUserDataChanged = (snapshot) => {
             if(snapshot != null) {
                 var email = snapshot.val()["email"];

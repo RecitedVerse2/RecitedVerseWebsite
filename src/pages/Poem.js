@@ -34,6 +34,8 @@ class Poem extends Component {
     }
 
     componentDidMount() {
+        this.props.navHeader.unhide();
+        
         this.reloadPoemDataFromFirebase(true, () => {
             const store = this.props.rStore.getState();
 
