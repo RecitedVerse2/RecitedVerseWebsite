@@ -5,13 +5,13 @@ class MainPointsBubble extends Component {
     getStyles() {
         return {
             position:'relative',
-            top:'20px',
             display: 'table-cell',
             wordWrap: 'normal',
             verticalAlign: 'top',
             fontSize: '15px',
             width: '20%',
-            padding: '50px'
+            paddingLeft: '50px',
+            paddingRight: '50px'
         };
     }
 

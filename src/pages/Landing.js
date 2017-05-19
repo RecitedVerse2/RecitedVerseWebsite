@@ -1,17 +1,31 @@
 import React, { Component } from 'react';
 
-import LandingVideo from '../components/LandingPageComps/LandingVideo';
-import MainPointsSection from '../components/LandingPageComps/MainPointsSection';
-
+import Header from '../components/LandingComps/Header';
+import LandingPageCarousel from '../components/LandingComps/Carousel';
+import MainPointsSection from '../components/LandingComps/MainPointsSection';
+import PointDescriptionSection from '../components/LandingComps/PointDescriptionSection';
 
 // The landing page for RecitedVerse.
 class Landing extends Component {
+
+    /**********************
+    *                     *
+    *    INITIALIZATION   *
+    *                     *
+    ***********************/
 
     componentDidMount() {
         this.props.navHeader.hide();
         console.log(this.props.audioPlayer);
     }
 
+
+
+    /**********************
+    *                     *
+    *        STYLES       *
+    *                     *
+    ***********************/
 
     getStyles = () => {
         return {
@@ -25,16 +39,28 @@ class Landing extends Component {
     render() {
         return (
             <div style={this.getStyles()}>
-                <LandingVideo loginBtn={this.goToLogin.bind(this)}
-                              signupBtn={this.goToSignup.bind(this)}>
-                </LandingVideo>
 
-                <MainPointsSection submitToMailingList={this.submitToMailingList.bind(this)}></MainPointsSection>
-                <br/><br/><br/><br/><br/><br/>
+                <Header></Header>
+                <LandingPageCarousel></LandingPageCarousel>
+
+                <MainPointsSection></MainPointsSection>
+
+
+                <br/><br/><br/>
+                <PointDescriptionSection></PointDescriptionSection>
+
+                <br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
         );
     }
 
+
+
+    /**********************
+    *                     *
+    *       UTILITY       *
+    *                     *
+    ***********************/
 
     goToLogin() {
         this.props.navHeader.goTo('login');

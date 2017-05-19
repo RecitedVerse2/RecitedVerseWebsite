@@ -32,7 +32,7 @@ class Profile extends Component {
 
     componentDidMount() {
         this.props.navHeader.unhide();
-        
+
         var onUserDataChanged = (snapshot) => {
             if(snapshot != null) {
                  //var email = snapshot.val()["email"];
@@ -150,11 +150,10 @@ class Profile extends Component {
     // Logouts out the current user and returns to the login page.
     handleLogout = () => {
         const fireAuth = firebase.auth();
-        const hist = this.props.history;
 
         fireAuth.signOut().then(function() {
             window.localStorage.removeItem('currentUID');
-            hist.push('/login');
+            this.props.navHeader.goTo('login');
         }).catch(function(error) {
             console.log(error);
         });

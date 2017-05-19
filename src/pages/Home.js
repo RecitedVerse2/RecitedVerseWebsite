@@ -102,7 +102,7 @@ class Home extends Component {
                     </ContentHeader>
 
                     <br/>
-                    <RectButton {...this.ROTDProps()}>Recitation of the Day</RectButton>
+                    <RectButton {...this.ROTDProps()}>Recording of the Day</RectButton>
 
 
                     <br/><br/><br/><br/><br/><br/><br/>

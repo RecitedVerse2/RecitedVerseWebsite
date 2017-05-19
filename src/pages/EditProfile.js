@@ -34,7 +34,7 @@ class EditProfile extends Component {
 
     componentDidMount() {
         this.props.navHeader.unhide();
-        
+
         var onUserDataChanged = (snapshot) => {
             if(snapshot != null) {
                 var email = snapshot.val()["email"];
@@ -248,7 +248,8 @@ class EditProfile extends Component {
 
         this.uploadNewProfilePicture(() => {
             this.uploadNewBackgroundPicture(() => {
-                this.props.history.push('profile');
+                //this.props.history.push('profile');
+                this.props.navHeader.goTo('profile');
             });
         });
     }
