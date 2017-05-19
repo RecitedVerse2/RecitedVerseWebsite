@@ -35,7 +35,7 @@ class Poem extends Component {
 
     componentDidMount() {
         this.props.navHeader.unhide();
-        
+
         this.reloadPoemDataFromFirebase(true, () => {
             const store = this.props.rStore.getState();
 
@@ -122,6 +122,7 @@ class Poem extends Component {
                 </ContentArea>
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
+                {this.props.children}
             </div>
         );
     }

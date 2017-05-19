@@ -77,6 +77,7 @@ class SignUp extends Component {
                         <br /><br />
                     </div>
                 </ContentArea>
+                {this.props.children}
             </div>
         );
     }

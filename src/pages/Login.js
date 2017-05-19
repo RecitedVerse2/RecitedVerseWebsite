@@ -76,7 +76,7 @@ class Login extends Component {
                         <br /> <br />
                     </div>
                 </ContentArea>
-
+                {this.props.children}
             </div>
         );
     }

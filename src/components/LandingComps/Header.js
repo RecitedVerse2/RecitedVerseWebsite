@@ -64,7 +64,7 @@ class Header extends Component {
                 <img alt='logo' style={this.getLogoStyle()} src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FRVLogo3.png?alt=media&token=bad950d5-b76f-44bf-b4a2-d738fee89249'></img>
 
                 <div style={this.getButtonsSectionStyle()}>
-                    <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Member Login</button>
+                    <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Login</button>
                     <button style={this.getButtonsStyle()} onClick={this.goToSignup.bind(this)}>Sign Up</button>
                 </div>
             </div>

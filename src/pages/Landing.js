@@ -4,6 +4,7 @@ import Header from '../components/LandingComps/Header';
 import LandingPageCarousel from '../components/LandingComps/Carousel';
 import MainPointsSection from '../components/LandingComps/MainPointsSection';
 import PointDescriptionSection from '../components/LandingComps/PointDescriptionSection';
+import Footer from '../components/LandingComps/Footer';
 
 // The landing page for RecitedVerse.
 class Landing extends Component {
@@ -40,36 +41,24 @@ class Landing extends Component {
         return (
             <div style={this.getStyles()}>
 
-                <Header></Header>
+                <Header navHeader={this.props.navHeader}></Header>
                 <LandingPageCarousel></LandingPageCarousel>
 
                 <MainPointsSection></MainPointsSection>
 
 
                 <br/><br/><br/>
-                <PointDescriptionSection></PointDescriptionSection>
-
+                <PointDescriptionSection orientation='right'></PointDescriptionSection>
                 <br/><br/><br/><br/><br/><br/><br/><br/>
+                <PointDescriptionSection orientation='left'></PointDescriptionSection>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+                <Footer></Footer>
+
+                {this.props.children}
             </div>
         );
-    }
-
-
-
-    /**********************
-    *                     *
-    *       UTILITY       *
-    *                     *
-    ***********************/
-
-    goToLogin() {
-        this.props.navHeader.goTo('login');
-    }
-    goToSignup() {
-        this.props.navHeader.goTo('signup');
-    }
-    submitToMailingList() {
-        console.log('On mailing list!');
     }
 }
 

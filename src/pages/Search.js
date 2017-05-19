@@ -79,6 +79,7 @@ class Search extends Component {
                         </ul>
                     </div>
                 </ContentArea>
+                {this.props.children}
             </div>
         );
     }

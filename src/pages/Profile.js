@@ -136,6 +136,7 @@ class Profile extends Component {
                     </TabPane>
 
                 </ContentArea>
+                {this.props.children}
             </div>
         );
     }

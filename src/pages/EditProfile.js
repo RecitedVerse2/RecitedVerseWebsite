@@ -163,7 +163,7 @@ class EditProfile extends Component {
                         <br /><br /><br /><br /><br /><br /><br /><br />
                     </div>
                 </ContentArea>
-
+                {this.props.children}
             </div>
         );
     }
