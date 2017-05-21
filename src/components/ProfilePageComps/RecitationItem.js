@@ -19,7 +19,7 @@ class RecitationItem extends Component {
     goToPoemPage() {
         if (typeof(Storage) !== "undefined") {
             window.sessionStorage.setItem("recitation_to_look_at", JSON.stringify(this.props.recitation));
-            this.props.navHeader.props.history.push('poem');
+            this.props.navHeader.goTo('poem');
         }
     }
 

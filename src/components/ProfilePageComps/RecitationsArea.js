@@ -54,7 +54,10 @@ class RecitationsArea extends Component {
             that recitation, then add it. */
             snapshot.forEach((recitationObject) => {
                 // Make a new recitation component and push it onto the array
-                var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} navHeader={this.props.navHeader}></RecitationItem>
+                var rec = <RecitationItem key={recitationObject.val().timestamp}
+                                          recitation={recitationObject.val()}
+                                          navHeader={this.props.navHeader}>
+                          </RecitationItem>
                 recs.push(rec);
 
                 // Sort the array by key, which is the timestamp.

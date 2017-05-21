@@ -42,7 +42,7 @@ class Footer extends Component {
             <div style={this.getStyles()}>
 
                 <div style={this.getUpperStyles()}>
-                    <img style={this.getImageStyle()} src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FTestImage.png?alt=media&token=3e748f83-7288-4fce-b892-9318e07a2329'></img>
+                    <img style={this.getImageStyle()} alt='upper' src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2Fbackground.png?alt=media&token=7ce80c64-86d9-4e18-8090-5688a035c058'></img>
                 </div>
 
                 <div style={this.getLowerStyles()}>
@@ -57,11 +57,17 @@ class Footer extends Component {
 
                     <div style={{display:'table-cell',color:'white'}}>
                         <h3>Contact</h3>
-                        <button style={{background:'none',border:'none'}}>Address</button>
+                        <button style={{background:'none',border:'none'}}>
+                            <p className='fa fa-map-marker'></p>&nbsp;&nbsp;Address
+                        </button>
                         <br/>
-                        <button style={{background:'none',border:'none'}}>Phone</button>
+                        <button style={{background:'none',border:'none'}}>
+                            <p className='fa fa-phone'></p>&nbsp;&nbsp;Phone
+                        </button>
                         <br/>
-                        <button style={{background:'none',border:'none'}}>Email</button>
+                        <button style={{background:'none',border:'none'}}>
+                            <p className='fa fa-envelope'></p>&nbsp;&nbsp;Email
+                        </button>
                     </div>
                 </div>
 

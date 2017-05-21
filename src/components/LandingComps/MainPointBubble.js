@@ -10,6 +10,7 @@ class MainPointsBubble extends Component {
             verticalAlign: 'top',
             fontSize: '15px',
             width: '20%',
+            color:'white',
             paddingLeft: '50px',
             paddingRight: '50px'
         };

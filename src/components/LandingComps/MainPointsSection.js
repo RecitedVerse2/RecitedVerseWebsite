@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import MainPointBubble from './MainPointBubble';
-import PillButton from '../PillButton';
-
 
 class MainPointsSection extends Component {
 
@@ -23,6 +21,7 @@ class MainPointsSection extends Component {
         return {
             width:'50%',
             margin:'auto',
+            color:'white',
             textAlign:'center'
         }
     }

@@ -26,7 +26,6 @@ class Header extends Component {
             height: '70px',
             display:'table',
             zIndex:'1000',
-            backgroundColor:'black'
         }
     }
     getLogoStyle() {

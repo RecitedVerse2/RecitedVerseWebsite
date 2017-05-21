@@ -20,7 +20,7 @@ class PointDescriptionSection extends Component {
         return {
             position:'relative',
             top:'10%',
-            width:'35%',
+            width:'50%',
             height:'80%',
             float:this.props.orientation || 'left'
         }
@@ -31,7 +31,7 @@ class PointDescriptionSection extends Component {
     render() {
         return (
             <div style={this.getStyle()}>
-                <img style={this.getImageStyle()} src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FTestImage.png?alt=media&token=3e748f83-7288-4fce-b892-9318e07a2329'></img>
+                <img style={this.getImageStyle()} alt='pds' src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FTestImage.png?alt=media&token=3e748f83-7288-4fce-b892-9318e07a2329'></img>
             </div>
         );
     }
