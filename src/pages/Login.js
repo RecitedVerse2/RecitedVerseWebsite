@@ -66,11 +66,11 @@ class Login extends Component {
                 <ContentArea backgroundColor='rgb(242,244,248)'>
                     <div style={this.getLoginBoxStyle()}>
                         <h2 style={{fontFamily: '-apple-system',fontSize: '25px',fontWeight: '500'}}>Login</h2>
-                        <input className="round_input" id='input1' type="email" placeholder="Enter your email"/>
+                        <input ref={(input)=>{this.emailField = input}} className="round_input" id='input1' type="email" placeholder="Enter your email"/>
                         <br /><br />
-                        <input className="round_input" id='input2' type="password" placeholder="Enter your password"/>
+                        <input ref={(input)=>{this.passwordField = input}} className="round_input" id='input2' type="password" placeholder="Enter your password"/>
                         <br /><br />
-                        <p id="status_label" style={{color: 'red', visibility: 'hidden'}}>Incorrect Email or Password.</p>
+                        <p ref={(p)=>{this.statusLabel = p}} id="status_label" style={{color: 'red', visibility: 'hidden'}}>Incorrect Email or Password.</p>
 
                         <PillButton {...this.getPBS()} style={this.getBtnStyle()}> Login </PillButton>
                         <br /> <br />
@@ -90,30 +90,37 @@ class Login extends Component {
     ***********************/
 
     loginUser() {
-        var email = document.getElementById('input1').value;
-        var password = document.getElementById('input2').value;
-        var statusLabel = document.getElementById('status_label');
+        var email = this.emailField.value;
+        var password = this.passwordField.value;
 
+        // Make sure a value exists for the email and password.
         if(this.valueExists(email) && this.valueExists(password)) {
             var fireAuth = firebase.auth();
 
+            // Handle firebase login.
             fireAuth.signInWithEmailAndPassword(email, password).catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
 
                 if(errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-email') {
-                    statusLabel.style.color = "red";
-                    statusLabel.innerHTML = "Incorrect Email or Password.";
-                    statusLabel.style.visibility = "visible";
+                    this.statusLabel.style.color = "red";
+                    this.statusLabel.innerHTML = "Incorrect Email or Password.";
+                    this.statusLabel.style.visibility = "visible";
                     return;
                 } else if(errorCode === 'auth/user-not-found') {
-                    statusLabel.style.color = "red";
-                    statusLabel.innerHTML = "No user was found with that email and password.";
-                    statusLabel.style.visibility = "visible";
+                    this.statusLabel.style.color = "red";
+                    this.statusLabel.innerHTML = "No user was found with that email and password.";
+                    this.statusLabel.style.visibility = "visible";
+                    return;
+                } else {
+                    this.statusLabel.style.color = "red";
+                    this.statusLabel.innerHTML = "There was an error signing in.";
+                    this.statusLabel.style.visibility = "visible";
                     return;
                 }
-            });
+            }); // End of login.
 
+            // Wait for the login, then change pages.
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     window.localStorage.setItem('currentUID',user.uid);
@@ -144,8 +151,6 @@ class Login extends Component {
         }
     }
 
-    // Goes to the particular page necessary for the navigation bar.
-    goToPage(page) { this.props.history.push('/'+page); }
 }
 
 export default Login;

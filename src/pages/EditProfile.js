@@ -25,8 +25,6 @@ class EditProfile extends Component {
             email:'',
             fullName:'',
             bio:'',
-            likes:[],
-            favorites:[],
             social:['','','',''],
             uid:''
         };
@@ -37,20 +35,16 @@ class EditProfile extends Component {
 
         var onUserDataChanged = (snapshot) => {
             if(snapshot != null) {
-                var email = snapshot.val()["email"];
+                var em = snapshot.val()["email"];
                 var fullname = snapshot.val()["fullname"];
                 var userID = snapshot.val()["userID"];
                 var photoURL = snapshot.val()["photoURL"];
                 var backgroundImg = snapshot.val()["backgroundImage"];
                 var bio = snapshot.val()["bio"];
                 var social = snapshot.val()["social_media_links"];
-                var likes = snapshot.val()["likes"];
-                var favorites = snapshot.val()["favorites"];
 
                 var dict = {
-                    email:email,
-                    likes:likes,
-                    favorites:favorites,
+                    email:em,
                     profileSrc:photoURL,
                     backgroundSrc:backgroundImg,
                     fullName:fullname,
@@ -106,7 +100,7 @@ class EditProfile extends Component {
                     <div style={{position:'relative',paddingLeft:'20px',color:'rgb(128,128,128)'}}>
                         <h3 className="ep_header">Edit Profile</h3>
 
-                        <img id="profile_picture" src={this.state.profileSrc} alt="ppi" />
+                        <img ref={(img)=>{this.profilePicture = img}} id="profile_picture" src={this.state.profileSrc} alt="ppi" />
                         <br /><br />
 
                         <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='profilepicfile' multiple='false'
@@ -116,7 +110,7 @@ class EditProfile extends Component {
 
                         <br/>
 
-                        <img id="background_picture" src={this.state.backgroundSrc} alt="bpi" />
+                        <img ref={(img)=>{this.backgroundPicture = img}} id="background_picture" src={this.state.backgroundSrc} alt="bpi" />
                         <br /><br />
 
                         <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='backgroundimgfile' multiple='false'
@@ -127,17 +121,17 @@ class EditProfile extends Component {
                         <br/>
 
                         <h4><b>Personal Information</b></h4>
-                        Full Name: &nbsp;&nbsp;&nbsp; <input id='fullNameField' type="text" className="inputField" placeholder={this.state.fullName}/>
+                        Full Name: &nbsp;&nbsp;&nbsp; <input ref={(input)=>{this.fullNameField = input}} id='fullNameField' type="text" className="inputField" placeholder={this.state.fullName}/>
                         <br /><br />
-                        Email: &nbsp;&nbsp;&nbsp; <input id='emailField'  type="email" className="inputField" placeholder={this.state.email}/>
+                        Email: &nbsp;&nbsp;&nbsp; <input ref={(input)=>{this.emailField = input}} id='emailField' type="email" className="inputField" placeholder={this.state.email}/>
                         <br /><br />
-                        Password: &nbsp;&nbsp;&nbsp; <input type="text" id='passwordField1' className="inputField" placeholder="Enter a new password"/>
+                        Password: &nbsp;&nbsp;&nbsp; <input ref={(input)=>{this.passwordField = input}} type="text" id='passwordField1' className="inputField" placeholder="Enter a new password"/>
                         <br /><br />
-                        Re-enter Password: &nbsp;&nbsp;&nbsp; <input id='passwordField2' type="text" className="inputField" placeholder="Re-enter your new password" />
+                        Re-enter Password: &nbsp;&nbsp;&nbsp; <input ref={(input)=>{this.passwordConfirmField = input}} id='passwordField2' type="text" className="inputField" placeholder="Re-enter your new password" />
                         <br /><br /><br />
 
                         <h4><b>Profile</b></h4>
-                        Bio: &nbsp;&nbsp;&nbsp; <textarea id="ep_bio_field" placeholder={this.state.bio}/>
+                        Bio: &nbsp;&nbsp;&nbsp; <textarea ref={(textarea)=>{this.bioField = textarea}} id="ep_bio_field" placeholder={this.state.bio}/>
                         <br /><br /><br />
 
 
@@ -178,54 +172,75 @@ class EditProfile extends Component {
     ***********************/
 
     handleSaveChanges() {
-        var fullname = document.getElementById('fullNameField').value || this.state.fullName;
-        var email = document.getElementById('emailField').value || this.state.email;
-        var password1 = document.getElementById('passwordField1').value || '';
-        var password2 = document.getElementById('passwordField2').value || '';
-        var bio = document.getElementById('ep_bio_field').value || this.state.bio;
+        var fullname = this.fullNameField.value || this.state.fullName;
+        var email = this.emailField.value || this.state.email;
+        var password = this.passwordField.value;
+        var passwordConfirm = this.passwordConfirmField.value;
+        var bio = this.bioField.value || this.state.bio;
 
         var user = firebase.auth().currentUser;
         var changes = this.state;
+        var canExitPage = true;
 
-        if( fullname !== "" && fullname !== null ) {
-            changes["fullName"] = fullname;
+
+        // Check for a change in the full name.
+        if(this.valueExists(fullname)) {
+            changes['fullName'] = fullname;
         }
-        if( email !== "" && email !== null && email !== changes["email"]) {
 
-            user.updateEmail(email).then(function() {
-                changes["email"] = email;
-            }, function(error) {
-                alert('That email is already in use.');
+        // Check for a change in the email, then update it in authentication and database.
+        // Email takes a little bit longer, so just update the database when ready.
+        if(this.valueExists(email)) {
+            user.updateEmail(email).then( () => {
+                changes['email'] = email;
+                firebase.database().ref().child("Users").child(this.state.uid).child('email').set(email);
+            }, (error) => {
+                alert('That email is already in use.' + error);
+                canExitPage = false;
                 return;
             });
         }
-        if( password1 !== "" && password1 !== null ) {
-            if( password2 !== "" && password2 !== null ) {
-                if(password1 === password2) {
-                    user.updatePassword(password1).then(function() {
-                        return;
-                    }, function(error) {
-                        alert('Error changing password.');
-                        return;
-                    });
-                }
 
+        // Check for a change in the password, then update it in authentication and database.
+        if(this.valueExists(password) && this.valueExists(passwordConfirm)) {
+            if(password === passwordConfirm) {
+                user.updatePassword(password).then( () => {
+                    return;
+                }, (error) => {
+                    alert('Error changing password.');
+                    return;
+                });
+            } else {
+                alert('Passwords must match.');
+                canExitPage = false;
             }
-        }
-        if( bio !== "" && bio !== null ) {
-            changes["bio"] = bio;
+        } else if(!this.valueExists(password) && !this.valueExists(passwordConfirm)) {
+            // Don't do anything.
+        } else {
+            alert('Error changing password.');
+            canExitPage = false;
         }
 
+        // Check for changes in the bio.
+        if(this.valueExists(bio)) {
+            changes['bio'] = bio;
+        }
+
+
+        // Handle social links.
         var social = [this.fbfield.value,this.lifield.value,this.infield.value,this.twfield.value];
         changes["social_media_links"] = social;
 
 
-        changes['favorites'] = this.state.favorites || [];
-        changes['likes'] = this.state.likes || [];
-
         // Rename the keys to how they appear in Firebase.
         changes = this.renameKeys(changes);
-        this.saveToFirebase(changes);
+
+        // Only start the updating process if there aren't any problems.
+        if(canExitPage === true) {
+            this.saveToFirebase(changes);
+        } else {
+            return;
+        }
     };
 
 
@@ -233,10 +248,10 @@ class EditProfile extends Component {
         Button for selecting a profile/background picture.
     */
     changeProfilePicture(e) {
-        document.getElementById('profile_picture').src = e;
+        this.profilePicture.src = e;
     };
     changeBackgroundPicture(e) {
-        document.getElementById('background_picture').src = e;
+        this.backgroundPicture.src = e;
     };
 
 
@@ -244,18 +259,16 @@ class EditProfile extends Component {
         Saves the object to firebase.
     */
     saveToFirebase(changes) {
-        firebase.database().ref().child("Users").child(this.state.uid).update(changes);
-
         this.uploadNewProfilePicture(() => {
             this.uploadNewBackgroundPicture(() => {
-                //this.props.history.push('profile');
+                firebase.database().ref().child("Users").child(this.state.uid).update(changes);
                 this.props.navHeader.goTo('profile');
             });
         });
     }
 
     uploadNewProfilePicture(callback) {
-        var profilePicture = document.getElementById('profile_picture');
+        var profilePicture = this.profilePicture;
         if(profilePicture.src !== this.state.profileSrc) {
             firebase.storage().ref().child(this.state.uid).child("profilePicture").putString(profilePicture.src, 'data_url').then(snapshot => {
                 var updates = {
@@ -270,7 +283,7 @@ class EditProfile extends Component {
     }
 
     uploadNewBackgroundPicture(callback) {
-        var backgroundPicture = document.getElementById('background_picture');
+        var backgroundPicture = this.backgroundPicture;
         if(backgroundPicture.src !== this.state.backgroundSrc) {
             firebase.storage().ref().child(this.state.uid).child("backgroundPicture").putString(backgroundPicture.src, 'data_url').then(snapshot => {
                 var updates = {
@@ -300,9 +313,7 @@ class EditProfile extends Component {
             'backgroundImage':changes['backgroundSrc'],
             'bio':changes['bio'],
             'email':changes['email'],
-            'favorites':changes['favorites'],
             'fullname':changes['fullName'],
-            'likes':changes['likes'],
             'photoURL':changes['profileSrc'],
             'social_media_links':changes['social_media_links'],
             'userID':changes['uid']
@@ -311,8 +322,14 @@ class EditProfile extends Component {
     }
 
 
-    // Goes to the particular page necessary for the navigation bar.
-    goToPage(page) { this.props.history.push('/'+page); }
+    // Returns whether or not a value for a particular element exists.
+    valueExists(element) {
+        if(element !== undefined && element !== null && element !== '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 export default EditProfile;

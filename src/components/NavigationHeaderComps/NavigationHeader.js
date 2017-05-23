@@ -172,6 +172,8 @@ class NavigationHeader extends Component {
             this.props.history.push('search');
         } else if(page === 'poem') {
             this.props.history.push('poem');
+        } else {
+            this.props.history.push(page);
         }
     }
     handleGoToProfile() {
