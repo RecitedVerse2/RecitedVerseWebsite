@@ -98,7 +98,7 @@ class Login extends Component {
             var fireAuth = firebase.auth();
 
             // Handle firebase login.
-            fireAuth.signInWithEmailAndPassword(email, password).catch(function(error) {
+            fireAuth.signInWithEmailAndPassword(email, password).catch( (error) => {
                 // Handle Errors here.
                 var errorCode = error.code;
 

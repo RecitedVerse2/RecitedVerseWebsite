@@ -152,10 +152,10 @@ class Profile extends Component {
     handleLogout = () => {
         const fireAuth = firebase.auth();
 
-        fireAuth.signOut().then(function() {
+        fireAuth.signOut().then( () => {
             window.localStorage.removeItem('currentUID');
             this.props.navHeader.goTo('login');
-        }).catch(function(error) {
+        }).catch( (error) => {
             console.log(error);
         });
     };

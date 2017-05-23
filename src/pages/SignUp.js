@@ -89,13 +89,8 @@ class SignUp extends Component {
     *                     *
     ***********************/
 
+    // Handles signing the user up.
     handleSignUp() {
-        //this.fullNameField
-        //this.emailField
-        //this.passwordField1
-        //this.passwordConfirmField
-        //this.statusLabel
-
         var fireAuth = firebase.auth();
         var fireRef = firebase.database().ref();
 

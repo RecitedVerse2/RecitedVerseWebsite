@@ -232,6 +232,11 @@ class EditProfile extends Component {
         changes["social_media_links"] = social;
 
 
+        // Lastly, do the profile and background images.
+        changes['profileSrc'] = this.profilePicture.src;
+        changes['backgroundSrc'] = this.backgroundPicture.src;
+
+
         // Rename the keys to how they appear in Firebase.
         changes = this.renameKeys(changes);
 
