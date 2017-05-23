@@ -111,7 +111,7 @@ class UploadBox extends Component {
 
                     <br />
                     <h5 className="page_text">Upload a recording from a file</h5>
-                    <FileChooserForm formButtonStyle={this.getFormButtonStyle()} formButtonId='fromFileBtn' formButtonClass='pill_btn' name='fileRecitation' accept='audio/x-mpeg' multiple='false'
+                    <FileChooserForm formButtonStyle={this.getFormButtonStyle()} formButtonId='fromFileBtn' formButtonClass='pill_btn' name='fileRecitation' accept='audio/*' multiple='false'
                                     fileSelectedHandler={(e)=>{this.uploadAudioFile(e)}}>
                         Upload
                     </FileChooserForm>

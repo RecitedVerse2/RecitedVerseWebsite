@@ -16,7 +16,11 @@ class AudioPlayer extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            seeking:false,
+            currentTime:'0:00',
+            duration:'0:00'
+        }
     }
 
     componentDidMount() {
@@ -92,9 +96,17 @@ class AudioPlayer extends Component {
                     <p id="audio_title">{this.state.title}</p>
                     <div id="sliderArea" style={{position: 'relative', display: 'table', margin: 'auto'}}>
                         <audio id="rv_loaded_audio" preload="none"></audio>
-                        <span style={{display: 'table-cell'}} id="curtimetext">0:00</span>
-                            &nbsp;&nbsp;&nbsp;<input style={{width: 300, display: 'table-cell'}} type="range" id="seekSlider" min={0} max={100} defaultValue={0} step={1}/>&nbsp;&nbsp;&nbsp;
-                        <span style={{display: 'table-cell'}} id="durtimetext">0:00</span>
+                        <span style={{display: 'table-cell'}} id="curtimetext">{this.state.currentTime}</span>
+                            &nbsp;&nbsp;&nbsp;
+                            <input  ref={(input)=>{this.seekSlider = input}}
+                                    style={{width: 300, display: 'table-cell'}}
+                                    type="range" id="seekSlider"
+                                    min={0} max={100} defaultValue={0} step={1}
+                                    onMouseDown={(event)=>{ this.setState({seeking:true}); this.seek(event); }}
+                                    onMouseMove={(event)=>{ this.seek(event); }}
+                                    onMouseUp={()=>{ this.setState({ seeking:false }); }}/>
+                            &nbsp;&nbsp;&nbsp;
+                        <span style={{display: 'table-cell'}} id="durtimetext">{this.state.duration}</span>
                     </div>
                 </div>
 
@@ -170,12 +182,44 @@ class AudioPlayer extends Component {
 
         // Change to play/pause button when audio is/isn't playing.
         if(store.audio !== null) {
+            this.seekTimeUpdate();
+
             if(store.audio.paused === true || store.audio.ended === true) {
                 this.playIcon.className = 'fa fa-play';
             } else {
                 this.playIcon.className = 'fa fa-pause';
             }
         }
+    }
+
+
+    seek(event) {
+        const store = this.props.rStore.getState();
+
+        if(this.state.seeking === true) {
+            this.seekSlider.value = event.clientX - this.seekSlider.offsetLeft;
+            var seekto = store.audio.duration * (this.seekSlider.value / 100);
+            store.audio.currentTime = seekto;
+        }
+    }
+
+    seekTimeUpdate() {
+        const store = this.props.rStore.getState();
+
+        var newTime = store.audio.currentTime * (100 / store.audio.duration);
+        this.seekSlider.value = newTime;
+        var curmins = Math.floor(store.audio.currentTime / 60);
+        var cursecs = Math.floor(store.audio.currentTime - curmins * 60);
+        var durmins = Math.floor(store.audio.duration / 60);
+        var dursecs = Math.floor(store.audio.duration - durmins * 60);
+        if(cursecs < 10) { cursecs = "0"+cursecs; }
+        if(dursecs < 10) { dursecs = "0"+dursecs; }
+        if(curmins < 10) { curmins = "0"+curmins; }
+        if(durmins < 10) { durmins = "0"+durmins; }
+        this.setState({
+            currentTime:curmins+":"+cursecs,
+            duration:durmins+":"+dursecs
+        });
     }
 }
 
