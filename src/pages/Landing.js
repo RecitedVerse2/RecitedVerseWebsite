@@ -17,7 +17,6 @@ class Landing extends Component {
 
     componentDidMount() {
         this.props.navHeader.hide();
-        console.log(this.props.audioPlayer);
     }
 
 

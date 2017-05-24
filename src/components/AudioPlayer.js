@@ -193,11 +193,11 @@ class AudioPlayer extends Component {
     }
 
 
-    seek(event) {
+    seek(e) {
         const store = this.props.rStore.getState();
 
         if(this.state.seeking === true) {
-            this.seekSlider.value = event.clientX - this.seekSlider.offsetLeft;
+            this.seekSlider.value = e.clientX - this.seekSlider.offsetLeft;
             var seekto = store.audio.duration * (this.seekSlider.value / 100);
             store.audio.currentTime = seekto;
         }

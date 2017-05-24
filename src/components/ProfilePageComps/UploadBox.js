@@ -133,6 +133,7 @@ class UploadBox extends Component {
                 </Modal.Body>
 
                 <Modal.Footer>
+                    <div ref={(div)=>{this.loadingIndicator = div}} className="loader"></div>
                     <button className="pill_btn" id="submit_recitation_btn" style={{cursor:'pointer'}} onClick={this.handleSubmit.bind(this)}>Submit</button>
                 </Modal.Footer>
             </Modal>
@@ -263,10 +264,20 @@ class UploadBox extends Component {
     }
 
     handleSubmit() {
+        if(!this.valueExists(this.state.audioObj) && this.state.audioObj === null) {
+            console.log('You must either upload an audio file or record one before submitting a recitation.');
+            document.getElementById('fromFileBtn').style.backgroundColor = "red";
+            document.getElementById('recordBtn').style.backgroundColor = "red";
+            setTimeout(function() {
+                document.getElementById('fromFileBtn').style.backgroundColor = "#ADD8E6";
+                document.getElementById('recordBtn').style.backgroundColor = "#ADD8E6";
+            }, 3000);
+        }
+
+
         const fireRef = firebase.database().ref();
         const storageRef = firebase.storage().ref();
         const currentUserID = window.localStorage.getItem('currentUID');
-        const props = this.props;
 
         var poemName = document.getElementById('poemName');
         var poemAuthor = document.getElementById('poemAuthor');
@@ -315,8 +326,10 @@ class UploadBox extends Component {
                 fp.setWithPriority(dictionary, 0 - Date.now());
 
                 /* Save the actual audio to the storage. */
-                storageRef.child(currentUserID).child(dictionary['id']).put(myRecording).then(function() {
-                    props.onHide();
+                this.loadingIndicator.style.visibility = 'visible';
+                storageRef.child(currentUserID).child(dictionary['id']).put(myRecording).then(() => {
+                    this.props.onHide();
+                    this.loadingIndicator.style.visibility = 'hidden';
                 });
 
             } else if(this.valueExists(this.state.audioObj)) {
@@ -325,8 +338,10 @@ class UploadBox extends Component {
                 fp.set(dictionary);
 
                 /* Save the actual audio to the storage. */
-                storageRef.child(currentUserID).child(dictionary['id']).putString(this.state.audioObj.src, 'data_url').then(function(snapshot) {
-                    props.onHide();
+                this.loadingIndicator.style.visibility = 'visible';
+                storageRef.child(currentUserID).child(dictionary['id']).putString(this.state.audioObj.src, 'data_url').then((snapshot) => {
+                    this.props.onHide();
+                    this.loadingIndicator.style.visibility = 'hidden';
                 });
 
             }

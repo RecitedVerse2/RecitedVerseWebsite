@@ -53,7 +53,7 @@ const audioplayer = (state = defaultState, action) => {
             state.recitation=action.recitation;
             state.audio=action.audio;
             state.lastPlayed=action.lastPlayed;
-            console.log(state);
+            //console.log(state);
             break;
         case 'CLEAR':
             state.id = '';
@@ -72,7 +72,7 @@ const audioplayer = (state = defaultState, action) => {
             state.recitation=null;
             state.audio=null;
             state.lastPlayed=null;
-            console.log(state);
+            //console.log(state);
             break;
         default: break;
     }
