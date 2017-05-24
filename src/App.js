@@ -96,7 +96,7 @@ class App extends Component {
         const HomePage = () => {return <Home audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Home>}
         const SignUpPage = () => {return <SignUp audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</SignUp>}
         const LoginPage = () => {return <Login audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Login>}
-        const ProfilePage = () => {return <Profile audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Profile>}
+        const ProfilePage = () => {return <Profile userID={window.localStorage.getItem('currentUID')} audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Profile>}
         const EditProfilePage = () => {return <EditProfile audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</EditProfile>}
         const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Poem>}
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Search>}
@@ -112,6 +112,7 @@ class App extends Component {
                     <Route path="/signup" component={SignUpPage}></Route>
                     <Route path="/login" component={LoginPage}></Route>
                     <Route path="/profile" component={ProfilePage}></Route>
+                    <Route path="/oprofile" component={ProfilePage}></Route>
                     <Route path="/editprofile" component={EditProfilePage}></Route>
                     <Route path="/poem" component={PoemPage}></Route>
                     <Route path="/search" component={SearchPage}></Route>

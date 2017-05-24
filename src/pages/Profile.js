@@ -33,35 +33,8 @@ class Profile extends Component {
     componentDidMount() {
         this.props.navHeader.unhide();
 
-        var onUserDataChanged = (snapshot) => {
-            if(snapshot != null) {
-                 //var email = snapshot.val()["email"];
-                var fullname = snapshot.val()["fullname"];
-                var userID = snapshot.val()["userID"];
-                var photoURL = snapshot.val()["photoURL"];
-                var backgroundImg = snapshot.val()["backgroundImage"];
-                var bio = snapshot.val()["bio"];
-                var social = snapshot.val()["social_media_links"];
-                //var likes = snapshot.val()["likes"];
-                //var favorites = snapshot.val()["favorites"];
-
-                var dict = {
-                    showUploadModal:false,
-                    profileSrc:photoURL,
-                    backgroundSrc:backgroundImg,
-                    fullName:fullname,
-                    bio:bio,
-                    social:social,
-                    uid:userID
-                };
-                this.setState(dict);
-                this.updateSocialButtons();
-            }
-        };
-
         if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
-            firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).once('value').then(onUserDataChanged);
-
+            firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).once('value').then(this.onUserDataChanged);
         }
     }
 
@@ -97,7 +70,7 @@ class Profile extends Component {
 
                     <ContentHeader top="200px" height="350px">
                         <OverlayTrigger trigger="click" placement="left" overlay={popover}>
-                            <button id='edit_profile_btn' data-toggle="popover" data-placement="left">
+                            <button ref={(button)=>{this.editButton = button}} id='edit_profile_btn' data-toggle="popover" data-placement="left">
                                 ...
                             </button>
                         </OverlayTrigger>
@@ -122,7 +95,7 @@ class Profile extends Component {
                             </div>
                         </div>
 
-                        <button className='uploadRecBtn' onClick={()=>{this.handleOpenModal()}}>Upload a recitation</button>
+                        <button ref={(button)=>{this.uploadButton = button}} className='uploadRecBtn' onClick={()=>{this.handleOpenModal()}}>Upload a recitation</button>
                     </ContentHeader>
 
 
@@ -166,6 +139,42 @@ class Profile extends Component {
     *   UTILITY METHODS   *
     *                     *
     ***********************/
+
+    onUserDataChanged = (snapshot) => {
+        if(snapshot != null) {
+             //var email = snapshot.val()["email"];
+            var fullname = snapshot.val()["fullname"];
+            var userID = snapshot.val()["userID"];
+            var photoURL = snapshot.val()["photoURL"];
+            var backgroundImg = snapshot.val()["backgroundImage"];
+            var bio = snapshot.val()["bio"];
+            var social = snapshot.val()["social_media_links"];
+            //var likes = snapshot.val()["likes"];
+            //var favorites = snapshot.val()["favorites"];
+
+            var dict = {
+                showUploadModal:false,
+                profileSrc:photoURL,
+                backgroundSrc:backgroundImg,
+                fullName:fullname,
+                bio:bio,
+                social:social,
+                uid:userID
+            };
+            this.setState(dict);
+            this.updateSocialButtons();
+
+
+            // Check if it is the current user's profile page or a different users'
+            if(window.localStorage.getItem('currentUID') !== firebase.auth().currentUser.uid) {
+                this.editButton.style.visibility = 'hidden';
+                this.uploadButton.style.visibility = 'hidden';
+            } else {
+                this.editButton.style.visibility = 'visible';
+                this.uploadButton.style.visibility = 'visible';
+            }
+        }
+    };
 
     // Update the social media buttons on the profile page.
     updateSocialButtons() {

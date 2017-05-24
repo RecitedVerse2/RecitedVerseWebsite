@@ -17,6 +17,7 @@ class Poem extends Component {
         this.state = {
             id:'',
             uploaderID:'',
+            uploaderName:'',
             image:'',
             title:'',
             author:'',
@@ -62,6 +63,14 @@ class Poem extends Component {
 
 
 
+    getUploaderNameStyle() {
+        return {
+            border:'none',
+            background:'none'
+        }
+    }
+
+
 
     render() {
         const popoverBottom = (
@@ -83,8 +92,13 @@ class Poem extends Component {
                             <div className="vertical_info_section">
                                 <h4 id="title_author_area">{this.state.title} by {this.state.author}</h4>
                                 <br />
-                                <p id="recBy_Pub_Gen">Recited By: {this.state.recitedBy} <br/> Published: {this.state.published} <br/> Genre: {this.state.genre}</p>
-                                <p id="descr_area">{this.state.description}</p>
+                                <p id="recBy_Pub_Gen">Recited By: {this.state.recitedBy}
+                                    <br/> Uploaded By: <button style={this.getUploaderNameStyle()} onClick={this.goToUploader.bind(this)}>{this.state.uploaderName}</button>
+                                    <br/> Published: {this.state.published}
+                                    <br/> Genre: {this.state.genre}</p>
+                                    <p id="descr_area">{this.state.description}
+                                </p>
+
                                 <div className="description_buttons_section">
                                     <OverlayTrigger delayShow={1000} placement="bottom" overlay={<Tooltip id="tooltip">Play</Tooltip>}>
                                         <button className="description_button fa fa-play" onClick={this.playRecitation.bind(this)} ref={(button)=>{this.playBtn = button}}/>
@@ -153,6 +167,7 @@ class Poem extends Component {
                     type:'SET',
                     id:this.state.id,
                     uploaderID:this.state.uploaderID,
+                    uploaderName:this.state.uploaderName,
                     image:this.state.image,
                     title:this.state.title,
                     author:this.state.author,
@@ -185,6 +200,7 @@ class Poem extends Component {
                         type:'SET',
                         id:this.state.id,
                         uploaderID:this.state.uploaderID,
+                        uploaderName:this.state.uploaderName,
                         image:this.state.image,
                         title:this.state.title,
                         author:this.state.author,
@@ -207,7 +223,6 @@ class Poem extends Component {
         }
     } // End of method.
 
-
     likeRecitation() {
         const fireRef = firebase.database().ref();
         const uid = window.localStorage.getItem('currentUID');
@@ -221,6 +236,7 @@ class Poem extends Component {
                 var dict = {
                     id:this.state.id,
                     uploaderID:this.state.uploaderID,
+                    uploaderName:this.state.uploaderName,
                     image: this.state.image,
                     title: this.state.title,
                     author: this.state.author,
@@ -245,6 +261,7 @@ class Poem extends Component {
                 var dict = {
                     id:this.state.id,
                     uploaderID:this.state.uploaderID,
+                    uploaderName:this.state.uploaderName,
                     image: this.state.image,
                     title: this.state.title,
                     author: this.state.author,
@@ -281,6 +298,7 @@ class Poem extends Component {
                 var dict = {
                     id:this.state.id,
                     uploaderID:this.state.uploaderID,
+                    uploaderName:this.state.uploaderName,
                     image: this.state.image,
                     title: this.state.title,
                     author: this.state.author,
@@ -305,6 +323,7 @@ class Poem extends Component {
                 var dict = {
                     id:this.state.id,
                     uploaderID:this.state.uploaderID,
+                    uploaderName:this.state.uploaderName,
                     image: this.state.image,
                     title: this.state.title,
                     author: this.state.author,
@@ -326,6 +345,13 @@ class Poem extends Component {
                 return;
             }
         });
+    }
+
+
+    // Handles going to the uploader's profile page.
+    goToUploader() {
+        window.localStorage.setItem('currentUID',this.state.uploaderID);
+        this.props.navHeader.goTo('oprofile');
     }
 
 
@@ -372,15 +398,45 @@ class Poem extends Component {
 
         fireRef.child('Recitations').child(currentRec.id).once('value').then((snapshot)=> {
             var rec = snapshot.val();
+            var uploadername = '';
 
-            if(loadAudio === true) {
-                storageRef.child(currentRec.uploaderID).child(rec.id).getDownloadURL().then( (url) => {
-                    var audio = new Audio(url);
-                    audio.loop = false;
+            fireRef.child('Users').child(rec.uploaderID).once('value').then( (snap) => {
+                uploadername = snap.val().fullname;
 
+                if(loadAudio === true) {
+                    storageRef.child(currentRec.uploaderID).child(rec.id).getDownloadURL().then( (url) => {
+                        var audio = new Audio(url);
+                        audio.loop = false;
+
+                        this.setState({
+                            id:rec.id,
+                            uploaderID:rec.uploaderID,
+                            uploaderName:uploadername,
+                            image: rec.image,
+                            title: rec.title,
+                            author: rec.author,
+                            recitedBy: rec.recited_by,
+                            published: rec.published,
+                            genre: rec.genre,
+                            description: rec.description,
+                            likes: rec.likes,
+                            plays: rec.plays,
+                            favorites: rec.favorites,
+                            text: rec.text,
+                            recitation:rec,
+                            audio:audio
+                        });
+
+                        if(callback !== undefined && callback !== null) {
+                            callback();
+                        }
+                    });
+                } else {
                     this.setState({
-                        id:rec.id,
+                        key:rec.key,
+
                         uploaderID:rec.uploaderID,
+                        uploaderName:uploadername,
                         image: rec.image,
                         title: rec.title,
                         author: rec.author,
@@ -393,36 +449,13 @@ class Poem extends Component {
                         favorites: rec.favorites,
                         text: rec.text,
                         recitation:rec,
-                        audio:audio
+                        audio:this.state.audio || null
                     });
-
                     if(callback !== undefined && callback !== null) {
                         callback();
                     }
-                });
-            } else {
-                this.setState({
-                    key:rec.key,
-
-                    uploaderID:rec.uploaderID,
-                    image: rec.image,
-                    title: rec.title,
-                    author: rec.author,
-                    recitedBy: rec.recited_by,
-                    published: rec.published,
-                    genre: rec.genre,
-                    description: rec.description,
-                    likes: rec.likes,
-                    plays: rec.plays,
-                    favorites: rec.favorites,
-                    text: rec.text,
-                    recitation:rec,
-                    audio:this.state.audio || null
-                });
-                if(callback !== undefined && callback !== null) {
-                    callback();
                 }
-            }
+            });
         });
     }
 }

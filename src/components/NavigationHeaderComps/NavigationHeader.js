@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as firebase from 'firebase';
 
 import RectButton from '../RectButton';
 
@@ -162,6 +163,8 @@ class NavigationHeader extends Component {
             this.props.history.push('home');
         } else if(page === 'profile') {
             this.props.history.push('profile');
+        } else if(page === 'oprofile') {
+            this.props.history.push('oprofile');
         } else if(page === 'login') {
             this.props.history.push('login');
         } else if(page === 'signup') {
@@ -178,7 +181,11 @@ class NavigationHeader extends Component {
     }
     handleGoToProfile() {
         if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
-            this.goTo('profile')
+
+            // Sets the current uid to the currently logged in user.
+            // This makes sure it is the current user's profile page.
+            window.localStorage.setItem('currentUID',firebase.auth().currentUser.uid);
+            this.goTo('profile');
         } else {
             this.goTo('login');
         }
