@@ -30,6 +30,7 @@ class RecitationItem extends Component {
         const storageRef = firebase.storage().ref();
 
         // First, clear whatever is there.
+        if(store.audio !== null) { store.audio.pause(); }
         this.props.rStore.dispatch({
             type:'CLEAR'
         });
@@ -58,7 +59,9 @@ class RecitationItem extends Component {
                     favorites:rec.favorites,
                     text:rec.text,
                     recitation:rec.recitation,
-                    audio:audio
+                    audio:audio,
+                    volume:store.volume,
+                    loop:store.loop,
                 });
                 store.audio.play();
             }
