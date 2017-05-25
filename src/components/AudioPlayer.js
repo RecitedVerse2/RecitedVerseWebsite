@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 import CircleButton from './CircleButton';
 import Clock from './Clock';
@@ -24,7 +25,15 @@ class AudioPlayer extends Component {
     }
 
     componentDidMount() {
+        const store = this.props.rStore.getState();
 
+        if(store.audio !== null) {
+            if(store.audio.loop === true) {
+                this.loopBtn.style.color = 'red';
+            } else {
+                this.loopBtn.style.color = 'white';
+            }
+        }
     }
 
 
@@ -74,6 +83,17 @@ class AudioPlayer extends Component {
 
 
     render() {
+        const popover = (
+            <Popover id="popover-positioned-top" style={{textAlign:'center'}}>
+                <input  ref={(input)=>{this.volumeSlider = input}}
+                        style={{display: 'table-cell'}}
+                        type="range" id="volumeSlider"
+                        orient='vertical'
+                        min={0} max={100} defaultValue={this.props.rStore.getState().volume} step={1}
+                        onMouseMove={this.setVolume.bind(this)} />
+            </Popover>
+        );
+
         return (
             <div ref={(AudioPlayer)=>{this.ap = AudioPlayer}} style={this.getAPStyles()}>
                 <div className="audio_buttons_section">
@@ -111,6 +131,14 @@ class AudioPlayer extends Component {
                 </div>
 
                 <div className="right_buttons">
+                    <OverlayTrigger trigger="click" placement="top" overlay={popover}>
+                        <button id='volumeBtn' ref={(button)=>{this.volumeButton = button}} data-toggle="popover" data-placement="top">
+                            <p ref={(p)=>{this.volumeIcon = p}} className='fa fa-volume-up'></p>
+                        </button>
+                    </OverlayTrigger>
+
+                    &nbsp;&nbsp;&nbsp;
+
                     <button style={{color:'white'}} className="fa fa-repeat" onClick={this.handleLoop.bind(this)} ref={(button)=>{this.loopBtn = button}}/>
                 </div>
 
@@ -192,6 +220,17 @@ class AudioPlayer extends Component {
         }
     }
 
+    setVolume() {
+        const store = this.props.rStore.getState();
+
+        if(store.audio !== null) {
+            store.audio.volume = this.volumeSlider.value / 100;
+            this.props.rStore.dispatch({
+                type: 'ADJUST_VOLUME',
+                volume: this.volumeSlider.value
+            });
+        }
+    }
 
     seek(e) {
         const store = this.props.rStore.getState();

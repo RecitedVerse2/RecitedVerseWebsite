@@ -32,6 +32,8 @@ const defaultState = {
     text:'',
     recitation:null,
     audio:null,
+    volume:50,
+    loop:false,
     lastPlayed:null
 }
 const audioplayer = (state = defaultState, action) => {
@@ -52,6 +54,8 @@ const audioplayer = (state = defaultState, action) => {
             state.text=action.text;
             state.recitation=action.recitation;
             state.audio=action.audio;
+            state.volume = action.volume;
+            state.loop = action.loop;
             state.lastPlayed=action.lastPlayed;
             //console.log(state);
             break;
@@ -71,8 +75,13 @@ const audioplayer = (state = defaultState, action) => {
             state.text='';
             state.recitation=null;
             state.audio=null;
+            state.volume = state.volume;
+            state.loop = false;
             state.lastPlayed=null;
             //console.log(state);
+            break;
+        case 'ADJUST_VOLUME':
+            state.volume = action.volume;
             break;
         default: break;
     }
