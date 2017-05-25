@@ -56,7 +56,8 @@ class RecitationsArea extends Component {
                 // Make a new recitation component and push it onto the array
                 var rec = <RecitationItem key={recitationObject.val().timestamp}
                                           recitation={recitationObject.val()}
-                                          navHeader={this.props.navHeader}>
+                                          navHeader={this.props.navHeader}
+                                          rStore={this.props.rStore}>
                           </RecitationItem>
                 recs.push(rec);
 
@@ -84,7 +85,10 @@ class RecitationsArea extends Component {
                         firebase.database().ref().child("Recitations").child(recID).once('value').then( (snapshot) => {
                             var recitationObject = snapshot.val();
                             // Make a new recitation component and push it onto the array
-                            var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} navHeader={this.props.navHeader}></RecitationItem>
+                            var rec = <RecitationItem key={recitationObject.timestamp}
+                                                      recitation={recitationObject}
+                                                      navHeader={this.props.navHeader}
+                                                      rStore={this.props.rStore}></RecitationItem>
                             recs.push(rec);
 
                             // Sort the array by likes
@@ -117,7 +121,10 @@ class RecitationsArea extends Component {
                         firebase.database().ref().child("Recitations").child(recID).once('value').then( (snapshot) => {
                             var recitationObject = snapshot.val();
                             // Make a new recitation component and push it onto the array
-                            var rec = <RecitationItem key={recitationObject.timestamp} recitation={recitationObject} navHeader={this.props.navHeader}></RecitationItem>
+                            var rec = <RecitationItem key={recitationObject.timestamp}
+                                                        recitation={recitationObject}
+                                                        navHeader={this.props.navHeader}
+                                                        rStore={this.props.rStore}></RecitationItem>
                             recs.push(rec);
 
                             // Sort the array by favorites

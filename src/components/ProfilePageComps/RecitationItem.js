@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as firebase from 'firebase';
 
 import _ from '../../css/RecitationItem.css';
 
@@ -24,8 +25,45 @@ class RecitationItem extends Component {
     }
 
     playRecitation() {
+        const store = this.props.rStore.getState();
+        const rec = this.props.recitation;
+        const storageRef = firebase.storage().ref();
 
-    }
+        // First, clear whatever is there.
+        this.props.rStore.dispatch({
+            type:'CLEAR'
+        });
+
+        // Get the new audio.
+        storageRef.child(rec.uploaderID).child(rec.id).getDownloadURL().then( (url) => {
+            var audio = new Audio(url);
+            audio.loop = false;
+
+            // First set the audio if it is null. Then play it.
+            if(store.audio === null) {
+                this.props.rStore.dispatch({
+                    type:'SET',
+                    id:rec.id,
+                    uploaderID:rec.uploaderID,
+                    uploaderName:rec.uploaderName,
+                    image:rec.image,
+                    title:rec.title,
+                    author:rec.author,
+                    recitedBy:rec.recitedBy,
+                    published:rec.published,
+                    genre:rec.genre,
+                    description:rec.description,
+                    likes:rec.likes,
+                    plays:rec.plays,
+                    favorites:rec.favorites,
+                    text:rec.text,
+                    recitation:rec.recitation,
+                    audio:audio
+                });
+                store.audio.play();
+            }
+        });
+    } // End of method.
 }
 
 export default RecitationItem;

@@ -245,20 +245,22 @@ class AudioPlayer extends Component {
     seekTimeUpdate() {
         const store = this.props.rStore.getState();
 
-        var newTime = store.audio.currentTime * (100 / store.audio.duration);
-        this.seekSlider.value = newTime;
-        var curmins = Math.floor(store.audio.currentTime / 60);
-        var cursecs = Math.floor(store.audio.currentTime - curmins * 60);
-        var durmins = Math.floor(store.audio.duration / 60);
-        var dursecs = Math.floor(store.audio.duration - durmins * 60);
-        if(cursecs < 10) { cursecs = "0"+cursecs; }
-        if(dursecs < 10) { dursecs = "0"+dursecs; }
-        if(curmins < 10) { curmins = "0"+curmins; }
-        if(durmins < 10) { durmins = "0"+durmins; }
-        this.setState({
-            currentTime:curmins+":"+cursecs,
-            duration:durmins+":"+dursecs
-        });
+        if(store.audio !== null) {
+            var newTime = store.audio.currentTime * (100 / store.audio.duration);
+            this.seekSlider.value = newTime;
+            var curmins = Math.floor(store.audio.currentTime / 60);
+            var cursecs = Math.floor(store.audio.currentTime - curmins * 60);
+            var durmins = Math.floor(store.audio.duration / 60);
+            var dursecs = Math.floor(store.audio.duration - durmins * 60);
+            if(cursecs < 10) { cursecs = "0"+cursecs; }
+            if(dursecs < 10) { dursecs = "0"+dursecs; }
+            if(curmins < 10) { curmins = "0"+curmins; }
+            if(durmins < 10) { durmins = "0"+durmins; }
+            this.setState({
+                currentTime:curmins+":"+cursecs,
+                duration:durmins+":"+dursecs
+            });
+        }
     }
 }
 

@@ -104,7 +104,7 @@ class Profile extends Component {
 
 
 
-                    <TabPane navHeader={this.props.navHeader}>
+                    <TabPane navHeader={this.props.navHeader} rStore={this.props.rStore}>
 
                     </TabPane>
 
