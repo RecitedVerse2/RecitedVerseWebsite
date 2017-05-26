@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+
+import backgroundImage from '../../public/res/brickBackground.jpg';
+
 import Header from '../components/LandingComps/Header';
 import LandingPageCarousel from '../components/LandingComps/Carousel';
 import MainPointsSection from '../components/LandingComps/MainPointsSection';
@@ -57,7 +60,8 @@ class Landing extends Component {
         return (
             <div style={this.getStyles()}>
                 <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FbrickBackground.jpg?alt=media&token=280226c0-895b-4ef4-ac93-435ef38a8ce2'></img>
+                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+
 
                 <Header navHeader={this.props.navHeader}></Header>
                 <LandingPageCarousel></LandingPageCarousel>
@@ -73,8 +77,6 @@ class Landing extends Component {
 
 
                 <Footer></Footer>
-
-                {this.props.children}
             </div>
         );
     }

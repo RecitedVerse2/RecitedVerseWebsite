@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import fonts from '../../css/fonts.css';
+
 class MainPointsBubble extends Component {
 
     getStyles() {
@@ -8,7 +10,8 @@ class MainPointsBubble extends Component {
             display: 'table-cell',
             wordWrap: 'normal',
             verticalAlign: 'top',
-            fontSize: '15px',
+            fontFamily:'NEB',
+            fontSize: '20px',
             width: '20%',
             color:'white',
             paddingLeft: '50px',
@@ -20,9 +23,8 @@ class MainPointsBubble extends Component {
     render() {
         return (
             <div style={this.getStyles()}>
-                    <img src={this.props.src} alt="img" width={165} height={165} />
-                    <br />
-                    <h2 style={{textAlign:'center'}}>{this.props.title}</h2>
+                    <img src={this.props.src} alt="img"/>
+                    <br /><br />
                     <p style={{textAlign:'center'}}>{this.props.description}</p>
             </div>
         );

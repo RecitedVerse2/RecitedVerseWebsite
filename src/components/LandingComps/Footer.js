@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 
+import fonts from '../../css/fonts.css';
+
+import footerBackground from '../../../public/res/footerBackground.png';
+import facebookBtn from '../../../public/res/FBIcon.png';
+import instagramBtn from '../../../public/res/IGIcon.png';
+import twitterBtn from '../../../public/res/TwIcon.png';
+
 
 class Footer extends Component {
 
@@ -11,28 +18,49 @@ class Footer extends Component {
 
     getStyles() {
         return {
-            position:'relative',
-            width:'100%',
-            height:'500px'
+            position: 'relative',
+            width: '100%',
+            height: '500px'
         };
     }
     getUpperStyles() {
         return {
-            position:'relative',
-            height:'250px'
+            position: 'relative',
+            top:'-15%',
+            height: '250px',
+            color: 'white'
         }
     }
     getImageStyle() {
         return {
-            width:'100%',
-            height:'250px'
+            width: '100%',
+            height: '250px',
+            zIndex: 1
+        }
+    }
+    getTextStyles() {
+        return {
+            position: 'relative',
+            marginTop: '-18%',
+            zIndex: 2,
+            textAlign:'center'
         }
     }
     getLowerStyles() {
         return {
-            position:'relative',
-            height:'250px',
-            display:'table'
+            position: 'relative',
+            display: 'table',
+            margin: 'auto'
+        }
+    }
+    getButtonStyles() {
+        return {
+            width: '200px',
+            height: '100px',
+            color: 'black',
+            border: 'none',
+            background: 'none',
+            display: 'table-cell'
         }
     }
 
@@ -42,35 +70,34 @@ class Footer extends Component {
             <div style={this.getStyles()}>
 
                 <div style={this.getUpperStyles()}>
-                    <img style={this.getImageStyle()} alt='upper' src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2Fbackground.png?alt=media&token=7ce80c64-86d9-4e18-8090-5688a035c058'></img>
-                </div>
+                    <img style={this.getImageStyle()} alt='upper' src={footerBackground}></img>
 
-                <div style={this.getLowerStyles()}>
-                    &nbsp;&nbsp;
-
-                    <div style={{display:'table-cell',width:'40%',color:'cornflowerblue'}}>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea los eatos commodo consequat</p>
-                    </div>
-
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-
-                    <div style={{display:'table-cell',color:'white'}}>
-                        <h3>Contact</h3>
-                        <button style={{background:'none',border:'none'}}>
-                            <p className='fa fa-map-marker'></p>&nbsp;&nbsp;Address
-                        </button>
-                        <br/>
-                        <button style={{background:'none',border:'none'}}>
-                            <p className='fa fa-phone'></p>&nbsp;&nbsp;Phone
-                        </button>
-                        <br/>
-                        <button style={{background:'none',border:'none'}}>
-                            <p className='fa fa-envelope'></p>&nbsp;&nbsp;Email
-                        </button>
+                    <div style={this.getTextStyles()}>
+                        <h1 style={{fontFamily:'Monthoers',fontSize:'80px'}}>ABOUT RECITED VERSE</h1>
+                        <p style={{fontFamily:'NEBB', fontSize:'18px'}}>Recitation is interpretation! At RecitedVerse.com, we welcome your readings of your favorite poems. Our goal is to offer an unlimited number of readings for an unlimited number of poems throughout the ages and the world.</p>
                     </div>
                 </div>
 
+
+                <div style={{position:'relative',top:'-5%'}}>
+                    <h1 style={{ fontFamily: 'Monthoers', fontSize: '80px', color: 'white', textAlign: 'center' }}>
+                        CONTACT
+                    </h1>
+
+                    <div style={this.getLowerStyles()}>
+                        <button style={this.getButtonStyles()}>
+                            <img alt='contact' src={facebookBtn}></img>
+                        </button>
+                        &nbsp;&nbsp;&nbsp;
+                        <button style={this.getButtonStyles()}>
+                            <img alt='contact' src={instagramBtn}></img>
+                        </button>
+                        &nbsp;&nbsp;&nbsp;
+                        <button style={this.getButtonStyles()}>
+                            <img alt='contact' src={twitterBtn}></img>
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }

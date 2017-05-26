@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 
+import fonts from '../../css/fonts.css';
+
+import HeadphonesIcon from '../../../public/res/HeadphoneIcon.png';
+import MicrophoneIcon from '../../../public/res/Mic.png';
+import SocialIcon from '../../../public/res/SocialIcon.png';
+
 import MainPointBubble from './MainPointBubble';
 
 class MainPointsSection extends Component {
@@ -19,7 +25,7 @@ class MainPointsSection extends Component {
     }
     getQuoteStyle() {
         return {
-            width:'50%',
+            width:'40%',
             margin:'auto',
             color:'white',
             textAlign:'center'
@@ -34,19 +40,21 @@ class MainPointsSection extends Component {
             <div style={{position:'relative',top:'50px'}}>
 
                 <div style={this.getQuoteStyle()}>
-                    <br/><br/><br/><br/><br/><br/>
-                    <p>Lorem ipsum dolor sit amet molestie consequat, vel illum dolore eu feugiat null a facilisis at vero eros et accumsan.<br/>- Lorem Ipsum</p>
+                    <br/><br/><br/><br/>
+                    <p style={{fontFamily:'NEBB', fontSize:'20px'}}>
+                        Lorem ipsum dolor sit amet molestie consequat, vel illum dolore eu feugiat null a facilisis at vero eros et accumsan.<br/>- Lorem Ipsum
+                    </p>
                     <br/><br/><br/>
 
-                    <h1>SERVICES</h1>
+                    <h1 style={{fontFamily:'Monthoers', fontSize:'70px'}}>SERVICES</h1>
                 </div>
 
                 <div style={this.getMPSStyles()}>
-                    <MainPointBubble title="Recitations" description="The world's first - and leading - treasury of original poetry recitations." src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FHeadphonesIcon.png?alt=media&token=70528209-3036-40c6-b5bd-d6b7a4110d2f'></MainPointBubble>
+                    <MainPointBubble description="The world's first - and leading - treasury of original poetry recitations." src={HeadphonesIcon}></MainPointBubble>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <MainPointBubble title="Upload" description="Record your own recitations for others to listen to, favorite, and share." src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FMicrophoneImage.png?alt=media&token=a5c3eb71-30c6-4b69-a0b7-c4b413aca15c'></MainPointBubble>
+                    <MainPointBubble description="Record your own recitations for others to listen to, favorite, and share." src={MicrophoneIcon}></MainPointBubble>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <MainPointBubble title="Social" description="Create, share, follow, discover. Get to know other reciting artists and keep up with their latest posts." src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FSocialImageIcon.png?alt=media&token=d9fcf459-bee0-48ac-8552-11ae91ed3101'></MainPointBubble>
+                    <MainPointBubble description="Create, share, follow, discover. Get to know other reciting artists and keep up with their latest posts." src={SocialIcon}></MainPointBubble>
                 </div>
             </div>
         );

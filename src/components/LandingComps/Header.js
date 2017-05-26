@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import RVLogo from '../../../public/res/RVLogo.png';
+import fonts from '../../css/fonts.css';
+
+import Clock from '../Clock';
 
 class Header extends Component {
 
@@ -9,6 +13,13 @@ class Header extends Component {
     *                     *
     ***********************/
 
+    constructor() {
+        super();
+
+        this.state = {
+            backgroundColor: 'rgba(0,0,0,0)'
+        }
+    }
 
 
 
@@ -26,6 +37,8 @@ class Header extends Component {
             height: '70px',
             display:'table',
             zIndex:'1000',
+            backgroundColor: this.state.backgroundColor,
+            WebkitTransitionDuration: '0.3s'
         }
     }
     getLogoStyle() {
@@ -33,7 +46,7 @@ class Header extends Component {
             position:'relative',
             left:'20px',
             top:'-20px',
-            width:'60px',
+            width:'80px',
             height:'90%',
             display:'table-cell'
         }
@@ -51,7 +64,9 @@ class Header extends Component {
             textDecoration:'none',
             border:'none',
             background:'none',
-            color:'white'
+            color:'white',
+            fontFamily:'NEB',
+            fontSize:'17px'
         }
     }
 
@@ -60,12 +75,18 @@ class Header extends Component {
         return (
             <div style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
-                <img alt='logo' style={this.getLogoStyle()} src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FRVLogo3.png?alt=media&token=bad950d5-b76f-44bf-b4a2-d738fee89249'></img>
+                <img alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
 
                 <div style={this.getButtonsSectionStyle()}>
                     <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Login</button>
+                    
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+
                     <button style={this.getButtonsStyle()} onClick={this.goToSignup.bind(this)}>Sign Up</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
+
+                <Clock onupdate={this.update.bind(this)}></Clock>
             </div>
         );
     }
@@ -81,6 +102,18 @@ class Header extends Component {
     }
     goToSignup() {
         this.props.navHeader.goTo('signup');
+    }
+
+    update() {
+        if(document.body.scrollTop >= 50) {
+            this.setState({
+                backgroundColor: 'black'
+            })
+        } else {
+            this.setState({
+                backgroundColor: 'rgba(0,0,0,0)'
+            })
+        }
     }
 
 };

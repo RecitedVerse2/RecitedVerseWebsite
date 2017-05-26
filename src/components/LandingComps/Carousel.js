@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Carousel } from 'react-bootstrap';
 
+import CarouselImage from '../../../public/res/RVBanner.png';
 
 class LandingPageCarousel extends Component {
 
@@ -14,8 +15,7 @@ class LandingPageCarousel extends Component {
         return {
             position:'relative',
             top:'70px',
-            width:'100%',
-            height:'350px'
+            width:'100%'
         }
     }
 
@@ -24,18 +24,7 @@ class LandingPageCarousel extends Component {
         return (
             <Carousel style={this.getCarouselStyles()}>
                 <Carousel.Item>
-                    <img width={900} alt="900x500" src="/assets/carousel.png"/>
-                    <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img width={900} alt="900x500" src="/assets/carousel.png"/>
-                    <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
+                    <img src={CarouselImage}/>
                 </Carousel.Item>
             </Carousel>
         );
