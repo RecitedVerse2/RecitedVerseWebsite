@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 
-
 import backgroundImage from '../../public/res/brickBackground.jpg';
+import CarouselImage from '../../public/res/RVBanner.png';
 
 import Header from '../components/LandingComps/Header';
-import LandingPageCarousel from '../components/LandingComps/Carousel';
 import MainPointsSection from '../components/LandingComps/MainPointsSection';
 import PointDescriptionSection from '../components/LandingComps/PointDescriptionSection';
 import Footer from '../components/LandingComps/Footer';
@@ -54,6 +53,13 @@ class Landing extends Component {
             backgroundColor: 'rgba(0, 0, 0, 0.7)'
         }
     }
+    getBannerStyle() {
+        return {
+            position:'relative',
+            top:'70px',
+            width:'100%'
+        }
+    }
 
 
     render() {
@@ -64,7 +70,7 @@ class Landing extends Component {
 
 
                 <Header navHeader={this.props.navHeader}></Header>
-                <LandingPageCarousel></LandingPageCarousel>
+                <img alt='ci' style={this.getBannerStyle()} src={CarouselImage}/>
 
                 <MainPointsSection></MainPointsSection>
 

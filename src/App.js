@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import NavigationHeader from './components/NavigationHeaderComps/NavigationHeader';
 import Landing from './pages/Landing';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
@@ -18,6 +17,7 @@ import AudioPlayer from './components/AudioPlayer';
 
 // REDUX
 const defaultState = {
+    currentUser:null,
     id:'',
     uploaderID:'',
     image:'',
@@ -84,6 +84,9 @@ const audioplayer = (state = defaultState, action) => {
         case 'ADJUST_VOLUME':
             state.volume = action.volume;
             break;
+        case 'LOGIN':
+            state.currentUser = action.currentUser
+            break;
         default: break;
     }
 
@@ -98,26 +101,21 @@ const store = createStore(audioplayer);
 // This component just handles the routing between pages.
 class App extends Component {
     render() {
-        const NavHeader = new NavigationHeader();
-        const NavHeaderComp = () => {return NavHeader}
         const AudioPlayerObj = <AudioPlayer rStore={store}></AudioPlayer>;
 
-        const LandingPage = () => {return <Landing audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}></Landing>}
-        const HomePage = () => {return <Home audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Home>}
-        const SignUpPage = () => {return <SignUp audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</SignUp>}
-        const LoginPage = () => {return <Login audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Login>}
-        const ProfilePage = () => {return <Profile userID={window.localStorage.getItem('currentUID')} audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Profile>}
-        const OProfilePage = () => {return <OProfile audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</OProfile>}
-        const EditProfilePage = () => {return <EditProfile audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</EditProfile>}
-        const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Poem>}
-        const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} navHeader={NavHeader} rStore={store}>{AudioPlayerObj}</Search>}
+        const LandingPage = () => {return <Landing audioPlayer={AudioPlayerObj} rStore={store}></Landing>}
+        const HomePage = () => {return <Home audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Home>}
+        const SignUpPage = () => {return <SignUp audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</SignUp>}
+        const LoginPage = () => {return <Login audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Login>}
+        const ProfilePage = () => {return <Profile userID={window.localStorage.getItem('currentUID')} audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Profile>}
+        const OProfilePage = () => {return <OProfile audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</OProfile>}
+        const EditProfilePage = () => {return <EditProfile audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</EditProfile>}
+        const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Poem>}
+        const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Search>}
 
         return (
             <BrowserRouter>
                 <div>
-
-
-                    <Route path='*' component={NavHeaderComp}></Route>
                     <Route exact path="/" component={LandingPage}></Route>
                     <Route path="/home" component={HomePage}></Route>
                     <Route path="/signup" component={SignUpPage}></Route>

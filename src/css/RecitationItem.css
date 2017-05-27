@@ -1,16 +1,12 @@
 .recitation_item, .user_item {
-    box-sizing: border-box;
-    padding-right: 20px;
-    width: 16.666%;
+    width: 25%;
     float: left;
-}
-.recitation_item, .user_item {
-    display: list-item;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    color: white;
+    font-size: 15px;
+    padding: 30px;
     text-align: center;
+    display: table-cell;
     list-style-type: none;
-/*        text-align: -webkit-match-parent;*/
 }
 .general_rec_image:hover , .prof_img:hover {
     border: 4px cornflowerblue solid;

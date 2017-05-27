@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import fonts from '../../css/fonts.css';
+import _ from '../../css/fonts.css';
 
 class MainPointsBubble extends Component {
 

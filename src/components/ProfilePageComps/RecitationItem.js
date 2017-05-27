@@ -2,20 +2,52 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
 import _ from '../../css/RecitationItem.css';
-
+import __ from '../../css/fonts.css';
 
 class RecitationItem extends Component {
 
+    /**********************
+    *                     *
+    *        STYLES       *
+    *                     *
+    ***********************/
+
+    getImageStyles() {
+        return {
+            width:'120px',
+            height:'120px',
+            paddingBottom:'10px'
+        }
+    }
+    getTitleStyles() {
+        return {
+            color:'white',
+            fontFamily:'NEBB',
+            fontSize:'16px'
+        }
+    }
+
+
+
+
     render() {
         return (
-            <li className='recitation_item' style={{fontSize:'15px'}}>
-                <img onClick={this.playRecitation.bind(this)} className='general_rec_image' src={this.props.recitation.image} style={{width:'120px',height:'120px'}} alt='recim'/>
-                <button onClick={this.goToPoemPage.bind(this)} className='goToBtn' style={{color:'black'}}>{this.props.recitation.title}</button>
+            <li className='recitation_item'>
+                <img style={this.getImageStyles()} onClick={this.playRecitation.bind(this)} className='general_rec_image' src={this.props.recitation.image} alt='recim'/>
+                <br/>
+                <button style={this.getTitleStyles()} onClick={this.goToPoemPage.bind(this)} className='goToBtn'>{this.props.recitation.title}</button>
             </li>
         );
     }
 
 
+
+
+    /**********************
+    *                     *
+    *       UTILITY       *
+    *                     *
+    ***********************/
 
     goToPoemPage() {
         if (typeof(Storage) !== "undefined") {

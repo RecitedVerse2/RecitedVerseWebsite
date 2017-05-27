@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import fonts from '../../css/fonts.css';
+import _ from '../../css/fonts.css';
 
 import footerBackground from '../../../public/res/footerBackground.png';
 import facebookBtn from '../../../public/res/FBIcon.png';

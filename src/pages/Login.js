@@ -124,6 +124,10 @@ class Login extends Component {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     window.localStorage.setItem('currentUID',user.uid);
+                    this.props.rStore.dispatch({
+                        type:'LOGIN',
+                        currentUser: user
+                    });
                     this.props.navHeader.goTo('profile');
                 } else {
                     return;

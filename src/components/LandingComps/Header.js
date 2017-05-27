@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import RVLogo from '../../../public/res/RVLogo.png';
-import fonts from '../../css/fonts.css';
+import _ from '../../css/fonts.css';
 
 import Clock from '../Clock';
 

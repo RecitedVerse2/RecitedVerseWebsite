@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import fonts from '../../css/fonts.css';
+import _ from '../../css/fonts.css';
 
 import HeadphonesIcon from '../../../public/res/HeadphoneIcon.png';
 import MicrophoneIcon from '../../../public/res/Mic.png';
