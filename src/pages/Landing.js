@@ -18,7 +18,7 @@ class Landing extends Component {
     ***********************/
 
     componentDidMount() {
-        this.props.navHeader.hide();
+        console.log(this.props.nav);
     }
 
 
@@ -69,7 +69,7 @@ class Landing extends Component {
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
 
-                <Header navHeader={this.props.navHeader}></Header>
+                <Header nav={this.props.nav}></Header>
                 <img alt='ci' style={this.getBannerStyle()} src={CarouselImage}/>
 
                 <MainPointsSection></MainPointsSection>

@@ -98,10 +98,10 @@ class Header extends Component {
     ***********************/
 
     goToLogin() {
-        this.props.navHeader.goTo('login');
+        this.props.nav.goTo('login');
     }
     goToSignup() {
-        this.props.navHeader.goTo('signup');
+        this.props.nav.goTo('signup');
     }
 
     update() {

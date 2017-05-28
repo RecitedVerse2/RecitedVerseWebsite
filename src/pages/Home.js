@@ -75,7 +75,7 @@ class Home extends Component {
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
-                <HomeHeader></HomeHeader>
+                <HomeHeader nav={this.props.nav}></HomeHeader>
                 <HomeCarousel rStore={this.props.rStore}></HomeCarousel>
 
 

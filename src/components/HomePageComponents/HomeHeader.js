@@ -98,10 +98,10 @@ class Header extends Component {
     ***********************/
 
     goToAccountSettings() {
-        //this.props.navHeader.goTo('accountsettings');
+        this.props.nav.goTo('accountsettings');
     }
     goToPRofile() {
-        //this.props.navHeader.goTo('profile');
+        this.props.nav.goTo('profile');
     }
 
     update() {
