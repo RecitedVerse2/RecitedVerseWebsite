@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import _ from '../../css/fonts.css';
 
-import HeadphonesIcon from '../../../public/res/HeadphoneIcon.png';
-import MicrophoneIcon from '../../../public/res/Mic.png';
-import SocialIcon from '../../../public/res/SocialIcon.png';
+import HeadphonesIcon from '../../../public/res/HP-Icon.png';
+import MicrophoneIcon from '../../../public/res/Mic-Icon.png';
+import SocialIcon from '../../../public/res/SM-Icon.png';
 
 import MainPointBubble from './MainPointBubble';
 
@@ -46,7 +46,7 @@ class MainPointsSection extends Component {
                     </p>
                     <br/><br/><br/>
 
-                    <h1 style={{fontFamily:'Monthoers', fontSize:'70px'}}>SERVICES</h1>
+                    <h1 style={{fontFamily:'Monthoers', fontSize:'70px'}}>Services</h1>
                 </div>
 
                 <div style={this.getMPSStyles()}>

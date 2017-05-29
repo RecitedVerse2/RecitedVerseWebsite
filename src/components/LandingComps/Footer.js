@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import _ from '../../css/fonts.css';
 
 import footerBackground from '../../../public/res/footerBackground.png';
-import facebookBtn from '../../../public/res/FBIcon.png';
-import instagramBtn from '../../../public/res/IGIcon.png';
-import twitterBtn from '../../../public/res/TwIcon.png';
+import facebookBtn from '../../../public/res/FB-Icon.png';
+import instagramBtn from '../../../public/res/IG-Icon.png';
+import twitterBtn from '../../../public/res/TW-Icon.png';
 
 
 class Footer extends Component {
@@ -41,7 +41,7 @@ class Footer extends Component {
     getTextStyles() {
         return {
             position: 'relative',
-            marginTop: '-18%',
+            marginTop: '-20%',
             zIndex: 2,
             textAlign:'center'
         }
@@ -50,17 +50,23 @@ class Footer extends Component {
         return {
             position: 'relative',
             display: 'table',
-            margin: 'auto'
+            margin: 'auto',
+            textAlign:'center'
         }
     }
     getButtonStyles() {
         return {
-            width: '200px',
+            width: '20%',
             height: '100px',
             color: 'black',
             border: 'none',
             background: 'none',
             display: 'table-cell'
+        }
+    }
+    getIconStyle() {
+        return {
+            width:'60%'
         }
     }
 
@@ -73,7 +79,7 @@ class Footer extends Component {
                     <img style={this.getImageStyle()} alt='upper' src={footerBackground}></img>
 
                     <div style={this.getTextStyles()}>
-                        <h1 style={{fontFamily:'Monthoers',fontSize:'80px'}}>ABOUT RECITED VERSE</h1>
+                        <h1 style={{fontFamily:'Monthoers',fontSize:'80px'}}>about recited verse</h1>
                         <p style={{fontFamily:'NEBB', fontSize:'18px'}}>Recitation is interpretation! At RecitedVerse.com, we welcome your readings of your favorite poems. Our goal is to offer an unlimited number of readings for an unlimited number of poems throughout the ages and the world.</p>
                     </div>
                 </div>
@@ -81,20 +87,20 @@ class Footer extends Component {
 
                 <div style={{position:'relative',top:'-5%'}}>
                     <h1 style={{ fontFamily: 'Monthoers', fontSize: '80px', color: 'white', textAlign: 'center' }}>
-                        CONTACT
+                        Contact
                     </h1>
 
                     <div style={this.getLowerStyles()}>
                         <button style={this.getButtonStyles()}>
-                            <img alt='contact' src={facebookBtn}></img>
+                            <img style={this.getIconStyle()} alt='contact' src={facebookBtn}></img>
                         </button>
                         &nbsp;&nbsp;&nbsp;
                         <button style={this.getButtonStyles()}>
-                            <img alt='contact' src={instagramBtn}></img>
+                            <img style={this.getIconStyle()} alt='contact' src={instagramBtn}></img>
                         </button>
                         &nbsp;&nbsp;&nbsp;
                         <button style={this.getButtonStyles()}>
-                            <img alt='contact' src={twitterBtn}></img>
+                            <img style={this.getIconStyle()} alt='contact' src={twitterBtn}></img>
                         </button>
                     </div>
                 </div>

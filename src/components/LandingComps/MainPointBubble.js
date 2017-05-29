@@ -12,18 +12,20 @@ class MainPointsBubble extends Component {
             verticalAlign: 'top',
             fontFamily:'NEB',
             fontSize: '20px',
-            width: '20%',
-            color:'white',
-            paddingLeft: '50px',
-            paddingRight: '50px'
+            color:'white'
         };
+    }
+    getImageStyles() {
+        return {
+            width:'60%'
+        }
     }
 
 
     render() {
         return (
             <div style={this.getStyles()}>
-                    <img src={this.props.src} alt="img"/>
+                    <img style={this.getImageStyles()} src={this.props.src} alt="img"/>
                     <br /><br />
                     <p style={{textAlign:'center'}}>{this.props.description}</p>
             </div>
