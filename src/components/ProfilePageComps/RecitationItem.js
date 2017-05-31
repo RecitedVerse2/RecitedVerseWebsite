@@ -44,7 +44,7 @@ class RecitationItem extends Component {
     getImageStyles() {
         return {
             width:'80%',
-            height:'150px',
+            height:'160px',
             paddingBottom:'10px'
         }
     }

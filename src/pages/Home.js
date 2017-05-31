@@ -76,7 +76,7 @@ class Home extends Component {
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
-                <HomeHeader nav={this.props.nav}></HomeHeader>
+                <HomeHeader rStore={this.props.rStore} nav={this.props.nav}></HomeHeader>
                 <HomeCarousel rStore={this.props.rStore}></HomeCarousel>
 
 
@@ -101,6 +101,7 @@ class Home extends Component {
 
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                {this.props.children}
             </div>
         );
     }
@@ -114,7 +115,7 @@ class Home extends Component {
     *                     *
     ***********************/
  
-    // Loads the 20 most popular recitations.
+    // Loads the 8 most popular recitations.
     loadMostPopular(fireRef) {
         var recs = [];
         fireRef.child('Recitations').orderByChild('likes').limitToFirst(8).once('value').then((snapshot)=> {
@@ -124,7 +125,7 @@ class Home extends Component {
                 // Make a new recitation component and push it onto the array
                 var rec = <RecitationItem key={recitationObject.val().timestamp}
                                             recitation={recitationObject.val()}
-                                            navHeader={this.props.navHeader}
+                                            navHeader={this.props.nav}
                                             rStore={this.props.rStore}></RecitationItem>
                 recs.push(rec);
 
@@ -137,7 +138,7 @@ class Home extends Component {
     }
 
 
-    // Loads the 20 most recently uploaded recitations.
+    // Loads the 8 most recently uploaded recitations.
     loadMostRecent(fireRef) {
         var recs = [];
         var nowMS = Date.now();
@@ -148,7 +149,7 @@ class Home extends Component {
                 // Make a new recitation component and push it onto the array
                 var rec = <RecitationItem key={recitationObject.val().timestamp}
                                             recitation={recitationObject.val()}
-                                            navHeader={this.props.navHeader}
+                                            navHeader={this.props.nav}
                                             rStore={this.props.rStore}></RecitationItem>
                 recs.push(rec);
 

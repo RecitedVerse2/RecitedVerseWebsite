@@ -35,7 +35,6 @@ class Poem extends Component {
     }
 
     componentDidMount() {
-        this.props.navHeader.unhide();
 
         this.reloadPoemDataFromFirebase(true, () => {
             const store = this.props.rStore.getState();
@@ -224,6 +223,9 @@ class Poem extends Component {
     } // End of method.
 
     likeRecitation() {
+        const store = this.props.rStore.getState();
+        if(store.currentUser === null) { alert('You must be signed in to like a recitation.'); return; }
+
         const fireRef = firebase.database().ref();
         const uid = window.localStorage.getItem('currentUID');
         const currentRec = JSON.parse(window.sessionStorage.getItem('recitation_to_look_at'));
@@ -286,6 +288,9 @@ class Poem extends Component {
     }
 
     favoriteRecitation() {
+        const store = this.props.rStore.getState();
+        if(store.currentUser === null) { alert('You must be signed in to favorite a recitation.'); return; }
+
         const fireRef = firebase.database().ref();
         const uid = window.localStorage.getItem('currentUID');
         const currentRec = JSON.parse(window.sessionStorage.getItem('recitation_to_look_at'));
@@ -351,7 +356,7 @@ class Poem extends Component {
     // Handles going to the uploader's profile page.
     goToUploader() {
         window.localStorage.setItem('currentUID',this.state.uploaderID);
-        this.props.navHeader.goTo('oprofile');
+        this.props.nav.goTo('oprofile');
     }
 
 
