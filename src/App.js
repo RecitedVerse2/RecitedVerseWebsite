@@ -86,7 +86,8 @@ const audioplayer = (state = defaultState, action) => {
             state.volume = action.volume;
             break;
         case 'LOGIN':
-            state.currentUser = action.currentUser
+            state.currentUser = action.currentUser;
+            //console.log(state.currentUser);
             break;
         default: break;
     }

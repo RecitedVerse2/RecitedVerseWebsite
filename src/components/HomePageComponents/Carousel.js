@@ -16,16 +16,18 @@ class LandingPageCarousel extends Component {
     constructor() {
         super();
         this.state = {
-            user:null
+            name:'User'
         }
     }
 
     componentDidMount() {
         const store = this.props.rStore.getState();
 
-        this.setState({
-            user: store.currentUser
-        })
+        if(store.currentUser != null) {
+            this.setState({
+                name:store.currentUser.fullname.substring(0,store.currentUser.fullname.indexOf(' '))
+            })
+        }
     }
 
 
@@ -108,7 +110,7 @@ class LandingPageCarousel extends Component {
 
                     <div style={this.getWelcomeStyles()}>
                         <h1 style={{fontFamily:'NEB', fontSize:'35px', paddingBottom:'10px'}}>Welcome</h1>
-                        <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>{this.state.user !== null ? this.state.user.fullname : "User"}</h1>
+                        <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>{this.state.name}</h1>
                     
                         <div style={this.getSBStyles()}>
                             <h1 style={this.getSearchBarStyle()}>Search:</h1>

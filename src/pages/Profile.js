@@ -31,8 +31,6 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        this.props.navHeader.unhide();
-
         if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
             firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).once('value').then(this.onUserDataChanged);
         }
@@ -62,7 +60,12 @@ class Profile extends Component {
 
         return (
             <div>
+                <button onClick={()=>{this.props.nav.goTo('home')}}>
+                            HOME
+                        </button>
+                        
                 <ContentArea>
+                    
                     <div className="profile_background_area">
                         <img id="profile_background" src={this.state.backgroundSrc} alt="pbi" width="100%" height="100%" />
                     </div>
@@ -75,6 +78,7 @@ class Profile extends Component {
                             </button>
                         </OverlayTrigger>
 
+                        
 
                         <div className="profile_info_area">
                             <div className="profile_picture_area">

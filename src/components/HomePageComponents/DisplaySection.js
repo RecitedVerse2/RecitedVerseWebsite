@@ -56,7 +56,7 @@ class DisplaySection extends Component {
 
                 <div style={this.getDisplaySectionStyles()}>
 
-                    <ul style={{display:'table'}}>  
+                    <ul style={{textAlign:'center',margin:'auto',display:'table'}}>  
                         {this.props.recitations}
                     </ul>
 

@@ -7,6 +7,7 @@ import RecitationItem from '../components/ProfilePageComps/RecitationItem';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import HomeCarousel from '../components/HomePageComponents/Carousel';
 import DisplaySection from '../components/HomePageComponents/DisplaySection';
+import HomeFooter from '../components/HomePageComponents/HomeFooter';
 
 // This is the home page.
 class Home extends Component {
@@ -91,6 +92,11 @@ class Home extends Component {
                                 recitations={this.state.recent}>
                 </DisplaySection>
 
+
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+                
+                <HomeFooter></HomeFooter>
 
 
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

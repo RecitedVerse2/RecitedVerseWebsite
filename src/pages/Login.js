@@ -15,7 +15,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        this.props.navHeader.unhide();
+        
     }
 
 
@@ -124,11 +124,15 @@ class Login extends Component {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     window.localStorage.setItem('currentUID',user.uid);
-                    this.props.rStore.dispatch({
-                        type:'LOGIN',
-                        currentUser: user
-                    });
-                    this.props.navHeader.goTo('profile');
+                    firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
+                        var usr = snap.val();
+                        
+                        this.props.rStore.dispatch({
+                            type:'LOGIN',
+                            currentUser: usr
+                        });
+                        this.props.nav.goTo('home');
+                    })
                 } else {
                     return;
                 }

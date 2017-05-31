@@ -105,9 +105,9 @@ class Header extends Component {
     }
 
     update() {
-        if(document.body.scrollTop >= 50) {
+        if(document.body.scrollTop >= 30) {
             this.setState({
-                backgroundColor: 'black'
+                backgroundColor: 'rgba(0,0,0,0.85)'
             })
         } else {
             this.setState({

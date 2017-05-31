@@ -8,14 +8,43 @@ class RecitationItem extends Component {
 
     /**********************
     *                     *
+    *    INITIALIZATION   *
+    *                     *
+    ***********************/
+
+    constructor() {
+        super();
+        this.state = {
+            description: ''
+        }
+    }
+
+    componentDidMount() {
+        var s = this.props.recitation.description;
+
+        if(s.length <= 100) {
+            this.setState({
+                description:s
+            })
+        } else {
+            this.setState({
+                description:s.substring(0, 20)+'...'
+            })
+        }
+
+    }
+
+
+    /**********************
+    *                     *
     *        STYLES       *
     *                     *
     ***********************/
 
     getImageStyles() {
         return {
-            width:'120px',
-            height:'120px',
+            width:'80%',
+            height:'150px',
             paddingBottom:'10px'
         }
     }
@@ -24,6 +53,13 @@ class RecitationItem extends Component {
             color:'white',
             fontFamily:'NEBB',
             fontSize:'16px'
+        }
+    }
+    getDescriptionStyle() {
+        return {
+            color:'white',
+            fontFamily:'NEB',
+            fontSize:'14px'
         }
     }
 
@@ -36,6 +72,9 @@ class RecitationItem extends Component {
                 <img style={this.getImageStyles()} onClick={this.playRecitation.bind(this)} className='general_rec_image' src={this.props.recitation.image} alt='recim'/>
                 <br/>
                 <button style={this.getTitleStyles()} onClick={this.goToPoemPage.bind(this)} className='goToBtn'>{this.props.recitation.title}</button>
+                <p style={this.getDescriptionStyle()}>
+                    {this.state.description}
+                </p>
             </li>
         );
     }
