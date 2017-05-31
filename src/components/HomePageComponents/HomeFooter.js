@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import fonts from '../../css/fonts.css';
+import _ from '../../css/fonts.css';
 
 import backgroundImage from '../../../public/res/footerBackground.png';
 
@@ -53,7 +53,7 @@ class HomeFooter extends Component {
                 <div style={{position:'relative',marginTop:'-220px',marginLeft:'auto',marginRight:'auto',display:'table'}}>
                     <img alt='ROTD' src='' style={this.getROTDImageStyles()} />
 
-                    <div style={{position:'relative',paddingLeft:'30px',top:'-100px',color:'white',display:'table-cell'}}>
+                    <div style={{position:'relative',paddingLeft:'30px',top:'-130px',color:'white',display:'table-cell'}}>
                         <h1 style={{fontFamily:'Monthoers',fontSize:'40px'}}>Recitation of the day</h1>
                         <p style={{fontFamily:'NEB',fontSize:'20px'}}>Description of ROTD</p>
                     </div>
