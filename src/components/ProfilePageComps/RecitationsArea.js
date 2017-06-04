@@ -3,7 +3,6 @@ import * as firebase from 'firebase';
 
 import RecitationItem from './RecitationItem';
 
-import _ from '../../css/RecitationsArea.css';
 
 class RecitationsArea extends Component {
 
@@ -33,7 +32,7 @@ class RecitationsArea extends Component {
 
     render() {
         return (
-            <div className="recitations_grid">
+            <div style={{position:'relative',width:'100%',marginTop:'100px'}}>
                 <ul id="recitations_list">
                     {this.state.recitations}
                 </ul>

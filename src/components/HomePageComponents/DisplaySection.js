@@ -18,11 +18,13 @@ class DisplaySection extends Component {
     *                     *
     ***********************/
 
-    getStyles() {
+    getGridStyles() {
         return {
             position:'relative',
-            top:'100px',
-            width:'100%'
+            top:this.props.top,
+            width:'100%',
+            left:'0px',
+            bottom:'50px'
         }
     }
     getTitleStyles() {
@@ -36,8 +38,9 @@ class DisplaySection extends Component {
     }
     getDisplaySectionStyles() {
         return {
-            width:'100%',
-            display:'table'
+            position:'relative',
+            top:'20px',
+            width:'100%'
         }
     }
 
@@ -47,20 +50,18 @@ class DisplaySection extends Component {
 
     render() {
         return (
-            <div style={this.getStyles()}>
+            <div style={this.getGridStyles()}>
                 
                 <div style={this.getTitleStyles()}>
                     {this.props.title}
                 </div>
 
 
+                <br/>
                 <div style={this.getDisplaySectionStyles()}>
-
-                    <ul style={{display:'table'}}>  
-                        {this.props.recitations}
-                    </ul>
-
+                    {this.props.recitations}
                 </div>
+                <br/>
             </div>
         );
     }

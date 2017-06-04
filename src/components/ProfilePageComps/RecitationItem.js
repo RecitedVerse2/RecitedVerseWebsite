@@ -43,16 +43,18 @@ class RecitationItem extends Component {
 
     getImageStyles() {
         return {
-            width:'80%',
+            width:'60%',
             height:'160px',
-            paddingBottom:'10px'
+            paddingBottom:'10px',
+            textAlign:'center'
         }
     }
     getTitleStyles() {
         return {
             color:'white',
             fontFamily:'NEBB',
-            fontSize:'16px'
+            fontSize:'16px',
+            textAlign:'center'
         }
     }
     getDescriptionStyle() {
@@ -68,14 +70,14 @@ class RecitationItem extends Component {
 
     render() {
         return (
-            <li className='recitation_item'>
+            <div className='recitation_item'>
                 <img style={this.getImageStyles()} onClick={this.playRecitation.bind(this)} className='general_rec_image' src={this.props.recitation.image} alt='recim'/>
                 <br/>
                 <button style={this.getTitleStyles()} onClick={this.goToPoemPage.bind(this)} className='goToBtn'>{this.props.recitation.title}</button>
                 <p style={this.getDescriptionStyle()}>
                     {this.state.description}
                 </p>
-            </li>
+            </div>
         );
     }
 

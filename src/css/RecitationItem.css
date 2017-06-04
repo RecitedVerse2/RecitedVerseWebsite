@@ -1,12 +1,9 @@
 .recitation_item, .user_item {
+    float:left;
     width: 25%;
-    float: left;
-    color: white;
-    font-size: 15px;
-    padding: 30px;
+    height: 200px;
     text-align: center;
-    display: table-cell;
-    list-style-type: none;
+    margin-bottom: 30px;
 }
 .general_rec_image:hover , .prof_img:hover {
     border: 4px cornflowerblue solid;

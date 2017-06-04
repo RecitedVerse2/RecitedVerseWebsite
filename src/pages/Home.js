@@ -79,22 +79,23 @@ class Home extends Component {
                 <HomeHeader rStore={this.props.rStore} nav={this.props.nav}></HomeHeader>
                 <HomeCarousel rStore={this.props.rStore}></HomeCarousel>
 
-
-                <DisplaySection title='Trending' 
+                <DisplaySection title='Trending'
+                                top='100px'
                                 rStore={this.props.rStore}
                                 recitations={this.state.popular}>
                 </DisplaySection>
 
-                <br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/>
 
-                <DisplaySection title='See what people are uploading right now' 
+                <DisplaySection title='See what people are uploading right now'
+                                top='200px'
                                 rStore={this.props.rStore}
                                 recitations={this.state.recent}>
                 </DisplaySection>
 
 
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
+                <br/><br/><br/><br/><br/><br/>
                 
                 <HomeFooter></HomeFooter>
 
