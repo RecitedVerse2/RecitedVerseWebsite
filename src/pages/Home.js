@@ -11,6 +11,7 @@ import HomeFooter from '../components/HomePageComponents/HomeFooter';
 
 // This is the home page.
 class Home extends Component {
+    
     /**********************
     *                     *
     *    INITIALIZATION   *

@@ -1,82 +1,265 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-import ContentArea from '../components/NavigationHeaderComps/ContentArea';
-import PillButton from '../components/PillButton';
+import backgroundImage from '../../public/res/brickBackground.jpg';
+import background from '../../public/res/background.png';
+import RVLogo from '../../public/res/RV-Final-Icon.png';
 
-import _ from '../css/SignUp.css';
+import _ from '../css/fonts.css';
+import __ from '../css/SignUp.css';
+
+import Clock from '../components/Clock';
 
 
 // This is where users can register for accounts on RecitedVerse.com
 class SignUp extends Component {
 
-    componentDidMount() {
-        this.props.navHeader.unhide();
-    }
+    /**********************
+    *                     *
+    *    INITIALIZATION   *
+    *                     *
+    ***********************/
 
+    constructor() {
+        super();
 
-    // The styling.
-    getSignupBoxStyle() {
-        return {
-            position: 'relative',
-            top: '100px',
-            margin: 'auto',
-            textAlign: 'center',
-            borderRadius: '25px',
-            borderColor: 'cornflowerblue',
-            backgroundColor: 'ghostwhite',
-            color: 'cornflowerblue',
-            border: '1.5px solid cornflowerblue',
-            width: '50%',
-            height: '50%',
-            fontFamily: '-apple-system',
-            fontSize: '13px',
-            fontWeight: '500'
-        };
-    }
-    getBtnStyle() {
-        return {
-            textAlign: 'center',
-            borderRadius: '25px',
-            borderStyle: 'none',
-            padding: '10px',
-            WebkitTransitionDuration: '0.4s'
-        };
-    }
-    getPBS() {
-        return {
-            width: '80px',
-            height: '30px',
-            border: 'none',
-            borderRadius: '25px',
-            textColor: 'black',
-            backgroundColor: 'cornflowerblue',
-            hoverColor: 'royalblue',
-            clickFunction: ()=>{this.handleSignUp()}
+        this.state = {
+            backgroundColor:'rgba(0,0,0,0)'
         }
     }
 
 
+    /**********************
+    *                     *
+    *        STYLES       *
+    *                     *
+    ***********************/
+
+    getStyles() {
+        return {
+            position:'absolute',
+            left:'0px',
+            top:'0px'
+        };
+    }
+    getHeaderStyle() {
+        return {
+            position: 'fixed',
+            width: '100%',
+            height: '70px',
+            display:'table',
+            zIndex:'1000',
+            backgroundColor: this.state.backgroundColor,
+            WebkitTransitionDuration: '0.2s'
+        }
+    }
+    getLogoStyle() {
+        return {
+            position:'relative',
+            left:'20px',
+            top:'-15px',
+            width:'80px',
+            height:'90%',
+            cursor:'pointer',
+            display:'table-cell'
+        }
+    }
+    getOverlay() {
+        return {
+            position:'absolute',
+            width:'100%',
+            height:'100%',
+            zIndex:'0',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        }
+    }
+    getImageStyles() {
+        return {
+            position:'absolute',
+            width:'100%',
+            height:'100%',
+            zIndex:'-1',
+        }
+    }
+    getBannerStyle() {
+        return {
+            position:'relative',
+            top:'100px',
+            width:'100%',
+            height:'150px'
+        }
+    }
+    getBannerTextStyles() {
+        return {
+            position:'relative',
+            top:'-80%',
+            color:'white',
+            textAlign:'center',
+            fontSize:'75px',
+            fontFamily:'Monthoers'
+        }
+    }
+    getSBStyles() {
+        return {
+            position:'relative',
+            width:'50%',
+            height:'50px',
+            margin:'auto',
+            color:'white',
+            backgroundColor:'rgba(255,255,255,0.5)'
+        }
+    }
+    getSBStyles2() {
+        return {
+            position:'relative',
+            width:'65%',
+            height:'50px',
+            margin:'auto',
+            color:'white',
+            backgroundColor:'rgba(255,255,255,0.5)'
+        }
+    }
+    getSearchBarStyle() {
+        return {
+            position:'relative',
+            top:'-5px',
+            left:'10px',
+            float:'left',
+            textAlign:'left',
+            fontFamily:'NEB',
+            fontSize:'25px',
+        }
+    }
+    getSearchBarStyle2() {
+        return {
+            position:'relative',
+            top:'-5px',
+            left:'10px',
+            float:'left',
+            textAlign:'left',
+            fontFamily:'NEB',
+            fontSize:'20px',
+        }
+    }
+    getInputStyles() {
+        return {
+            position:'relative',
+            margin:'auto',
+            float:'left',
+            left:'20px',
+            width:'80%',
+            height:'100%',
+            border:'none',
+            fontSize:'30px',
+            background:'none',
+            textDecoration:'none',
+            WebkitBoxShadow: 'none',
+            boxShadow: 'none',
+            outline: '0',
+        }
+    }
+    getButton() {
+        return {
+            position:'relative',
+            margin:'auto',
+            outline:'none',
+            border:'none',
+            background:'none',
+            boxShadow: 'none',
+            textAlign:'center',
+            fontFamily:'Monthoers',
+            fontSize:'70px',
+            color:'white',
+            textDecoration:'none',
+            WebkitBoxShadow: 'none'
+        }
+    }
+    getStatusLabelStyles() {
+        return {
+            textAlign:'center',
+            fontSize:'30px',
+            fontFamily:'NEB'
+        }
+    }
+    
+
+
+
+    /**********************
+    *                     *
+    *        RENDER       *
+    *                     *
+    ***********************/
 
     render() {
         return (
-            <div>
-                <ContentArea>
-                    <div style={this.getSignupBoxStyle()}>
-                        <h2>Sign Up</h2>
-                        <input ref={(input)=>{this.fullNameField = input}} className="round_input" type="text" placeholder="Enter your full name" id='fullname_field'/>
-                        <br /><br />
-                        <input ref={(input)=>{this.emailField = input}} className="round_input" type="email" placeholder="Enter your email" id='email_field'/>
-                        <br /><br />
-                        <input ref={(input)=>{this.passwordField = input}} className="round_input" type="password" placeholder="Create a password" id='password_field_1'/>
-                        <br /><br />
-                        <input ref={(input)=>{this.passwordConfirmField = input}} className="round_input" type="password" placeholder="Re-enter your password" id='password_field_2'/>
-                        <p ref={(p)=>{this.statusLabel = p}} id="status_label" style={{color: 'red', visibility: 'hidden'}}>The passwords do not match.</p>
+            <div style={this.getStyles()}>
+                {/* The header area */}
+                <div style={this.getHeaderStyle()}>
+                    &nbsp;&nbsp;
+                    <img onClick={this.goToLandingPage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                </div>
 
-                        <PillButton {...this.getPBS()} style={this.getBtnStyle()}> Sign Up </PillButton>
-                        <br /><br />
-                    </div>
-                </ContentArea>
+                {/* The background image */}
+                <div style={this.getOverlay()}></div>
+                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+
+
+                {/* The banner with the sign in text */}
+                <div style={this.getBannerStyle()}>
+                    <img style={{width:'100%',height:'150px'}} src={background} alt="bg2"/>
+                    <h1 style={this.getBannerTextStyles()}>Register</h1>
+                </div>
+
+
+                {/* Fields */}
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <div style={this.getSBStyles()}>
+                    <h1 style={this.getSearchBarStyle()}>Full name:</h1>
+                    <input ref={(input)=>{this.fullNameField = input}} style={this.getInputStyles()} type='text' />
+                </div>
+
+                <br/><br/><br/>
+
+                <div style={this.getSBStyles()}>
+                    <h1 style={this.getSearchBarStyle()}>Email:</h1>
+                    <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles()} type='email' />
+                </div>
+                
+                <br/><br/><br/>
+
+                <div style={this.getSBStyles()}>
+                    <h1 style={this.getSearchBarStyle()}>Password:</h1>
+                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles()} type='password' />
+                </div>
+
+                <br/><br/><br/>
+
+                <div style={this.getSBStyles2()}>
+                    <h1 style={this.getSearchBarStyle2()}>Re-enter password:</h1>
+                    <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles()} type='password' />
+                </div>
+
+                <br/><br/><br/>
+
+                <div style={{position:'relative',width:'100%',margin:'auto',textAlign:'center'}}>
+                    <p style={this.getStatusLabelStyles()} ref={(p)=>{this.statusLabel = p}}></p>
+                </div>
+                
+
+                {/* Sign up button */}
+                <div style={{width:'100%',textAlign:'center',margin:'auto'}}>
+                    <button onMouseEnter={this.handleHover.bind(this)}
+                            onMouseLeave={this.handleUnhover.bind(this)}
+                            onClick={this.handleSignUp.bind(this)}
+                            style={this.getButton()}>
+                            Enter
+                    </button>
+                </div>
+
+
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <Clock onupdate={this.update.bind(this)}></Clock>
                 {this.props.children}
             </div>
         );
@@ -88,6 +271,10 @@ class SignUp extends Component {
     *    BUTTON CLICKS    *
     *                     *
     ***********************/
+
+    goToLandingPage() {
+        this.props.nav.goTo('/');
+    }
 
     // Handles signing the user up.
     handleSignUp() {
@@ -102,30 +289,22 @@ class SignUp extends Component {
         if(this.valuesExist([fullname,email,password,passwordConfirm])) {
 
             // Make sure that the passwords match.
-            if(password === passwordConfirm) {
+            if(password !== '' && passwordConfirm !== '' && password === passwordConfirm) {
 
                 // Login with Firebase.
                 fireAuth.createUserWithEmailAndPassword(email, password).catch( (error) => {
-                    var errorCode = error.code;
+                    
+                    this.statusLabel.style.color = "red";
+                    this.statusLabel.style.visibility = "visible";
+                    this.statusLabel.innerHTML = "Error creating account. Make sure all information is entered properly.";
+                    return;
 
-                    // Handle any errors in signing up.
-                    if(errorCode === 'auth/weak-password') {
-                        this.statusLabel.style.color = "red";
-                        this.statusLabel.style.visibility = "visible";
-                        this.statusLabel.innerHTML = "Password must be at least six characters";
-                        return;
-                    } else if(errorCode === 'auth/email-already-in-use') {
-                        this.statusLabel.style.color = "red";
-                        this.statusLabel.style.visibility = "visible";
-                        this.statusLabel.innerHTML = "That email is already in use.";
-                        return;
-                    } else {
-                        this.statusLabel.style.color = "red";
-                        this.statusLabel.style.visibility = "visible";
-                        this.statusLabel.innerHTML = "Error creating account. Make sure all information is entered properly.";
-                        return;
-                    }
                 }).then( (user) => {
+
+                    // Let the user know the account is being created.
+                    this.statusLabel.style.color = "green";
+                    this.statusLabel.style.visibility = "visible";
+                    this.statusLabel.innerHTML = "Creating account!";
 
                     // Create the user dictionary that gets saved to firebase.
                     var social = {0:'',1:'',2:'',3:''};
@@ -155,11 +334,21 @@ class SignUp extends Component {
                     this.handleLoginAfterSignup(fireAuth, email, password);
 
                 }); // End of creating a user.
+            }
+            else {
+                this.statusLabel.style.color = "red";
+                this.statusLabel.style.visibility = "visible";
+                this.statusLabel.innerHTML = "Passwords do not match.";
             } // End of making sure passwords match.
-        } // End of making sure values exist.
+
+        } else {
+            this.statusLabel.style.color = "red";
+            this.statusLabel.style.visibility = "visible";
+            this.statusLabel.innerHTML = "Please enter all credentials.";    
+        }// End of making sure values exist.
     }
 
-
+    // Logs the user in after they just signed up.
     handleLoginAfterSignup(fireAuth, email, password) {
         // Handle firebase login.
         fireAuth.signInWithEmailAndPassword(email, password).catch(function(error) {
@@ -204,6 +393,30 @@ class SignUp extends Component {
     *                     *
     ***********************/
 
+    handleHover() {
+        this.setState({
+            
+        })
+    }
+
+    handleUnhover() {
+        this.setState({
+            
+        })
+    }
+
+    update() {
+        if(document.body.scrollTop >= 30) {
+            this.setState({
+                backgroundColor: 'rgba(0,0,0,0.85)'
+            })
+        } else {
+            this.setState({
+                backgroundColor: 'rgba(0,0,0,0)'
+            })
+        }
+    }
+
     // Returns whether or not a value for a particular element exists.
     valueExists(element) {
         if(element !== undefined && element !== null && element !== '') {
@@ -219,12 +432,6 @@ class SignUp extends Component {
             if(!this.valueExists(e)) { return false; }
         }
         return true;
-    }
-
-    // Goes to the particular page necessary for the navigation bar.
-    goToPage(page) {
-        this.props.navHeader.goTo('/'+page);
-        //this.props.history.push('/'+page);
     }
 }
 

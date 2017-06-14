@@ -1,119 +1,112 @@
 import React, { Component } from 'react';
-import { Image, Popover, OverlayTrigger } from 'react-bootstrap';
-
 import * as firebase from 'firebase';
 
-import ContentArea from '../components/NavigationHeaderComps/ContentArea';
-import ContentHeader from '../components/NavigationHeaderComps/ContentHeader';
-import TabPane from '../components/ProfilePageComps/TabPane';
-import UploadBox from '../components/ProfilePageComps/UploadBox';
+import backgroundImage from '../../public/res/brickBackground.jpg';
 
-import _ from '../css/Profile.css';
+import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
+import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
+import PlaylistItem from '../components/ProfilePageComps/PlaylistItem';
 
-
-
+import Recitation from '../objects/Recitation';
+import Playlist from '../objects/Playlist';
 
 // Here is where users will view their own profiles.
 class Profile extends Component {
-    constructor() {
-        super();
+    
+    /**********************
+    *                     *
+    *    INITIALIZATION   *
+    *                     *
+    ***********************/
 
-        // Default state.
+    constructor(props) {
+        super(props);
+        
         this.state = {
-            showUploadModal:false,
-            profileSrc:'',
-            backgroundSrc:'',
-            fullName:'',
-            bio:'',
-            social:['','','',''],
-            uid:''
-        };
-    }
-
-    componentDidMount() {
-        if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
-            firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).once('value').then(this.onUserDataChanged);
+            uploadPlaylist:null,
+            likedPlaylist:null,
+            favoritedPlaylist:null,
+            playlistPlaylist:null,
+            htmlElements:[<PlaylistItem key={0} show={true}></PlaylistItem>,
+                        <PlaylistItem key={1} show={true}></PlaylistItem>,
+                        <PlaylistItem key={2} show={true}></PlaylistItem>]
         }
-    }
 
+        this.loadUploadPlaylist(props.rStore, () => {
+            this.loadLikedPlaylist(props.rStore, () => {
+                this.loadFavoritedPlaylist(props.rStore, () => {
+                    this.pushOntoPage();
+                });
+            });
+        });
+    }
 
 
     /**********************
     *                     *
-    *    MODAL CONTROLS   *
+    *        STYLES       *
     *                     *
     ***********************/
-    handleCloseModal() { this.setState({ showUploadModal: false }); }
-    handleOpenModal() { this.setState({ showUploadModal: true }); }
+
+    getStyles() {
+        return {
+            position:'absolute',
+            left:'0px',
+            top:'0px'
+        };
+    }
+    getOverlay() {
+        return {
+            position:'absolute',
+            width:'100%',
+            height:'100%',
+            zIndex:'0',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        }
+    }
+    getImageStyles() {
+        return {
+            position:'absolute',
+            width:'100%',
+            height:'100%',
+            zIndex:'-1',
+        }
+    }
+    getDisplayAreaStyles() {
+        return {
+            position:'relative',
+            top:'100px',
+            width:'100%',
+            margin:'auto',
+            textAlign:'center',
+            paddingLeft:'50px',
+            paddingRight:'50px'
+        }
+    }
 
 
-
+    /**********************
+    *                     *
+    *        RENDER       *
+    *                     *
+    ***********************/
 
     render() {
-        const popover = (
-            <Popover id="popover-positioned-left" title="Profile" style={{textAlign:'center'}}>
-                <button className='edit_buttons' onClick={()=>{this.props.navHeader.goTo('editprofile')}}>Edit Profile</button>
-                <br/>
-                <button className='edit_buttons' onClick={()=>{this.handleLogout()}}>Logout</button>
-            </Popover>
-        );
-
         return (
-            <div>
-                <button onClick={()=>{this.props.nav.goTo('home')}}>
-                            HOME
-                        </button>
-                        
-                <ContentArea>
-                    
-                    <div className="profile_background_area">
-                        <img id="profile_background" src={this.state.backgroundSrc} alt="pbi" width="100%" height="100%" />
-                    </div>
+            <div style={this.getStyles()}>
+
+                <ProfileHeader></ProfileHeader>
+                
+                <div style={this.getOverlay()}></div>
+                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
 
-                    <ContentHeader top="200px" height="350px">
-                        <OverlayTrigger trigger="click" placement="left" overlay={popover}>
-                            <button ref={(button)=>{this.editButton = button}} id='edit_profile_btn' data-toggle="popover" data-placement="left">
-                                ...
-                            </button>
-                        </OverlayTrigger>
-
-                        
-
-                        <div className="profile_info_area">
-                            <div className="profile_picture_area">
-                                <br/>
-                                <Image style={{width:'120px',height:'120px'}} src={this.state.profileSrc} circle/>
-                                <br/><br/>
-
-                                <h4 id="profile_name">{this.state.fullName}</h4>
-                                <p id="profile_bio">{this.state.bio}</p>
-
-                                <br/>
-                                <div>
-                                    <button id='facebookBtn' className='fa fa-facebook' onClick={()=>{window.location = this.state.social[0]}}></button>
-                                    <button id='linkedinBtn' className='fa fa-linkedin' onClick={()=>{window.location = this.state.social[1]}}></button>
-                                    <button id='instagramBtn' className='fa fa-instagram' onClick={()=>{window.location = this.state.social[2]}}></button>
-                                    <button id='twitterBtn' className='fa fa-twitter' onClick={()=>{window.location = this.state.social[3]}}></button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button ref={(button)=>{this.uploadButton = button}} className='uploadRecBtn' onClick={()=>{this.handleOpenModal()}}>Upload a recitation</button>
-                    </ContentHeader>
+                <ProfileBanner rStore={this.props.rStore}></ProfileBanner>
 
 
-                    <UploadBox show={this.state.showUploadModal} onHide={()=>{this.handleCloseModal()}}></UploadBox>
-                    <br/><br/><br/>
-
-
-
-                    <TabPane navHeader={this.props.navHeader} rStore={this.props.rStore}>
-
-                    </TabPane>
-
-                </ContentArea>
-                {this.props.children}
+                <div style={this.getDisplayAreaStyles()}>
+                    {this.state.htmlElements}
+                </div>
             </div>
         );
     }
@@ -121,98 +114,164 @@ class Profile extends Component {
 
     /**********************
     *                     *
-    *    BUTTON CLICKS    *
+    *       BUTTONS       *
     *                     *
     ***********************/
 
-    // Logouts out the current user and returns to the login page.
-    handleLogout = () => {
-        const fireAuth = firebase.auth();
-
-        fireAuth.signOut().then( () => {
-            window.localStorage.removeItem('currentUID');
-            this.props.navHeader.goTo('login');
-        }).catch( (error) => {
-            console.log(error);
-        });
-    };
 
 
     /**********************
     *                     *
-    *   UTILITY METHODS   *
+    *       UTILITY       *
     *                     *
     ***********************/
 
-    onUserDataChanged = (snapshot) => {
-        if(snapshot != null) {
-             //var email = snapshot.val()["email"];
-            var fullname = snapshot.val()["fullname"];
-            var userID = snapshot.val()["userID"];
-            var photoURL = snapshot.val()["photoURL"];
-            var backgroundImg = snapshot.val()["backgroundImage"];
-            var bio = snapshot.val()["bio"];
-            var social = snapshot.val()["social_media_links"];
-            //var likes = snapshot.val()["likes"];
-            //var favorites = snapshot.val()["favorites"];
+    /** Loads all of the recitations that the user has uploaded into a playlist. */
+    loadUploadPlaylist(rStore, callback) {
+        const fireRef = firebase.database().ref();
+        //const storageRef = firebase.storage().ref();
+        const store = rStore.getState();
 
-            var dict = {
-                showUploadModal:false,
-                profileSrc:photoURL,
-                backgroundSrc:backgroundImg,
-                fullName:fullname,
-                bio:bio,
-                social:social,
-                uid:userID
-            };
-            this.setState(dict);
-            this.updateSocialButtons();
+        // The final playlist
+        var playlist = new Playlist("Uploads");
 
-
-            // Check if it is the current user's profile page or a different users'
-            if(window.localStorage.getItem('currentUID') !== firebase.auth().currentUser.uid) {
-                this.editButton.style.visibility = 'hidden';
-                this.uploadButton.style.visibility = 'hidden';
-            } else {
-                this.editButton.style.visibility = 'visible';
-                this.uploadButton.style.visibility = 'visible';
-            }
-        }
-    };
-
-    // Update the social media buttons on the profile page.
-    updateSocialButtons() {
-        if(this.state.social) {
-            if(this.state.social[0] !== '') {
-                document.getElementById('facebookBtn').style.opacity = '1';
-                document.getElementById('facebookBtn').disabled = false;
-            } else {
-                document.getElementById('facebookBtn').style.opacity = '0.25';
-                document.getElementById('facebookBtn').disabled = true;
-            }
-            if(this.state.social[1] !== '') {
-                document.getElementById('linkedinBtn').disabled = false;
-                document.getElementById('linkedinBtn').style.opacity = '1';
-            } else {
-                document.getElementById('linkedinBtn').disabled = true;
-                document.getElementById('linkedinBtn').style.opacity = '0.25';
-            }
-            if(this.state.social[2] !== '') {
-                document.getElementById('instagramBtn').disabled = false;
-                document.getElementById('instagramBtn').style.opacity = '1';
-            } else {
-                document.getElementById('instagramBtn').disabled = true;
-                document.getElementById('instagramBtn').style.opacity = '0.25';
-            }
-            if(this.state.social[3] !== '') {
-                document.getElementById('twitterBtn').disabled = false;
-                document.getElementById('twitterBtn').style.opacity = '1';
-            } else {
-                document.getElementById('twitterBtn').disabled = true;
-                document.getElementById('twitterBtn').style.opacity = '0.25';
-            }
-        }
+        fireRef.child('Recitations').orderByChild('uploaderID').equalTo(store.currentUser.userID).once('value').then((snapshot)=> {
+            /* Go through each recitation that the user has. If the array of recitations does not contain
+            that recitation, then add it. */
+            snapshot.forEach((rO) => {
+                var recObj = new Recitation( rO.val().id,
+                                             rO.val().uploaderID,
+                                             rO.val().uploadername,
+                                             rO.val().image,
+                                             rO.val().title,
+                                             rO.val().author,
+                                             rO.val().recited_by,
+                                             rO.val().published,
+                                             rO.val().genre,
+                                             rO.val().description,
+                                             rO.val().likes,
+                                             rO.val().plays,
+                                             rO.val().favorites,
+                                             rO.val().text,
+                                             rO.val().audio );
+                playlist.add(recObj);
+            });
+            this.setState({
+                uploadPlaylist: playlist,
+                htmlElements:[this.state.htmlElements[1], this.state.htmlElements[2]]
+            });
+            callback();
+        });
     }
+
+    /** Loads all of the recitations that the user has liked into a playlist. */
+    loadLikedPlaylist(rStore, callback) {
+        const fireRef = firebase.database().ref();
+        //const storageRef = firebase.storage().ref();
+        const store = rStore.getState();
+
+        // The final playlist
+        var playlist = new Playlist("Liked");
+        var i = 0;
+
+        // Get all the like ids.
+        fireRef.child('Users').child(store.currentUser.userID).once('value', (snap) => {
+            var likes = snap.val().likes;
+
+            likes.forEach( (e) => {
+                fireRef.child('Recitations').child(e).once('value', (rO) => {
+                    var recObj = new Recitation( rO.val().id,
+                                                rO.val().uploaderID,
+                                                rO.val().uploadername,
+                                                rO.val().image,
+                                                rO.val().title,
+                                                rO.val().author,
+                                                rO.val().recited_by,
+                                                rO.val().published,
+                                                rO.val().genre,
+                                                rO.val().description,
+                                                rO.val().likes,
+                                                rO.val().plays,
+                                                rO.val().favorites,
+                                                rO.val().text,
+                                                rO.val().audio );
+                
+                    playlist.add(recObj);
+                    i++;
+                    
+                    this.setState({
+                        likedPlaylist: playlist,
+                        htmlElements:[this.state.htmlElements[2]]
+                    });
+                    if(i === likes.length) {
+                        callback();
+                    }
+                });
+            });
+        });
+    }
+
+    /** Loads all of the recitations that the user has favorited into a playlist. */
+    loadFavoritedPlaylist(rStore, callback) {
+        const fireRef = firebase.database().ref();
+        //const storageRef = firebase.storage().ref();
+        const store = rStore.getState();
+
+        // The final playlist
+        var playlist = new Playlist("Favorited");
+        var i = 0;
+
+        // Get all the like ids.
+        fireRef.child('Users').child(store.currentUser.userID).once('value', (snap) => {
+            var favorites = snap.val().favorites;
+
+            favorites.forEach( (e) => {
+                fireRef.child('Recitations').child(e).once('value', (rO) => {
+                    var recObj = new Recitation( rO.val().id,
+                                                rO.val().uploaderID,
+                                                rO.val().uploadername,
+                                                rO.val().image,
+                                                rO.val().title,
+                                                rO.val().author,
+                                                rO.val().recited_by,
+                                                rO.val().published,
+                                                rO.val().genre,
+                                                rO.val().description,
+                                                rO.val().likes,
+                                                rO.val().plays,
+                                                rO.val().favorites,
+                                                rO.val().text,
+                                                rO.val().audio );
+                
+                    playlist.add(recObj);
+                    i++;
+
+                    this.setState({
+                        favoritedPlaylist: playlist,
+                        htmlElements:[]
+                    });
+                    if(i === favorites.length) {
+                        callback();
+                    }
+                });
+            });
+        });
+    }
+
+
+    /** Takes the playlists (once they are loaded) and pushes new html elements onto the page. */
+    pushOntoPage() {
+        var items = [<PlaylistItem key={0} show={false} playlist={this.state.uploadPlaylist}></PlaylistItem>,
+                    <PlaylistItem key={1} show={false} playlist={this.state.likedPlaylist}></PlaylistItem>,
+                    <PlaylistItem key={2} show={false} playlist={this.state.favoritedPlaylist}></PlaylistItem>];
+
+        this.setState({
+            htmlElements:items
+        });
+    }
+
+
+
 
 }
 

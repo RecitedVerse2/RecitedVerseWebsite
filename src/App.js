@@ -7,7 +7,6 @@ import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-import OProfile from './pages/OProfile';
 import EditProfile from './pages/EditProfile';
 import Poem from './pages/Poem';
 import Search from './pages/Search';
@@ -115,7 +114,6 @@ class App extends Component {
         const SignUpPage = () => {return <SignUp audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</SignUp>}
         const LoginPage = () => {return <Login audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Login>}
         const ProfilePage = () => {return <Profile userID={window.localStorage.getItem('currentUID')} nav={navObj} audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Profile>}
-        const OProfilePage = () => {return <OProfile audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</OProfile>}
         const EditProfilePage = () => {return <EditProfile audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</EditProfile>}
         const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Poem>}
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
@@ -129,7 +127,6 @@ class App extends Component {
                     <Route path="/signup" component={SignUpPage}></Route>
                     <Route path="/login" component={LoginPage}></Route>
                     <Route path="/profile" component={ProfilePage}></Route>
-                    <Route path="/oprofile" component={OProfilePage}></Route>
                     <Route path="/editprofile" component={EditProfilePage}></Route>
                     <Route path="/poem" component={PoemPage}></Route>
                     <Route path="/search" component={SearchPage}></Route>

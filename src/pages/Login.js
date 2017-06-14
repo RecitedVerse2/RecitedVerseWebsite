@@ -7,6 +7,8 @@ import RVLogo from '../../public/res/RV-Final-Icon.png';
 
 import _ from '../css/fonts.css';
 
+import Clock from '../components/Clock';
+
 
 // This is where users can log into accounts on RecitedVerse.com
 class Login extends Component {
@@ -20,7 +22,7 @@ class Login extends Component {
     constructor() {
         super();
         this.state = {
-            
+            backgroundColor:'rgba(0,0,0,0)'
         };
     }
 
@@ -51,14 +53,14 @@ class Login extends Component {
             display:'table',
             zIndex:'1000',
             backgroundColor: this.state.backgroundColor,
-            WebkitTransitionDuration: '0.3s'
+            WebkitTransitionDuration: '0.2s'
         }
     }
     getLogoStyle() {
         return {
             position:'relative',
             left:'20px',
-            top:'-20px',
+            top:'-15px',
             width:'80px',
             height:'90%',
             cursor:'pointer',
@@ -222,6 +224,7 @@ class Login extends Component {
 
 
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <Clock onupdate={this.update.bind(this)}></Clock>
                 {this.props.children}
             </div>
         );
@@ -236,7 +239,7 @@ class Login extends Component {
     ***********************/
 
     goToLandingPage() {
-
+        this.props.nav.goTo('/');
     }
 
     loginUser() {
@@ -320,6 +323,18 @@ class Login extends Component {
         this.setState({
             
         })
+    }
+
+    update() {
+        if(document.body.scrollTop >= 30) {
+            this.setState({
+                backgroundColor: 'rgba(0,0,0,0.85)'
+            })
+        } else {
+            this.setState({
+                backgroundColor: 'rgba(0,0,0,0)'
+            })
+        }
     }
 
 
