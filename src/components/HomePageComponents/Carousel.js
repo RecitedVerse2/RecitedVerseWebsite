@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import _ from '../../css/fonts.css';
 
-import Background from '../../../public/res/background.png';
+import Background from '../../../public/res/BlankBanner.png';
 
 
 class LandingPageCarousel extends Component {

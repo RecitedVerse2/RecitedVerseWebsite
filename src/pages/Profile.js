@@ -3,6 +3,8 @@ import * as firebase from 'firebase';
 
 import backgroundImage from '../../public/res/brickBackground.jpg';
 
+import _ from '../css/Profile.css';
+
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import PlaylistItem from '../components/ProfilePageComps/PlaylistItem';
@@ -27,9 +29,10 @@ class Profile extends Component {
             likedPlaylist:null,
             favoritedPlaylist:null,
             playlistPlaylist:null,
-            htmlElements:[<PlaylistItem key={0} show={true}></PlaylistItem>,
-                        <PlaylistItem key={1} show={true}></PlaylistItem>,
-                        <PlaylistItem key={2} show={true}></PlaylistItem>]
+            htmlElements:[<PlaylistItem key={0} showLoadingIndicator={true}></PlaylistItem>,
+                        <PlaylistItem key={1} showLoadingIndicator={true}></PlaylistItem>,
+                        <PlaylistItem key={2} showLoadingIndicator={true}></PlaylistItem>,
+                        <PlaylistItem key={3} showLoadingIndicator={true}></PlaylistItem>]
         }
 
         this.loadUploadPlaylist(props.rStore, () => {
@@ -52,7 +55,9 @@ class Profile extends Component {
         return {
             position:'absolute',
             left:'0px',
-            top:'0px'
+            top:'0px',
+            width:'100%',
+            height:'1500px'
         };
     }
     getOverlay() {
@@ -70,17 +75,6 @@ class Profile extends Component {
             width:'100%',
             height:'100%',
             zIndex:'-1',
-        }
-    }
-    getDisplayAreaStyles() {
-        return {
-            position:'relative',
-            top:'100px',
-            width:'100%',
-            margin:'auto',
-            textAlign:'center',
-            paddingLeft:'50px',
-            paddingRight:'50px'
         }
     }
 
@@ -104,7 +98,7 @@ class Profile extends Component {
                 <ProfileBanner rStore={this.props.rStore}></ProfileBanner>
 
 
-                <div style={this.getDisplayAreaStyles()}>
+                <div className='profileDisplayArea'>
                     {this.state.htmlElements}
                 </div>
             </div>
@@ -261,9 +255,10 @@ class Profile extends Component {
 
     /** Takes the playlists (once they are loaded) and pushes new html elements onto the page. */
     pushOntoPage() {
-        var items = [<PlaylistItem key={0} show={false} playlist={this.state.uploadPlaylist}></PlaylistItem>,
-                    <PlaylistItem key={1} show={false} playlist={this.state.likedPlaylist}></PlaylistItem>,
-                    <PlaylistItem key={2} show={false} playlist={this.state.favoritedPlaylist}></PlaylistItem>];
+        var items = [<PlaylistItem key={0} showLoadingIndicator={false} playlist={this.state.uploadPlaylist}></PlaylistItem>,
+                    <PlaylistItem key={1} showLoadingIndicator={false} playlist={this.state.likedPlaylist}></PlaylistItem>,
+                    <PlaylistItem key={2} showLoadingIndicator={false} playlist={this.state.favoritedPlaylist}></PlaylistItem>,
+                    <PlaylistItem key={3} showLoadingIndicator={false} playlist={this.state.favoritedPlaylist}></PlaylistItem>];
 
         this.setState({
             htmlElements:items

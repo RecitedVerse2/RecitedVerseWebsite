@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
 import backgroundImage from '../../public/res/brickBackground.jpg';
-import background from '../../public/res/background.png';
+import background from '../../public/res/BlankBanner.png';
 import RVLogo from '../../public/res/RV-Final-Icon.png';
 
 import _ from '../css/fonts.css';

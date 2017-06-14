@@ -23,7 +23,7 @@ class PlaylistItem extends Component {
     }
 
     componentDidMount() {
-        if(!this.props.show) {
+        if(!this.props.showLoadingIndicator) {
             this.loadingIndicator.style.visibility = "hidden";
         }
 
@@ -44,27 +44,21 @@ class PlaylistItem extends Component {
     *                     *
     ***********************/
 
-    getStyles() {
-        return {
-            position: 'relative',
-            width: '400px',
-            height: '250px',
-            float: 'left',
-            padding: '30px'
-        }
-    }
     getImageStyles() {
         return {
             position:'relative',
             width:'100%',
-            height:'90%'
+            height:'90%',
+            cursor: 'pointer'
         }
     }
     getTextStyles() {
         return {
+            color:'white',
             fontSize:'40px',
             fontFamily:'Monthoers',
-            textAlign:'center'
+            textAlign:'center',
+            cursor: 'pointer'
         }
     }
 
@@ -77,13 +71,13 @@ class PlaylistItem extends Component {
 
     render() {
         return (
-            <div style={this.getStyles()}>
+            <div className='item'>
                 {/* Indicates that the content is being loaded. */}
                 <div ref={(div)=>{this.loadingIndicator = div}} className="loader"></div>
 
                 {/* The actual content. */}
-                <img style={this.getImageStyles()} src={this.state.image} alt="thmb"/>
-                <p style={this.getTextStyles()}>{this.state.name}</p>
+                <img onClick={this.goTo.bind(this)} style={this.getImageStyles()} src={this.state.image} alt="thmb"/>
+                <p onClick={this.goTo.bind(this)} style={this.getTextStyles()}>{this.state.name}</p>
             </div>
         );
     }
@@ -96,10 +90,10 @@ class PlaylistItem extends Component {
     *                     *
     ***********************/
 
-    goTo(page) {
-        // this.props.playlist.forEach( (e) => {
-        //     console.log(e);
-        // });
+    goTo() {
+        this.props.playlist.forEach( (e) => {
+            console.log(e);
+        });
     }
 
 

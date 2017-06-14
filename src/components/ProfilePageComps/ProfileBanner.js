@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Background from '../../../public/res/background.png';
+import Background from '../../../public/res/BlankBanner.png';
 
 class ProfileBanner extends Component {
 

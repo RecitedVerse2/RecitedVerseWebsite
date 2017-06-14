@@ -22,11 +22,19 @@ class Playlist {
     }
 
 
-
     /** Returns the name of the playlist. */
     getName() {
         return this.name;
     }
+
+
+    /** A for each loop on the playlist. */
+    forEach(callback) {
+        for(var i = 0; i < this.recitations.length; i++) {
+            callback( this.recitations[i] );
+        }
+    }
+    
 }
 
 export default Playlist;
