@@ -34,6 +34,7 @@ const defaultState = {
     recitation:null,
     audio:null,
     volume:50,
+    audioPlayerOpen:false,
     loop:false,
     lastPlayed:null
 }
@@ -90,6 +91,16 @@ const audioplayer = (state = defaultState, action) => {
             break;
         case 'LOGOUT':
             state.currentUser = null;
+            break;
+        
+        
+        
+        
+        
+        
+        
+        case 'TOGGLE_AUDIOPLAYER':
+            state.audioPlayerOpen = !state.audioPlayerOpen;
             break;
         default: break;
     }

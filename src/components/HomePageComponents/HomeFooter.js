@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import _ from '../../css/fonts.css';
 
-import backgroundImage from '../../../public/res/footerBackground.png';
+import backgroundImage from '../../../public/res/BlankBanner.png';
 
 class HomeFooter extends Component {
 

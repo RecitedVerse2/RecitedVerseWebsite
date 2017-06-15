@@ -37,7 +37,8 @@ class ProfileBanner extends Component {
         return {
             position:'relative',
             top:'70px',
-            width:'100%'
+            width:'100%',
+            height:'300px'
         }
     }
     getImageStyle() {
@@ -49,7 +50,7 @@ class ProfileBanner extends Component {
     getWelcomeStyles() {
         return {
             position:'absolute',
-            top:'80px',
+            top:'40px',
             width:'100%',
             color:'white',
             margin:'auto',
@@ -109,7 +110,7 @@ class ProfileBanner extends Component {
                 <img alt='bckg' style={this.getImageStyle()} src={Background}/>
 
                     <div style={this.getWelcomeStyles()}>
-                        <h1 style={{fontFamily:'NEB', fontSize:'35px', paddingBottom:'10px'}}>{this.state.name}'s</h1>
+                        <h1 style={{fontFamily:'Monthoers', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}'s</h1>
                         <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>Profile</h1>
                     </div>
             </div>

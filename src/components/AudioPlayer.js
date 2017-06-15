@@ -5,6 +5,8 @@ import CircleButton from './CircleButton';
 import Clock from './Clock';
 
 import _ from '../css/AudioPlayer.css';
+import background from '../../public/res/BlankBanner.png';
+
 
 // This is the audio player.
 class AudioPlayer extends Component {
@@ -18,6 +20,7 @@ class AudioPlayer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            bottom:'-70px',
             seeking:false,
             currentTime:'0:00',
             duration:'0:00'
@@ -43,38 +46,32 @@ class AudioPlayer extends Component {
     *                     *
     ***********************/
 
-    // Attemps to hide the audio player
-    hide() {
-        this.ap.style.opacity = '0';
-    }
-
-    // Unhides the audio player
-    unhide() {
-        this.ap.style.opacity = '1';
-    }
-
-    getAPStyles() {
+    getStyles() {
         return {
-            position: 'fixed',
-            left:'0px',
-            bottom:'0px',
+            position:'fixed',
+            bottom:this.state.bottom,
             width:'100%',
-            height:'65px',
-            zIndex:'500',
-            color: 'white',
-            display: 'table',
-            textAlign: 'center',
-            backgroundColor:'rgb(76, 182, 203)'
-        };
+            height:'90px',
+            color:'white',
+            textAlign:'center',
+            display:'inline-block',
+            WebkitTransitionDuration:'0.3s'
+        }
+    }
+    getBackgroundStyle() {
+        return {
+            width:'100%',
+            height:'100%'
+        }
     }
     getCBS() {
         return {
             width: '45px',
             height: '45px',
-            border:'2px white solid',
             textColor:'white',
-            backgroundColor:'rgba(0,0,0,0)',
             hoverColor:'#ADB8F9',
+            border:'2px white solid',
+            backgroundColor:'rgba(0,0,0,0)',
             WebkitTransitionDuration:'0.4s'
         };
     }
@@ -82,8 +79,14 @@ class AudioPlayer extends Component {
 
 
 
+    /**********************
+    *                     *
+    *        RENDER       *
+    *                     *
+    ***********************/
+
     render() {
-        const popover = (
+         const popover = (
             <Popover id="popover-positioned-top" style={{textAlign:'center'}}>
                 <input  ref={(input)=>{this.volumeSlider = input}}
                         style={{display: 'table-cell'}}
@@ -95,7 +98,9 @@ class AudioPlayer extends Component {
         );
 
         return (
-            <div ref={(AudioPlayer)=>{this.ap = AudioPlayer}} style={this.getAPStyles()}>
+            <div ref={(AudioPlayer)=>{this.ap = AudioPlayer}} style={this.getStyles()}>
+                
+                {/* The buttons for playing the audio. */}
                 <div className="audio_buttons_section">
                     <CircleButton {...this.getCBS()} clickFunction={this.handleStepbackward.bind(this)}>
                         <p className='fa fa-step-backward' style={{paddingTop:'10px'}}></p>
@@ -109,9 +114,9 @@ class AudioPlayer extends Component {
                         <p className='fa fa-step-forward' style={{paddingTop:'10px'}}></p>
                     </CircleButton>
                 </div>
+            
 
-
-
+                {/* The audio slider. */}
                 <div className="title_area">
                     <p id="audio_title">{this.state.title}</p>
                     <div id="sliderArea" style={{position: 'relative', display: 'table', margin: 'auto'}}>
@@ -119,7 +124,7 @@ class AudioPlayer extends Component {
                         <span style={{display: 'table-cell'}} id="curtimetext">{this.state.currentTime}</span>
                             &nbsp;&nbsp;&nbsp;
                             <input  ref={(input)=>{this.seekSlider = input}}
-                                    style={{width: 300, display: 'table-cell'}}
+                                    style={{width: 350, display: 'table-cell'}}
                                     type="range" id="seekSlider"
                                     min={0} max={100} defaultValue={0} step={1}
                                     onMouseDown={(event)=>{ this.setState({seeking:true}); this.seek(event); }}
@@ -130,6 +135,8 @@ class AudioPlayer extends Component {
                     </div>
                 </div>
 
+
+                {/* The buttons for volume and looping. */}
                 <div className="right_buttons">
                     <OverlayTrigger trigger="click" placement="top" overlay={popover}>
                         <button id='volumeBtn' ref={(button)=>{this.volumeButton = button}} data-toggle="popover" data-placement="top">
@@ -140,9 +147,17 @@ class AudioPlayer extends Component {
                     &nbsp;&nbsp;&nbsp;
 
                     <button style={{color:'white'}} className="fa fa-repeat" onClick={this.handleLoop.bind(this)} ref={(button)=>{this.loopBtn = button}}/>
+                
+                    &nbsp;&nbsp;&nbsp;
                 </div>
+                <button style={{color:'white'}} className="fa fa-caret-up" onClick={this.toggleAudioPlayer.bind(this)} ref={(button)=>{this.toggleBtn = button}}/>
+                
 
 
+                {/* The background for the audio player. */}
+                <img src={background} alt="ap" style={this.getBackgroundStyle()}/>
+
+                {/* The updating clock. */}
                 <Clock onupdate={this.updateAP.bind(this)}></Clock>
             </div>
         );
@@ -154,6 +169,12 @@ class AudioPlayer extends Component {
     *    BUTTON CLICKS    *
     *                     *
     ***********************/
+
+    toggleAudioPlayer() {
+        this.props.rStore.dispatch({
+            type:'TOGGLE_AUDIOPLAYER'
+        });
+    }
 
     handlePlay() {
         const store = this.props.rStore.getState();
@@ -169,7 +190,6 @@ class AudioPlayer extends Component {
         }
     }
 
-
     handleLoop() {
         const store = this.props.rStore.getState();
 
@@ -178,7 +198,6 @@ class AudioPlayer extends Component {
             this.loopBtn.style.color = this.loopBtn.style.color === 'white' ? 'red' : 'white';
         }
     }
-
 
     handleStepforward() {
         const store = this.props.rStore.getState();
@@ -217,6 +236,19 @@ class AudioPlayer extends Component {
             } else {
                 this.playIcon.className = 'fa fa-pause';
             }
+        }
+
+        // Change the toggling of the audio player.
+        if(store.audioPlayerOpen == true) {
+            this.setState({
+                bottom:'0px'
+            });
+            this.toggleBtn.className = "fa fa-caret-down";
+        } else {
+            this.setState({
+                bottom:'-70px'
+            });
+            this.toggleBtn.className = "fa fa-caret-up";
         }
     }
 

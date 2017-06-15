@@ -101,6 +101,8 @@ class Profile extends Component {
                 <div className='profileDisplayArea'>
                     {this.state.htmlElements}
                 </div>
+
+                {this.props.children}
             </div>
         );
     }

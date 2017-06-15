@@ -12,6 +12,7 @@ class CircleButton extends Component {
         width: PropTypes.string,
         height: PropTypes.string,
         border: PropTypes.string,
+        zIndex: PropTypes.string,
         textColor: PropTypes.string,
         backgroundColor: PropTypes.string,
         hoverColor: PropTypes.string,
@@ -22,6 +23,7 @@ class CircleButton extends Component {
         width: '10px',
         height: '10px',
         border: 'none',
+        zIndex: '0',
         textColor: 'black',
         backgroundColor: 'lightgray',
         hoverColor: 'gray',
@@ -36,6 +38,7 @@ class CircleButton extends Component {
             width: this.props.width,
             height: this.props.height,
             border: this.props.border,
+            zIndex: this.props.zIndex,
             borderRadius: '100%',
         	outline: 'none',
             textDecoration: 'none',
@@ -50,6 +53,7 @@ class CircleButton extends Component {
             width: this.props.width,
             height: this.props.height,
             border: this.props.border,
+            zIndex: this.props.zIndex,
             borderRadius: '100%',
         	outline: 'none',
             textDecoration: 'none',
@@ -62,7 +66,7 @@ class CircleButton extends Component {
 
 
     render() {
-        const { width, height, border, textColor, backgroundColor, hoverColor, WebkitTransitionDuration, clickFunction, ...props } = this.props;
+        const { width, height, border, zIndex, textColor, backgroundColor, hoverColor, WebkitTransitionDuration, clickFunction, ...props } = this.props;
 
         if(this.state.hover) {
             return (
