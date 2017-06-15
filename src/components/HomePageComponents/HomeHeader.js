@@ -76,7 +76,7 @@ class Header extends Component {
         return (
             <div style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
-                <img onClick={this.goToLandingPage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
 
                 <div style={this.getButtonsSectionStyle()}>
                     <button style={this.getButtonsStyle()} onClick={this.goToAccountSettings.bind(this)}>Account Settings</button>
@@ -100,6 +100,7 @@ class Header extends Component {
 
     goToAccountSettings() {
         const store = this.props.rStore.getState();
+        document.body.scrollTop = 0;
 
         if(store.currentUser !== null) {
             this.props.nav.goTo('accountsettings');
@@ -110,6 +111,7 @@ class Header extends Component {
     
     goToPRofile() {
         const store = this.props.rStore.getState();
+        document.body.scrollTop = 0;
 
         if(store.currentUser !== null) {
             this.props.nav.goTo('profile');
@@ -118,7 +120,7 @@ class Header extends Component {
         }
     }
 
-    goToLandingPage() {
+    goToHomePage() {
         document.body.scrollTop = 0;
         this.props.nav.goTo('/');
     }

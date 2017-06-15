@@ -75,7 +75,7 @@ class ProfileHeader extends Component {
         return (
             <div style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
-                <img alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                <img alt='logo' onClick={this.goToHomePage.bind(this)} style={this.getLogoStyle()} src={RVLogo}></img>
 
                 <div style={this.getButtonsSectionStyle()}>
                     <button style={this.getButtonsStyle()} onClick={this.goToSettings.bind(this)}>Account Settings</button>
@@ -97,11 +97,15 @@ class ProfileHeader extends Component {
     *                     *
     ***********************/
 
+    goToHomePage() {
+        this.props.nav.goTo('home');
+    }
     goToSettings() {
+        document.body.scrollTop = 0;
         this.props.nav.goTo('accountsettings');
     }
     handleLogout() {
-
+        document.body.scrollTop = 0;
         this.props.nav.goTo('login');
     }
 

@@ -48,6 +48,7 @@ class Header extends Component {
             top:'-20px',
             width:'80px',
             height:'90%',
+            cursor:'pointer',
             display:'table-cell'
         }
     }
@@ -75,7 +76,7 @@ class Header extends Component {
         return (
             <div style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
-                <img alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                <img onClick={()=>{this.props.nav.goTo('home')}} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
 
                 <div style={this.getButtonsSectionStyle()}>
                     <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Login</button>
@@ -98,9 +99,11 @@ class Header extends Component {
     ***********************/
 
     goToLogin() {
+        document.body.scrollTop = 0;
         this.props.nav.goTo('login');
     }
     goToSignup() {
+        document.body.scrollTop = 0;
         this.props.nav.goTo('signup');
     }
 

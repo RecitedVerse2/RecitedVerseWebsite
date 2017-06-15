@@ -197,7 +197,7 @@ class SignUp extends Component {
                 {/* The header area */}
                 <div style={this.getHeaderStyle()}>
                     &nbsp;&nbsp;
-                    <img onClick={this.goToLandingPage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                    <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
                 </div>
 
                 {/* The background image */}
@@ -272,8 +272,8 @@ class SignUp extends Component {
     *                     *
     ***********************/
 
-    goToLandingPage() {
-        this.props.nav.goTo('/');
+    goToHomePage() {
+        this.props.nav.goTo('home');
     }
 
     // Handles signing the user up.

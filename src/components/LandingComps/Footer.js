@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import _ from '../../css/fonts.css';
 
-import footerBackground from '../../../public/res/footerBackground.png';
+import footerBackground from '../../../public/res/BlankBanner.png';
 import facebookBtn from '../../../public/res/FB-Icon.png';
 import instagramBtn from '../../../public/res/IG-Icon.png';
 import twitterBtn from '../../../public/res/TW-Icon.png';

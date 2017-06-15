@@ -84,6 +84,8 @@ class Landing extends Component {
 
 
                 <Footer></Footer>
+                <br/><br/><br/><br/><br/><br/><br/>
+                {this.props.children}
             </div>
         );
     }

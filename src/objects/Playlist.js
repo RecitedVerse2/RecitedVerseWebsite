@@ -35,6 +35,40 @@ class Playlist {
         }
     }
     
+
+    /** Returns the index of the recitation in this playlist. */
+    indexOf(recitation) {
+        if(recitation instanceof Recitation) {
+            return this.recitations.indexOf(recitation);
+        }
+        return null;
+    }
+
+
+    /** Returns the length of the recitations. */
+    length() {
+        return this.recitations.length;
+    }
+
+
+    /** Returns the next recitation after the one passed into the function */
+    next(recitation) {
+        var index = this.indexOf(recitation);
+        if(index + 1 < this.recitations.length) {
+            return this.recitations[index + 1];
+        }
+        return null;
+    }
+
+
+    /** Returns the previous recitation after the one passed into the function */
+    last(recitation) {
+        var index = this.indexOf(recitation);
+        if(index - 1 >= 0) {
+            return this.recitations[index - 1];
+        }
+        return null;
+    }
 }
 
 export default Playlist;

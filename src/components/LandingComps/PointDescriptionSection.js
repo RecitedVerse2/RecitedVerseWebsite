@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import background from '../../../public/res/BlankBanner.png';
 
 class PointDescriptionSection extends Component {
 
@@ -20,8 +21,11 @@ class PointDescriptionSection extends Component {
         return {
             position:'relative',
             top:'10%',
-            width:'50%',
-            height:'80%',
+            width:'35%',
+            height:'90%',
+            borderRadius:'100%',
+            marginLeft: this.props.orientation == 'left' ? '50px' : '0px',
+            marginRight: this.props.orientation == 'right' ? '50px' : '0px',
             float:this.props.orientation || 'left'
         }
     }
@@ -31,7 +35,7 @@ class PointDescriptionSection extends Component {
     render() {
         return (
             <div style={this.getStyle()}>
-                <img style={this.getImageStyle()} alt='pds' src='https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FTestImage.png?alt=media&token=3e748f83-7288-4fce-b892-9318e07a2329'></img>
+                <img style={this.getImageStyle()} alt='pds' src={background}></img>
             </div>
         );
     }

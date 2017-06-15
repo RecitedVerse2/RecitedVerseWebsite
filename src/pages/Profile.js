@@ -149,7 +149,8 @@ class Profile extends Component {
                                              rO.val().plays,
                                              rO.val().favorites,
                                              rO.val().text,
-                                             rO.val().audio );
+                                             rO.val().audio,
+                                             rO.val().timestamp );
                 playlist.add(recObj);
             });
             this.setState({
@@ -190,7 +191,8 @@ class Profile extends Component {
                                                 rO.val().plays,
                                                 rO.val().favorites,
                                                 rO.val().text,
-                                                rO.val().audio );
+                                                rO.val().audio,
+                                                rO.val().timestamp  );
                 
                     playlist.add(recObj);
                     i++;
@@ -237,7 +239,8 @@ class Profile extends Component {
                                                 rO.val().plays,
                                                 rO.val().favorites,
                                                 rO.val().text,
-                                                rO.val().audio );
+                                                rO.val().audio,
+                                                rO.val().timestamp  );
                 
                     playlist.add(recObj);
                     i++;

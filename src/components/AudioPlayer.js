@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
+import * as firebase from 'firebase';
 
 import CircleButton from './CircleButton';
 import Clock from './Clock';
@@ -23,7 +24,8 @@ class AudioPlayer extends Component {
             bottom:'-70px',
             seeking:false,
             currentTime:'0:00',
-            duration:'0:00'
+            duration:'0:00',
+            doubleClickBack:false
         }
     }
 
@@ -53,6 +55,7 @@ class AudioPlayer extends Component {
             width:'100%',
             height:'90px',
             color:'white',
+            zIndex:'1000',
             textAlign:'center',
             display:'inline-block',
             WebkitTransitionDuration:'0.3s'
@@ -174,6 +177,11 @@ class AudioPlayer extends Component {
         this.props.rStore.dispatch({
             type:'TOGGLE_AUDIOPLAYER'
         });
+
+        // Reset the double clicking for going backward.
+        this.setState({
+            doubleClickBack:false
+        })
     }
 
     handlePlay() {
@@ -188,6 +196,11 @@ class AudioPlayer extends Component {
                 this.playIcon.className = 'fa fa-play';
             }
         }
+
+        // Reset the double clicking for going backward.
+        this.setState({
+            doubleClickBack:false
+        })
     }
 
     handleLoop() {
@@ -197,6 +210,11 @@ class AudioPlayer extends Component {
             store.audio.loop = store.audio.loop === true ? false : true;
             this.loopBtn.style.color = this.loopBtn.style.color === 'white' ? 'red' : 'white';
         }
+
+        // Reset the double clicking for going backward.
+        this.setState({
+            doubleClickBack:false
+        })
     }
 
     handleStepforward() {
@@ -205,13 +223,30 @@ class AudioPlayer extends Component {
         if(store.audio !== null) {
             store.audio.currentTime = store.audio.duration;
         }
+
+        // Reset the double clicking for going backward.
+        this.setState({
+            doubleClickBack:false
+        })
     }
 
-    handleStepbackward() {
+    handleStepbackward(e) {
         const store = this.props.rStore.getState();
 
         if(store.audio !== null) {
             store.audio.currentTime = 0;
+
+            // Go to the last recitation in the playlist if there is one.
+            if(this.state.doubleClickBack === true) {
+                this.startNextRecitation('last');
+                this.setState({
+                    doubleClickBack: false
+                })
+            } else {
+                this.setState({
+                    doubleClickBack: true
+                })
+            }
         }
     }
 
@@ -239,7 +274,7 @@ class AudioPlayer extends Component {
         }
 
         // Change the toggling of the audio player.
-        if(store.audioPlayerOpen == true) {
+        if(store.audioPlayerOpen === true) {
             this.setState({
                 bottom:'0px'
             });
@@ -249,6 +284,24 @@ class AudioPlayer extends Component {
                 bottom:'-70px'
             });
             this.toggleBtn.className = "fa fa-caret-up";
+        }
+
+        // If the recitation is part of a playlist and one recitation ends, start the next one.
+        if(store.audio !== null) {
+            if(this.state.currentTime !== null && this.state.duration !== null) {
+                if(this.state.currentTime === this.state.duration) {
+                    var rec = store.recitation;
+                    
+                    // Check if it part of a playlist. Otherwise it should just stop playing.
+                    if(rec.playlist !== null && rec.playlist !== undefined) {
+
+                        // If it's not the last item in the playlist, then play the next one.
+                        if(rec.playlist.indexOf(rec) < rec.playlist.length()) {
+                            this.startNextRecitation('next');
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -262,6 +315,11 @@ class AudioPlayer extends Component {
                 volume: this.volumeSlider.value
             });
         }
+
+        // Reset the double clicking for going backward.
+        this.setState({
+            doubleClickBack:false
+        })
     }
 
     seek(e) {
@@ -293,6 +351,67 @@ class AudioPlayer extends Component {
                 duration:durmins+":"+dursecs
             });
         }
+    }
+
+
+    /** Used when playing recitations in a playlist. */
+    startNextRecitation(next) {
+        const store = this.props.rStore.getState();
+        const storageRef = firebase.storage().ref();
+        var rec;
+
+        if(next === 'next') {
+            rec = store.recitation.playlist.next(store.recitation);
+        } else if(next === 'last') {
+            rec = store.recitation.playlist.last(store.recitation);
+        }
+        
+        // First, check if that next recitation is null. If so, just return.
+        if(rec === null) { return; }
+
+        // First, clear whatever is there.
+        if(store.audio !== null) { store.audio.pause(); }
+        this.props.rStore.dispatch({
+            type:'CLEAR'
+        });
+
+        // Get the new audio.
+        storageRef.child(rec.uploaderID).child(rec.id).getDownloadURL().then( (url) => {
+            var audio = new Audio(url);
+            audio.loop = false;
+
+            // First set the audio if it is null. Then play it.
+            if(store.audio === null) {
+                this.props.rStore.dispatch({
+                    type:'SET',
+                    id:rec.id,
+                    uploaderID:rec.uploaderID,
+                    uploaderName:rec.uploaderName,
+                    image:rec.image,
+                    title:rec.title,
+                    author:rec.author,
+                    recitedBy:rec.recitedBy,
+                    published:rec.published,
+                    genre:rec.genre,
+                    description:rec.description,
+                    likes:rec.likes,
+                    plays:rec.plays,
+                    favorites:rec.favorites,
+                    text:rec.text,
+                    recitation:rec,
+                    audio:audio,
+                    volume:store.volume,
+                    loop:store.loop,
+                });
+                store.audio.play();
+            }
+        });
+
+
+        // Reset the double clicking for going backward.
+        this.setState({
+            doubleClickBack:false
+        })
     }
 }
 

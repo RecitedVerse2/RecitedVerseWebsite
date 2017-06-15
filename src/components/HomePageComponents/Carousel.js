@@ -114,12 +114,23 @@ class LandingPageCarousel extends Component {
                     
                         <div style={this.getSBStyles()}>
                             <h1 style={this.getSearchBarStyle()}>Search:</h1>
-                            <input style={this.getInputStyles()} type='text' />
+                            <input onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}} style={this.getInputStyles()} type='text' />
                         </div>
                     </div>
             </div>
         );
     }
+
+
+
+    handleSearch(e) {
+        if(e.key == 'Enter') {
+            this.props.nav.goTo('search');
+            window.sessionStorage.setItem('LastSearch', this.searchBar.value);
+        }
+    }
+
+
 
 
 };

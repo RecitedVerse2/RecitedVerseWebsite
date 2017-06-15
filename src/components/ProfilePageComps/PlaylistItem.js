@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import backgroundImage from '../../../public/res/brickBackground.jpg';
 
 import _ from '../../css/PlaylistItem.css';
 import __ from '../../css/fonts.css';

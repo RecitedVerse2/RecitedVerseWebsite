@@ -120,7 +120,7 @@ class App extends Component {
         const navComp = () => { return navObj; }
         const AudioPlayerObj = <AudioPlayer rStore={store}></AudioPlayer>;
 
-        const LandingPage = () => {return <Landing audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}></Landing>}
+        const LandingPage = () => {return <Landing audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Landing>}
         const HomePage = () => {return <Home audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Home>}
         const SignUpPage = () => {return <SignUp audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</SignUp>}
         const LoginPage = () => {return <Login audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Login>}
