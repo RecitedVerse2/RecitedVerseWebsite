@@ -1,52 +1,114 @@
-.uploadBox {
-    background-image: none;
-    outline: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
+.uploadInputs {
+    position: relative;
+    top: 100px;
+    width: 90%;
 }
-.loader {
-    visibility: hidden;
-    position:relative;
-    float:right;
-    margin-left: 5px;
-    border: 5px solid #f3f3f3; /* Light grey */
-    border-top: 5px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    animation: spin 2s linear infinite;
+.inputArea {
+    position: relative;
+    width: 70%;
+    height: 50px;
+    margin: auto;
+    color: white;
+    background-color: rgba(255,255,255,0.5);
+}
+.inputTitle {
+    position: relative;
+    top: -5px;
+    left: 10px;
+    float: left;
+    text-align: left;
+    font-family: 'NEB';
+    font-size: 25px;
+}
+.inputField {
+    position: relative;
+    margin: auto;
+    float: left;
+    left: 20px;
+    width: 80%;
+    height: 100%;
+    border: none;
+    font-size: 30px;
+    font-family: 'NEB';
+    background: none;
+    text-decoration: none;
+    box-shadow: none;
+    outline: 0;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.largeArea {
+    position: relative;
+    width: 70%;
+    height: 50px;
+    margin: auto;
+    color: white;
+    background: none;
+    padding-bottom: 250px;
 }
-.inp {
-    width: 300px;
-    margin: 10px;
+.largeTitle {
+    float: left;
+    font-family: 'NEB';
+    font-size: 30px;
+    text-align: left;
 }
-#uploadAudioCheck {
-    visibility: hidden;
-    color: limegreen;
-}
-.pill_btn {
-    width: 100px;
-    height: 25px;
+.largeInput {
+    position: relative;
+    margin: auto;
     border: none;
-    text-align: center;
-    border-radius: 25px;
-    background-color: lightblue;
-    -webkit-transition-duration: 0.2s;
+    font-size: 30px;
+    font-family: 'NEB';
+    background: none;
+    text-decoration: none;
+    box-shadow: none;
+    outline: 0;
+    resize: none;
+    color: white;
+    background-color: rgba(255,255,255,0.5);
 }
-.pill_btn:hover {
-    width: 100px;
-    height: 25px;
+
+.imageArea, .uploadArea {
+    position: relative;
+    width: 70%;
+    height: 50px;
+    margin: auto;
+    color: white;
+    background: none;
+    padding-bottom: 400px;
+}
+.imageTitle, .uploadTitle {
+    font-family: 'NEB';
+    font-size: 30px;
+    text-align: left;
+}
+.recordTitle {
+    margin: auto;
+    font-size: 30px;
+    font-family: 'Monthoers';
+    text-align: center;
+}
+
+.recordingButtons {
     border: none;
-    text-align: center;
-    border-radius: 25px;
-    background-color: cornflowerblue;
-    -webkit-transition-duration: 0.2s;
+    outline: none;
+    background: none;
+    font-size: 40px;
+    padding-top: 30px;
+    padding-right: 20px;
+    text-decoration: none;
 }
+.uploadButton {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 40px;
+    padding-top: 20px;
+    font-family: 'Monthoers';
+    text-decoration: none;
+}
+
+
+
+
 .inputfile {
 	width: 0.1px;
 	height: 0.1px;
@@ -67,7 +129,7 @@
 	background-color: #ADD8E6;
     -webkit-transition-duration: 0.4s;
 }
-.inputfile:focus + #fromFileBtn,.inputfile + #fromFileBtn:hover {
+.inputfile:focus + #fromFileBtn, .inputfile + #fromFileBtn:hover {
     background-color: #ADB8F9;
     -webkit-transition-duration: 0.4s;
 }
@@ -84,7 +146,7 @@
 	background-color: #ADD8E6;
     -webkit-transition-duration: 0.4s;
 }
-.inputfile:focus + #addPhotoBtn,.inputfile + #addPhotoBtn:hover {
+.inputfile:focus + #addPhotoBtn, .inputfile + #addPhotoBtn:hover {
     background-color: #ADB8F9;
     -webkit-transition-duration: 0.4s;
 }

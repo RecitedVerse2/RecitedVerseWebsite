@@ -29,10 +29,11 @@ class Playlist {
 
 
     /** A for each loop on the playlist. */
-    forEach(callback) {
+    forEach(callback, completion) {
         for(var i = 0; i < this.recitations.length; i++) {
             callback( this.recitations[i] );
         }
+        if(completion) { completion(); }
     }
     
 

@@ -48,7 +48,7 @@
 
 .fa-caret-up, .fa-caret-down {
     position: absolute;
-    top: 0px;
+    top: -2px;
     right: 10px;
     width: 5%;
     height: 15%;

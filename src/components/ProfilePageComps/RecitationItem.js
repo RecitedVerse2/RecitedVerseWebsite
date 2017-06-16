@@ -23,7 +23,7 @@ class RecitationItem extends Component {
            position:'relative',
            width:'200px',
            height:'200px',
-           margin: '20px',
+           margin: this.props.margin || '20px',
            display:'inline-block',
        }
    }
@@ -84,7 +84,8 @@ class RecitationItem extends Component {
     ***********************/
 
     goToPoemPage() {
-        
+        window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(this.props.recitation));
+        this.props.nav.goTo('poem');
     }
 
     playRecitation() {

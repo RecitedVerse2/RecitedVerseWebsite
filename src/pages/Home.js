@@ -80,10 +80,10 @@ class Home extends Component {
                 </DisplaySection>
 
 
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/>
-                
-                <HomeFooter></HomeFooter>
+                <br/><br/><br/><br/><br/><br/><br/><br/>
+                <HomeFooter rStore={this.props.rStore} 
+                            nav={this.props.nav} 
+                            audioPlayer={this.props.children}></HomeFooter>
 
 
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

@@ -6,3 +6,23 @@
     margin: auto;
     text-align: center;
 }
+
+.buttonsArea {
+    position: relative;
+    top: 100px;
+    margin: auto;
+    text-align: center;
+}
+
+.changeRecitationsButton {
+    color:white;
+    border:none;
+    outline:none;
+    background:none;
+    font-size: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align:center;
+    text-decoration:none;
+    font-family: 'Monthoers';
+}

@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Poem from './pages/Poem';
+import Upload from './pages/Upload';
 import Search from './pages/Search';
 
 import AudioPlayer from './components/AudioPlayer';
@@ -92,15 +93,11 @@ const audioplayer = (state = defaultState, action) => {
         case 'LOGOUT':
             state.currentUser = null;
             break;
-        
-        
-        
-        
-        
-        
-        
         case 'TOGGLE_AUDIOPLAYER':
             state.audioPlayerOpen = !state.audioPlayerOpen;
+            break;
+        case 'LOOP_AUDIO':
+            state.loop = !state.loop;
             break;
         default: break;
     }
@@ -127,6 +124,7 @@ class App extends Component {
         const ProfilePage = () => {return <Profile userID={window.localStorage.getItem('currentUID')} nav={navObj} audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Profile>}
         const EditProfilePage = () => {return <EditProfile audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</EditProfile>}
         const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Poem>}
+        const UploadPage = () => {return <Upload audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Upload>}
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
 
         return (
@@ -139,6 +137,7 @@ class App extends Component {
                     <Route path="/login" component={LoginPage}></Route>
                     <Route path="/profile" component={ProfilePage}></Route>
                     <Route path="/editprofile" component={EditProfilePage}></Route>
+                    <Route path="/upload" component={UploadPage}></Route>
                     <Route path="/poem" component={PoemPage}></Route>
                     <Route path="/search" component={SearchPage}></Route>
                 </div>

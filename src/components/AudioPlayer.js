@@ -153,7 +153,7 @@ class AudioPlayer extends Component {
                 
                     &nbsp;&nbsp;&nbsp;
                 </div>
-                <button style={{color:'white'}} className="fa fa-caret-up" onClick={this.toggleAudioPlayer.bind(this)} ref={(button)=>{this.toggleBtn = button}}/>
+                <button style={{color:'white',fontSize:'20px'}} className="fa fa-caret-up" onClick={this.toggleAudioPlayer.bind(this)} ref={(button)=>{this.toggleBtn = button}}/>
                 
 
 
@@ -209,6 +209,9 @@ class AudioPlayer extends Component {
         if(store.audio !== null) {
             store.audio.loop = store.audio.loop === true ? false : true;
             this.loopBtn.style.color = this.loopBtn.style.color === 'white' ? 'red' : 'white';
+            this.props.rStore.dispatch({
+                type: 'LOOP_AUDIO'
+            })
         }
 
         // Reset the double clicking for going backward.
@@ -288,16 +291,18 @@ class AudioPlayer extends Component {
 
         // If the recitation is part of a playlist and one recitation ends, start the next one.
         if(store.audio !== null) {
-            if(this.state.currentTime !== null && this.state.duration !== null) {
-                if(this.state.currentTime === this.state.duration) {
-                    var rec = store.recitation;
-                    
-                    // Check if it part of a playlist. Otherwise it should just stop playing.
-                    if(rec.playlist !== null && rec.playlist !== undefined) {
+            if(store.loop == false) {
+                if(this.state.currentTime !== null && this.state.duration !== null) {
+                    if(this.state.currentTime === this.state.duration) {
+                        var rec = store.recitation;
+                        
+                        // Check if it part of a playlist. Otherwise it should just stop playing.
+                        if(rec.playlist !== null && rec.playlist !== undefined) {
 
-                        // If it's not the last item in the playlist, then play the next one.
-                        if(rec.playlist.indexOf(rec) < rec.playlist.length()) {
-                            this.startNextRecitation('next');
+                            // If it's not the last item in the playlist, then play the next one.
+                            if(rec.playlist.indexOf(rec) < rec.playlist.length()) {
+                                this.startNextRecitation('next');
+                            }
                         }
                     }
                 }

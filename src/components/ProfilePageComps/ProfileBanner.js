@@ -38,7 +38,7 @@ class ProfileBanner extends Component {
             position:'relative',
             top:'70px',
             width:'100%',
-            height:'300px'
+            height: this.props.height || '300px'
         }
     }
     getImageStyle() {
@@ -110,8 +110,7 @@ class ProfileBanner extends Component {
                 <img alt='bckg' style={this.getImageStyle()} src={Background}/>
 
                     <div style={this.getWelcomeStyles()}>
-                        <h1 style={{fontFamily:'Monthoers', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}'s</h1>
-                        <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>Profile</h1>
+                        {this.props.children}
                     </div>
             </div>
         );

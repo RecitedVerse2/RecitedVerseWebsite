@@ -48,6 +48,7 @@ class ProfileHeader extends Component {
             top:'-20px',
             width:'80px',
             height:'90%',
+            cursor:'pointer',
             display:'table-cell'
         }
     }
