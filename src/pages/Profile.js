@@ -355,7 +355,7 @@ class Profile extends Component {
         this.setState({ recitations: [] });
 
         if(this.state.showUploads === true) {
-            if(this.state.uploadPlaylist.length() == 0) { return; }
+            if(this.state.uploadPlaylist.length() === 0) { return; }
 
             // Create the array of recitation items.
             this.state.uploadPlaylist.forEach( (rec) => {
@@ -373,7 +373,7 @@ class Profile extends Component {
             });
         }
         else if(this.state.showPopular === true) {
-            if(this.state.uploadPlaylist.length() == 0) { return; }
+            if(this.state.uploadPlaylist.length() === 0) { return; }
 
             // Create the array of recitation items.
             this.state.uploadPlaylist.forEach( (rec) => {
@@ -396,7 +396,7 @@ class Profile extends Component {
             });
         }
         else if(this.state.showLikes === true) {
-            if(this.state.likedPlaylist.length() == 0) { return; }
+            if(this.state.likedPlaylist.length() === 0) { return; }
 
             // Create the array of recitation items.
             this.state.likedPlaylist.forEach( (rec) => {
@@ -419,7 +419,7 @@ class Profile extends Component {
             });
         }
         else if(this.state.showFavorties === true) {
-            if(this.state.favoritedPlaylist.length() == 0) { return; }
+            if(this.state.favoritedPlaylist.length() === 0) { return; }
 
             // Create the array of recitation items.
             this.state.favoritedPlaylist.forEach( (rec) => {
@@ -441,7 +441,7 @@ class Profile extends Component {
             });
         }
         else if(this.state.showPlaylists === true) {
-            if(this.state.favoritedPlaylist.length() == 0) { return; }
+            if(this.state.favoritedPlaylist.length() === 0) { return; }
 
             // Create the array of recitation items.
             this.state.favoritedPlaylist.forEach( (rec) => {

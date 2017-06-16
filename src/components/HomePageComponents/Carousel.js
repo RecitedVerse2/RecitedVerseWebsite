@@ -124,7 +124,7 @@ class LandingPageCarousel extends Component {
 
 
     handleSearch(e) {
-        if(e.key == 'Enter') {
+        if(e.key === 'Enter') {
             this.props.nav.goTo('search');
             window.sessionStorage.setItem('LastSearch', this.searchBar.value);
         }

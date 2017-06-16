@@ -1,18 +1,15 @@
 
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import { Modal } from 'react-bootstrap';
 import audioRec from 'au-audio-recorder';
 
 import _ from '../css/UploadBox.css';
 
 import backgroundImage from '../../public/res/brickBackground.jpg';
-import blankBanner from '../../public/res/BlankBanner.png';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import FileChooserForm from '../components/FileChooserForm';
-import CircleButton from '../components/CircleButton';
 import Clock from '../components/Clock';
 
 

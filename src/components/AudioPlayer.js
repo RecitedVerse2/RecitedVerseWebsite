@@ -291,7 +291,7 @@ class AudioPlayer extends Component {
 
         // If the recitation is part of a playlist and one recitation ends, start the next one.
         if(store.audio !== null) {
-            if(store.loop == false) {
+            if(store.loop === false) {
                 if(this.state.currentTime !== null && this.state.duration !== null) {
                     if(this.state.currentTime === this.state.duration) {
                         var rec = store.recitation;
