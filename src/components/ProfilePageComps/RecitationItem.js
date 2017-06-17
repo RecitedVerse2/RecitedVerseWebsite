@@ -84,7 +84,21 @@ class RecitationItem extends Component {
     ***********************/
 
     goToPoemPage() {
-        window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(this.props.recitation));
+        // Stringify the recitation for this item so it can be passed around pages.
+        var cache = [];
+        var rec = JSON.stringify(this.props.recitation, (key, value) => {
+            if (typeof value === 'object' && value !== null) {
+                if (cache.indexOf(value) !== -1) {
+                    // Circular reference found, discard key
+                    return;
+                }
+                // Store value in our collection
+                cache.push(value);
+            }
+            return value;
+        });
+        
+        window.sessionStorage.setItem('CurrentRecitation', rec);
         this.props.nav.goTo('poem');
     }
 

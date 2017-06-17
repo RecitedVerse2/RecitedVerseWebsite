@@ -132,7 +132,7 @@ class App extends Component {
                         type:'LOGIN',
                         currentUser: usr
                     });
-                    console.log(store.getState().currentUser);
+                    //console.log(store.getState().currentUser);
                     
                     if(callback) { callback(); }
                 })

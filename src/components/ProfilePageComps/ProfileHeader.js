@@ -68,7 +68,8 @@ class ProfileHeader extends Component {
             background:'none',
             color:'white',
             fontFamily:'NEB',
-            fontSize:'17px'
+            fontSize:'17px',
+            outline:'none'
         }
     }
 

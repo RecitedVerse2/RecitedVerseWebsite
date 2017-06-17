@@ -46,7 +46,7 @@ class DisplaySection extends Component {
         playlist.forEach( (rec) => {
             var recItm = <RecitationItem key={rec.timestamp}
                                         recitation={rec}
-                                        navHeader={this.props.nav}
+                                        nav={this.props.nav}
                                         rStore={this.props.rStore}></RecitationItem>
             itms.push(recItm);
             this.setState({
@@ -175,7 +175,7 @@ class DisplaySection extends Component {
                 // Make a recitation object and add it to the playlist.
                 var recObj = new Recitation( rO.val().id,
                                              rO.val().uploaderID,
-                                             rO.val().uploadername,
+                                             rO.val().uploaderName,
                                              rO.val().image,
                                              rO.val().title,
                                              rO.val().author,
@@ -212,7 +212,7 @@ class DisplaySection extends Component {
                 // Make a recitation object and add it to the playlist.
                 var recObj = new Recitation( rO.val().id,
                                              rO.val().uploaderID,
-                                             rO.val().uploadername,
+                                             rO.val().uploaderName,
                                              rO.val().image,
                                              rO.val().title,
                                              rO.val().author,

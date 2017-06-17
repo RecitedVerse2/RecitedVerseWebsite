@@ -421,6 +421,7 @@ class Upload extends Component {
             var dictionary = {
                 "id":fp.key,
                 "uploaderID":store.currentUser.userID,
+                "uploaderName":store.currentUser.fullname,
                 "title":poemName.value,
                 "author":poemAuthor.value,
                 "published":poemPublished.value,

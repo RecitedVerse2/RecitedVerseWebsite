@@ -19,10 +19,9 @@ class Recitation {
         this.audio = audio;
         this.timestamp = timestamp;
         this.playlist = playlist;
+
+        this.__type = 'Recitation';
     };
-    
-
-
     
 }
 
