@@ -23,6 +23,22 @@ class LandingPageCarousel extends Component {
     componentDidMount() {
         const store = this.props.rStore.getState();
 
+        // Check for null objects.
+        if(this.props.rStore.getState().currentUser == null) {
+            var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+            
+            // If the window's current use is/isn't null...
+            if(cUser === null || cUser === undefined) {
+                this.props.nav.goTo('home');
+                return;
+            } else {
+                this.props.rStore.dispatch({
+                    type:'LOGIN',
+                    currentUser: cUser
+                });              
+            }
+        }
+
         if(store.currentUser != null) {
             this.setState({
                 name:store.currentUser.fullname.substring(0,store.currentUser.fullname.indexOf(' '))

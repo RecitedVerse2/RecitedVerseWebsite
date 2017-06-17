@@ -115,13 +115,14 @@ const store = createStore(audioplayer);
 // This component just handles the routing between pages.
 class App extends Component {
 
-    componentDidMount() {
+    constructor() {
+        super();
         this.handleAutoLogin();
     }
 
 
     /** Not a true auto login */
-    handleAutoLogin() {
+    handleAutoLogin(callback) {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
@@ -132,12 +133,13 @@ class App extends Component {
                         currentUser: usr
                     });
                     console.log(store.getState().currentUser);
+                    
+                    if(callback) { callback(); }
                 })
             } else {
                 return;
             }
         });
-
 
         // // Try to retrieve the user id of the person who is currently logged in.
         // var user = JSON.parse(window.localStorage.getItem('currentUser'));
@@ -162,7 +164,7 @@ class App extends Component {
         const HomePage = () => {return <Home audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Home>}
         const SignUpPage = () => {return <SignUp audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</SignUp>}
         const LoginPage = () => {return <Login audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Login>}
-        const ProfilePage = () => {return <Profile userID={window.localStorage.getItem('currentUID')} nav={navObj} audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Profile>}
+        const ProfilePage = () => {return <Profile nav={navObj} audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Profile>}
         const EditProfilePage = () => {return <EditProfile audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</EditProfile>}
         const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Poem>}
         const UploadPage = () => {return <Upload audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Upload>}

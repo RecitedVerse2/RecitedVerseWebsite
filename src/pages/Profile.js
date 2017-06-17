@@ -49,6 +49,23 @@ class Profile extends Component {
 
     componentDidMount() {
         this.allButton.style.textDecoration = 'underline';
+        
+        // Check for null objects.
+        if(this.props.rStore.getState().currentUser == null) {
+            var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+            
+            // If the window's current use is/isn't null...
+            if(cUser === null || cUser === undefined) {
+                this.props.nav.goTo('home');
+                return;
+            } else {
+                this.props.rStore.dispatch({
+                    type:'LOGIN',
+                    currentUser: cUser
+                });              
+            }
+        }
+        
         this.setState({
             name: this.props.rStore.getState().currentUser != null ? this.props.rStore.getState().currentUser.fullname.split(" ")[0] : 'User'
         });

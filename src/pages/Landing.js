@@ -18,7 +18,7 @@ class Landing extends Component {
     ***********************/
 
     componentDidMount() {
-        console.log(this.props.nav);
+        
     }
 
 
