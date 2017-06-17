@@ -100,7 +100,7 @@ class RecitationItem extends Component {
         });
 
         // Get the new audio.
-        storageRef.child(rec.uploaderID).child(rec.id).getDownloadURL().then( (url) => {
+        storageRef.child('Recitations').child(rec.id).getDownloadURL().then( (url) => {
             var audio = new Audio(url);
             audio.loop = false;
 

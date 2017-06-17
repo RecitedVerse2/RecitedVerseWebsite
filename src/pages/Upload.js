@@ -123,7 +123,7 @@ class Upload extends Component {
                 <Clock onupdate={this.handleStopPlaying.bind(this)}></Clock>
                 
                 {/* Header and Background stuff. */}
-                <ProfileHeader nav={this.props.nav}></ProfileHeader>
+                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
@@ -397,7 +397,7 @@ class Upload extends Component {
 
         const fireRef = firebase.database().ref();
         const storageRef = firebase.storage().ref();
-        const currentUserID = window.localStorage.getItem('currentUID');
+        const store = this.props.rStore.getState();
 
         var poemName = this.poemField;
         var poemAuthor = this.poetField;
@@ -420,7 +420,7 @@ class Upload extends Component {
             /* Create dictionary for the recitation. */
             var dictionary = {
                 "id":fp.key,
-                "uploaderID":window.localStorage.getItem('currentUID'),
+                "uploaderID":store.currentUser.userID,
                 "title":poemName.value,
                 "author":poemAuthor.value,
                 "published":poemPublished.value,
@@ -433,30 +433,32 @@ class Upload extends Component {
                 "likes":0,
                 "favorites":0,
                 "comments":[],
-                "timestamp":firebase.database.ServerValue.TIMESTAMP
+                "timestamp":Date.now()
             };
 
 
             var myRecording = audioRec.getRecordingFile();
             // If the recording is not null, then upload that. Otherwise, upload a file.
             if(myRecording != null) {
+                this.statusLabel.innerHTML = "Uploading...";
 
                 /* Save it to the database under Recitations->UserID->AutoID:Dictionary*/
                 fp.setWithPriority(dictionary, 0 - Date.now());
 
                 /* Save the actual audio to the storage. */
-                storageRef.child(currentUserID).child(dictionary['id']).put(myRecording).then(() => {
-                    this.statusLabel.innerHTML = "Uploading...";
+                storageRef.child('Recitations').child(dictionary['id']).put(myRecording).then(() => {
+                    this.statusLabel.innerHTML = "Done!";
                 });
 
             } else if(this.valueExists(this.state.audioObj)) {
+                this.statusLabel.innerHTML = "Uploading...";
 
                 /* Save it to the database under Recitations->UserID->AutoID:Dictionary*/
                 fp.set(dictionary);
 
                 /* Save the actual audio to the storage. */
-                storageRef.child(currentUserID).child(dictionary['id']).putString(this.state.audioObj.src, 'data_url').then((snapshot) => {
-                    this.statusLabel.innerHTML = "Uploading...";
+                storageRef.child('Recitations').child(dictionary['id']).putString(this.state.audioObj.src, 'data_url').then((snapshot) => {
+                    this.statusLabel.innerHTML = "Done!";
                 });
 
             }

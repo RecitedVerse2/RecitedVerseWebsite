@@ -107,7 +107,7 @@ class Profile extends Component {
         return (
             <div style={this.getStyles()}>
 
-                <ProfileHeader nav={this.props.nav}></ProfileHeader>
+                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
                 
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
@@ -267,36 +267,40 @@ class Profile extends Component {
         fireRef.child('Users').child(store.currentUser.userID).once('value', (snap) => {
             var likes = snap.val().likes;
 
-            likes.forEach( (e) => {
-                fireRef.child('Recitations').child(e).once('value', (rO) => {
-                    var recObj = new Recitation( rO.val().id,
-                                                rO.val().uploaderID,
-                                                rO.val().uploadername,
-                                                rO.val().image,
-                                                rO.val().title,
-                                                rO.val().author,
-                                                rO.val().recited_by,
-                                                rO.val().published,
-                                                rO.val().genre,
-                                                rO.val().description,
-                                                rO.val().likes,
-                                                rO.val().plays,
-                                                rO.val().favorites,
-                                                rO.val().text,
-                                                rO.val().audio,
-                                                rO.val().timestamp  );
-                
-                    playlist.add(recObj);
-                    i++;
+            if(likes) {
+                likes.forEach( (e) => {
+                    fireRef.child('Recitations').child(e).once('value', (rO) => {
+                        var recObj = new Recitation( rO.val().id,
+                                                    rO.val().uploaderID,
+                                                    rO.val().uploadername,
+                                                    rO.val().image,
+                                                    rO.val().title,
+                                                    rO.val().author,
+                                                    rO.val().recited_by,
+                                                    rO.val().published,
+                                                    rO.val().genre,
+                                                    rO.val().description,
+                                                    rO.val().likes,
+                                                    rO.val().plays,
+                                                    rO.val().favorites,
+                                                    rO.val().text,
+                                                    rO.val().audio,
+                                                    rO.val().timestamp  );
                     
-                    this.setState({
-                        likedPlaylist: playlist
+                        playlist.add(recObj);
+                        i++;
+                        
+                        this.setState({
+                            likedPlaylist: playlist
+                        });
+                        if(i === likes.length) {
+                            callback();
+                        }
                     });
-                    if(i === likes.length) {
-                        callback();
-                    }
                 });
-            });
+            } else {
+                callback();
+            }
         });
     }
 
@@ -314,36 +318,40 @@ class Profile extends Component {
         fireRef.child('Users').child(store.currentUser.userID).once('value', (snap) => {
             var favorites = snap.val().favorites;
 
-            favorites.forEach( (e) => {
-                fireRef.child('Recitations').child(e).once('value', (rO) => {
-                    var recObj = new Recitation( rO.val().id,
-                                                rO.val().uploaderID,
-                                                rO.val().uploadername,
-                                                rO.val().image,
-                                                rO.val().title,
-                                                rO.val().author,
-                                                rO.val().recited_by,
-                                                rO.val().published,
-                                                rO.val().genre,
-                                                rO.val().description,
-                                                rO.val().likes,
-                                                rO.val().plays,
-                                                rO.val().favorites,
-                                                rO.val().text,
-                                                rO.val().audio,
-                                                rO.val().timestamp  );
-                
-                    playlist.add(recObj);
-                    i++;
+            if(favorites) {
+                favorites.forEach( (e) => {
+                    fireRef.child('Recitations').child(e).once('value', (rO) => {
+                        var recObj = new Recitation( rO.val().id,
+                                                    rO.val().uploaderID,
+                                                    rO.val().uploadername,
+                                                    rO.val().image,
+                                                    rO.val().title,
+                                                    rO.val().author,
+                                                    rO.val().recited_by,
+                                                    rO.val().published,
+                                                    rO.val().genre,
+                                                    rO.val().description,
+                                                    rO.val().likes,
+                                                    rO.val().plays,
+                                                    rO.val().favorites,
+                                                    rO.val().text,
+                                                    rO.val().audio,
+                                                    rO.val().timestamp  );
+                    
+                        playlist.add(recObj);
+                        i++;
 
-                    this.setState({
-                        favoritedPlaylist: playlist
+                        this.setState({
+                            favoritedPlaylist: playlist
+                        });
+                        if(i === favorites.length) {
+                            callback();
+                        }
                     });
-                    if(i === favorites.length) {
-                        callback();
-                    }
                 });
-            });
+            } else {
+                callback();
+            }
         });
     }
 
@@ -355,7 +363,9 @@ class Profile extends Component {
         this.setState({ recitations: [] });
 
         if(this.state.showUploads === true) {
-            if(this.state.uploadPlaylist.length() === 0) { return; }
+            if(this.state.uploadPlaylist) {
+                if(this.state.uploadPlaylist.length() === 0) { return; }
+            } else { return; }
 
             // Create the array of recitation items.
             this.state.uploadPlaylist.forEach( (rec) => {
@@ -373,7 +383,9 @@ class Profile extends Component {
             });
         }
         else if(this.state.showPopular === true) {
-            if(this.state.uploadPlaylist.length() === 0) { return; }
+            if(this.state.uploadPlaylist) {
+                if(this.state.uploadPlaylist.length() === 0) { return; }
+            } else { return; }
 
             // Create the array of recitation items.
             this.state.uploadPlaylist.forEach( (rec) => {
@@ -396,7 +408,9 @@ class Profile extends Component {
             });
         }
         else if(this.state.showLikes === true) {
-            if(this.state.likedPlaylist.length() === 0) { return; }
+            if(this.state.likedPlaylist){
+                if(this.state.likedPlaylist.length() === 0) { return; }
+            } else { return; }
 
             // Create the array of recitation items.
             this.state.likedPlaylist.forEach( (rec) => {
@@ -419,7 +433,9 @@ class Profile extends Component {
             });
         }
         else if(this.state.showFavorties === true) {
-            if(this.state.favoritedPlaylist.length() === 0) { return; }
+            if(this.state.favoritedPlaylist) {
+                if(this.state.favoritedPlaylist.length() === 0) { return; }
+            } else { return; }
 
             // Create the array of recitation items.
             this.state.favoritedPlaylist.forEach( (rec) => {
@@ -441,7 +457,9 @@ class Profile extends Component {
             });
         }
         else if(this.state.showPlaylists === true) {
-            if(this.state.favoritedPlaylist.length() === 0) { return; }
+            if(this.state.favoritedPlaylist) {
+                if(this.state.favoritedPlaylist.length() === 0) { return; }
+            } else { return; }
 
             // Create the array of recitation items.
             this.state.favoritedPlaylist.forEach( (rec) => {

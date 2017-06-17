@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
+import * as firebase from 'firebase';
 
 import Landing from './pages/Landing';
 import Home from './pages/Home';
@@ -92,6 +93,7 @@ const audioplayer = (state = defaultState, action) => {
             break;
         case 'LOGOUT':
             state.currentUser = null;
+            //console.log(state.currentUser);
             break;
         case 'TOGGLE_AUDIOPLAYER':
             state.audioPlayerOpen = !state.audioPlayerOpen;
@@ -112,6 +114,45 @@ const store = createStore(audioplayer);
 
 // This component just handles the routing between pages.
 class App extends Component {
+
+    componentDidMount() {
+        this.handleAutoLogin();
+    }
+
+
+    /** Not a true auto login */
+    handleAutoLogin() {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
+                    var usr = snap.val();
+                
+                    store.dispatch({
+                        type:'LOGIN',
+                        currentUser: usr
+                    });
+                    console.log(store.getState().currentUser);
+                })
+            } else {
+                return;
+            }
+        });
+
+
+        // // Try to retrieve the user id of the person who is currently logged in.
+        // var user = JSON.parse(window.localStorage.getItem('currentUser'));
+        // console.log(user);
+        
+        // if(user !== null) {
+        //     store.dispatch({
+        //         type:'LOGIN',
+        //         currentUser: user
+        //     });
+        // }
+    }
+
+
+
     render() {
         const navObj = new navigation();
         const navComp = () => { return navObj; }

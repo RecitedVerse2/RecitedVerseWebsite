@@ -275,7 +275,7 @@ class EditProfile extends Component {
     uploadNewProfilePicture(callback) {
         var profilePicture = this.profilePicture;
         if(profilePicture.src !== this.state.profileSrc) {
-            firebase.storage().ref().child(this.state.uid).child("profilePicture").putString(profilePicture.src, 'data_url').then(snapshot => {
+            firebase.storage().ref().child('Users').child(this.state.uid).child("profilePicture").putString(profilePicture.src, 'data_url').then(snapshot => {
                 var updates = {
                     'photoURL':snapshot.downloadURL
                 }
@@ -290,7 +290,7 @@ class EditProfile extends Component {
     uploadNewBackgroundPicture(callback) {
         var backgroundPicture = this.backgroundPicture;
         if(backgroundPicture.src !== this.state.backgroundSrc) {
-            firebase.storage().ref().child(this.state.uid).child("backgroundPicture").putString(backgroundPicture.src, 'data_url').then(snapshot => {
+            firebase.storage().ref().child('Users').child(this.state.uid).child("backgroundPicture").putString(backgroundPicture.src, 'data_url').then(snapshot => {
                 var updates = {
                     'backgroundImage':snapshot.downloadURL
                 }

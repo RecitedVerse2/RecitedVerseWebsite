@@ -409,7 +409,7 @@ class Poem extends Component {
                 uploadername = snap.val().fullname;
 
                 if(loadAudio === true) {
-                    storageRef.child(currentRec.uploaderID).child(rec.id).getDownloadURL().then( (url) => {
+                    storageRef.child('Recitations').child(rec.id).getDownloadURL().then( (url) => {
                         var audio = new Audio(url);
                         audio.loop = false;
 

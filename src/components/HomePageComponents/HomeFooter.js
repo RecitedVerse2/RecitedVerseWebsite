@@ -125,7 +125,7 @@ class HomeFooter extends Component {
             fireRef.child('Recitations').child(id).once('value', (rec) => {
                 var recitation = rec.val();
 
-                storageRef.child(recitation.uploaderID).child(id).getDownloadURL().then( (url) => {
+                storageRef.child('Recitations').child(id).getDownloadURL().then( (url) => {
                     var audio = new Audio(url);
                     audio.loop = false;
 

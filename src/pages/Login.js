@@ -281,9 +281,9 @@ class Login extends Component {
             // Wait for the login, then change pages.
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
-                    window.localStorage.setItem('currentUID',user.uid);
                     firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
                         var usr = snap.val();
+                        window.localStorage.setItem('currentUser',JSON.stringify(usr));
                     
                         this.props.rStore.dispatch({
                             type:'LOGIN',

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as firebase from 'firebase';
 
 import RVLogo from '../../../public/res/RV-Final-Icon.png';
 import _ from '../../css/fonts.css';
@@ -106,6 +107,17 @@ class ProfileHeader extends Component {
         this.props.nav.goTo('accountsettings');
     }
     handleLogout() {
+        try {
+            firebase.auth().signOut();
+            window.localStorage.removeItem('currentUser');
+            this.props.rStore.dispatch({
+                type:'LOGOUT'
+            });
+        } catch(err) {
+            console.log('Problem logging out. ' + err);
+            return;
+        }
+
         document.body.scrollTop = 0;
         this.props.nav.goTo('login');
     }
