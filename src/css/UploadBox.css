@@ -9,32 +9,40 @@
     height: 50px;
     margin: auto;
     color: white;
+    display: table;
     background-color: rgba(255,255,255,0.5);
 }
 .inputTitle {
-    position: relative;
-    top: -5px;
+    position: absolute;
+    margin-top: 5px;
     left: 10px;
+    height: 100%;
     float: left;
     text-align: left;
     font-family: 'NEB';
     font-size: 25px;
+    display: table-cell;
+    -webkit-padding-before: 8px;
 }
 .inputField {
-    position: relative;
-    margin: auto;
-    float: left;
+    position: absolute;
     left: 20px;
     width: 80%;
     height: 100%;
+    float: left;
+    margin: auto;
     border: none;
+    outline: none;
+    background: none;
+    box-shadow: none;
     font-size: 30px;
     font-family: 'NEB';
-    background: none;
+    display: table-cell;
+    padding-left: 10px;
+    -moz-padding-before: -10px;
     text-decoration: none;
-    box-shadow: none;
-    outline: 0;
 }
+
 
 .largeArea {
     position: relative;
@@ -50,6 +58,10 @@
     font-family: 'NEB';
     font-size: 30px;
     text-align: left;
+}
+.largeTitle::after {
+    visibility: hidden;
+    content: '(Required)';
 }
 .largeInput {
     position: relative;

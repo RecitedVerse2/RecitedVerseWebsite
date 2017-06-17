@@ -82,38 +82,40 @@ class LandingPageCarousel extends Component {
             position:'relative',
             width:'60%',
             height:'50px',
-            margin:'auto',            
+            margin:'auto',   
+            display:'table',         
             backgroundColor:'rgba(255,255,255,0.5)'
         }
     }
     getSearchBarStyle() {
         return {
-            position:'relative',
-            top:'-10px',
-            left:'10px',
+            position:'absolute',
+            marginTop:'0px',
+            width:'12%',
+            height:'100%',
             float:'left',
-            display:'inline-block',
-            textAlign:'left',
-            fontFamily:'NEB',
             fontSize:'30px',
+            fontFamily:'NEB',
+            WebkitPaddingBefore: '10px',
+            display:'table-cell',
         }
     }
     getInputStyles() {
         return {
-            position:'relative',
-            margin:'auto',
-            float:'left',
-            left:'20px',
-            width:'70%',
+            position:'absolute',
+            left:'12%',
+            width: '88%',
             height:'100%',
-            display:'inline-block',
             border:'none',
-            fontSize:'30px',
+            color:'white',
+            outline:'none',
             background:'none',
             textDecoration:'none',
-            WebkitBoxShadow: 'none',
-            boxShadow: 'none',
-            outline: '0'
+            fontFamily:'NEB',
+            fontSize:'30px',
+            MozPaddingBefore:'-10px',
+            paddingLeft:'10px',
+            display:'table-cell'
         }
     }
 
@@ -129,9 +131,13 @@ class LandingPageCarousel extends Component {
                         <h1 style={{fontFamily:'NEB', fontSize:'35px', paddingBottom:'10px'}}>Welcome</h1>
                         <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>{this.state.name}</h1>
                     
-                        <div style={this.getSBStyles()}>
+                        <div ref={(div)=>{this.searchBarArea = div}} style={this.getSBStyles()}>
                             <h1 style={this.getSearchBarStyle()}>Search:</h1>
-                            <input onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}} style={this.getInputStyles()} type='text' />
+        
+                            <input onKeyPress={this.handleSearch.bind(this)} 
+                                    ref={(input)=>{this.searchBar = input}} 
+                                    style={this.getInputStyles()} type='text' />
+                            
                         </div>
                     </div>
             </div>

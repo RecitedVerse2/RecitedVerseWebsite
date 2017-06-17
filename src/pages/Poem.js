@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
+import _ from '../css/Poem.css';
+import __ from '../css/Header.css';
+
 import backgroundImage from '../../public/res/brickBackground.jpg';
 import background from '../../public/res/BlankBanner.png';
 import RVLogo from '../../public/res/RV-Final-Icon.png';
@@ -60,29 +63,53 @@ class Poem extends Component {
             position:'absolute',
             left:'0px',
             top:'0px',
+            width:'100%',
             paddingBottom:'500px'
         };
     }
     getHeaderStyle() {
         return {
             position: 'fixed',
+            top:'0px',
+            left:'0xp',
             width: '100%',
             height: '70px',
             display:'table',
             zIndex:'1000',
-            backgroundColor: this.state.backgroundColor,
-            WebkitTransitionDuration: '0.2s'
+            backgroundColor: this.state.backgroundColor
         }
     }
     getLogoStyle() {
         return {
-            position:'relative',
+            position:'absolute',
+            top:'0px',
             left:'20px',
-            top:'-15px',
             width:'80px',
             height:'90%',
             cursor:'pointer',
+            marginTop:'5px',
             display:'table-cell'
+        }
+    }
+    getButtonsSectionStyle() {
+        return {
+            position:'absolute',
+            top:'0px',
+            right:'0px',
+            textAlign:'right',
+            marginTop:'20px',
+            display:'table-cell',
+        }
+    }
+    getButtonsStyle() {
+        return {
+            textDecoration:'none',
+            border:'none',
+            background:'none',
+            color:'white',
+            fontFamily:'NEB',
+            fontSize:'17px',
+            outline:'none'
         }
     }
     getOverlay() {
@@ -130,65 +157,7 @@ class Poem extends Component {
             fontFamily:'Monthoers'
         }
     }
-    getInfoAreaStyles() {
-        return {
-            position:'relative',
-            top:'130px',
-            height:'300px',
-            color: 'white',
-        }
-    }
-    getInfoTextStyles() {
-        return {
-            position:'relative',
-            right:'0px',
-            verticalAlign:'top',
-            color: 'white',
-            fontSize:'30px',
-            fontFamily:'NEB',
-            margin:'auto',
-            display:'inline-block',
-        }
-    }
-    getPoemImageStyles() {
-        return {
-            position:'relative',
-            verticalAlign:'top',
-            lineHeight:'250px',
-            width:'250px',
-            height:'250px',
-            color: 'white',
-            marginLeft:'60px',
-            marginRight:'30px',
-            display:'inline-block'
-        }
-    }
-    getSocialButtonStyles() {
-        return {
-            width:'75px',
-            height:'75px',
-            outline:'none',
-            border:'none',
-            background:'none',
-            color:'white',
-            margin:'10px',
-            fontSize:'60px',
-            textDecoration:'none'
-        }
-    }
-    getTranscriptButton() {
-        return {
-            outline:'none',
-            border:'none',
-            background:'none',
-            color:'white',
-            fontSize:'60px',
-            marginTop:'20px',
-            marginLeft:'65px',
-            fontFamily:'Monthoers',
-            textDecoration:'none'
-        }
-    }
+    
    
 
 
@@ -202,9 +171,15 @@ class Poem extends Component {
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
-                <div style={this.getHeaderStyle()}>
+                <div className='header' style={this.getHeaderStyle()}>
                     &nbsp;&nbsp;
                     <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                    <div style={this.getButtonsSectionStyle()}>
+                        <button style={this.getButtonsStyle()} onClick={this.goToAccountSettings.bind(this)}>Account Settings</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button style={this.getButtonsStyle()} onClick={this.goToPRofile.bind(this)}>Profile</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
                 </div>
 
                 {/* The background image */}
@@ -220,27 +195,27 @@ class Poem extends Component {
 
 
                 {/* The div that shows the image. */}
-                <div style={this.getInfoAreaStyles()}>
-                    <img style={this.getPoemImageStyles()} src={this.state.poemImage} alt="poemimg" />
+                <div className='contentArea'>
+                    <img className='poemImage' src={this.state.poemImage} alt="poemimg" />
 
-                    <div style={this.getInfoTextStyles()}>
-                        <h1>Recited by {this.state.recitedBy}</h1>
-                        <h1>Published: {this.state.published}</h1>
-                        <h1>Genre: {this.state.genre}</h1>
+                    <div className='verticalTextArea'>
+                        <h1 className='headerText'>Recited by {this.state.recitedBy}</h1>
+                        <h1 className='headerText'>Published: {this.state.published}</h1>
+                        <h1 className='headerText'>Genre: {this.state.genre}</h1>
 
                         <div style={{marginLeft:'70px'}}>
-                            <button style={this.getSocialButtonStyles()} className='fa fa-play'
+                            <button className='interactButton fa fa-play'
                                     ref={(button)=>{this.playBtn = button}}
                                     onClick={this.playRecitation.bind(this)}></button>
-                            <button style={this.getSocialButtonStyles()} className='fa fa-thumbs-up' 
+                            <button className='interactButton fa fa-thumbs-up' 
                                     ref={(button)=>{this.likeBtn = button}}
                                     onClick={this.likeRecitation.bind(this)}></button>
-                            <button style={this.getSocialButtonStyles()} className='fa fa-heart'
+                            <button className='interactButton fa fa-heart'
                                     ref={(button)=>{this.favoriteBtn = button}}
                                     onClick={this.favoriteRecitation.bind(this)}></button>
                         </div>
 
-                        <button style={this.getTranscriptButton()}>See Transcript</button>
+                        <button className='transcriptButton'>See Transcript</button>
                     </div>
                 </div>
 
@@ -260,6 +235,14 @@ class Poem extends Component {
 
     goToHomePage() {
         this.props.nav.goTo('home');
+    }
+
+    goToAccountSettings() {
+        this.props.nav.goTo('accountsettings');
+    }
+
+    goToPRofile() {
+        this.props.nav.goTo('profile');
     }
 
     stringify(element) {
@@ -285,14 +268,14 @@ class Poem extends Component {
         if(store.audio !== null) {
             if(store.id === recitation.id) {
                 if(store.audio.paused === true || store.audio.ended === true) {
-                    this.playBtn.className = 'fa fa-play';
+                    this.playBtn.className = 'interactButton fa fa-play';
                 } else {
-                    this.playBtn.className = 'fa fa-pause';
+                    this.playBtn.className = 'interactButton fa fa-pause';
                 }
             }
         }
 
-        if(document.body.scrollTop >= 30) {
+        if(document.body.scrollTop >= 30 || window.scrollY >= 30) {
             this.setState({
                 backgroundColor: 'rgba(0,0,0,0.85)'
             })
@@ -343,7 +326,7 @@ class Poem extends Component {
         if(this.playBtn.className.includes('pause')) {
 
             store.audio.pause();
-            this.playBtn.className = 'fa fa-play';
+            this.playBtn.className = 'interactButton fa fa-play';
 
         // If it does not have a pause sign...
         } else {
@@ -370,7 +353,7 @@ class Poem extends Component {
                     audio: this.state.audio
                 });
                 store.audio.play();
-                this.playBtn.className = 'fa fa-pause';
+                this.playBtn.className = 'interactButton fa fa-pause';
             }
             // Otherwise, if there is already an audio object.
             else {
@@ -378,7 +361,7 @@ class Poem extends Component {
                 // If the recitation that you are looking at has the same src as the one in the store...
                 if(store.audio.src === this.state.audio.src) {
                     store.audio.play();
-                    this.playBtn.className = 'fa fa-pause';
+                    this.playBtn.className = 'interactButton fa fa-pause';
                 }
                 // Otherwise, clear and play the new audio.
                 else {
@@ -403,12 +386,12 @@ class Poem extends Component {
                         audio: this.state.audio
                     });
                     store.audio.play();
-                    this.playBtn.className = 'fa fa-pause';
+                    this.playBtn.className = 'interactButton fa fa-pause';
                 }
 
             }
         }
-    } // End of method.
+    }
 
     likeRecitation() {
         const store = this.props.rStore.getState();

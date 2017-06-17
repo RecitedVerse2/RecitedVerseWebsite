@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import RVLogo from '../../../public/res/RV-Final-Icon.png';
 import _ from '../../css/fonts.css';
+import __ from '../../css/Header.css';
 
 import Clock from '../Clock';
 
@@ -33,31 +34,35 @@ class Header extends Component {
     getHeaderStyle() {
         return {
             position: 'fixed',
+            top:'0px',
+            left:'0xp',
             width: '100%',
             height: '70px',
             display:'table',
             zIndex:'1000',
             backgroundColor: this.state.backgroundColor,
-            WebkitTransitionDuration: '0.3s'
         }
     }
     getLogoStyle() {
         return {
-            position:'relative',
+            position:'absolute',
+            top:'0px',
             left:'20px',
-            top:'-20px',
             width:'80px',
             height:'90%',
             cursor:'pointer',
+            marginTop:'5px',
             display:'table-cell'
         }
     }
     getButtonsSectionStyle() {
         return {
-            position:'relative',
+            position:'absolute',
+            top:'0px',
+            right:'0px',
+            textAlign:'right',
+            marginTop:'20px',
             display:'table-cell',
-            top:'35%',
-            textAlign:'right'
         }
     }
     getButtonsStyle() {
@@ -75,7 +80,7 @@ class Header extends Component {
 
     render() {
         return (
-            <div style={this.getHeaderStyle()}>
+            <div className='header' style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
                 <img onClick={()=>{this.props.nav.goTo('home')}} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
 
@@ -109,7 +114,7 @@ class Header extends Component {
     }
 
     update() {
-        if(document.body.scrollTop >= 30) {
+        if(document.body.scrollTop >= 30 || window.scrollY >= 30) {
             this.setState({
                 backgroundColor: 'rgba(0,0,0,0.85)'
             })

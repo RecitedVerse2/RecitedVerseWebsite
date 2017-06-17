@@ -7,6 +7,7 @@ import RVLogo from '../../public/res/RV-Final-Icon.png';
 
 import _ from '../css/fonts.css';
 import __ from '../css/SignUp.css';
+import ___ from '../css/Header.css';
 
 import Clock from '../components/Clock';
 
@@ -39,29 +40,53 @@ class SignUp extends Component {
         return {
             position:'absolute',
             left:'0px',
-            top:'0px'
+            top:'0px',
+            width:'100%'
         };
     }
     getHeaderStyle() {
         return {
             position: 'fixed',
+            top:'0px',
+            left:'0xp',
             width: '100%',
             height: '70px',
             display:'table',
             zIndex:'1000',
-            backgroundColor: this.state.backgroundColor,
-            WebkitTransitionDuration: '0.2s'
+            backgroundColor: this.state.backgroundColor
         }
     }
     getLogoStyle() {
         return {
-            position:'relative',
+            position:'absolute',
+            top:'0px',
             left:'20px',
-            top:'-15px',
             width:'80px',
             height:'90%',
             cursor:'pointer',
+            marginTop:'5px',
             display:'table-cell'
+        }
+    }
+    getButtonsSectionStyle() {
+        return {
+            position:'absolute',
+            top:'0px',
+            right:'0px',
+            textAlign:'right',
+            marginTop:'20px',
+            display:'table-cell',
+        }
+    }
+    getButtonsStyle() {
+        return {
+            textDecoration:'none',
+            border:'none',
+            background:'none',
+            color:'white',
+            fontFamily:'NEB',
+            fontSize:'17px',
+            outline:'none'
         }
     }
     getOverlay() {
@@ -102,60 +127,54 @@ class SignUp extends Component {
     getSBStyles() {
         return {
             position:'relative',
-            width:'50%',
+            width:'70%',
             height:'50px',
-            margin:'auto',
-            color:'white',
+            margin:'auto',   
+            display:'table',
+            color:'white',       
             backgroundColor:'rgba(255,255,255,0.5)'
         }
     }
-    getSBStyles2() {
+    getSBStylesPasswordConfirm() {
         return {
             position:'relative',
-            width:'65%',
+            width:'75%',
             height:'50px',
-            margin:'auto',
-            color:'white',
+            margin:'auto',   
+            display:'table',
+            color:'white',       
             backgroundColor:'rgba(255,255,255,0.5)'
         }
     }
-    getSearchBarStyle() {
+    getSearchBarStyle(width = 15) {
         return {
-            position:'relative',
-            top:'-5px',
-            left:'10px',
+            position:'absolute',
+            marginTop:'0px',
+            width: width + '%' || '15%',
+            height:'100%',
             float:'left',
-            textAlign:'left',
-            fontFamily:'NEB',
             fontSize:'25px',
-        }
-    }
-    getSearchBarStyle2() {
-        return {
-            position:'relative',
-            top:'-5px',
-            left:'10px',
-            float:'left',
-            textAlign:'left',
             fontFamily:'NEB',
-            fontSize:'20px',
+            paddingLeft:'10px',
+            WebkitPaddingBefore: '10px',
+            display:'table-cell',
         }
     }
-    getInputStyles() {
+    getInputStyles(left = 15) {
         return {
-            position:'relative',
-            margin:'auto',
-            float:'left',
-            left:'20px',
-            width:'80%',
+            position:'absolute',
+            left: left + '%' || '15%',
+            width: 100 - left + '%' || '85%',
             height:'100%',
             border:'none',
-            fontSize:'30px',
+            color:'white',
+            outline:'none',
             background:'none',
             textDecoration:'none',
-            WebkitBoxShadow: 'none',
-            boxShadow: 'none',
-            outline: '0',
+            fontFamily:'NEB',
+            fontSize:'25px',
+            MozPaddingBefore:'-20px',
+            display:'table-cell'
         }
     }
     getButton() {
@@ -195,9 +214,17 @@ class SignUp extends Component {
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
-                <div style={this.getHeaderStyle()}>
+                <div className='header' style={this.getHeaderStyle()}>
                     &nbsp;&nbsp;
                     <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                    <div style={this.getButtonsSectionStyle()}>
+                        <button style={this.getButtonsStyle()} onClick={this.goToAccountSettings.bind(this)}>Account Settings</button>
+                        
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <button style={this.getButtonsStyle()} onClick={this.goToPRofile.bind(this)}>Profile</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
                 </div>
 
                 {/* The background image */}
@@ -215,29 +242,29 @@ class SignUp extends Component {
                 {/* Fields */}
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle()}>Full name:</h1>
-                    <input ref={(input)=>{this.fullNameField = input}} style={this.getInputStyles()} type='text' />
+                    <h1 style={this.getSearchBarStyle(12.5)}>Full name:</h1>
+                    <input ref={(input)=>{this.fullNameField = input}} style={this.getInputStyles(12.5)} type='text' />
                 </div>
 
                 <br/><br/><br/>
 
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle()}>Email:</h1>
-                    <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles()} type='email' />
+                    <h1 style={this.getSearchBarStyle(8)}>Email:</h1>
+                    <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(8)} type='email' />
                 </div>
                 
                 <br/><br/><br/>
 
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle()}>Password:</h1>
-                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles()} type='password' />
+                    <h1 style={this.getSearchBarStyle(12.5)}>Password:</h1>
+                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(12.5)} type='password' />
                 </div>
 
                 <br/><br/><br/>
 
-                <div style={this.getSBStyles2()}>
-                    <h1 style={this.getSearchBarStyle2()}>Re-enter password:</h1>
-                    <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles()} type='password' />
+                <div style={this.getSBStylesPasswordConfirm()}>
+                    <h1 style={this.getSearchBarStyle(25)}>Re-enter password:</h1>
+                    <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='password' />
                 </div>
 
                 <br/><br/><br/>
@@ -274,6 +301,13 @@ class SignUp extends Component {
 
     goToHomePage() {
         this.props.nav.goTo('home');
+    }
+
+    goToAccountSettings() {
+        this.props.nav.goTo('accountsettings');
+    }
+    goToPRofile() {
+        this.props.nav.goTo('profile');
     }
 
     // Handles signing the user up.
@@ -406,7 +440,7 @@ class SignUp extends Component {
     }
 
     update() {
-        if(document.body.scrollTop >= 30) {
+        if(document.body.scrollTop >= 30 || window.scrollY >= 30) {
             this.setState({
                 backgroundColor: 'rgba(0,0,0,0.85)'
             })

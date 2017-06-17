@@ -5,6 +5,8 @@ import _ from '../../css/fonts.css';
 
 import backgroundImage from '../../../public/res/BlankBanner.png';
 
+import Recitation from '../../objects/Recitation';
+
 class HomeFooter extends Component {
 
     /**********************
@@ -52,10 +54,12 @@ class HomeFooter extends Component {
     }
     getROTDImageStyles() {
         return {
+            position:'relative',
+            marginTop:'-150px',
             width:'200px',
             height:'200px',
             cursor:'pointer',
-            display:'table-cell'
+            display:'inline-block'
         }
     }
     getTextStyles() {
@@ -63,6 +67,15 @@ class HomeFooter extends Component {
             position:'relative',
             marginTop:'-30px',
             cursor:'pointer'
+        }
+    }
+    getROTDStyles() {
+        return {
+            position:'relative',
+            paddingLeft:'30px',
+            color:'white',
+            fontFamily:'Monthoers',
+            display:'inline-block'
         }
     }
 
@@ -84,12 +97,12 @@ class HomeFooter extends Component {
                 <div style={{position:'relative',marginTop:'-220px',marginLeft:'auto',marginRight:'auto',display:'table'}}>
                     <img onClick={this.goToPage.bind(this)} alt='ROTD' src={this.state.recitation != null ? this.state.recitation.image : ''} style={this.getROTDImageStyles()} />
 
-                    <div style={{position:'relative',paddingLeft:'30px',top:'-130px',color:'white',display:'table-cell'}}>
-                        <h1 style={{position:'relative',top:'-20px',fontFamily:'Monthoers',fontSize:'40px'}}>Recitation of the day</h1>
-                        <p onClick={this.goToPage.bind(this)} style={{cursor:'pointer',fontFamily:'Monthoers',fontSize:'25px'}}>{this.state.recitation != null ? this.state.recitation.title : ""}</p>
-                        <p onClick={this.goToPage.bind(this)} style={{cursor:'pointer',fontFamily:'Monthoers',fontSize:'20px'}}>Genre: {this.state.recitation != null ? this.state.recitation.genre : ""}</p>
+                    <div style={this.getROTDStyles()}>
+                        <h1 style={{fontSize:'40px'}}>Recitation of the day</h1>
+                        <p style={{fontSize:'20px'}} onClick={this.goToPage.bind(this)}>Title: {this.state.recitation != null ? this.state.recitation.title : ""}</p>
+                        <p style={{fontSize:'20px'}} onClick={this.goToPage.bind(this)}>Genre: {this.state.recitation != null ? this.state.recitation.genre : ""}</p>
                         
-                        <p style={{cursor:'pointer',fontFamily:'Monthoers',fontSize:'20px'}} ref={(p)=>{this.playButton = p}}  onClick={this.goToPage.bind(this)}>
+                        <p style={{fontSize:'20px'}} ref={(p)=>{this.playButton = p}} onClick={this.goToPage.bind(this)}>
                             Recited By: {this.state.recitation != null ? this.state.recitation.recited_by : ""}
                         </p>
                     </div>
@@ -108,7 +121,7 @@ class HomeFooter extends Component {
 
     /** Takes you to the poem page about the recitation of the day. */
     goToPage() {
-        window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(this.props.recitation));
+        window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(this.state.recitation));
         this.props.nav.goTo('poem');
     }
 
@@ -122,16 +135,32 @@ class HomeFooter extends Component {
         fireRef.child('ROTD').once('value', (snap) => {
             var id = snap.val();
 
-            fireRef.child('Recitations').child(id).once('value', (rec) => {
-                var recitation = rec.val();
-
+            fireRef.child('Recitations').child(id).once('value', (rO) => {
+                
                 storageRef.child('Recitations').child(id).getDownloadURL().then( (url) => {
                     var audio = new Audio(url);
                     audio.loop = false;
 
-                    recitation.audio = audio;
+                    var recObj = new Recitation( rO.val().id,
+                                                rO.val().uploaderID,
+                                                rO.val().uploaderName,
+                                                rO.val().image,
+                                                rO.val().title,
+                                                rO.val().author,
+                                                rO.val().recited_by,
+                                                rO.val().published,
+                                                rO.val().genre,
+                                                rO.val().description,
+                                                rO.val().likes,
+                                                rO.val().plays,
+                                                rO.val().favorites,
+                                                rO.val().text,
+                                                audio,
+                                                rO.val().timestamp,
+                                                null );
+
                     this.setState({
-                        recitation: recitation,
+                        recitation: recObj,
                         audio: audio
                     });
                 });
