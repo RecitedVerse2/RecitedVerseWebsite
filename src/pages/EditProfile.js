@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-import ContentArea from '../components/NavigationHeaderComps/ContentArea';
-import RectButton from '../components/RectButton';
-import FileChooserForm from '../components/FileChooserForm';
+import backgroundImage from '../../public/res/brickBackground.jpg';
+
+import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
+import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 
 import _ from '../css/EditProfile.css';
 
-
-// This is where users edit their profiles.
 class EditProfile extends Component {
+
     /**********************
     *                     *
-    *       LOADING       *
+    *    INITIALIZATION   *
     *                     *
     ***********************/
 
@@ -20,54 +20,43 @@ class EditProfile extends Component {
         super();
 
         this.state = {
-            profileSrc:'',
-            backgroundSrc:'',
+            name:'',
             email:'',
-            fullName:'',
             bio:'',
-            social:['','','',''],
-            uid:''
-        };
-    }
-
-    componentDidMount() {
-        this.props.navHeader.unhide();
-
-        var onUserDataChanged = (snapshot) => {
-            if(snapshot != null) {
-                var em = snapshot.val()["email"];
-                var fullname = snapshot.val()["fullname"];
-                var userID = snapshot.val()["userID"];
-                var photoURL = snapshot.val()["photoURL"];
-                var backgroundImg = snapshot.val()["backgroundImage"];
-                var bio = snapshot.val()["bio"];
-                var social = snapshot.val()["social_media_links"];
-
-                var dict = {
-                    email:em,
-                    profileSrc:photoURL,
-                    backgroundSrc:backgroundImg,
-                    fullName:fullname,
-                    bio:bio,
-                    fb:social[0],
-                    li:social[1],
-                    in:social[2],
-                    tw:social[3],
-                    uid:userID
-                };
-                this.setState(dict);
-                this.fbfield.value = social[0] || '';
-                this.lifield.value = social[1] || '';
-                this.infield.value = social[2] || '';
-                this.twfield.value = social[3] || '';
-            }
-        };
-        if(window.localStorage.getItem('currentUID') !== undefined && window.localStorage.getItem('currentUID') !== null) {
-            firebase.database().ref().child("Users").child(window.localStorage.getItem('currentUID')).once('value').then(onUserDataChanged);
+            password:'Enter your password',
+            passwordConfirm:'Re-enter your password',
+            social:['','','','']
         }
     }
 
+    componentDidMount() {
+        var cUser = this.getCurrentUser();
 
+        this.setState({
+            name: cUser.fullname,
+            email: cUser.email,
+            bio: cUser.bio,
+            social: [
+                cUser.social_media_links[0],
+                cUser.social_media_links[1],
+                cUser.social_media_links[2],
+                cUser.social_media_links[3]
+            ]
+        });
+    }
+
+    getCurrentUser() {
+        var cUser = this.props.rStore.getState().currentUser;
+        if(cUser === null) { 
+            cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+
+            if(cUser === null || cUser === undefined) {
+                this.props.nav.goTo('login');
+                return null;
+            }
+        }
+        return cUser;
+    }
 
 
     /**********************
@@ -75,89 +64,163 @@ class EditProfile extends Component {
     *        STYLES       *
     *                     *
     ***********************/
-    getFormButtonStyle() {
+
+    getStyles() {
         return {
-            width: '200px',
-            height: '40px',
-            color: 'black',
-            cursor: 'pointer',
-            fontSize: '14px',
-            fontWeight: '400',
-            paddingTop: '10px',
-            textAlign: 'center',
-            display: 'inline-block',
-            backgroundColor: 'rgb(76, 182, 203)',
-            WebkitTransitionDuration: '0.4s'
+            position:'absolute',
+            left:'0px',
+            top:'0px',
+            width:'100%',
         };
+    }
+    getOverlay() {
+        return {
+            position:'absolute',
+            width:'100%',
+            height:'100%',
+            zIndex:'0',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        }
+    }
+    getImageStyles() {
+        return {
+            position:'absolute',
+            width:'100%',
+            height:'100%',
+            zIndex:'-1',
+        }
+    }
+
+    getSBStyles(width = 60) {
+        return {
+            position:'relative',
+            width: width + '%' || '50%',
+            height:'50px',
+            margin:'auto',   
+            display:'table',
+            color:'white',       
+            backgroundColor:'rgba(255,255,255,0.5)'
+        }
+    }
+    getSearchBarTitleStyle(width = 15, left = 0) {
+        return {
+            position:'absolute',
+            left:left + 'px' || '0px',
+            marginTop:'0px',
+            width: width + '%' || '15%',
+            height:'100%',
+            float:'left',
+            fontSize:'25px',
+            fontFamily:'NEB',
+            paddingLeft: '-15px',
+            WebkitPaddingBefore: '10px',
+            display:'table-cell',
+        }
+    }
+    getInputStyles(left = 15) {
+        return {
+            position:'absolute',
+            left: left + '%' || '15%',
+            width: 100 - left + '%' || '85%',
+            height:'100%',
+            border:'none',
+            color:'white',
+            outline:'none',
+            background:'none',
+            textDecoration:'none',
+            fontFamily:'NEB',
+            fontSize:'25px',
+            MozPaddingBefore:'-20px',
+            display:'table-cell'
+        }
     }
 
 
 
+    /**********************
+    *                     *
+    *        RENDER       *
+    *                     *
+    ***********************/
+
     render() {
         return (
-            <div>
-                <ContentArea>
-                    <div style={{position:'relative',paddingLeft:'20px',color:'rgb(128,128,128)'}}>
-                        <h3 className="ep_header">Edit Profile</h3>
-
-                        <img ref={(img)=>{this.profilePicture = img}} id="profile_picture" src={this.state.profileSrc} alt="ppi" />
-                        <br /><br />
-
-                        <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='profilepicfile' multiple='false'
-                            fileSelectedHandler={(e)=>{this.changeProfilePicture(e)}}>
-                            Choose Profile Picture
-                        </FileChooserForm>
-
-                        <br/>
-
-                        <img ref={(img)=>{this.backgroundPicture = img}} id="background_picture" src={this.state.backgroundSrc} alt="bpi" />
-                        <br /><br />
-
-                        <FileChooserForm formButtonStyle={this.getFormButtonStyle()} accept='image/*' name='backgroundimgfile' multiple='false'
-                            fileSelectedHandler={(e)=>{this.changeBackgroundPicture(e)}}>
-                            Choose Background Picture
-                        </FileChooserForm>
-
-                        <br/>
-
-                        <h4><b>Personal Information</b></h4>
-                        Full Name: &nbsp;&nbsp;&nbsp; <input ref={(input)=>{this.fullNameField = input}} id='fullNameField' type="text" className="inputField" placeholder={this.state.fullName}/>
-                        <br /><br />
-                        Email: &nbsp;&nbsp;&nbsp; <input ref={(input)=>{this.emailField = input}} id='emailField' type="email" className="inputField" placeholder={this.state.email}/>
-                        <br /><br />
-                        Password: &nbsp;&nbsp;&nbsp; <input ref={(input)=>{this.passwordField = input}} type="text" id='passwordField1' className="inputField" placeholder="Enter a new password"/>
-                        <br /><br />
-                        Re-enter Password: &nbsp;&nbsp;&nbsp; <input ref={(input)=>{this.passwordConfirmField = input}} id='passwordField2' type="text" className="inputField" placeholder="Re-enter your new password" />
-                        <br /><br /><br />
-
-                        <h4><b>Profile</b></h4>
-                        Bio: &nbsp;&nbsp;&nbsp; <textarea ref={(textarea)=>{this.bioField = textarea}} id="ep_bio_field" placeholder={this.state.bio}/>
-                        <br /><br /><br />
+            <div style={this.getStyles()}>
+                {/* Header and Banner stuff. */}
+                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <div style={this.getOverlay()}></div>
+                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+                <ProfileBanner rStore={this.props.rStore}>
+                    <h1 style={{marginTop:'65px',fontFamily:'Monthoers',fontSize:'90px'}}>Edit Profile</h1>
+                </ProfileBanner>
 
 
-                        <h4>Social Media Links: &nbsp;&nbsp;&nbsp;</h4>
-                        <br />
-                        <p><label htmlFor="cbox1">Facebook:&nbsp;&nbsp;</label>
-                        <input ref={(input)=>{this.fbfield = input}} type="url" id="facebookLink" className="inputField"/><button onClick={()=>{this.fbfield.value = ''}}>x</button>
-                        <br /><br />
-                        <label htmlFor="cbox1">LinkedIn:&nbsp;&nbsp;</label>
-                        <input ref={(input)=>{this.lifield = input}} type="url" id="linkedinLink" className="inputField"/><button onClick={()=>{this.lifield.value = ''}}>x</button>
-                        <br /><br />
-                        <label htmlFor="cbox1">Instagram:&nbsp;&nbsp;</label>
-                        <input ref={(input)=>{this.infield = input}} type="url" id="instagramLink" className="inputField"/><button onClick={()=>{this.infield.value = ''}}>x</button>
-                        <br /><br />
-                        <label htmlFor="cbox1">Twitter:&nbsp;&nbsp;</label>
-                        <input ref={(input)=>{this.twfield = input}} type="url" id="twitterLink" className="inputField"/><button onClick={()=>{this.twfield.value = ''}}>x</button>
-                        </p>
-                        <br /><br /><br /><br />
-                        <RectButton width='140px' height='40px' textColor='black' backgroundColor='rgb(76, 182, 203)' hoverColor='rgb(76, 132, 183)'
-                            clickFunction={this.handleSaveChanges.bind(this)}>
-                            <h5>Save Changes</h5>
-                        </RectButton>
-                        <br /><br /><br /><br /><br /><br /><br /><br />
+
+                {/* Edit personal information. */}
+                <div className='editingContainer'>
+                    <h1 className='titleText'>Personal</h1>
+
+                    {/* All of the input fields. */}
+                    <div style={this.getSBStyles()}>
+                        <h1 style={this.getSearchBarTitleStyle(10, -2)}>Name:</h1>
+                        <input ref={(input)=>{this.nameField = input}} style={this.getInputStyles(10)} type='text' placeholder={this.state.name} />
                     </div>
-                </ContentArea>
-                {this.props.children}
+                    <p></p><p></p><p></p>
+                    <div style={this.getSBStyles()}>
+                        <h1 style={this.getSearchBarTitleStyle(10, -2)}>Email:</h1>
+                        <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(10)} type='text' placeholder={this.state.email} />
+                    </div>
+                    <p></p><p></p><p></p>
+                    <div style={this.getSBStyles()}>
+                        <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
+                        <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(15)} type='text' placeholder={this.state.password} />
+                    </div>
+                    <p></p><p></p><p></p>
+                    <div style={this.getSBStyles(70)}>
+                        <h1 style={this.getSearchBarTitleStyle(25, -2)}>Re-enter Password:</h1>
+                        <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.password} />
+                    </div>
+                    <p></p><p></p><p></p>
+                    <br/>
+
+
+                    {/* Setting the bio. */}
+                    <h1 className='titleText'>Profile</h1>
+                    <h1 className='bioText'>Bio</h1>
+                    <textarea className='bioField'
+                              ref={(textarea)=>{this.bioField = textarea}}
+                              rows={5} cols={45}
+                              placeholder={this.state.bio}></textarea>
+
+
+                    <br/><br/><br/>
+
+                    <h1 className='titleText'>Social Media Links</h1>
+                    <div style={this.getSBStyles()}>
+                        <h1 style={this.getSearchBarTitleStyle(15, 5)}>Facebook:</h1>
+                        <input ref={(input)=>{this.facebookField = input}} style={this.getInputStyles(20)} type='text' placeholder={this.state.social[0]} />
+                    </div>
+                    <p></p><p></p><p></p>
+                    <div style={this.getSBStyles()}>
+                        <h1 style={this.getSearchBarTitleStyle(15, 5)}>Twitter:</h1>
+                        <input ref={(input)=>{this.twitterField = input}} style={this.getInputStyles(18)} type='text' placeholder={this.state.social[1]} />
+                    </div>
+                    <p></p><p></p><p></p>
+                    <div style={this.getSBStyles()}>
+                        <h1 style={this.getSearchBarTitleStyle(15, 5)}>LinkedIn:</h1>
+                        <input ref={(input)=>{this.linkedinField = input}} style={this.getInputStyles(18)} type='text' placeholder={this.state.social[2]} />
+                    </div>
+                    <p></p><p></p><p></p>
+                    <div style={this.getSBStyles()}>
+                        <h1 style={this.getSearchBarTitleStyle(15, 5)}>Instagram:</h1>
+                        <input ref={(input)=>{this.instagramField = input}} style={this.getInputStyles(20)} type='text' placeholder={this.state.social[3]} />
+                    </div>
+                    <p></p><p></p><p></p>
+
+                    <br/><br/><br/><br/>
+                    <button className='titleText' onClick={this.handleSaveChanges.bind(this)}>Save Changes</button>
+                </div>
+
             </div>
         );
     }
@@ -167,41 +230,42 @@ class EditProfile extends Component {
 
     /**********************
     *                     *
-    *    BUTTON CLICKS    *
+    *       METHODS       *
     *                     *
     ***********************/
 
     handleSaveChanges() {
-        var fullname = this.fullNameField.value || this.state.fullName;
-        var email = this.emailField.value || this.state.email;
+        var cUser = this.getCurrentUser();
+        var user = firebase.auth().currentUser;
+        var changes = cUser;
+        var canSaveChanges = true;
+
+        var name = this.nameField.value;
+        var email = this.emailField.value;
         var password = this.passwordField.value;
         var passwordConfirm = this.passwordConfirmField.value;
-        var bio = this.bioField.value || this.state.bio;
+        var bio = this.bioField.value;
+        var facebook = this.facebookField.value;
+        var twitter = this.twitterField.value;
+        var linkedin = this.linkedinField.value;
+        var instagram = this.instagramField.value;
 
-        var user = firebase.auth().currentUser;
-        var changes = this.state;
-        var canExitPage = true;
 
-
-        // Check for a change in the full name.
-        if(this.valueExists(fullname)) {
-            changes['fullName'] = fullname;
+        // Set all the appropriate values.
+        if(this.valueExists(name) && name !== cUser.fullname) {
+            changes['fullname'] = name;
         }
 
-        // Check for a change in the email, then update it in authentication and database.
-        // Email takes a little bit longer, so just update the database when ready.
         if(this.valueExists(email)) {
             user.updateEmail(email).then( () => {
                 changes['email'] = email;
-                firebase.database().ref().child("Users").child(this.state.uid).child('email').set(email);
+                firebase.database().ref().child("Users").child(cUser.userID).child('email').set(email);
             }, (error) => {
                 alert('That email is already in use.' + error);
-                canExitPage = false;
                 return;
             });
         }
 
-        // Check for a change in the password, then update it in authentication and database.
         if(this.valueExists(password) && this.valueExists(passwordConfirm)) {
             if(password === passwordConfirm) {
                 user.updatePassword(password).then( () => {
@@ -212,119 +276,55 @@ class EditProfile extends Component {
                 });
             } else {
                 alert('Passwords must match.');
-                canExitPage = false;
+                canSaveChanges = false;
             }
         } else if(!this.valueExists(password) && !this.valueExists(passwordConfirm)) {
             // Don't do anything.
         } else {
             alert('Error changing password.');
-            canExitPage = false;
+            canSaveChanges = false;
         }
 
-        // Check for changes in the bio.
         if(this.valueExists(bio)) {
             changes['bio'] = bio;
         }
 
-
-        // Handle social links.
-        var social = [this.fbfield.value,this.lifield.value,this.infield.value,this.twfield.value];
+        var social = [facebook || cUser.social_media_links[0],
+                     twitter || cUser.social_media_links[1],
+                     linkedin || cUser.social_media_links[2],
+                     instagram || cUser.social_media_links[3]];
         changes["social_media_links"] = social;
 
 
-        // Lastly, do the profile and background images.
-        changes['profileSrc'] = this.profilePicture.src;
-        changes['backgroundSrc'] = this.backgroundPicture.src;
-
-
-        // Rename the keys to how they appear in Firebase.
-        changes = this.renameKeys(changes);
-
-        // Only start the updating process if there aren't any problems.
-        if(canExitPage === true) {
+        if(canSaveChanges === true) {
             this.saveToFirebase(changes);
         } else {
             return;
         }
-    };
+    }
 
 
-    /*
-        Button for selecting a profile/background picture.
-    */
-    changeProfilePicture(e) {
-        this.profilePicture.src = e;
-    };
-    changeBackgroundPicture(e) {
-        this.backgroundPicture.src = e;
-    };
-
-
-    /*
-        Saves the object to firebase.
-    */
     saveToFirebase(changes) {
-        this.uploadNewProfilePicture(() => {
-            this.uploadNewBackgroundPicture(() => {
-                firebase.database().ref().child("Users").child(this.state.uid).update(changes);
-                this.props.navHeader.goTo('profile');
+        var cUser = this.getCurrentUser();
+
+        firebase.database().ref().child("Users").child(cUser.userID).update(changes);
+        
+        // Update the current user object.
+        firebase.database().ref().child('Users').child(cUser.userID).once('value', (snap) => {
+            var usr = snap.val();
+            window.localStorage.setItem('currentUser',JSON.stringify(usr));
+        
+            this.props.rStore.dispatch({
+                type:'LOGIN',
+                currentUser: usr
             });
+            document.body.scrollTop = 0;
         });
+
+
+        this.props.nav.goTo('profile');
     }
 
-    uploadNewProfilePicture(callback) {
-        var profilePicture = this.profilePicture;
-        if(profilePicture.src !== this.state.profileSrc) {
-            firebase.storage().ref().child('Users').child(this.state.uid).child("profilePicture").putString(profilePicture.src, 'data_url').then(snapshot => {
-                var updates = {
-                    'photoURL':snapshot.downloadURL
-                }
-                firebase.database().ref().child("Users").child(this.state.uid).update(updates);
-                callback();
-            });
-        } else {
-            callback();
-        }
-    }
-
-    uploadNewBackgroundPicture(callback) {
-        var backgroundPicture = this.backgroundPicture;
-        if(backgroundPicture.src !== this.state.backgroundSrc) {
-            firebase.storage().ref().child('Users').child(this.state.uid).child("backgroundPicture").putString(backgroundPicture.src, 'data_url').then(snapshot => {
-                var updates = {
-                    'backgroundImage':snapshot.downloadURL
-                }
-                firebase.database().ref().child("Users").child(this.state.uid).update(updates);
-                callback();
-            });
-        } else {
-            callback();
-        }
-    }
-
-
-
-
-
-    /**********************
-    *                     *
-    *   UTILITY METHODS   *
-    *                     *
-    ***********************/
-
-    // Renames the keys in the dictionary so that they fit the way they are in Firebase.
-    renameKeys(changes) {
-        var newChanges = {
-            'backgroundImage':changes['backgroundSrc'],
-            'bio':changes['bio'],
-            'email':changes['email'],
-            'fullname':changes['fullName'],
-            'photoURL':changes['profileSrc'],
-            'social_media_links':changes['social_media_links'],
-            'userID':changes['uid']
-        };
-        return newChanges;
-    }
 
 
     // Returns whether or not a value for a particular element exists.
@@ -335,6 +335,7 @@ class EditProfile extends Component {
             return false;
         }
     }
+
 }
 
 export default EditProfile;

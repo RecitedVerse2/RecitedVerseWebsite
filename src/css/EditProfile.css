@@ -1,63 +1,57 @@
-
-#profile_picture {
+.editingContainer {
     position: relative;
-    width: 100px;
-    height: 100px;
-    border-radius: 100%;
-    background-color: lightgray;
-}
-#background_picture {
-    position: relative;
-    width: 350px;
-    height: 100px;
-    background-color: lightgray;
-}
-#labelForProfilePicFile, #labelForBackgroundPicFile {
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 90px;
     text-align: center;
 }
 
-.inputField {
-    width: 300px;
+.titleText {
+    color: white;
+    font-size: 50px;
+    font-family: 'Monthoers';
 }
 
-.inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+.bioText {
+    color: white;
+    font-size: 25px;
+    font-family: 'NEB';
 }
-.inputfile + #labelForProfilePicFile {
-    width: 150px;
-    height: 40px;
-    color: black;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 400;
-    padding-top: 10px;
-    display: inline-block;
-    background-color: rgb(76, 182, 203);
-    -webkit-transition-duration: 0.4s;
-}
-.inputfile:focus + #labelForProfilePicFile,.inputfile + #labelForProfilePicFile:hover {
-    background-color: rgb(76, 132, 183);
-    -webkit-transition-duration: 0.4s;
+.bioField {
+    position: relative;
+    margin: auto;
+    border: none;
+    font-size: 30px;
+    font-family: 'NEB';
+    background: none;
+    text-decoration: none;
+    box-shadow: none;
+    outline: 0;
+    resize: none;
+    color: white;
+    background-color: rgba(255,255,255,0.5);
 }
 
-.inputfile + #labelForBackgroundPicFile {
-    width: 200px;
-    height: 45px;
-    color: black;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 400;
-    padding-top: 12px;
-    display: inline-block;
-    background-color: rgb(76, 182, 203);
-    -webkit-transition-duration: 0.4s;
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: white;
+    opacity: 0.35;
 }
-.inputfile:focus + #labelForBackgroundPicFile,.inputfile + #labelForBackgroundPicFile:hover {
-    background-color: rgb(76, 132, 183);
-    -webkit-transition-duration: 0.4s;
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color: white;
+   opacity: 0.35;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color: white;
+   opacity: 0.35;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: white;
+   opacity: 0.35;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color: white;
+   opacity: 0.35;
 }

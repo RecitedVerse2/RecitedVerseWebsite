@@ -151,9 +151,9 @@ class Profile extends Component {
                         <button ref={(button)=>{this.favoritesButton = button}} 
                                 onClick={this.changeRecitations.bind(this)} 
                                 id='favorite' className='changeRecitationsButton'>Favorites</button>
-                        <button ref={(button)=>{this.playlistButton = button}} 
+                        {/*<button ref={(button)=>{this.playlistButton = button}} 
                                 onClick={this.changeRecitations.bind(this)} 
-                                id='playlist' className='changeRecitationsButton'>Playlists</button>
+                                id='playlist' className='changeRecitationsButton'>Playlists</button>*/}
                     </div>
                 </div>
                 <div className='profileDisplayArea'>

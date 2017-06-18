@@ -179,7 +179,7 @@ class App extends Component {
                     <Route path="/signup" component={SignUpPage}></Route>
                     <Route path="/login" component={LoginPage}></Route>
                     <Route path="/profile" component={ProfilePage}></Route>
-                    <Route path="/editprofile" component={EditProfilePage}></Route>
+                    <Route path="/accountsettings" component={EditProfilePage}></Route>
                     <Route path="/upload" component={UploadPage}></Route>
                     <Route path="/poem" component={PoemPage}></Route>
                     <Route path="/search" component={SearchPage}></Route>
