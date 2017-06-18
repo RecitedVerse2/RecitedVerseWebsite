@@ -106,6 +106,10 @@ class RecitationItem extends Component {
         const store = this.props.rStore.getState();
         const rec = this.props.recitation;
         const storageRef = firebase.storage().ref();
+        this.props.rStore.dispatch({
+            type:'UPDATE_PLAYCOUNT',
+            shouldUpdatePlayCount: true
+        });
         
         // First, clear whatever is there.
         if(store.audio !== null) { store.audio.pause(); }

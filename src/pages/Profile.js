@@ -183,7 +183,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'none';
-            this.playlistButton.style.textDecoration = 'none';
+            //this.playlistButton.style.textDecoration = 'none';
         } else if(sender === 'popular') {
             this.setState({ showUploads: false, showPopular: true, showLikes: false, showFavorties: false, showPlaylists: false},
             () => { this.pushOntoPage(); });
@@ -191,7 +191,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'underline';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'none';
-            this.playlistButton.style.textDecoration = 'none';
+            //this.playlistButton.style.textDecoration = 'none';
         } else if(sender === 'like') {
             this.setState({ showUploads: false, showPopular: false, showLikes: true, showFavorties: false, showPlaylists: false},
             () => { this.pushOntoPage(); });
@@ -199,7 +199,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'underline';
             this.favoritesButton.style.textDecoration = 'none';
-            this.playlistButton.style.textDecoration = 'none';
+            //this.playlistButton.style.textDecoration = 'none';
         } else if(sender === 'favorite') {
             this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: true, showPlaylists: false},
             () => { this.pushOntoPage(); });
@@ -207,7 +207,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'underline';
-            this.playlistButton.style.textDecoration = 'none';
+            //this.playlistButton.style.textDecoration = 'none';
         } else if(sender === 'playlist') {
             this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: false, showPlaylists: true},
             () => { this.pushOntoPage(); });
@@ -215,7 +215,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'none';
-            this.playlistButton.style.textDecoration = 'underline';
+            //this.playlistButton.style.textDecoration = 'underline';
         }
     }
 
@@ -416,7 +416,7 @@ class Profile extends Component {
             }, () => {
                 
                 items.sort( (a, b) => {
-                    return a.likes - b.likes;
+                    return b.plays - a.plays;
                 });
                 // Update the state.
                 this.setState({
@@ -441,7 +441,7 @@ class Profile extends Component {
             }, () => {
                 
                 items.sort( (a, b) => {
-                    return a.likes - b.likes;
+                    return b.likes - a.likes;
                 });
                 // Update the state.
                 this.setState({
@@ -465,7 +465,7 @@ class Profile extends Component {
 
             }, () => {
                 items.sort( (a, b) => {
-                    return a.favorites - b.favorites;
+                    return b.favorites - a.favorites;
                 });
                 // Update the state.
                 this.setState({

@@ -186,6 +186,10 @@ class AudioPlayer extends Component {
 
     handlePlay() {
         const store = this.props.rStore.getState();
+        this.props.rStore.dispatch({
+            type:'UPDATE_PLAYCOUNT',
+            shouldUpdatePlayCount: true
+        });
 
         if(store.audio !== null) {
             if(store.audio.paused === true || store.audio.ended === true) {
@@ -290,24 +294,44 @@ class AudioPlayer extends Component {
         }
 
         // If the recitation is part of a playlist and one recitation ends, start the next one.
+        var rec = store.recitation;
         if(store.audio !== null) {
             if(store.loop === false) {
-                if(this.state.currentTime !== null && this.state.duration !== null) {
-                    if(this.state.currentTime === this.state.duration) {
-                        var rec = store.recitation;
-                        
-                        // Check if it part of a playlist. Otherwise it should just stop playing.
-                        if(rec.playlist !== null && rec.playlist !== undefined) {
+                if(store.audio.ended === true) {
 
-                            // If it's not the last item in the playlist, then play the next one.
-                            if(rec.playlist.indexOf(rec) < rec.playlist.length()) {
-                                this.startNextRecitation('next');
-                            }
+                    // Check if it part of a playlist. Otherwise it should just stop playing.
+                    if(rec.playlist !== null && rec.playlist !== undefined) {
+
+                        // If it's not the last item in the playlist, then play the next one.
+                        if(rec.playlist.indexOf(rec) < rec.playlist.length()) {
+                            this.startNextRecitation('next');
+                        }
+                    } else {
+                        if(store.shouldUpdatePlayCount === true) {
+                            this.handleUpdatePlayCount();
                         }
                     }
                 }
             }
-        }
+         }
+    }
+
+    // Adds 1 to the play count everytime the audio is finished playing.
+    handleUpdatePlayCount() {
+        const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
+
+        recitation.plays += 1;
+        window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
+        
+        firebase.database().ref().child('Recitations').child(recitation.id).update({
+            plays: recitation.plays
+        }, () => {
+            this.props.rStore.dispatch({
+                type:'UPDATE_PLAYCOUNT',
+                shouldUpdatePlayCount: false
+            });
+        });
+        return;
     }
 
     setVolume() {
@@ -362,8 +386,12 @@ class AudioPlayer extends Component {
     /** Used when playing recitations in a playlist. */
     startNextRecitation(next) {
         const store = this.props.rStore.getState();
+        if(store.shouldUpdatePlayCount === true) {
+            this.handleUpdatePlayCount();
+        }
         const storageRef = firebase.storage().ref();
         var rec;
+        
 
         if(next === 'next') {
             rec = store.recitation.playlist.next(store.recitation);

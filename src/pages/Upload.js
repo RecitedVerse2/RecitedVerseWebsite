@@ -243,7 +243,8 @@ class Upload extends Component {
 
 
                 <br/><br/><br/>
-                {/*<Clock onupdate={this.handleStopPlaying.bind(this)}></Clock>*/}
+                <Clock onupdate={this.handleStopPlaying.bind(this)}></Clock>
+                {this.props.children}
             </div>
         );
     }

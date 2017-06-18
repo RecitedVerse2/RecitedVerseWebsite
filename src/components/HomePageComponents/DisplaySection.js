@@ -168,7 +168,7 @@ class DisplaySection extends Component {
     loadMostPopular(fireRef, callback) {
         var playlist = new Playlist("Popular");
 
-        fireRef.child('Recitations').orderByChild('likes').limitToFirst(8).once('value').then((snapshot)=> {
+        fireRef.child('Recitations').orderByChild('plays').limitToFirst(8).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((rO) => {
@@ -191,6 +191,10 @@ class DisplaySection extends Component {
                                              rO.val().timestamp,
                                              playlist );
                 playlist.add(recObj);
+
+                playlist.recitations.sort( (a, b) => {
+                    return b.plays - a.plays;
+                });
             });
             this.setState({
                 popularPlaylist: playlist
@@ -228,6 +232,10 @@ class DisplaySection extends Component {
                                              rO.val().timestamp,
                                              playlist );
                 playlist.add(recObj);
+
+                playlist.recitations.sort( (a, b) => {
+                    return b.timestamp - a.timestamp;
+                });
             });
             this.setState({
                 recentPlaylist: playlist

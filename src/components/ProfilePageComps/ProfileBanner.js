@@ -38,7 +38,6 @@ class ProfileBanner extends Component {
             position:'relative',
             top:'70px',
             width:'100%',
-            height: this.props.height || '300px'
         }
     }
     getImageStyle() {
@@ -50,7 +49,7 @@ class ProfileBanner extends Component {
     getWelcomeStyles() {
         return {
             position:'absolute',
-            top:'40px',
+            top:'70px',
             width:'100%',
             color:'white',
             margin:'auto',

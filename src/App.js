@@ -38,7 +38,8 @@ const defaultState = {
     volume:50,
     audioPlayerOpen:false,
     loop:false,
-    lastPlayed:null
+    lastPlayed:null,
+    shouldUpdatePlayCount: false
 }
 const audioplayer = (state = defaultState, action) => {
     switch (action.type) {
@@ -100,6 +101,9 @@ const audioplayer = (state = defaultState, action) => {
             break;
         case 'LOOP_AUDIO':
             state.loop = !state.loop;
+            break;
+        case 'UPDATE_PLAYCOUNT':
+            state.shouldUpdatePlayCount = action.shouldUpdatePlayCount
             break;
         default: break;
     }

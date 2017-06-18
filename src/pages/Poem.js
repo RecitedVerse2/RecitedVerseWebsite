@@ -5,10 +5,12 @@ import _ from '../css/Poem.css';
 import __ from '../css/Header.css';
 
 import backgroundImage from '../../public/res/brickBackground.jpg';
-import background from '../../public/res/BlankBanner.png';
 import RVLogo from '../../public/res/RV-Final-Icon.png';
 
 import Clock from '../components/Clock';
+import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
+
+import Recitation from '../objects/Recitation';
 
 class Poem extends Component {
 
@@ -29,6 +31,9 @@ class Poem extends Component {
             genre:'...',
             poemImage:'',
             poemTranscript:'',
+            plays:0,
+            likes:0,
+            favorites:0,
             audio:null,
 
             backgroundColor:'rgba(0,0,0,0)'
@@ -37,6 +42,7 @@ class Poem extends Component {
 
     componentDidMount() {
         var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
+        this.reloadData();
         this.loadRecitationAudio();
 
         this.setState({
@@ -47,6 +53,9 @@ class Poem extends Component {
             genre: recitation.genre,
             poemImage: recitation.image,
             poemTranscript: recitation.text,
+            plays: recitation.plays,
+            likes: recitation.likes,
+            favorits: recitation.favorites
         })
     }
 
@@ -129,32 +138,31 @@ class Poem extends Component {
             zIndex:'-1'
         }
     }
-    getBannerStyle() {
-        return {
-            position:'relative',
-            top:'100px',
-            width:'100%',
-            height:'150px'
-        }
-    }
     getBannerTextStyles() {
         return {
             position:'relative',
-            top:'-95%',
+            top:'20px',
             color:'white',
             textAlign:'center',
-            fontSize:'70px',
+            fontSize:'110px',
             fontFamily:'Monthoers'
         }
     }
     getBannerTextStyles2() {
         return {
             position:'relative',
-            top:'-110%',
             color:'white',
             textAlign:'center',
-            fontSize:'30px',
+            fontSize:'70px',
             fontFamily:'Monthoers'
+        }
+    }
+    getPlayLikeFavoriteInfo() {
+        return {
+            position:'relative',
+            top:'50px',
+            fontSize:'17px',
+            display: 'inline-block'
         }
     }
     
@@ -187,11 +195,16 @@ class Poem extends Component {
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
                 {/* The banner with the sign in text */}
-                <div style={this.getBannerStyle()}>
-                    <img style={{width:'100%',height:'150px'}} src={background} alt="bg2"/>
+                <ProfileBanner rStore={this.props.rStore}>
                     <h1 style={this.getBannerTextStyles()}>{this.state.poemName}</h1>
                     <h1 style={this.getBannerTextStyles2()}>By {this.state.poemAuthor}</h1>
-                </div>
+                    
+                    <p style={this.getPlayLikeFavoriteInfo()}><span className='fa fa-play'></span>&nbsp;{this.state.plays}</p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p style={this.getPlayLikeFavoriteInfo()}><span className='fa fa-thumbs-up'></span>&nbsp;{this.state.likes}</p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p style={this.getPlayLikeFavoriteInfo()}><span className='fa fa-heart'></span>&nbsp;{this.state.favorites}</p>
+                </ProfileBanner>
 
 
                 {/* The div that shows the image. */}
@@ -272,6 +285,16 @@ class Poem extends Component {
                 } else {
                     this.playBtn.className = 'interactButton fa fa-pause';
                 }
+
+                if(store.audio.ended === true) {
+                    if(store.shouldUpdatePlayCount === true) {
+                        this.handleUpdatePlayCount();
+                        this.props.rStore.dispatch({
+                            type:'UPDATE_PLAYCOUNT',
+                            shouldUpdatePlayCount: false
+                        });
+                    }
+                }
             }
         }
 
@@ -284,6 +307,25 @@ class Poem extends Component {
                 backgroundColor: 'rgba(0,0,0,0)'
             })
         }
+    }
+
+
+    // Adds 1 to the play count everytime the audio is finished playing.
+    handleUpdatePlayCount() {
+        const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
+
+        recitation.plays += 1;
+        window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
+        
+        firebase.database().ref().child('Recitations').child(recitation.id).update({
+            plays: recitation.plays
+        }, this.reloadData(() => {
+            this.props.rStore.dispatch({
+                type:'UPDATE_PLAYCOUNT',
+                shouldUpdatePlayCount: false
+            });
+        }));
+        return;
     }
 
 
@@ -321,6 +363,10 @@ class Poem extends Component {
     playRecitation() {
         const store = this.props.rStore.getState();
         const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
+        this.props.rStore.dispatch({
+            type:'UPDATE_PLAYCOUNT',
+            shouldUpdatePlayCount: true
+        });
 
         // If the button has a pause symbol, then just pause the store's audio object.
         if(this.playBtn.className.includes('pause')) {
@@ -395,7 +441,7 @@ class Poem extends Component {
 
     likeRecitation() {
         const store = this.props.rStore.getState();
-        if(store.currentUser === null) { alert('You must be signed in to like a recitation.'); return; }
+        if(store.currentUser === null || store.currentUser === undefined) { alert('You must be signed in to like a recitation.'); return; }
 
         const fireRef = firebase.database().ref();
         const uid = store.currentUser.userID;
@@ -405,18 +451,27 @@ class Poem extends Component {
             var likes = snap.val().likes || [];
 
             if(!likes.includes(recitation.id)) {
+                // Set the user's likes array.
                 likes.push(recitation.id);
                 fireRef.child('Users').child(uid).child('likes').set(likes);
+
+                // Change the recitation's like number
+                recitation.likes += 1;
+                window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
                 fireRef.child('Recitations').child(recitation.id).update({
-                    likes: recitation.likes + 1
-                });
+                    likes: recitation.likes
+                }, this.reloadData());
                 return;
             } else {
+                // Set the user's likes array.
                 this.remove(likes, recitation.id);
                 fireRef.child('Users').child(uid).child('likes').set(likes);
+
+                // Change the recitation's like number
+                recitation.likes -= 1;
                 fireRef.child('Recitations').child(recitation.id).update({
-                    likes: recitation.likes - 1
-                });
+                    likes: recitation.likes
+                }, this.reloadData());
                 return;
             }
         });
@@ -434,22 +489,66 @@ class Poem extends Component {
             var favorites = snap.val().favorites || [];
 
             if(!favorites.includes(recitation.id)) {
+                // Set the user's favorite array.
                 favorites.push(recitation.id);
                 fireRef.child('Users').child(uid).child('favorites').set(favorites);
+
+                // Change the recitation's favorite number
+                recitation.favorites += 1;
+                window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
                 fireRef.child('Recitations').child(recitation.id).update({
-                    favorites: recitation.favorites + 1
-                });
+                    favorites: recitation.favorites
+                }, this.reloadData());
                 return;
             } else {
+                // Set the user's favorite array.
                 this.remove(favorites, recitation.id);
                 fireRef.child('Users').child(uid).child('favorites').set(favorites);
+
+                // Change the recitation's favorite number
+                recitation.favorites -= 1;
+                window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
                 fireRef.child('Recitations').child(recitation.id).update({
-                    favorites: recitation.favorites - 1
-                });
+                    favorites: recitation.favorites
+                }, this.reloadData());
                 return;
             }
         });
     }
+
+
+    reloadData(callback) {
+        const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
+        const fireRef = firebase.database().ref();
+
+        fireRef.child('Recitations').child(recitation.id).once('value').then((rO)=> {            
+            var recObj = new Recitation( rO.val().id,
+                                        rO.val().uploaderID,
+                                        rO.val().uploaderName,
+                                        rO.val().image,
+                                        rO.val().title,
+                                        rO.val().author,
+                                        rO.val().recited_by,
+                                        rO.val().published,
+                                        rO.val().genre,
+                                        rO.val().description,
+                                        rO.val().likes,
+                                        rO.val().plays,
+                                        rO.val().favorites,
+                                        rO.val().text,
+                                        rO.val().audio,
+                                        rO.val().timestamp,
+                                        null );
+                                        
+            window.sessionStorage.setItem('CurrentRecitation', this.stringify(recObj));
+            this.setState({
+                plays: recObj.plays,
+                likes: recObj.likes,
+                favorites: recObj.favorites
+            });
+        });
+    }
+
 
 }
 
