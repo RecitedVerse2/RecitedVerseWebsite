@@ -40,7 +40,7 @@ class RecitationItem extends Component {
            border:'none',
            outline:'none',
            cursor:'pointer',
-           fontFamily:'NEB',
+           fontFamily:'MyriadPro',
            fontSize:'20px',
            background:'none',
            paddingTop:'10px',
@@ -69,6 +69,8 @@ class RecitationItem extends Component {
                 <button onClick={this.goToPoemPage.bind(this)} 
                         style={this.getTextStyles()}>
                     {this.props.recitation.title}
+                    <br/>
+                    by {this.props.recitation.uploaderName}
                 </button>
             </div>
         );
@@ -99,6 +101,7 @@ class RecitationItem extends Component {
         });
         
         window.sessionStorage.setItem('CurrentRecitation', rec);
+        document.body.scrollTop = 0;
         this.props.nav.goTo('poem');
     }
 

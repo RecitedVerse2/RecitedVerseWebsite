@@ -228,7 +228,7 @@ class Poem extends Component {
                                     onClick={this.favoriteRecitation.bind(this)}></button>
                         </div>
 
-                        <button className='transcriptButton'>See Transcript</button>
+                        <button className='transcriptButton' onClick={this.goToTranscript.bind(this)}>See Transcript</button>
                     </div>
                 </div>
 
@@ -248,6 +248,10 @@ class Poem extends Component {
 
     goToHomePage() {
         this.props.nav.goTo('home');
+    }
+
+    goToTranscript() {
+        this.props.nav.goTo('transcript');
     }
 
     goToAccountSettings() {

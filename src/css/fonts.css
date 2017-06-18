@@ -13,3 +13,38 @@
     font-family: 'NEB';
     src: url('../../public/fonts/N_E_B.TTF');
 }
+
+@font-face {
+    font-family: 'MyriadPro';
+    src: url('../../public/fonts/MyriadPro-Regular.otf');
+}
+
+@font-face {
+    font-family: 'AmericanTypewriter';
+    src: url('../../public/fonts/AmericanTypewriter.ttc');
+}
+
+@font-face {
+    font-family: 'CaviarDreamsBold';
+    src: url('../../public/fonts/CaviarDreams_Bold.ttf');
+}
+
+@font-face {
+    font-family: 'CaviarDreams';
+    src: url('../../public/fonts/CaviarDreams.ttf');
+}
+
+@font-face {
+    font-family: 'Lao';
+    src: url('../../public/fonts/Lao MN.ttc');
+}
+
+@font-face {
+    font-family: 'Marker';
+    src: url('../../public/fonts/MarkerFelt.ttc');
+}
+
+@font-face {
+    font-family: 'PTMono';
+    src: url('../../public/fonts/PTMono.ttc');
+}

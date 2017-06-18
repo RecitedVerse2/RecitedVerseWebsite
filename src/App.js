@@ -12,6 +12,7 @@ import EditProfile from './pages/EditProfile';
 import Poem from './pages/Poem';
 import Upload from './pages/Upload';
 import Search from './pages/Search';
+import Transcript from './pages/Transcript';
 
 import AudioPlayer from './components/AudioPlayer';
 import navigation from './components/navigation';
@@ -173,6 +174,7 @@ class App extends Component {
         const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Poem>}
         const UploadPage = () => {return <Upload audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Upload>}
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
+        const TranscriptPage = () => {return <Transcript audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Transcript>}
 
         return (
             <BrowserRouter>
@@ -187,6 +189,7 @@ class App extends Component {
                     <Route path="/upload" component={UploadPage}></Route>
                     <Route path="/poem" component={PoemPage}></Route>
                     <Route path="/search" component={SearchPage}></Route>
+                    <Route path="/transcript" component={TranscriptPage}></Route>
                 </div>
             </BrowserRouter>
         );

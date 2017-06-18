@@ -53,7 +53,7 @@ class Upload extends Component {
             left:'0px',
             top:'0px',
             width:'100%',
-            height:'2300px',
+            height:'2500px',
             color:'white'
         };
     }
@@ -129,7 +129,7 @@ class Upload extends Component {
 
 
                 {/* The banner that displays the page title. */}
-                <ProfileBanner height='180px' rStore={this.props.rStore}>
+                <ProfileBanner top='150px' height='180px' rStore={this.props.rStore}>
                     <h1 style={{fontFamily:'Monthoers', fontSize:'80px'}}>Upload your Recitation</h1>
                 </ProfileBanner>
 
@@ -152,14 +152,14 @@ class Upload extends Component {
 
                     <div className='inputArea'>
                         <h1 className='inputTitle'>Recited By:</h1>
-                        <input className='inputField' ref={(input)=>{this.recitedByField = input}} type='text' />
+                        <input style={{paddingLeft:'100px'}} className='inputField' ref={(input)=>{this.recitedByField = input}} type='text' />
                     </div>
 
                     <br/><br/>
 
                     <div className='inputArea'>
-                        <h1 className='inputTitle'>Published:</h1>
-                        <input className='inputField' ref={(input)=>{this.publishedField = input}} type='text' />
+                        <h1 className='inputTitle'>Year Published:</h1>
+                        <input style={{paddingLeft:'150px'}} className='inputField' ref={(input)=>{this.publishedField = input}} type='text' />
                     </div>
 
                     <br/><br/>

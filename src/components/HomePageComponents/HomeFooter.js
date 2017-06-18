@@ -103,7 +103,7 @@ class HomeFooter extends Component {
                         <p style={{fontSize:'20px'}} onClick={this.goToPage.bind(this)}>Genre: {this.state.recitation != null ? this.state.recitation.genre : ""}</p>
                         
                         <p style={{fontSize:'20px'}} ref={(p)=>{this.playButton = p}} onClick={this.goToPage.bind(this)}>
-                            Recited By: {this.state.recitation != null ? this.state.recitation.recited_by : ""}
+                            Recited By: {this.state.recitation != null ? this.state.recitation.recitedBy : ""}
                         </p>
                     </div>
                 </div>

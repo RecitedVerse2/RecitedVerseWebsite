@@ -150,7 +150,7 @@ class EditProfile extends Component {
                 <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
-                <ProfileBanner rStore={this.props.rStore}>
+                <ProfileBanner top='100px' rStore={this.props.rStore}>
                     <h1 style={{marginTop:'65px',fontFamily:'Monthoers',fontSize:'90px'}}>Edit Profile</h1>
                 </ProfileBanner>
 

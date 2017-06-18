@@ -312,6 +312,12 @@ class AudioPlayer extends Component {
                         }
                     }
                 }
+            } else {
+                if(store.audio.currentTime === store.audio.duration) {
+                    if(store.shouldUpdatePlayCount === true) {
+                        this.handleUpdatePlayCount();
+                    }
+                }
             }
          }
     }

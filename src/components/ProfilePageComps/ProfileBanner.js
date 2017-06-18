@@ -49,7 +49,7 @@ class ProfileBanner extends Component {
     getWelcomeStyles() {
         return {
             position:'absolute',
-            top:'70px',
+            top: this.props.top || '70px',
             width:'100%',
             color:'white',
             margin:'auto',

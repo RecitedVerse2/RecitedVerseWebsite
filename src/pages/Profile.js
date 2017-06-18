@@ -130,7 +130,7 @@ class Profile extends Component {
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
                 <ProfileBanner rStore={this.props.rStore}>
-                    <h1 style={{fontFamily:'Monthoers', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}'s</h1>
+                    <h1 style={{fontFamily:'NEB', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}'s</h1>
                     <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>Recordings</h1>
                 </ProfileBanner>
 
@@ -247,7 +247,7 @@ class Profile extends Component {
             snapshot.forEach((rO) => {
                 var recObj = new Recitation( rO.val().id,
                                              rO.val().uploaderID,
-                                             rO.val().uploadername,
+                                             rO.val().uploaderName,
                                              rO.val().image,
                                              rO.val().title,
                                              rO.val().author,
@@ -289,7 +289,7 @@ class Profile extends Component {
                     fireRef.child('Recitations').child(e).once('value', (rO) => {
                         var recObj = new Recitation( rO.val().id,
                                                     rO.val().uploaderID,
-                                                    rO.val().uploadername,
+                                                    rO.val().uploaderName,
                                                     rO.val().image,
                                                     rO.val().title,
                                                     rO.val().author,
@@ -340,7 +340,7 @@ class Profile extends Component {
                     fireRef.child('Recitations').child(e).once('value', (rO) => {
                         var recObj = new Recitation( rO.val().id,
                                                     rO.val().uploaderID,
-                                                    rO.val().uploadername,
+                                                    rO.val().uploaderName,
                                                     rO.val().image,
                                                     rO.val().title,
                                                     rO.val().author,
