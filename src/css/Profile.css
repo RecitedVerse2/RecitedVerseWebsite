@@ -5,6 +5,7 @@
     width:80%;
     margin: auto;
     text-align: center;
+    margin-bottom: 100px;
 }
 
 .buttonsArea {
@@ -20,8 +21,9 @@
     outline:none;
     background:none;
     font-size: 50px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 20px;
     text-align:center;
     text-decoration:none;
     font-family: 'Monthoers';

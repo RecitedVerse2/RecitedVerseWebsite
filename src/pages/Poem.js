@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 import _ from '../css/Poem.css';
 import __ from '../css/Header.css';
@@ -35,15 +36,43 @@ class Poem extends Component {
             likes:0,
             favorites:0,
             audio:null,
+            deleteButton:<div></div>,
+            show:false,
 
             backgroundColor:'rgba(0,0,0,0)'
         }
     }
 
     componentDidMount() {
+        const store = this.props.rStore.getState();
         var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
         this.reloadData();
         this.loadRecitationAudio();
+
+
+        if(store.currentUser !== null) {
+            if(store.currentUser.userID === recitation.uploaderID) {
+                const popover = (<Popover ref={(Popover)=>{this.pop = Popover}} id="popover-positioned-bottom" style={{textAlign:'center'}}>
+                                        <button className='deletePopoverBtn' onClick={this.handleDeleteRecitation.bind(this)}>Yes, delete now.</button>
+                                        <br/>
+                                        <button className='deletePopoverBtn' onClick={()=>{ this.setState({show:false}) }}>No, cancel.</button>
+                                    </Popover>);
+                var button = <OverlayTrigger trigger="click" placement="bottom" overlay={popover} isOverlayShown={this.state.show}>
+                                <button className='deleteButton'
+                                        data-toggle="popover" data-placement="bottom">
+                                    Delete Recitation
+                                </button>
+                            </OverlayTrigger>
+                
+                this.setState({
+                    deleteButton: button
+                });
+            } else {
+                this.setState({
+                    deleteButton: <div></div>
+                });
+            }
+        }
 
         this.setState({
             poemName: recitation.title,
@@ -144,7 +173,7 @@ class Poem extends Component {
             top:'20px',
             color:'white',
             textAlign:'center',
-            fontSize:'110px',
+            fontSize:'100px',
             fontFamily:'Monthoers'
         }
     }
@@ -162,6 +191,7 @@ class Poem extends Component {
             position:'relative',
             top:'50px',
             fontSize:'17px',
+            fontFamily:'MyriadPro',
             display: 'inline-block'
         }
     }
@@ -229,6 +259,8 @@ class Poem extends Component {
                         </div>
 
                         <button className='transcriptButton' onClick={this.goToTranscript.bind(this)}>See Transcript</button>
+                        <br/><br/><br/>
+                        {this.state.deleteButton}
                     </div>
                 </div>
 
@@ -247,18 +279,22 @@ class Poem extends Component {
     ***********************/
 
     goToHomePage() {
+        document.body.scrollTop = 0;
         this.props.nav.goTo('home');
     }
 
     goToTranscript() {
+        document.body.scrollTop = 0;
         this.props.nav.goTo('transcript');
     }
 
     goToAccountSettings() {
+        document.body.scrollTop = 0;
         this.props.nav.goTo('accountsettings');
     }
 
     goToPRofile() {
+        document.body.scrollTop = 0;
         this.props.nav.goTo('profile');
     }
 
@@ -275,6 +311,12 @@ class Poem extends Component {
             }
             return value;
         });
+    }
+
+    handleDeleteRecitation() {
+        this.setState({show:false})
+
+        this.props.nav.goTo('home');
     }
 
     update() {

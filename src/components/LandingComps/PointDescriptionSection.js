@@ -21,8 +21,8 @@ class PointDescriptionSection extends Component {
         return {
             position:'relative',
             top:'10%',
-            width:'35%',
-            height:'90%',
+            width:'400px',
+            height:'400px',
             borderRadius:'100%',
             marginLeft: this.props.orientation === 'left' ? '50px' : '0px',
             marginRight: this.props.orientation === 'right' ? '50px' : '0px',

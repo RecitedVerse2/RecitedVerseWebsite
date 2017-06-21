@@ -106,6 +106,7 @@ class ProfileHeader extends Component {
     ***********************/
 
     goToHomePage() {
+        document.body.scrollTop = 0;
         this.props.nav.goTo('home');
     }
     goToSettings() {

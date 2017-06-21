@@ -23,7 +23,10 @@ class RecitationItem extends Component {
            position:'relative',
            width:'200px',
            height:'200px',
-           margin: this.props.margin || '20px',
+           marginTop: this.props.margin || '20px',
+           marginLeft: this.props.margin || '20px',
+           marginRight: this.props.margin || '20px',
+           marginBottom:'80px',
            display:'inline-block',
        }
    }

@@ -9,6 +9,7 @@ import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import PlaylistItem from '../components/ProfilePageComps/PlaylistItem';
 import RecitationItem from '../components/ProfilePageComps/RecitationItem';
+import PageFooter from '../components/PageFooter';
 
 import Recitation from '../objects/Recitation';
 import Playlist from '../objects/Playlist';
@@ -91,8 +92,7 @@ class Profile extends Component {
             position:'absolute',
             left:'0px',
             top:'0px',
-            width:'100%',
-            height:'1500px'
+            width:'100%'
         };
     }
     getOverlay() {
@@ -160,6 +160,13 @@ class Profile extends Component {
                     {this.state.recitations}
                 </div>
 
+
+                <PageFooter bottom='-100px'>
+                </PageFooter>
+                <br/><br/><br/>
+                <br/><br/><br/>
+                <br/><br/><br/>
+
                 {this.props.children}
             </div>
         );
@@ -221,6 +228,7 @@ class Profile extends Component {
 
 
     goToUploadPage() {
+        document.body.scrollTop = 0;
         this.props.nav.goTo('upload');
     }
 

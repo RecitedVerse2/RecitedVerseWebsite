@@ -6,7 +6,8 @@ import CarouselImage from '../../public/res/RVBanner.png';
 import Header from '../components/LandingComps/Header';
 import MainPointsSection from '../components/LandingComps/MainPointsSection';
 import PointDescriptionSection from '../components/LandingComps/PointDescriptionSection';
-import Footer from '../components/LandingComps/Footer';
+import AboutRV from '../components/LandingComps/AboutRV';
+import PageFooter from '../components/PageFooter';
 
 // The landing page for RecitedVerse.
 class Landing extends Component {
@@ -83,7 +84,8 @@ class Landing extends Component {
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 
-                <Footer></Footer>
+                <AboutRV></AboutRV>
+                <PageFooter></PageFooter>
                 <br/><br/><br/><br/><br/><br/><br/>
                 {this.props.children}
             </div>

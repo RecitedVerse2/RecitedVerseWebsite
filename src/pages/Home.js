@@ -5,7 +5,8 @@ import backgroundImage from '../../public/res/brickBackground.jpg';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import HomeCarousel from '../components/HomePageComponents/Carousel';
 import DisplaySection from '../components/HomePageComponents/DisplaySection';
-import HomeFooter from '../components/HomePageComponents/HomeFooter';
+import ROTDArea from '../components/HomePageComponents/ROTDArea';
+import PageFooter from '../components/PageFooter';
 
 // This is the home page.
 class Home extends Component {
@@ -81,10 +82,15 @@ class Home extends Component {
 
 
                 <br/><br/><br/><br/><br/><br/><br/><br/>
-                <HomeFooter rStore={this.props.rStore} 
+                <ROTDArea rStore={this.props.rStore} 
                             nav={this.props.nav} 
-                            audioPlayer={this.props.children}></HomeFooter>
+                            audioPlayer={this.props.children}></ROTDArea>
 
+                <br/><br/>
+                <PageFooter bottom='-400px'>
+                    <br/><br/><br/>
+                </PageFooter>
+                <br/><br/><br/>
 
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

@@ -221,6 +221,7 @@ class EditProfile extends Component {
                     <button className='titleText' onClick={this.handleSaveChanges.bind(this)}>Save Changes</button>
                 </div>
 
+                {this.props.children}
             </div>
         );
     }

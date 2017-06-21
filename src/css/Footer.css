@@ -1,0 +1,58 @@
+h1 {
+    color: white;
+    text-align: center;
+    font-family: "Monthoers"
+}
+#copyright {
+    font-size: 18px;
+    font-family: "Monthoers"
+}
+
+button {
+    font-size: 20px;
+    font-family: "NEB"
+}
+
+.sectionHolders {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    padding-left: 100px;
+}
+
+.companyInfoSection {
+    width: 25%;
+    color: white;
+    vertical-align: top;
+    display: inline-block;
+}
+.communitiesSection {
+    width: 25%;
+    color: white;
+    vertical-align: top;
+    display: inline-block;
+}
+.userfulLinksSection {
+    width: 25%;
+    color: white;
+    vertical-align: top;
+    display: inline-block;
+}
+.buttonsSection {
+    width: 25%;
+    color: white;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 100px;
+}
+
+
+.socialBtn {
+    width: 70px;
+    height: 50px;
+    display: inline-block;
+}
+.socialImg {
+    width: 100%;
+    height: 100%;
+}

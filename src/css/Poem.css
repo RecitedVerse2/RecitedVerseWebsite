@@ -23,6 +23,7 @@
 }
 
 .headerText {
+    text-align: left;
     font-size: 40px;
     font-family: 'NEB';
 }
@@ -39,7 +40,14 @@ button {
     margin-top: 50px;
     margin-right: 20px;
 }
-
+.deleteButton {
+    color: red;
+    margin-left: 100px;
+    text-align: center;
+}
+.deletePopoverBtn {
+    
+}
 .transcriptButton {
     font-size: 60px;
     font-family: 'Monthoers';

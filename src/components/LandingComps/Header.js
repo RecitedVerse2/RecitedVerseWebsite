@@ -82,7 +82,7 @@ class Header extends Component {
         return (
             <div className='header' style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
-                <img onClick={()=>{this.props.nav.goTo('home')}} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                <img onClick={()=>{document.body.scrollTop = 0;this.props.nav.goTo('home')}} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
 
                 <div style={this.getButtonsSectionStyle()}>
                     <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Login</button>
