@@ -4,6 +4,7 @@ import _classCallCheck from 'babel-runtime/helpers/classCallCheck';
 import _possibleConstructorReturn from 'babel-runtime/helpers/possibleConstructorReturn';
 import _inherits from 'babel-runtime/helpers/inherits';
 import React from 'react';
+import PropTypes from 'prop-types';
 import requiredForA11y from 'react-prop-types/lib/isRequiredForA11y';
 import uncontrollable from 'uncontrollable';
 
@@ -22,16 +23,16 @@ var propTypes = {
    *
    * @controllable onSelect
    */
-  activeKey: React.PropTypes.any,
+  activeKey: PropTypes.any,
 
   /**
    * Navigation style
    */
-  bsStyle: React.PropTypes.oneOf(['tabs', 'pills']),
+  bsStyle: PropTypes.oneOf(['tabs', 'pills']),
 
-  animation: React.PropTypes.bool,
+  animation: PropTypes.bool,
 
-  id: requiredForA11y(React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])),
+  id: requiredForA11y(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
 
   /**
    * Callback fired when a Tab is selected.
@@ -45,17 +46,17 @@ var propTypes = {
    *
    * @controllable activeKey
    */
-  onSelect: React.PropTypes.func,
+  onSelect: PropTypes.func,
 
   /**
    * Wait until the first "enter" transition to mount tabs (add them to the DOM)
    */
-  mountOnEnter: React.PropTypes.bool,
+  mountOnEnter: PropTypes.bool,
 
   /**
    * Unmount tabs (remove it from the DOM) when it is no longer visible
    */
-  unmountOnExit: React.PropTypes.bool
+  unmountOnExit: PropTypes.bool
 };
 
 var defaultProps = {

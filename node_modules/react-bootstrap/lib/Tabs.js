@@ -26,6 +26,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _isRequiredForA11y = require('react-prop-types/lib/isRequiredForA11y');
 
 var _isRequiredForA11y2 = _interopRequireDefault(_isRequiredForA11y);
@@ -66,16 +70,16 @@ var propTypes = {
    *
    * @controllable onSelect
    */
-  activeKey: _react2['default'].PropTypes.any,
+  activeKey: _propTypes2['default'].any,
 
   /**
    * Navigation style
    */
-  bsStyle: _react2['default'].PropTypes.oneOf(['tabs', 'pills']),
+  bsStyle: _propTypes2['default'].oneOf(['tabs', 'pills']),
 
-  animation: _react2['default'].PropTypes.bool,
+  animation: _propTypes2['default'].bool,
 
-  id: (0, _isRequiredForA11y2['default'])(_react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number])),
+  id: (0, _isRequiredForA11y2['default'])(_propTypes2['default'].oneOfType([_propTypes2['default'].string, _propTypes2['default'].number])),
 
   /**
    * Callback fired when a Tab is selected.
@@ -89,17 +93,17 @@ var propTypes = {
    *
    * @controllable activeKey
    */
-  onSelect: _react2['default'].PropTypes.func,
+  onSelect: _propTypes2['default'].func,
 
   /**
    * Wait until the first "enter" transition to mount tabs (add them to the DOM)
    */
-  mountOnEnter: _react2['default'].PropTypes.bool,
+  mountOnEnter: _propTypes2['default'].bool,
 
   /**
    * Unmount tabs (remove it from the DOM) when it is no longer visible
    */
-  unmountOnExit: _react2['default'].PropTypes.bool
+  unmountOnExit: _propTypes2['default'].bool
 };
 
 var defaultProps = {

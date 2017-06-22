@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import { Popover, OverlayTrigger } from 'react-bootstrap';
+import Alertify from 'alertify.js';
 
 import _ from '../css/Poem.css';
 import __ from '../css/Header.css';
@@ -49,23 +49,15 @@ class Poem extends Component {
         this.reloadData();
         this.loadRecitationAudio();
 
-
+        // Button for deleting recitations
         if(store.currentUser !== null) {
             if(store.currentUser.userID === recitation.uploaderID) {
-                const popover = (<Popover ref={(Popover)=>{this.pop = Popover}} id="popover-positioned-bottom" style={{textAlign:'center'}}>
-                                        <button className='deletePopoverBtn' onClick={this.handleDeleteRecitation.bind(this)}>Yes, delete now.</button>
-                                        <br/>
-                                        <button className='deletePopoverBtn' onClick={()=>{ this.setState({show:false}) }}>No, cancel.</button>
-                                    </Popover>);
-                var button = <OverlayTrigger trigger="click" placement="bottom" overlay={popover} isOverlayShown={this.state.show}>
-                                <button className='deleteButton'
-                                        data-toggle="popover" data-placement="bottom">
-                                    Delete Recitation
-                                </button>
-                            </OverlayTrigger>
+               var btn = <button className='deleteButton' onClick={this.handleDeleteRecitation.bind(this)}>
+                                Delete Recitation
+                            </button>
                 
                 this.setState({
-                    deleteButton: button
+                    deleteButton: btn
                 });
             } else {
                 this.setState({
@@ -314,9 +306,30 @@ class Poem extends Component {
     }
 
     handleDeleteRecitation() {
-        this.setState({show:false})
+        var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
 
-        this.props.nav.goTo('home');
+        Alertify.confirm("Are you sure you want to delete this recitation?", (e) => {
+            if (e) {
+                // Delete the recitation.
+                firebase.database().ref().child('Recitations').child(recitation.id).remove( (err) => {
+
+                    if(!err) {
+                        firebase.storage().ref().child('Recitations').child(recitation.id).delete().then( () => {
+
+                            this.props.nav.goTo('home');
+
+                        }).catch( (err) => {
+                            console.log(err);
+                        });
+                    }
+                    else {
+                        console.log(err);
+                    }
+                });
+            } else {
+                // user clicked "cancel"
+            }
+        });
     }
 
     update() {

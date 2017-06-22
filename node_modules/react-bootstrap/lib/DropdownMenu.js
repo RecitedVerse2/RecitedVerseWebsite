@@ -38,6 +38,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
@@ -59,12 +63,12 @@ var _ValidComponentChildren2 = _interopRequireDefault(_ValidComponentChildren);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var propTypes = {
-  open: _react2['default'].PropTypes.bool,
-  pullRight: _react2['default'].PropTypes.bool,
-  onClose: _react2['default'].PropTypes.func,
-  labelledBy: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
-  onSelect: _react2['default'].PropTypes.func,
-  rootCloseEvent: _react2['default'].PropTypes.oneOf(['click', 'mousedown'])
+  open: _propTypes2['default'].bool,
+  pullRight: _propTypes2['default'].bool,
+  onClose: _propTypes2['default'].func,
+  labelledBy: _propTypes2['default'].oneOfType([_propTypes2['default'].string, _propTypes2['default'].number]),
+  onSelect: _propTypes2['default'].func,
+  rootCloseEvent: _propTypes2['default'].oneOf(['click', 'mousedown'])
 };
 
 var defaultProps = {

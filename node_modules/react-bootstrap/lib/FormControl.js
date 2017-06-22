@@ -30,6 +30,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _elementType = require('react-prop-types/lib/elementType');
 
 var _elementType2 = _interopRequireDefault(_elementType);
@@ -57,11 +61,11 @@ var propTypes = {
   /**
    * Only relevant if `componentClass` is `'input'`.
    */
-  type: _react2['default'].PropTypes.string,
+  type: _propTypes2['default'].string,
   /**
    * Uses `controlId` from `<FormGroup>` if not explicitly specified.
    */
-  id: _react2['default'].PropTypes.string,
+  id: _propTypes2['default'].string,
   /**
    * Attaches a ref to the `<input>` element. Only functions can be used here.
    *
@@ -69,7 +73,7 @@ var propTypes = {
    * <FormControl inputRef={ref => { this.input = ref; }} />
    * ```
    */
-  inputRef: _react2['default'].PropTypes.func
+  inputRef: _propTypes2['default'].func
 };
 
 var defaultProps = {
@@ -77,7 +81,7 @@ var defaultProps = {
 };
 
 var contextTypes = {
-  $bs_formGroup: _react2['default'].PropTypes.object
+  $bs_formGroup: _propTypes2['default'].object
 };
 
 var FormControl = function (_React$Component) {

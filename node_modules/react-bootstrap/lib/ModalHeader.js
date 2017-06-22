@@ -30,6 +30,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _bootstrapUtils = require('./utils/bootstrapUtils');
 
 var _createChainedFunction = require('./utils/createChainedFunction');
@@ -46,19 +50,19 @@ var propTypes = {
    * button. It is used for Assistive Technology when the label text is not
    * readable.
    */
-  'aria-label': _react2['default'].PropTypes.string,
+  'aria-label': _propTypes2['default'].string,
 
   /**
    * Specify whether the Component should contain a close button
    */
-  closeButton: _react2['default'].PropTypes.bool,
+  closeButton: _propTypes2['default'].bool,
 
   /**
    * A Callback fired when the close button is clicked. If used directly inside
    * a Modal component, the onHide will automatically be propagated up to the
    * parent Modal `onHide`.
    */
-  onHide: _react2['default'].PropTypes.func
+  onHide: _propTypes2['default'].func
 };
 
 var defaultProps = {
@@ -67,8 +71,8 @@ var defaultProps = {
 };
 
 var contextTypes = {
-  $bs_modal: _react2['default'].PropTypes.shape({
-    onHide: _react2['default'].PropTypes.func
+  $bs_modal: _propTypes2['default'].shape({
+    onHide: _propTypes2['default'].func
   })
 };
 

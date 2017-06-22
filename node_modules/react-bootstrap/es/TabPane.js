@@ -4,7 +4,8 @@ import _classCallCheck from 'babel-runtime/helpers/classCallCheck';
 import _possibleConstructorReturn from 'babel-runtime/helpers/possibleConstructorReturn';
 import _inherits from 'babel-runtime/helpers/inherits';
 import classNames from 'classnames';
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import elementType from 'react-prop-types/lib/elementType';
 import warning from 'warning';
 
@@ -37,7 +38,7 @@ var propTypes = {
    * `<TabContent>`, the `bsClass` of the `<TabContent>` suffixed by `-pane`.
    * If otherwise not explicitly specified, `tab-pane`.
    */
-  bsClass: React.PropTypes.string,
+  bsClass: PropTypes.string,
 
   /**
    * Transition onEnter callback when animation is not `false`
@@ -72,7 +73,7 @@ var propTypes = {
   /**
    * Wait until the first "enter" transition to mount the tab (add it to the DOM)
    */
-  mountOnEnter: React.PropTypes.bool,
+  mountOnEnter: PropTypes.bool,
 
   /**
    * Unmount the tab (remove it from the DOM) when it is no longer visible

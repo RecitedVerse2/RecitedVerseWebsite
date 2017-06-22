@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import audioRec from 'au-audio-recorder';
+import * as audioRec from 'au-audio-recorder';
+import Alertify from 'alertify.js';
 
 import _ from '../css/UploadBox.css';
 
@@ -299,6 +300,7 @@ class Upload extends Component {
         statusLabel.innerHTML = '';
         statusLabel.style.WebkitTransitionDuration = '0s';
         statusLabel.style.opacity = '1';
+
         return;
     }
 
@@ -377,25 +379,17 @@ class Upload extends Component {
         statusLabel.style.opacity = '1';
 
         setTimeout(() => {
-            statusLabel.style.WebkitTransitionDuration = '0.5s';
-            statusLabel.style.opacity = '0';
-            setTimeout(()=> {
-                this.removeClearMessage();
-            }, 500);
+            this.removeClearMessage();
         }, 1000);
     }
 
     handleSubmit() {
-        this.statusLabel.innerHTML = '';
+        var missingInfo = '';
         this.statusLabel.style.WebkitTransitionDuration = '0s';
         this.statusLabel.style.visibility = 'visible';
         this.statusLabel.style.opacity = '1';
 
-        if(!this.valueExists(this.state.audioObj) && this.state.audioObj === null) {
-            console.log('You must either upload an audio file or record one before submitting a recitation.');
-            this.statusLabel.innerHTML += "You must upload or record a poem before submitting<br/>";
-        }
-
+        var finalRecording = audioRec.getRecording();
         const fireRef = firebase.database().ref();
         const storageRef = firebase.storage().ref();
         const store = this.props.rStore.getState();
@@ -408,7 +402,7 @@ class Upload extends Component {
         var poemWrittenText = this.transcriptField;
         var poemDescription = this.descriptionField;
 
-        if(this.valueExists(poemName.value) && this.valueExists(poemAuthor.value) 
+        if( (this.valueExists(this.state.audioObj) || finalRecording !== null) && this.valueExists(poemName.value) && this.valueExists(poemAuthor.value) 
             && this.valueExists(poemRecitedBy.value) && this.valueExists(poemPublished.value)
             && this.valueExists(poemGenre.value) && this.valueExists(poemWrittenText.value)) {
 
@@ -441,7 +435,10 @@ class Upload extends Component {
 
             var myRecording = audioRec.getRecordingFile();
             // If the recording is not null, then upload that. Otherwise, upload a file.
-            if(myRecording != null) {
+            if(myRecording !== null) {
+                this.statusLabel.style.visibility = 'visible';
+                this.statusLabel.style.WebkitTransitionDuration = '0.5s';
+                this.statusLabel.style.opacity = '1';
                 this.statusLabel.innerHTML = "Uploading...";
 
                 /* Save it to the database under Recitations->UserID->AutoID:Dictionary*/
@@ -450,9 +447,13 @@ class Upload extends Component {
                 /* Save the actual audio to the storage. */
                 storageRef.child('Recitations').child(dictionary['id']).put(myRecording).then(() => {
                     this.statusLabel.innerHTML = "Done!";
+                    return;
                 });
 
             } else if(this.valueExists(this.state.audioObj)) {
+                this.statusLabel.style.visibility = 'visible';
+                this.statusLabel.style.WebkitTransitionDuration = '0.5s';
+                this.statusLabel.style.opacity = '1';
                 this.statusLabel.innerHTML = "Uploading...";
 
                 /* Save it to the database under Recitations->UserID->AutoID:Dictionary*/
@@ -461,17 +462,23 @@ class Upload extends Component {
                 /* Save the actual audio to the storage. */
                 storageRef.child('Recitations').child(dictionary['id']).putString(this.state.audioObj.src, 'data_url').then((snapshot) => {
                     this.statusLabel.innerHTML = "Done!";
+                    return;
                 });
 
             }
+            return;
         } else {
             
-            if(!this.valueExists(poemName.value)) { this.statusLabel.innerHTML += "Enter a name for the poem<br/>"; }
-            if(!this.valueExists(poemAuthor.value)) { this.statusLabel.innerHTML += "Enter a name of the poet<br/>"; }
-            if(!this.valueExists(poemRecitedBy.value)) { this.statusLabel.innerHTML += "Enter a name for the reciting artist<br/>"; }
-            if(!this.valueExists(poemPublished.value)) { this.statusLabel.innerHTML += "Enter a year of publication<br/>"; }
-            if(!this.valueExists(poemGenre.value)) { this.statusLabel.innerHTML += "Enter the genre of the poem<br/>"; }
-            if(!this.valueExists(poemWrittenText.value)) { this.statusLabel.innerHTML += "Enter the transcript of the poem<br/>"; }
+            if(!this.valueExists(this.state.audioObj) && finalRecording === null) { missingInfo += "You must upload or record a poem before submitting<br/>"; }
+            if(!this.valueExists(poemName.value)) { missingInfo += "Enter a name for the poem<br/>"; }
+            if(!this.valueExists(poemAuthor.value)) { missingInfo += "Enter a name of the poet<br/>"; }
+            if(!this.valueExists(poemRecitedBy.value)) { missingInfo += "Enter a name for the reciting artist<br/>"; }
+            if(!this.valueExists(poemPublished.value)) { missingInfo += "Enter a year of publication<br/>"; }
+            if(!this.valueExists(poemGenre.value)) { missingInfo += "Enter the genre of the poem<br/>"; }
+            if(!this.valueExists(poemWrittenText.value)) { missingInfo += "Enter the transcript of the poem<br/>"; }
+
+            Alertify.alert(missingInfo);
+            return;
         }
     }
 

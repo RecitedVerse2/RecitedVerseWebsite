@@ -6,13 +6,14 @@ import _possibleConstructorReturn from 'babel-runtime/helpers/possibleConstructo
 import _inherits from 'babel-runtime/helpers/inherits';
 import classNames from 'classnames';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { bsClass, bsStyles, getClassSet, prefix, splitBsProps } from './utils/bootstrapUtils';
 import { State } from './utils/StyleConfig';
 
 var propTypes = {
-  onDismiss: React.PropTypes.func,
-  closeLabel: React.PropTypes.string
+  onDismiss: PropTypes.func,
+  closeLabel: PropTypes.string
 };
 
 var defaultProps = {

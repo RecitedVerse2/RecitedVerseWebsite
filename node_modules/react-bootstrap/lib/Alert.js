@@ -34,6 +34,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _bootstrapUtils = require('./utils/bootstrapUtils');
 
 var _StyleConfig = require('./utils/StyleConfig');
@@ -41,8 +45,8 @@ var _StyleConfig = require('./utils/StyleConfig');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var propTypes = {
-  onDismiss: _react2['default'].PropTypes.func,
-  closeLabel: _react2['default'].PropTypes.string
+  onDismiss: _propTypes2['default'].func,
+  closeLabel: _propTypes2['default'].string
 };
 
 var defaultProps = {

@@ -5,6 +5,7 @@ import _possibleConstructorReturn from 'babel-runtime/helpers/possibleConstructo
 import _inherits from 'babel-runtime/helpers/inherits';
 import classNames from 'classnames';
 import React from 'react';
+import PropTypes from 'prop-types';
 import elementType from 'react-prop-types/lib/elementType';
 import warning from 'warning';
 
@@ -19,11 +20,11 @@ var propTypes = {
   /**
    * Only relevant if `componentClass` is `'input'`.
    */
-  type: React.PropTypes.string,
+  type: PropTypes.string,
   /**
    * Uses `controlId` from `<FormGroup>` if not explicitly specified.
    */
-  id: React.PropTypes.string,
+  id: PropTypes.string,
   /**
    * Attaches a ref to the `<input>` element. Only functions can be used here.
    *
@@ -31,7 +32,7 @@ var propTypes = {
    * <FormControl inputRef={ref => { this.input = ref; }} />
    * ```
    */
-  inputRef: React.PropTypes.func
+  inputRef: PropTypes.func
 };
 
 var defaultProps = {
@@ -39,7 +40,7 @@ var defaultProps = {
 };
 
 var contextTypes = {
-  $bs_formGroup: React.PropTypes.object
+  $bs_formGroup: PropTypes.object
 };
 
 var FormControl = function (_React$Component) {
