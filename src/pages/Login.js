@@ -134,7 +134,8 @@ class Login extends Component {
             height:'50px',
             margin:'auto',   
             display:'table',
-            color:'white',       
+            color:'white',
+            borderRadius:'25px',    
             backgroundColor:'rgba(255,255,255,0.5)'
         }
     }
@@ -232,15 +233,15 @@ class Login extends Component {
                 {/* Email/Password field */}
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle(8)}>Email:</h1>
-                    <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(8)} type='email' />
+                    <h1 style={this.getSearchBarStyle(12)}>Email:</h1>
+                    <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(12)} type='email' />
                 </div>
 
                 <br/><br/><br/>
 
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle(12.5)}>Password:</h1>
-                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(12.5)} type='password' />
+                    <h1 style={this.getSearchBarStyle(15)}>Password:</h1>
+                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(15)} type='password' />
                 </div>
 
                 <br/><br/><br/>

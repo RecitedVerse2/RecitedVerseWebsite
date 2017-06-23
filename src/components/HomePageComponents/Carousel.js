@@ -83,7 +83,8 @@ class LandingPageCarousel extends Component {
             width:'60%',
             height:'50px',
             margin:'auto',   
-            display:'table',         
+            display:'table',
+            borderRadius:'25px',       
             backgroundColor:'rgba(255,255,255,0.5)'
         }
     }
@@ -94,7 +95,7 @@ class LandingPageCarousel extends Component {
             width:'12%',
             height:'100%',
             float:'left',
-            fontSize:'30px',
+            fontSize:'25px',
             fontFamily:'NEB',
             WebkitPaddingBefore: '10px',
             display:'table-cell',
@@ -148,8 +149,8 @@ class LandingPageCarousel extends Component {
 
     handleSearch(e) {
         if(e.key === 'Enter') {
-            this.props.nav.goTo('search');
             window.sessionStorage.setItem('LastSearch', this.searchBar.value);
+            this.props.nav.goTo('search');
         }
     }
 

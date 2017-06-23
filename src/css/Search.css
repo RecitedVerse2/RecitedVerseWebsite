@@ -1,0 +1,73 @@
+.searchBar {
+    position: relative;
+    width: 70%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    margin-bottom: auto;
+    color: white;
+    display: table;
+    z-index: 50;
+    border-radius: 25px;
+    background-color: rgba(255,255,255,0.5);
+}
+.searchBarTitle {
+    position: absolute;
+    margin-top: 5px;
+    left: 10px;
+    height: 100%;
+    float: left;
+    text-align: left;
+    font-family: 'NEB';
+    font-size: 25px;
+    z-index: 50;
+    display: table-cell;
+    -webkit-padding-before: 8px;
+}
+.inputStyles {
+    position: absolute;
+    left: 20px;
+    width: 80%;
+    height: 100%;
+    float: left;
+    margin: auto;
+    border: none;
+    outline: none;
+    background: none;
+    box-shadow: none;
+    font-size: 30px;
+    font-family: 'NEB';
+    display: table-cell;
+    padding-left: 65px;
+    z-index: 50;
+    -moz-padding-before: -10px;
+    text-decoration: none;
+}
+
+
+.resultsSection {
+    position: relative;
+    top: 120px;
+    width: 100%;
+    height: 100%;
+    display:block;
+    overflow:auto;
+    margin: auto;
+    display: table;
+    text-align: center;
+}
+.recitationResults {
+    position: relative;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    display: table-cell;
+}
+.userResults {
+    position: relative;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    display: table-cell;
+}

@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-import ContentArea from '../components/NavigationHeaderComps/ContentArea';
-import RecitationItem from '../components/ProfilePageComps/RecitationItem';
+import _ from '../css/Search.css';
+import ___ from '../css/Header.css';
+
+import backgroundImage from '../../public/res/brickBackground.jpg';
+
+import RecitationItem2 from '../components/SearchPageComps/RecitationItem2';
+import Clock from '../components/Clock';
+import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
+import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
+import Recitation from '../objects/Recitation';
 
 // This is the search results page.
 class Search extends Component {
+    
     /**********************
     *                     *
     *    INITIALIZATION   *
@@ -15,13 +24,20 @@ class Search extends Component {
     constructor() {
         super();
 
-        this.state = {recitations:[]}
+        this.state = {
+            search: window.sessionStorage.getItem('LastSearch') || "",
+            matchingRecitations: [],
+            matchingUsers:[],
+
+            recComponents:[],
+            userComponents:[]
+        }
     }
 
     componentDidMount() {
-        this.props.navHeader.unhide();
-
-        this.loadResults('recitations');
+        this.handleSearch(() => {
+            this.loadUsers();
+        });
     }
 
 
@@ -31,28 +47,32 @@ class Search extends Component {
     *                     *
     ***********************/
 
-    optionsAreaStyles() {
+    getStyles() {
         return {
             position:'absolute',
-            top:'50px',
-            left:'1%',
-            width:'18%',
-            height:'100px',
-            paddingLeft:'10px',
-            backgroundColor:'white'
+            left:'0px',
+            top:'0px',
+            width:'100%'
+        };
+    }
+    getOverlay() {
+        return {
+            position:'absolute',
+            width:'100%',
+            height:'100%',
+            zIndex:'0',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        }
+    }
+    getImageStyles() {
+        return {
+            position:'absolute',
+            width:'100%',
+            height:'100%',
+            zIndex:'-1',
         }
     }
 
-    resultsAreaStyles() {
-        return {
-            position:'absolute',
-            top:'50px',
-            left:'20%',
-            width:'79%',
-            height:'500px',
-            backgroundColor:'white'
-        }
-    }
 
 
 
@@ -64,18 +84,43 @@ class Search extends Component {
 
     render() {
         return (
-            <div>
-                <ContentArea>
-                    <div className='options_area' style={this.optionsAreaStyles()}>
-
+            <div style={this.getStyles()}>
+                {/* All header, background, and banner stuff. */}
+                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <div style={this.getOverlay()}></div>
+                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+                <ProfileBanner top='100px' rStore={this.props.rStore}>
+                    {/* The search bar. */}
+                    <div className='searchBar'>
+                        <h1 ref={(h1)=>{this.searchText = h1}} className='searchBarTitle'>Search:</h1>
+                        <input  onKeyPress={this.reSearch.bind(this)} 
+                                ref={(input)=>{this.searchBar = input}} 
+                                className='inputStyles' type='text' />
                     </div>
+                </ProfileBanner>
 
-                    <div className='results_area' style={this.resultsAreaStyles()}>
-                        <ul id="recitations_list" style={{padding:'10px'}}>
-                            {this.state.recitations}
-                        </ul>
+
+
+
+                {/* The are for displaying results. */}
+                <div className='resultsSection'>
+                    <div className='recitationResults'>
+                        <h1>Recitations</h1>
+                        {this.state.recComponents}
+                        <br/><br/><br/><br/><br/>
                     </div>
-                </ContentArea>
+                    <div className='userResults'>
+                        <h1>Users</h1>
+                        {this.state.userComponents}
+                        <br/><br/><br/><br/><br/>
+                    </div>
+                </div>
+
+
+
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <Clock onupdate={this.update.bind(this)}></Clock>
                 {this.props.children}
             </div>
         );
@@ -89,26 +134,139 @@ class Search extends Component {
     *                     *
     ***********************/
 
-    // Loads the data for the search
-    loadResults() {
-        var search = window.sessionStorage.getItem('Last_Search');
-        var recs = [];
-        var fireRef = firebase.database().ref();
+    goToHomePage() {
+        this.props.nav.goTo('home');
+    }
 
-        fireRef.child('Recitations').orderByChild('title').startAt(search).once('value').then((snapshot)=> {
-            /* Go through each recitation that the user has. If the array of recitations does not contain
-            that recitation, then add it. */
-            snapshot.forEach((recitationObject) => {
-                // Make a new recitation component and push it onto the array
-                var rec = <RecitationItem key={recitationObject.val().timestamp} recitation={recitationObject.val()} navHeader={this.props.navHeader}></RecitationItem>
-                recs.push(rec);
+    goToAccountSettings() {
+        this.props.nav.goTo('accountsettings');
+    }
+    goToPRofile() {
+        this.props.nav.goTo('profile');
+    }
 
-                // Sort the array by key, which is the timestamp.
-                recs.sort(function(a,b){ return b.key - a.key; });
-                this.setState({recitations:recs});
+
+    update() {
+        if(document.body.scrollTop >= 30 || window.scrollY >= 30) {
+            this.setState({
+                backgroundColor: 'rgba(0,0,0,0.85)'
+            })
+        } else {
+            this.setState({
+                backgroundColor: 'rgba(0,0,0,0)'
+            })
+        }
+    }
+
+
+
+    // Handles when the user wants to make a new search and is already on the search page.
+    reSearch(e) {
+        //if(e.key === 'Enter') {
+            window.sessionStorage.setItem('LastSearch', this.searchBar.value);
+            
+            this.setState({
+                search: window.sessionStorage.getItem('LastSearch') || "",
+                matchingRecitations: [],
+                matchingUsers: [],
+                recComponents: [],
+                userComponents: []
+            }, () => {
+                this.handleSearch(() => {
+                    this.loadUsers();
+                });
+            })
+        //}
+    }
+
+
+    // Loads the results of the current search and updates the state.
+    handleSearch(callback) {
+        firebase.database().ref().child('Recitations').orderByChild('title').startAt(this.state.search).once('value', (snap) => {
+            var recs = [];
+            var comps = [];
+            
+            // For each search match create a recitation item.
+            snap.forEach((element) => {
+                var match = element.val();
+
+                // If the beginnings do not match, just forget this one and keep going.
+                if(!match.title.startsWith(this.state.search)) {
+                    return;
+                }
+
+                var recObj = new Recitation(match.id,
+                                            match.uploaderID,
+                                            match.uploaderName,
+                                            match.image,
+                                            match.title,
+                                            match.author,
+                                            match.recited_by,
+                                            match.published,
+                                            match.genre,
+                                            match.description,
+                                            match.likes,
+                                            match.plays,
+                                            match.favorites,
+                                            match.text,
+                                            match.audio,
+                                            match.timestamp,
+                                            null)
+                recs.push(recObj);
+                this.setState({
+                    matchingRecitations: recs
+                });
+
+                var item = <RecitationItem2 key={match.timestamp}
+                                            recitation={recObj}
+                                            nav={this.props.nav}
+                                            rStore={this.props.rStore}></RecitationItem2>
+                comps.push(item);
+                this.setState({
+                    recComponents: comps
+                });
             });
+            if(callback) { callback(); }
         });
     }
+   
+
+    // Handles loading users
+    loadUsers() {
+        var users = [];
+        var comps = [];
+
+        for(var i = 0; i < this.state.matchingRecitations.length; i++) {
+            var rec = this.state.matchingRecitations[i];            
+            
+            firebase.database().ref().child('Users').child(rec.uploaderID).once('value', (snap) => {
+                var usr = snap.val();
+                users.push(usr);
+
+                this.setState({
+                    matchingUsers: users
+                })
+
+
+                var item = 
+                    <div key={Date.now()} style={{color:'white'}}>
+                        <img src="" alt="usr" width='200px' height='200px'/>
+                        <h1>{usr.fullname}</h1>
+                    </div>
+
+                comps.push(item);
+                this.setState({
+                    userComponents: comps
+                });
+            });
+        }
+    }
+
+
+
+
+
+
 }
 
 

@@ -131,7 +131,8 @@ class SignUp extends Component {
             height:'50px',
             margin:'auto',   
             display:'table',
-            color:'white',       
+            color:'white',   
+            borderRadius:'25px',
             backgroundColor:'rgba(255,255,255,0.5)'
         }
     }
@@ -142,7 +143,8 @@ class SignUp extends Component {
             height:'50px',
             margin:'auto',   
             display:'table',
-            color:'white',       
+            color:'white',
+            borderRadius:'25px',      
             backgroundColor:'rgba(255,255,255,0.5)'
         }
     }
@@ -153,7 +155,8 @@ class SignUp extends Component {
             width: width + '%' || '15%',
             height:'100%',
             float:'left',
-            fontSize:'25px',
+            overflow:'scroll',
+            fontSize:'22px',
             fontFamily:'NEB',
             paddingLeft:'10px',
             WebkitPaddingBefore: '10px',
@@ -242,22 +245,22 @@ class SignUp extends Component {
                 {/* Fields */}
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle(12.5)}>Full name:</h1>
-                    <input ref={(input)=>{this.fullNameField = input}} style={this.getInputStyles(12.5)} type='text' />
+                    <h1 style={this.getSearchBarStyle(14)}>Full name:</h1>
+                    <input ref={(input)=>{this.fullNameField = input}} style={this.getInputStyles(14)} type='text' />
                 </div>
 
                 <br/><br/><br/>
 
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle(8)}>Email:</h1>
-                    <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(8)} type='email' />
+                    <h1 style={this.getSearchBarStyle(11)}>Email:</h1>
+                    <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(11)} type='email' />
                 </div>
                 
                 <br/><br/><br/>
 
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle(12.5)}>Password:</h1>
-                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(12.5)} type='password' />
+                    <h1 style={this.getSearchBarStyle(14)}>Password:</h1>
+                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(14)} type='password' />
                 </div>
 
                 <br/><br/><br/>
