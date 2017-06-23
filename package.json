@@ -4,7 +4,7 @@
   "private": false,
   "dependencies": {
     "alertify.js": "^1.0.12",
-    "au-audio-recorder": "^1.5.89",
+    "au-audio-recorder": "^1.5.92",
     "firebase": "^3.7.4",
     "history": "^4.6.1",
     "react": "^15.4.2",
