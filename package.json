@@ -1,10 +1,10 @@
 {
   "name": "react-template",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "alertify.js": "^1.0.12",
-    "au-audio-recorder": "^1.5.75",
+    "au-audio-recorder": "^1.5.89",
     "firebase": "^3.7.4",
     "history": "^4.6.1",
     "react": "^15.4.2",

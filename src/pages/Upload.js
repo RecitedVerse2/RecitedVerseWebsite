@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import * as audioRec from 'au-audio-recorder';
+import audioRec from 'au-audio-recorder';
 import Alertify from 'alertify.js';
 
 import _ from '../css/UploadBox.css';
