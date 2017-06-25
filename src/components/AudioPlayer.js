@@ -6,7 +6,7 @@ import CircleButton from './CircleButton';
 import Clock from './Clock';
 
 import _ from '../css/AudioPlayer.css';
-import background from '../../public/res/BlankBanner.png';
+import background from '../res/BlankBanner.png';
 
 
 // This is the audio player.

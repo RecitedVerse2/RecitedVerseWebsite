@@ -6,7 +6,7 @@ import Alertify from 'alertify.js';
 
 import _ from '../css/UploadBox.css';
 
-import backgroundImage from '../../public/res/brickBackground.jpg';
+import backgroundImage from '../res/brickBackground.jpg';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';

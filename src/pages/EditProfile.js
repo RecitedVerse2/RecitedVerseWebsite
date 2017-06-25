@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-import backgroundImage from '../../public/res/brickBackground.jpg';
+import backgroundImage from '../res/brickBackground.jpg';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';

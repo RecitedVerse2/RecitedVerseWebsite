@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import _ from '../../css/fonts.css';
 
-import footerBackground from '../../../public/res/BlankBanner.png';
+import footerBackground from '../../res/BlankBanner.png';
 
 
 class AboutRV extends Component {

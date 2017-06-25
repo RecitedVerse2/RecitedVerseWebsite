@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import backgroundImage from '../../public/res/brickBackground.jpg';
-import RVLogo from '../../public/res/RV-Final-Icon.png';
+import backgroundImage from '../res/brickBackground.jpg';
+import RVLogo from '../res/RV-Final-Icon.png';
 
 import Clock from '../components/Clock';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';

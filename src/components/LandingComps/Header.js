@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import RVLogo from '../../../public/res/RV-Final-Icon.png';
+import RVLogo from '../../res/RV-Final-Icon.png';
 import _ from '../../css/fonts.css';
 import __ from '../../css/Header.css';
 

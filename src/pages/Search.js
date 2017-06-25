@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 import _ from '../css/Search.css';
 import ___ from '../css/Header.css';
 
-import backgroundImage from '../../public/res/brickBackground.jpg';
+import backgroundImage from '../res/brickBackground.jpg';
 
 import RecitationItem2 from '../components/SearchPageComps/RecitationItem2';
 import Clock from '../components/Clock';

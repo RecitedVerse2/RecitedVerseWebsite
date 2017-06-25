@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import facebookBtn from '../../public/res/FB-Icon.png';
-import instagramBtn from '../../public/res/IG-Icon.png';
-import twitterBtn from '../../public/res/TW-Icon.png';
+import facebookBtn from '../res/FB-Icon.png';
+import instagramBtn from '../res/IG-Icon.png';
+import twitterBtn from '../res/TW-Icon.png';
 
 import _ from '../css/Footer.css';
 

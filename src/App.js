@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import * as firebase from 'firebase';
+import { createStore } from 'redux';
 
 import Landing from './pages/Landing';
 import Home from './pages/Home';
@@ -111,7 +112,6 @@ const audioplayer = (state = defaultState, action) => {
 
     return state;
 };
-import { createStore } from 'redux';
 const store = createStore(audioplayer);
 
 

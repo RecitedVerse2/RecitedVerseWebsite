@@ -1,50 +1,50 @@
 
 @font-face {
     font-family: 'Monthoers';
-    src: url('../../public/fonts/Monthoers.otf');
+    src: url('../fonts/Monthoers.otf');
 }
 
 @font-face {
     font-family: 'NEBB';
-    src: url('../../public/fonts/N_E_B_B.TTF');
+    src: url('../fonts/N_E_B_B.TTF');
 }
 
 @font-face {
     font-family: 'NEB';
-    src: url('../../public/fonts/N_E_B.TTF');
+    src: url('../fonts/N_E_B.TTF');
 }
 
 @font-face {
     font-family: 'MyriadPro';
-    src: url('../../public/fonts/MyriadPro-Regular.otf');
+    src: url('../fonts/MyriadPro-Regular.otf');
 }
 
 @font-face {
     font-family: 'AmericanTypewriter';
-    src: url('../../public/fonts/AmericanTypewriter.ttc');
+    src: url('../fonts/AmericanTypewriter.ttc');
 }
 
 @font-face {
     font-family: 'CaviarDreamsBold';
-    src: url('../../public/fonts/CaviarDreams_Bold.ttf');
+    src: url('../fonts/CaviarDreams_Bold.ttf');
 }
 
 @font-face {
     font-family: 'CaviarDreams';
-    src: url('../../public/fonts/CaviarDreams.ttf');
+    src: url('../fonts/CaviarDreams.ttf');
 }
 
 @font-face {
     font-family: 'Lao';
-    src: url('../../public/fonts/Lao MN.ttc');
+    src: url('../fonts/Lao MN.ttc');
 }
 
 @font-face {
     font-family: 'Marker';
-    src: url('../../public/fonts/MarkerFelt.ttc');
+    src: url('../fonts/MarkerFelt.ttc');
 }
 
 @font-face {
     font-family: 'PTMono';
-    src: url('../../public/fonts/PTMono.ttc');
+    src: url('../fonts/PTMono.ttc');
 }

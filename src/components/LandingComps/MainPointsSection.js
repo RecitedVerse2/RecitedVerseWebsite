@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import _ from '../../css/fonts.css';
 
-import HeadphonesIcon from '../../../public/res/HP-Icon.png';
-import MicrophoneIcon from '../../../public/res/Mic-Icon.png';
-import SocialIcon from '../../../public/res/SM-Icon.png';
+import HeadphonesIcon from '../../res/HP-Icon.png';
+import MicrophoneIcon from '../../res/Mic-Icon.png';
+import SocialIcon from '../../res/SM-Icon.png';
 
 import MainPointBubble from './MainPointBubble';
 

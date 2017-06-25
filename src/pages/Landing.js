@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import backgroundImage from '../../public/res/brickBackground.jpg';
-import CarouselImage from '../../public/res/RVBanner.png';
+import backgroundImage from '../res/brickBackground.jpg';
+import CarouselImage from '../res/RVBanner.png';
 
 import Header from '../components/LandingComps/Header';
 import MainPointsSection from '../components/LandingComps/MainPointsSection';

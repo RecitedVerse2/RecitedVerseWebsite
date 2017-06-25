@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 
 import _ from '../../css/fonts.css';
 
-import backgroundImage from '../../../public/res/BlankBanner.png';
+import backgroundImage from '../../res/BlankBanner.png';
 
 import Recitation from '../../objects/Recitation';
 

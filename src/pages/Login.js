@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-import backgroundImage from '../../public/res/brickBackground.jpg';
-import background from '../../public/res/BlankBanner.png';
-import RVLogo from '../../public/res/RV-Final-Icon.png';
+import backgroundImage from '../res/brickBackground.jpg';
+import background from '../res/BlankBanner.png';
+import RVLogo from '../res/RV-Final-Icon.png';
 
 import _ from '../css/fonts.css';
 import ___ from '../css/Header.css';

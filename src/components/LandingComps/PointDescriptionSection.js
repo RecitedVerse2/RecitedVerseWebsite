@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import background from '../../../public/res/BlankBanner.png';
+import background from '../../res/BlankBanner.png';
 
 class PointDescriptionSection extends Component {
 
