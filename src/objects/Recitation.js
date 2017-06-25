@@ -22,6 +22,11 @@ class Recitation {
 
         this.__type = 'Recitation';
     };
+
+
+    setPlaylist(pl) {
+        this.playlist = pl;
+    }
     
 }
 

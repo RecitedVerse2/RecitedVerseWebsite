@@ -90,9 +90,7 @@ class PlaylistItem extends Component {
     ***********************/
 
     goTo() {
-        this.props.playlist.forEach( (e) => {
-            console.log(e);
-        });
+        
     }
 
 

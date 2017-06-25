@@ -74,7 +74,9 @@ class Profile extends Component {
         this.loadUploadPlaylist(this.props.rStore, () => {
             this.loadLikedPlaylist(this.props.rStore, () => {
                 this.loadFavoritedPlaylist(this.props.rStore, () => {
-                    this.pushOntoPage();
+                    this.loadPlaylists(this.props.rStore, () => {
+                        this.pushOntoPage();
+                    });
                 });
             });
         });
@@ -151,9 +153,9 @@ class Profile extends Component {
                         <button ref={(button)=>{this.favoritesButton = button}} 
                                 onClick={this.changeRecitations.bind(this)} 
                                 id='favorite' className='changeRecitationsButton'>Favorites</button>
-                        {/*<button ref={(button)=>{this.playlistButton = button}} 
+                        <button ref={(button)=>{this.playlistButton = button}} 
                                 onClick={this.changeRecitations.bind(this)} 
-                                id='playlist' className='changeRecitationsButton'>Playlists</button>*/}
+                                id='playlist' className='changeRecitationsButton'>Playlists</button>
                     </div>
                 </div>
                 <div className='profileDisplayArea'>
@@ -161,8 +163,11 @@ class Profile extends Component {
                 </div>
 
 
-                <PageFooter bottom='-100px'>
+                <PageFooter bottom='-250px'>
                 </PageFooter>
+                <br/><br/><br/>
+                <br/><br/><br/>
+                <br/><br/><br/>
                 <br/><br/><br/>
                 <br/><br/><br/>
                 <br/><br/><br/>
@@ -190,7 +195,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'none';
-            //this.playlistButton.style.textDecoration = 'none';
+            this.playlistButton.style.textDecoration = 'none';
         } else if(sender === 'popular') {
             this.setState({ showUploads: false, showPopular: true, showLikes: false, showFavorties: false, showPlaylists: false},
             () => { this.pushOntoPage(); });
@@ -198,7 +203,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'underline';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'none';
-            //this.playlistButton.style.textDecoration = 'none';
+            this.playlistButton.style.textDecoration = 'none';
         } else if(sender === 'like') {
             this.setState({ showUploads: false, showPopular: false, showLikes: true, showFavorties: false, showPlaylists: false},
             () => { this.pushOntoPage(); });
@@ -206,7 +211,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'underline';
             this.favoritesButton.style.textDecoration = 'none';
-            //this.playlistButton.style.textDecoration = 'none';
+            this.playlistButton.style.textDecoration = 'none';
         } else if(sender === 'favorite') {
             this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: true, showPlaylists: false},
             () => { this.pushOntoPage(); });
@@ -214,7 +219,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'underline';
-            //this.playlistButton.style.textDecoration = 'none';
+            this.playlistButton.style.textDecoration = 'none';
         } else if(sender === 'playlist') {
             this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: false, showPlaylists: true},
             () => { this.pushOntoPage(); });
@@ -222,7 +227,7 @@ class Profile extends Component {
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'none';
-            //this.playlistButton.style.textDecoration = 'underline';
+            this.playlistButton.style.textDecoration = 'underline';
         }
     }
 
@@ -380,6 +385,39 @@ class Profile extends Component {
         });
     }
 
+    /** Loads all of the user's playlists. */
+    loadPlaylists(rStore, callback) {
+        const fireRef = firebase.database().ref();
+        const store = rStore.getState();
+
+        let playlists = [];
+
+        fireRef.child('Users').child(store.currentUser.userID).child('Playlists').once('value').then((snapshot)=> {
+            // Go through the playlist objects.
+            snapshot.forEach((playlist) => {
+                let actualPlaylist = new Playlist(playlist.key);
+
+                // For each playlist, go through the recitation IDs.
+                playlist.forEach( (itm) => {
+                    var recID = itm.val();
+
+                    // Load the recitation and add it to the array.
+                    this.loadRecitationsForPlaylist(recID, (obj) => {
+                        obj.setPlaylist(actualPlaylist);
+                        actualPlaylist.add(obj);
+                    });
+                });
+
+                playlists.push(actualPlaylist);
+
+                this.setState({
+                    playlistPlaylist: playlists
+                });
+                callback();
+            });
+        });
+    }
+
 
     /** Takes the playlists (once they are loaded) and pushes new html elements onto the page. */
     pushOntoPage() {
@@ -482,23 +520,20 @@ class Profile extends Component {
             });
         }
         else if(this.state.showPlaylists === true) {
-            if(this.state.favoritedPlaylist) {
-                if(this.state.favoritedPlaylist.length() === 0) { return; }
+            if(this.state.playlistPlaylist) {
+                if(this.state.playlistPlaylist.length === 0) { return; }
             } else { return; }
 
             // Create the array of recitation items.
-            this.state.favoritedPlaylist.forEach( (rec) => {
-                var recItem = <RecitationItem margin='30px'
-                                              key={rec.id} 
-                                              recitation={rec}
-                                              nav={this.props.nav}
-                                              rStore={this.props.rStore}></RecitationItem>
-                items.push(recItem);
-            }, () => {
-                // Update the state.
-                this.setState({
-                    recitations: items
-                });
+            this.state.playlistPlaylist.forEach( (pl) => {
+                var playItem = <PlaylistItem key={pl.name}
+                                             playlist={pl}></PlaylistItem>
+                items.push(playItem);
+            })
+
+            // Update the state.
+            this.setState({
+                recitations: items
             });
         }
 
@@ -513,6 +548,35 @@ class Profile extends Component {
     }
 
 
+
+
+    // Loads a recitation with a given id.
+    loadRecitationsForPlaylist(id, callback) {
+        const store = this.props.rStore.getState();
+        
+        firebase.database().ref().child('Recitations').child(id).once('value', (rO) => {
+            var recObj = new Recitation( rO.val().id,
+                                        rO.val().uploaderID,
+                                        rO.val().uploaderName,
+                                        rO.val().image,
+                                        rO.val().title,
+                                        rO.val().author,
+                                        rO.val().recited_by,
+                                        rO.val().published,
+                                        rO.val().genre,
+                                        rO.val().description,
+                                        rO.val().likes,
+                                        rO.val().plays,
+                                        rO.val().favorites,
+                                        rO.val().text,
+                                        rO.val().audio,
+                                        rO.val().timestamp );
+            
+            if(callback) {
+                callback(recObj);
+            }
+        })
+    }
 
 
 }

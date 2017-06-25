@@ -1,7 +1,7 @@
 .item {
     position: relative;
-    width: 35%;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     margin: 50px;
     display: inline-block;
 }

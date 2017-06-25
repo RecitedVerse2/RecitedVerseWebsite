@@ -78,9 +78,9 @@ class PageFooter extends Component {
                     </div>
 
                     <div className='buttonsSection'>
-                        <button className='socialBtn'><img className='socialImg' src={facebookBtn} alt="facebook"/></button>
-                        <button className='socialBtn'><img className='socialImg' src={instagramBtn} alt="instagram"/></button>
-                        <button className='socialBtn'><img className='socialImg' src={twitterBtn} alt="twitter"/></button>
+                        <button className='socialBtn' onClick={this.goToFacebook.bind(this)}><img className='socialImg' src={facebookBtn} alt="facebook"/></button>
+                        <button className='socialBtn' onClick={this.goToInstagram.bind(this)}><img className='socialImg' src={instagramBtn} alt="instagram"/></button>
+                        <button className='socialBtn' onClick={this.goToTwitter.bind(this)}><img className='socialImg' src={twitterBtn} alt="twitter"/></button>
                     </div>
                 </div>
 
@@ -102,6 +102,17 @@ class PageFooter extends Component {
     *                     *
     ***********************/
 
+    goToFacebook() {
+        window.location = "https://www.facebook.com/recited.verse"
+    }
+
+    goToInstagram() {
+        window.location = "https://www.instagram.com/recitedverse/"
+    }
+
+    goToTwitter() {
+        window.location = "https://twitter.com/recitedverse"
+    }
 }
 
 export default PageFooter;
