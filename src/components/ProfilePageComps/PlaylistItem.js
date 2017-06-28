@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-
+// eslint-disable-next-line
 import _ from '../../css/PlaylistItem.css';
+// eslint-disable-next-line
 import __ from '../../css/fonts.css';
 
 class PlaylistItem extends Component {

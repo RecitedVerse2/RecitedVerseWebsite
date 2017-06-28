@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// eslint-disable-next-line
 import _ from '../../css/fonts.css';
 
 import HeadphonesIcon from '../../res/HP-Icon.png';
@@ -41,10 +42,6 @@ class MainPointsSection extends Component {
 
                 <div style={this.getQuoteStyle()}>
                     <br/><br/><br/><br/>
-                    <p style={{fontFamily:'NEBB', fontSize:'20px'}}>
-                        Lorem ipsum dolor sit amet molestie consequat, vel illum dolore eu feugiat null a facilisis at vero eros et accumsan.<br/>- Lorem Ipsum
-                    </p>
-                    <br/><br/><br/>
 
                     <h1 style={{fontFamily:'Monthoers', fontSize:'70px'}}>Services</h1>
                 </div>

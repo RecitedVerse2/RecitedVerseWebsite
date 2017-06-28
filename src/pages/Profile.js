@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 
 import backgroundImage from '../res/brickBackground.jpg';
 
+// eslint-disable-next-line
 import _ from '../css/Profile.css';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
@@ -423,6 +424,7 @@ class Profile extends Component {
     pushOntoPage() {
         // Clear all of the recitations.
         var items = [];
+        var recs = [];
         this.setState({ recitations: [] });
 
         if(this.state.showUploads === true) {
@@ -432,17 +434,26 @@ class Profile extends Component {
 
             // Create the array of recitation items.
             this.state.uploadPlaylist.forEach( (rec) => {
-                var recItem = <RecitationItem margin='30px'
+                recs.push(rec);
+            }, () => {
+                recs.sort((a,b)=>{
+                    return b.timestamp - a.timestamp
+                });
+
+                recs.forEach((rec)=>{
+                    var recItem = <RecitationItem margin='30px'
                                               key={rec.id} 
                                               recitation={rec}
                                               nav={this.props.nav}
                                               rStore={this.props.rStore}></RecitationItem>
-                items.push(recItem);
-            }, () => {
-                // Update the state.
-                this.setState({
-                    recitations: items
+                    items.push(recItem);
+
+                    // Update the state.
+                    this.setState({
+                        recitations: items
+                    });
                 });
+
             });
         }
         else if(this.state.showPopular === true) {
@@ -452,21 +463,24 @@ class Profile extends Component {
 
             // Create the array of recitation items.
             this.state.uploadPlaylist.forEach( (rec) => {
-                var recItem = <RecitationItem margin='30px'
+                recs.push(rec);
+            }, () => {
+                recs.sort((a,b)=>{
+                    return b.plays - a.plays
+                });
+
+                recs.forEach((rec)=>{
+                    var recItem = <RecitationItem margin='30px'
                                               key={rec.id} 
                                               recitation={rec}
                                               nav={this.props.nav}
                                               rStore={this.props.rStore}></RecitationItem>
-                items.push(recItem);
-                
-            }, () => {
-                
-                items.sort( (a, b) => {
-                    return b.plays - a.plays;
-                });
-                // Update the state.
-                this.setState({
-                    recitations: items
+                    items.push(recItem);
+
+                    // Update the state.
+                    this.setState({
+                        recitations: items
+                    });
                 });
             });
         }
@@ -477,21 +491,24 @@ class Profile extends Component {
 
             // Create the array of recitation items.
             this.state.likedPlaylist.forEach( (rec) => {
-                var recItem = <RecitationItem margin='30px'
+                recs.push(rec);
+            }, () => {
+                recs.sort((a,b)=>{
+                    return b.likes - a.likes
+                });
+
+                recs.forEach((rec)=>{
+                    var recItem = <RecitationItem margin='30px'
                                               key={rec.id} 
                                               recitation={rec}
                                               nav={this.props.nav}
                                               rStore={this.props.rStore}></RecitationItem>
-                items.push(recItem);
+                    items.push(recItem);
 
-            }, () => {
-                
-                items.sort( (a, b) => {
-                    return b.likes - a.likes;
-                });
-                // Update the state.
-                this.setState({
-                    recitations: items
+                    // Update the state.
+                    this.setState({
+                        recitations: items
+                    });
                 });
             });
         }
@@ -502,20 +519,24 @@ class Profile extends Component {
 
             // Create the array of recitation items.
             this.state.favoritedPlaylist.forEach( (rec) => {
-                var recItem = <RecitationItem margin='30px'
+                recs.push(rec);
+            }, () => {
+                recs.sort((a,b)=>{
+                    return b.favorites - a.favorites
+                });
+
+                recs.forEach((rec)=>{
+                    var recItem = <RecitationItem margin='30px'
                                               key={rec.id} 
                                               recitation={rec}
                                               nav={this.props.nav}
                                               rStore={this.props.rStore}></RecitationItem>
-                items.push(recItem);
+                    items.push(recItem);
 
-            }, () => {
-                items.sort( (a, b) => {
-                    return b.favorites - a.favorites;
-                });
-                // Update the state.
-                this.setState({
-                    recitations: items
+                    // Update the state.
+                    this.setState({
+                        recitations: items
+                    });
                 });
             });
         }
@@ -552,8 +573,6 @@ class Profile extends Component {
 
     // Loads a recitation with a given id.
     loadRecitationsForPlaylist(id, callback) {
-        const store = this.props.rStore.getState();
-        
         firebase.database().ref().child('Recitations').child(id).once('value', (rO) => {
             var recObj = new Recitation( rO.val().id,
                                         rO.val().uploaderID,

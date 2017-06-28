@@ -5,7 +5,7 @@ import CarouselImage from '../res/RVBanner.png';
 
 import Header from '../components/LandingComps/Header';
 import MainPointsSection from '../components/LandingComps/MainPointsSection';
-import PointDescriptionSection from '../components/LandingComps/PointDescriptionSection';
+//import PointDescriptionSection from '../components/LandingComps/PointDescriptionSection';
 import AboutRV from '../components/LandingComps/AboutRV';
 import PageFooter from '../components/PageFooter';
 
@@ -77,10 +77,10 @@ class Landing extends Component {
                 <MainPointsSection></MainPointsSection>
 
 
-                <br/><br/><br/><br/><br/><br/><br/><br/>
-                <PointDescriptionSection orientation='right'></PointDescriptionSection>
+                {/*<br/><br/><br/><br/><br/><br/><br/><br/>*/}
+                {/*<PointDescriptionSection orientation='right'></PointDescriptionSection>*/}
                 <br/><br/><br/><br/><br/><br/>
-                <PointDescriptionSection orientation='left'></PointDescriptionSection>
+                {/*<PointDescriptionSection orientation='left'></PointDescriptionSection>*/}
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 

@@ -5,7 +5,9 @@ import backgroundImage from '../res/brickBackground.jpg';
 import background from '../res/BlankBanner.png';
 import RVLogo from '../res/RV-Final-Icon.png';
 
+// eslint-disable-next-line
 import _ from '../css/fonts.css';
+// eslint-disable-next-line
 import ___ from '../css/Header.css';
 
 import Clock from '../components/Clock';

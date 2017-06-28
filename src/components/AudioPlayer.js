@@ -5,7 +5,9 @@ import * as firebase from 'firebase';
 import CircleButton from './CircleButton';
 import Clock from './Clock';
 
+// eslint-disable-next-line
 import _ from '../css/AudioPlayer.css';
+
 import background from '../res/BlankBanner.png';
 
 

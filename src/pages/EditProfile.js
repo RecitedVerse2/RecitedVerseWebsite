@@ -6,6 +6,7 @@ import backgroundImage from '../res/brickBackground.jpg';
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 
+// eslint-disable-next-line
 import _ from '../css/EditProfile.css';
 
 class EditProfile extends Component {
@@ -219,6 +220,8 @@ class EditProfile extends Component {
 
                     <br/><br/><br/><br/>
                     <button className='titleText' onClick={this.handleSaveChanges.bind(this)}>Save Changes</button>
+                    <br/><br/><br/><br/>
+                    <br/><br/><br/><br/>
                 </div>
 
                 {this.props.children}

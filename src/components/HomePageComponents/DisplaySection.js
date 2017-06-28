@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
+// eslint-disable-next-line
 import _ from '../../css/fonts.css';
 
 import Playlist from '../../objects/Playlist';

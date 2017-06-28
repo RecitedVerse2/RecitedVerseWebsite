@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import audioRec from 'au-audio-recorder';
 import Alertify from 'alertify.js';
 
+// eslint-disable-next-line
 import _ from '../css/UploadBox.css';
 
 import backgroundImage from '../res/brickBackground.jpg';

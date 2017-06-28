@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
+// eslint-disable-next-line
 import _ from '../../css/fonts.css';
 
 import backgroundImage from '../../res/BlankBanner.png';
@@ -98,7 +99,7 @@ class ROTDArea extends Component {
                     <img onClick={this.goToPage.bind(this)} alt='ROTD' src={this.state.recitation != null ? this.state.recitation.image : ''} style={this.getROTDImageStyles()} />
 
                     <div style={this.getROTDStyles()}>
-                        <h1 style={{fontSize:'40px'}}>Recitation of the day</h1>
+                        <h1 style={{fontSize:'40px'}}>Recording of the day</h1>
                         <p style={{fontSize:'20px'}} onClick={this.goToPage.bind(this)}>Title: {this.state.recitation != null ? this.state.recitation.title : ""}</p>
                         <p style={{fontSize:'20px'}} onClick={this.goToPage.bind(this)}>Genre: {this.state.recitation != null ? this.state.recitation.genre : ""}</p>
                         

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
+// eslint-disable-next-line
 import _ from '../css/Search.css';
+// eslint-disable-next-line
 import ___ from '../css/Header.css';
 
 import backgroundImage from '../res/brickBackground.jpg';

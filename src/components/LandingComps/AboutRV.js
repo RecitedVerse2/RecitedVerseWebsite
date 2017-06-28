@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// eslint-disable-next-line
 import _ from '../../css/fonts.css';
 
 import footerBackground from '../../res/BlankBanner.png';

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 import RVLogo from '../../res/RV-Final-Icon.png';
+// eslint-disable-next-line
 import _ from '../../css/fonts.css';
+// eslint-disable-next-line
 import __ from '../../css/Header.css';
 
 import Clock from '../Clock';

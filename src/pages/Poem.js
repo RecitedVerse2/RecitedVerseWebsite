@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import Alertify from 'alertify.js';
 
+// eslint-disable-next-line
 import _ from '../css/Poem.css';
+// eslint-disable-next-line
 import __ from '../css/Header.css';
 
 import backgroundImage from '../res/brickBackground.jpg';

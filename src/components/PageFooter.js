@@ -4,6 +4,7 @@ import facebookBtn from '../res/FB-Icon.png';
 import instagramBtn from '../res/IG-Icon.png';
 import twitterBtn from '../res/TW-Icon.png';
 
+// eslint-disable-next-line
 import _ from '../css/Footer.css';
 
 class PageFooter extends Component {
@@ -107,7 +108,7 @@ class PageFooter extends Component {
     }
 
     goToInstagram() {
-        window.location = "https://www.instagram.com/recitedverse/"
+        window.location = "https://www.instagram.com/recitedverse2017/"
     }
 
     goToTwitter() {
