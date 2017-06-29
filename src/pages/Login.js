@@ -149,7 +149,7 @@ class Login extends Component {
             height:'100%',
             float:'left',
             fontSize:'25px',
-            fontFamily:'NEB',
+            fontFamily:'HelveticaNeue',
             paddingLeft:'10px',
             WebkitPaddingBefore: '10px',
             display:'table-cell',

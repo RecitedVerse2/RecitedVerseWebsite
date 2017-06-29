@@ -78,7 +78,7 @@ class AboutRV extends Component {
 
                     <div style={this.getTextStyles()}>
                         <h1 style={{fontFamily:'Monthoers',fontSize:'80px'}}>about recited verse</h1>
-                        <p style={{fontFamily:'NEBB', fontSize:'18px'}}>Recitation is interpretation! At RecitedVerse.com, we welcome your readings of your favorite poems. Our goal is to offer an unlimited number of readings for an unlimited number of poems throughout the ages and the world.</p>
+                        <p style={{fontFamily:'HelveticaNeue', fontSize:'16px'}}>Recitation is interpretation! At RecitedVerse.com, we welcome your readings of your favorite poems. Our goal is to offer an unlimited number of readings for an unlimited number of poems throughout the ages and the world.</p>
                     </div>
                 </div>
             </div>

@@ -17,14 +17,14 @@
 .bioText {
     color: white;
     font-size: 25px;
-    font-family: 'NEB';
+    font-family: 'HelveticaNeue';
 }
 .bioField {
     position: relative;
     margin: auto;
     border: none;
-    font-size: 30px;
-    font-family: 'NEB';
+    font-size: 24px;
+    font-family: 'HelveticaNeue';
     background: none;
     text-decoration: none;
     box-shadow: none;

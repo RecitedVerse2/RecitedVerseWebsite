@@ -111,9 +111,9 @@ class EditProfile extends Component {
             width: width + '%' || '15%',
             height:'100%',
             float:'left',
-            fontSize:'25px',
-            fontFamily:'NEB',
-            paddingLeft: '-15px',
+            fontSize:'20px',
+            fontFamily:'HelveticaNeue',
+            paddingLeft: '5px',
             WebkitPaddingBefore: '10px',
             display:'table-cell',
         }
@@ -129,8 +129,8 @@ class EditProfile extends Component {
             outline:'none',
             background:'none',
             textDecoration:'none',
-            fontFamily:'NEB',
-            fontSize:'25px',
+            fontFamily:'HelveticaNeue',
+            fontSize:'20px',
             MozPaddingBefore:'-20px',
             display:'table-cell'
         }
@@ -174,7 +174,7 @@ class EditProfile extends Component {
                     <p></p><p></p><p></p>
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                        <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(15)} type='text' placeholder={this.state.password} />
+                        <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(17)} type='text' placeholder={this.state.password} />
                     </div>
                     <p></p><p></p><p></p>
                     <div style={this.getSBStyles(70)}>

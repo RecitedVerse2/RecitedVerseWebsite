@@ -132,9 +132,9 @@ class AudioPlayer extends Component {
                                     style={{width: 350, display: 'table-cell'}}
                                     type="range" id="seekSlider"
                                     min={0} max={100} defaultValue={0} step={1}
-                                    onMouseDown={(event)=>{ this.setState({seeking:true}); this.seek(event); }}
+                                    onMouseDown={(event)=>{ this.setState({seeking:true}, ()=>{ this.seek(event); }); }}
                                     onMouseMove={(event)=>{ this.seek(event); }}
-                                    onMouseUp={()=>{ this.setState({ seeking:false }); }}/>
+                                    onMouseUp={(event)=>{ this.setState({ seeking:false }); }}/>
                             &nbsp;&nbsp;&nbsp;
                         <span style={{display: 'table-cell'}} id="durtimetext">{this.state.duration}</span>
                     </div>
@@ -230,7 +230,12 @@ class AudioPlayer extends Component {
         const store = this.props.rStore.getState();
 
         if(store.audio !== null) {
-            store.audio.currentTime = store.audio.duration;
+            if( isFinite(store.audio.duration) ) {
+                store.audio.currentTime = store.audio.duration;
+            } else {
+                store.audio.pause();
+                this.startNextRecitation('next');
+            }
         }
 
         // Reset the double clicking for going backward.
@@ -362,10 +367,17 @@ class AudioPlayer extends Component {
     seek(e) {
         const store = this.props.rStore.getState();
 
-        if(this.state.seeking === true) {
-            this.seekSlider.value = e.clientX - this.seekSlider.offsetLeft;
-            var seekto = store.audio.duration * (this.seekSlider.value / 100);
-            store.audio.currentTime = seekto;
+        if(store.audio !== null) {
+            if(this.state.seeking === true) {
+                this.seekSlider.value = e.clientX - this.seekSlider.offsetLeft;
+                var seekto = store.audio.duration * (this.seekSlider.value / 100);
+                
+                if( isFinite(seekto) ) {
+                    store.audio.currentTime = seekto;
+                } else {
+                    return;
+                }
+            }
         }
     }
 

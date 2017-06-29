@@ -97,7 +97,7 @@ class LandingPageCarousel extends Component {
             height:'100%',
             float:'left',
             fontSize:'25px',
-            fontFamily:'NEB',
+            fontFamily:'HelveticaNeue',
             WebkitPaddingBefore: '10px',
             display:'table-cell',
         }
@@ -130,7 +130,7 @@ class LandingPageCarousel extends Component {
                 <img alt='bckg' style={this.getImageStyle()} src={Background}/>
 
                     <div style={this.getWelcomeStyles()}>
-                        <h1 style={{fontFamily:'NEB', fontSize:'35px', paddingBottom:'10px'}}>Welcome</h1>
+                        <h1 style={{fontFamily:'HelveticaNeue', fontSize:'35px', paddingBottom:'10px'}}>Welcome</h1>
                         <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>{this.state.name}</h1>
                     
                         <div ref={(div)=>{this.searchBarArea = div}} style={this.getSBStyles()}>

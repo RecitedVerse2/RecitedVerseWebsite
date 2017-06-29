@@ -56,7 +56,7 @@ class ROTDArea extends Component {
     getROTDImageStyles() {
         return {
             position:'relative',
-            marginTop:'-150px',
+            marginTop:'-110px',
             width:'200px',
             height:'200px',
             cursor:'pointer',
@@ -100,10 +100,10 @@ class ROTDArea extends Component {
 
                     <div style={this.getROTDStyles()}>
                         <h1 style={{fontSize:'40px'}}>Recording of the day</h1>
-                        <p style={{fontSize:'20px'}} onClick={this.goToPage.bind(this)}>Title: {this.state.recitation != null ? this.state.recitation.title : ""}</p>
-                        <p style={{fontSize:'20px'}} onClick={this.goToPage.bind(this)}>Genre: {this.state.recitation != null ? this.state.recitation.genre : ""}</p>
+                        <p style={{fontFamily:'HelveticaNeue',fontSize:'16px'}} onClick={this.goToPage.bind(this)}>Title: {this.state.recitation != null ? this.state.recitation.title : ""}</p>
+                        <p style={{fontFamily:'HelveticaNeue',fontSize:'16px'}} onClick={this.goToPage.bind(this)}>Genre: {this.state.recitation != null ? this.state.recitation.genre : ""}</p>
                         
-                        <p style={{fontSize:'20px'}} ref={(p)=>{this.playButton = p}} onClick={this.goToPage.bind(this)}>
+                        <p style={{fontFamily:'HelveticaNeue',fontSize:'16px'}} ref={(p)=>{this.playButton = p}} onClick={this.goToPage.bind(this)}>
                             Recited By: {this.state.recitation != null ? this.state.recitation.recitedBy : ""}
                         </p>
                     </div>

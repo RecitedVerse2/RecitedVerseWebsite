@@ -91,7 +91,22 @@ class PlaylistItem extends Component {
     ***********************/
 
     goTo() {
+        var cache = [];
+        var playlist = JSON.stringify(this.props.playlist, (key, value) => {
+            if (typeof value === 'object' && value !== null) {
+                if (cache.indexOf(value) !== -1) {
+                    // Circular reference found, discard key
+                    return;
+                }
+                // Store value in our collection
+                cache.push(value);
+            }
+            return value;
+        });
         
+        window.sessionStorage.setItem('CurrentPlaylist', playlist);
+        
+        this.props.nav.goTo('playlist');
     }
 
 

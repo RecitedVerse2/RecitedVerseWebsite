@@ -160,7 +160,7 @@ class SignUp extends Component {
             float:'left',
             overflow:'scroll',
             fontSize:'22px',
-            fontFamily:'NEB',
+            fontFamily:'HelveticaNeue',
             paddingLeft:'10px',
             WebkitPaddingBefore: '10px',
             display:'table-cell',
@@ -248,8 +248,8 @@ class SignUp extends Component {
                 {/* Fields */}
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle(14)}>Full name:</h1>
-                    <input ref={(input)=>{this.fullNameField = input}} style={this.getInputStyles(14)} type='text' />
+                    <h1 style={this.getSearchBarStyle(17)}>Full name:</h1>
+                    <input ref={(input)=>{this.fullNameField = input}} style={this.getInputStyles(17)} type='text' />
                 </div>
 
                 <br/><br/><br/>

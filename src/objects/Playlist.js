@@ -22,6 +22,11 @@ class Playlist {
     }
 
 
+    /** Returns the array of recitations. */
+    getAll() {
+        return this.recitations;
+    }
+
     /** Returns the name of the playlist. */
     getName() {
         return this.name;

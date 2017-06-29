@@ -14,6 +14,7 @@ import Poem from './pages/Poem';
 import Upload from './pages/Upload';
 import Search from './pages/Search';
 import Transcript from './pages/Transcript';
+import PlaylistPage from './pages/PlaylistPage';
 
 import AudioPlayer from './components/AudioPlayer';
 import navigation from './components/navigation';
@@ -175,6 +176,7 @@ class App extends Component {
         const UploadPage = () => {return <Upload audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Upload>}
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
         const TranscriptPage = () => {return <Transcript audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Transcript>}
+        const PlaylistPageComp = () => {return <PlaylistPage audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</PlaylistPage>}
 
         return (
             <BrowserRouter>
@@ -190,6 +192,7 @@ class App extends Component {
                     <Route path="/poem" component={PoemPage}></Route>
                     <Route path="/search" component={SearchPage}></Route>
                     <Route path="/transcript" component={TranscriptPage}></Route>
+                    <Route path="/playlist" component={PlaylistPageComp}></Route>
                 </div>
             </BrowserRouter>
         );

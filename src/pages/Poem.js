@@ -56,7 +56,7 @@ class Poem extends Component {
             if(store.currentUser.userID === recitation.uploaderID) {
                var btn = <button className='deleteButton' onClick={this.handleDeleteRecitation.bind(this)}>
                                 Delete Recitation
-                            </button>
+                        </button>
                 
                 this.setState({
                     deleteButton: btn
@@ -139,7 +139,7 @@ class Poem extends Component {
             border:'none',
             background:'none',
             color:'white',
-            fontFamily:'NEB',
+            fontFamily:'HelveticaNeue',
             fontSize:'17px',
             outline:'none'
         }

@@ -3,10 +3,18 @@ import React, { Component } from 'react';
 import backgroundImage from '../res/brickBackground.jpg';
 import RVLogo from '../res/RV-Final-Icon.png';
 
-import Clock from '../components/Clock';
-import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
+// eslint-disable-next-line
+import _ from '../css/Playlist.css';
 
-class Transcript extends Component {
+import PageFooter from '../components/PageFooter';
+import RecitationItem from '../components/ProfilePageComps/RecitationItem';
+import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
+import Clock from '../components/Clock';
+
+import Playlist from '../objects/Playlist';
+import Recitation from '../objects/Recitation';
+
+class PlaylistPage extends Component {
 
     /**********************
     *                     *
@@ -18,23 +26,38 @@ class Transcript extends Component {
         super();
 
         this.state = {
-            poemName:'...',
-            poemAuthor:'...',
-            transcript:'',
-            backgroundColor:'rgba(0,0,0,0)'
+            playlist: null,
+            recitations: []
         }
     }
 
     componentDidMount() {
-        var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
-        this.setState({
-            poemName: recitation.title,
-            poemAuthor: recitation.author,
-            transcript: recitation.text
-        });
+        var loadedPlaylist = JSON.parse(window.sessionStorage.getItem('CurrentPlaylist'));
+        var playlist = new Playlist(loadedPlaylist.name);
+        var recs = [];
+
+        if(loadedPlaylist !== null) {
+            loadedPlaylist.recitations.forEach( (rec) => {
+                var rO = new Recitation(rec.id, rec.uploaderID, rec.uploaderName, rec.image, rec.title, rec.author, rec.recitedBy, rec.published, rec.genre, rec.description, 
+                                        rec.likes, rec.plays, rec.favorites, rec.text, rec.audio, rec.timestamp, playlist);
+                playlist.add(rO);
+                
+                var recItem = <RecitationItem margin='30px'
+                                              key={rec.id} 
+                                              recitation={rO}
+                                              nav={this.props.nav}
+                                              rStore={this.props.rStore}></RecitationItem>
+                recs.push(recItem);
+
+
+                // Set the state.
+                this.setState({
+                    playlist: playlist,
+                    recitations: recs
+                });
+            });
+        }
     }
-
-
 
 
     /**********************
@@ -48,9 +71,8 @@ class Transcript extends Component {
             position:'absolute',
             left:'0px',
             top:'0px',
-            width:'100%',
-            paddingBottom:'500px'
-        };
+            width:'100%'
+        }
     }
     getHeaderStyle() {
         return {
@@ -114,39 +136,8 @@ class Transcript extends Component {
             zIndex:'-1'
         }
     }
-    getBannerTextStyles() {
-        return {
-            position:'relative',
-            top:'20px',
-            color:'white',
-            textAlign:'center',
-            fontSize:'110px',
-            fontFamily:'Monthoers'
-        }
-    }
-    getBannerTextStyles2() {
-        return {
-            position:'relative',
-            color:'white',
-            textAlign:'center',
-            fontSize:'70px',
-            fontFamily:'Monthoers'
-        }
-    }
-    getTranscriptAreaStyles() {
-        return {
-            position:'relative',
-            top:'120px',
-            width:'65%',
-            color:'white',
-            margin:'auto',
-            fontSize:'30px',
-            fontFamily:'HelveticaNeue',
-            textAlign:'center'
-        }
-    }
-    
-   
+
+
 
 
     /**********************
@@ -163,8 +154,6 @@ class Transcript extends Component {
                     &nbsp;&nbsp;
                     <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
                     <div style={this.getButtonsSectionStyle()}>
-                        <button style={this.getButtonsStyle()} onClick={this.goToAccountSettings.bind(this)}>Account Settings</button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <button style={this.getButtonsStyle()} onClick={this.goToPRofile.bind(this)}>Profile</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
@@ -174,19 +163,28 @@ class Transcript extends Component {
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
+
+
+
+
                 {/* The banner with the sign in text */}
                 <ProfileBanner rStore={this.props.rStore}>
-                    <h1 style={this.getBannerTextStyles()}>{this.state.poemName}</h1>
-                    <h1 style={this.getBannerTextStyles2()}>By {this.state.poemAuthor}</h1>
+                    <h1 className='playlistName'>{this.state.playlist !== null ? this.state.playlist.name : "Playlist"} Playlist</h1>    
                 </ProfileBanner>
 
-
-                {/* The transcript */}
-                <div style={this.getTranscriptAreaStyles()}>
-                    <p style={{textAlign:'center'}}>{this.state.transcript}</p>
+                <div className='profileDisplayArea'>
+                    {this.state.recitations}
                 </div>
 
 
+                <PageFooter bottom='-250px'>
+                </PageFooter>
+                <br/><br/><br/>
+                <br/><br/><br/>
+                <br/><br/><br/>
+                <br/><br/><br/>
+                <br/><br/><br/>
+                <br/><br/><br/>
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
                 {this.props.children}
@@ -207,15 +205,11 @@ class Transcript extends Component {
         this.props.nav.goTo('home');
     }
 
-    goToAccountSettings() {
-        document.body.scrollTop = 0
-        this.props.nav.goTo('accountsettings');
-    }
-
     goToPRofile() {
         document.body.scrollTop = 0
         this.props.nav.goTo('profile');
     }
+
 
     update() {
         if(document.body.scrollTop >= 30 || window.scrollY >= 30) {
@@ -229,6 +223,7 @@ class Transcript extends Component {
         }
     }
 
+
 }
 
-export default Transcript;
+export default PlaylistPage;

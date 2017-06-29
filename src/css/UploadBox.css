@@ -20,8 +20,8 @@
     height: 100%;
     float: left;
     text-align: left;
-    font-family: 'NEB';
-    font-size: 25px;
+    font-family: 'HelveticaNeue';
+    font-size: 20px;
     display: table-cell;
     -webkit-padding-before: 8px;
 }
@@ -56,8 +56,8 @@
 }
 .largeTitle {
     float: left;
-    font-family: 'NEB';
-    font-size: 30px;
+    font-family: 'HelveticaNeue';
+    font-size: 25px;
     text-align: left;
 }
 .largeTitle::after {
@@ -89,7 +89,7 @@
     padding-bottom: 400px;
 }
 .imageTitle, .uploadTitle {
-    font-family: 'NEB';
+    font-family: 'HelveticaNeue';
     font-size: 30px;
     text-align: left;
 }

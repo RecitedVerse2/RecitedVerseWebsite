@@ -73,8 +73,8 @@ class Header extends Component {
             border:'none',
             background:'none',
             color:'white',
-            fontFamily:'NEB',
-            fontSize:'17px',
+            fontFamily:'HelveticaNeue',
+            fontSize:'14px',
             outline:'none'
         }
     }

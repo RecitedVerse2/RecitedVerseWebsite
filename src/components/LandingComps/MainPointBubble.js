@@ -11,8 +11,8 @@ class MainPointsBubble extends Component {
             display: 'table-cell',
             wordWrap: 'normal',
             verticalAlign: 'top',
-            fontFamily:'NEB',
-            fontSize: '20px',
+            fontFamily:'HelveticaNeue',
+            fontSize: '18px',
             color:'white'
         };
     }

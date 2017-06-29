@@ -74,6 +74,16 @@ class Search extends Component {
             zIndex:'-1',
         }
     }
+    getBannerTextStyles() {
+        return {
+            position:'relative',
+            top:'20px',
+            color:'white',
+            textAlign:'center',
+            fontSize:'100px',
+            fontFamily:'Monthoers'
+        }
+    }
 
 
 
@@ -93,6 +103,7 @@ class Search extends Component {
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
                 <ProfileBanner top='100px' rStore={this.props.rStore}>
                     {/* The search bar. */}
+                    <h1 style={this.getBannerTextStyles()}>Search</h1>
                     <div className='searchBar'>
                         <h1 ref={(h1)=>{this.searchText = h1}} className='searchBarTitle'>Search:</h1>
                         <input  onKeyPress={this.reSearch.bind(this)} 
