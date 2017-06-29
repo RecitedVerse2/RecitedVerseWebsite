@@ -132,9 +132,7 @@ class AudioPlayer extends Component {
                                     style={{width: 350, display: 'table-cell'}}
                                     type="range" id="seekSlider"
                                     min={0} max={100} defaultValue={0} step={1}
-                                    onMouseDown={(event)=>{ this.setState({seeking:true}, ()=>{ this.seek(event); }); }}
-                                    onMouseMove={(event)=>{ this.seek(event); }}
-                                    onMouseUp={(event)=>{ this.setState({ seeking:false }); }}/>
+                                    onChange={this.sliderSeeking.bind(this)}/>
                             &nbsp;&nbsp;&nbsp;
                         <span style={{display: 'table-cell'}} id="durtimetext">{this.state.duration}</span>
                     </div>
@@ -266,6 +264,12 @@ class AudioPlayer extends Component {
 
 
 
+    sliderSeeking(event) {
+        this.seek(event);
+    }
+
+
+
     /**********************
     *                     *
     *   UTILITY METHODS   *
@@ -305,6 +309,9 @@ class AudioPlayer extends Component {
         if(store.audio !== null) {
             if(store.loop === false) {
                 if(store.audio.ended === true) {
+                    if(store.shouldUpdatePlayCount === true) {
+                        this.handleUpdatePlayCount();
+                    }
 
                     // Check if it part of a playlist. Otherwise it should just stop playing.
                     if(rec.playlist !== null && rec.playlist !== undefined) {
@@ -312,10 +319,6 @@ class AudioPlayer extends Component {
                         // If it's not the last item in the playlist, then play the next one.
                         if(rec.playlist.indexOf(rec) < rec.playlist.length()) {
                             this.startNextRecitation('next');
-                        }
-                    } else {
-                        if(store.shouldUpdatePlayCount === true) {
-                            this.handleUpdatePlayCount();
                         }
                     }
                 }
@@ -368,15 +371,13 @@ class AudioPlayer extends Component {
         const store = this.props.rStore.getState();
 
         if(store.audio !== null) {
-            if(this.state.seeking === true) {
-                this.seekSlider.value = e.clientX - this.seekSlider.offsetLeft;
-                var seekto = store.audio.duration * (this.seekSlider.value / 100);
-                
-                if( isFinite(seekto) ) {
-                    store.audio.currentTime = seekto;
-                } else {
-                    return;
-                }
+            var seekTo = store.audio.duration * (e.target.value / 100);
+
+            if( isFinite(seekTo) ) {
+                store.audio.currentTime = seekTo;
+            } else {
+                store.audio.currentTime = store.audio.currentTime + 1;
+                return;
             }
         }
     }
