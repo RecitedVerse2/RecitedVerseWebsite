@@ -104,7 +104,7 @@ class PageFooter extends Component {
     ***********************/
 
     goToFacebook() {
-        window.location = "https://www.facebook.com/recited.verse"
+        window.location = "https://www.facebook.com/recitedpoetry/"
     }
 
     goToInstagram() {
