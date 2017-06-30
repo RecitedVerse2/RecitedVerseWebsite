@@ -32,6 +32,7 @@ class Poem extends Component {
             recitedBy:'...',
             published:'----',
             genre:'...',
+            uploaderName:'...',
             poemImage:'',
             poemTranscript:'',
             plays:0,
@@ -74,6 +75,7 @@ class Poem extends Component {
             recitedBy: recitation.recitedBy,
             published: recitation.published,
             genre: recitation.genre,
+            uploaderName: recitation.uploaderName,
             poemImage: recitation.image,
             poemTranscript: recitation.text,
             plays: recitation.plays,
@@ -239,6 +241,7 @@ class Poem extends Component {
                         <h1 className='headerText'>Recited by {this.state.recitedBy}</h1>
                         <h1 className='headerText'>Published: {this.state.published}</h1>
                         <h1 className='headerText'>Genre: {this.state.genre}</h1>
+                        <h1 className='headerText'>Uploaded By: {this.state.uploaderName}</h1>
 
                         <div style={{marginLeft:'70px'}}>
                             <button className='interactButton fa fa-play'

@@ -177,7 +177,7 @@ class SignUp extends Component {
             outline:'none',
             background:'none',
             textDecoration:'none',
-            fontFamily:'NEB',
+            fontFamily:'HelvetivaNeue',
             fontSize:'25px',
             MozPaddingBefore:'-20px',
             display:'table-cell'
@@ -203,7 +203,7 @@ class SignUp extends Component {
         return {
             textAlign:'center',
             fontSize:'30px',
-            fontFamily:'NEB'
+            fontFamily:'HelveticaNeue'
         }
     }
     
@@ -255,6 +255,13 @@ class SignUp extends Component {
                 <br/><br/><br/>
 
                 <div style={this.getSBStyles()}>
+                    <h1 style={this.getSearchBarStyle(17)}>Username:</h1>
+                    <input ref={(input)=>{this.usernameField = input}} style={this.getInputStyles(17)} type='text' />
+                </div>
+
+                <br/><br/><br/>
+
+                <div style={this.getSBStyles()}>
                     <h1 style={this.getSearchBarStyle(11)}>Email:</h1>
                     <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(11)} type='email' />
                 </div>
@@ -262,15 +269,15 @@ class SignUp extends Component {
                 <br/><br/><br/>
 
                 <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle(14)}>Password:</h1>
-                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(14)} type='password' />
+                    <h1 style={this.getSearchBarStyle(17)}>Password:</h1>
+                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(17)} type='password' />
                 </div>
 
                 <br/><br/><br/>
 
                 <div style={this.getSBStylesPasswordConfirm()}>
-                    <h1 style={this.getSearchBarStyle(25)}>Re-enter password:</h1>
-                    <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='password' />
+                    <h1 style={this.getSearchBarStyle(28)}>Re-enter password:</h1>
+                    <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(28)} type='password' />
                 </div>
 
                 <br/><br/><br/>
@@ -322,11 +329,11 @@ class SignUp extends Component {
         var fireRef = firebase.database().ref();
 
         // Get all the different input values.
-        var fullname = this.fullNameField.value, email = this.emailField.value,
+        var fullname = this.fullNameField.value, username = this.usernameField.value, email = this.emailField.value,
             password = this.passwordField.value, passwordConfirm = this.passwordConfirmField.value;
 
         // Make sure the values exist for all of them.
-        if(this.valuesExist([fullname,email,password,passwordConfirm])) {
+        if(this.valuesExist([fullname,username,email,password,passwordConfirm])) {
 
             // Make sure that the passwords match.
             if(password !== '' && passwordConfirm !== '' && password === passwordConfirm) {
@@ -350,6 +357,7 @@ class SignUp extends Component {
                     var social = {0:'',1:'',2:'',3:''};
                     var createdUser = {
                         "fullname" : this.fullNameField.value,
+                        "username": this.usernameField.value,
                         "email" : this.emailField.value,
                         "userID" : user.uid,
                         "photoURL" : "https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FcircleProfilePic.png?alt=media&token=7725c514-2e32-4feb-a4ff-de2b8be2e865",
@@ -417,7 +425,7 @@ class SignUp extends Component {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 window.localStorage.setItem('currentUID',user.uid);
-                this.props.navHeader.goTo('profile');
+                this.props.nav.goTo('profile');
             } else {
                 return;
             }

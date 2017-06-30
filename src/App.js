@@ -183,16 +183,16 @@ class App extends Component {
                 <div>
                     <Route path="*" component={navComp}></Route>
                     <Route exact path="/" component={LandingPage}></Route>
-                    <Route path="/home" component={HomePage}></Route>
-                    <Route path="/signup" component={SignUpPage}></Route>
-                    <Route path="/login" component={LoginPage}></Route>
-                    <Route path="/profile" component={ProfilePage}></Route>
-                    <Route path="/accountsettings" component={EditProfilePage}></Route>
-                    <Route path="/upload" component={UploadPage}></Route>
-                    <Route path="/poem" component={PoemPage}></Route>
-                    <Route path="/search" component={SearchPage}></Route>
-                    <Route path="/transcript" component={TranscriptPage}></Route>
-                    <Route path="/playlist" component={PlaylistPageComp}></Route>
+                    <Route exact path="/home" component={HomePage}></Route>
+                    <Route exact path="/signup" component={SignUpPage}></Route>
+                    <Route exact path="/login" component={LoginPage}></Route>
+                    <Route exact path="/profile" component={ProfilePage}></Route>
+                    <Route exact path="/accountsettings" component={EditProfilePage}></Route>
+                    <Route exact path="/upload" component={UploadPage}></Route>
+                    <Route exact path="/poem" component={PoemPage}></Route>
+                    <Route exact path="/search" component={SearchPage}></Route>
+                    <Route exact path="/transcript" component={TranscriptPage}></Route>
+                    <Route exact path="/playlist" component={PlaylistPageComp}></Route>
                 </div>
             </BrowserRouter>
         );

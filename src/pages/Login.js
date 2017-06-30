@@ -166,7 +166,7 @@ class Login extends Component {
             outline:'none',
             background:'none',
             textDecoration:'none',
-            fontFamily:'NEB',
+            fontFamily:'HelvetivaNeue',
             fontSize:'25px',
             MozPaddingBefore:'-20px',
             display:'table-cell'
@@ -192,7 +192,7 @@ class Login extends Component {
         return {
             textAlign:'center',
             fontSize:'30px',
-            fontFamily:'NEB'
+            fontFamily:'HelvetivaNeue'
         }
     }
 
