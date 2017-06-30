@@ -107,6 +107,7 @@ class RecitationItem extends Component {
                 </button>
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
+                {this.props.children}
             </div>
         );
     }

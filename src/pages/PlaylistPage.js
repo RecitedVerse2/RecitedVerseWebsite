@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Alertify from 'alertify.js';
+import * as firebase from 'firebase';
 
 import backgroundImage from '../res/brickBackground.jpg';
 import RVLogo from '../res/RV-Final-Icon.png';
@@ -35,7 +37,7 @@ class PlaylistPage extends Component {
         var loadedPlaylist = JSON.parse(window.sessionStorage.getItem('CurrentPlaylist'));
         var playlist = new Playlist(loadedPlaylist.name);
         var recs = [];
-
+        
         if(loadedPlaylist !== null) {
             loadedPlaylist.recitations.forEach( (rec) => {
                 var rO = new Recitation(rec.id, rec.uploaderID, rec.uploaderName, rec.image, rec.title, rec.author, rec.recitedBy, rec.published, rec.genre, rec.description, 
@@ -46,7 +48,9 @@ class PlaylistPage extends Component {
                                               key={rec.id} 
                                               recitation={rO}
                                               nav={this.props.nav}
-                                              rStore={this.props.rStore}></RecitationItem>
+                                              rStore={this.props.rStore}>
+                                <button style={{color:'red',opacity:'0.7',fontSize:'14px'}} onClick={()=>{this.removeFromPlaylist(rec.title, rec.id)}}>Remove from playlist</button>
+                              </RecitationItem>
                 recs.push(recItem);
 
 
@@ -221,6 +225,73 @@ class PlaylistPage extends Component {
                 backgroundColor: 'rgba(0,0,0,0)'
             })
         }
+    }
+
+
+    removeFromPlaylist(name, id) {
+        const store = this.props.rStore.getState();
+        const cUser = store.currentUser;
+
+        if(cUser === null || cUser === undefined) {
+            Alertify.alert("You must be logged in to delete a playlist.");
+            return;
+        }
+
+        Alertify.confirm("Are you sure you want to remove " + name + " from this playlist?", () => {
+            firebase.database().ref().child('Users')
+                                    .child(cUser.userID)
+                                    .child('Playlists')
+                                    .child(this.state.playlist.name)
+                                    .once('value', (snap) => {
+                                        var val = snap;
+
+                                        val.forEach( (recID) => {
+                                            if(recID.val() === id) {
+                                                this.actuallyRemove(cUser.userID, recID.key, recID.val());
+                                                return;
+                                            }
+                                            return;
+                                        })
+                                    });
+        }, () => {
+            // Cancel
+        });
+    }
+
+
+    actuallyRemove(userID, firebaseID, recID) {
+        var playlist = this.state.playlist;
+        playlist.remove(recID);
+
+        var cache = [];
+        var pl = JSON.stringify(playlist, (key, value) => {
+            if (typeof value === 'object' && value !== null) {
+                if (cache.indexOf(value) !== -1) {
+                    // Circular reference found, discard key
+                    return;
+                }
+                // Store value in our collection
+                cache.push(value);
+            }
+            return value;
+        });
+
+        window.sessionStorage.setItem('CurrentPlaylist', pl);
+        this.reloadRecitations();
+
+        firebase.database().ref().child('Users').child(userID).child('Playlists').child(playlist.name).child(firebaseID).remove( (err) => {
+            if(!err) {
+                
+                return;
+            } else {
+                return;
+            }
+        })
+    }
+
+
+    reloadRecitations() {
+        window.location.reload(true);
     }
 
 

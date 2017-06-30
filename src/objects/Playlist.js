@@ -75,6 +75,27 @@ class Playlist {
         }
         return null;
     }
+
+
+    remove(id) {
+        var temp = [];
+        while(this.recitations.length > 0) {
+            var a = this.recitations.pop();
+
+            if(a.id === id) {
+                continue;
+            } else {
+                temp.push(a);
+            }
+        }
+        temp.forEach( (e) => {
+            this.recitations.push(e);
+        })
+        // this.recitations = this.recitations.filter( (e) => {
+        //     return e.id !== id
+        // });
+        console.log(this.recitations);
+    }
 }
 
 export default Playlist;

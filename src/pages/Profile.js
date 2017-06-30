@@ -549,7 +549,8 @@ class Profile extends Component {
             this.state.playlistPlaylist.forEach( (pl) => {
                 var playItem = <PlaylistItem key={pl.name}
                                              playlist={pl}
-                                             nav={this.props.nav}></PlaylistItem>
+                                             nav={this.props.nav}
+                                             rStore={this.props.rStore}></PlaylistItem>
                 items.push(playItem);
             })
 
