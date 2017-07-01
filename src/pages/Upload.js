@@ -132,7 +132,7 @@ class Upload extends Component {
 
                 {/* The banner that displays the page title. */}
                 <ProfileBanner top='150px' height='180px' rStore={this.props.rStore}>
-                    <h1 style={{fontFamily:'Monthoers', fontSize:'80px'}}>Upload your Recitation</h1>
+                    <h1 style={{fontFamily:'Monthoers', fontSize:'80px'}}>Upload your Recording</h1>
                 </ProfileBanner>
 
 
