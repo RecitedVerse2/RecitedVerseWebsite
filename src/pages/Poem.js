@@ -142,7 +142,7 @@ class Poem extends Component {
             background:'none',
             color:'white',
             fontFamily:'HelveticaNeue',
-            fontSize:'17px',
+            fontSize:'14px',
             outline:'none'
         }
     }
@@ -315,6 +315,10 @@ class Poem extends Component {
 
         Alertify.confirm("Are you sure you want to delete this recitation?", (e) => {
             if (e) {
+                // Remove the recitations from all users' likes,favorites,playlists.
+                this.removeFromAllUsers(recitation.id);
+
+
                 // Delete the recitation.
                 firebase.database().ref().child('Recitations').child(recitation.id).remove( (err) => {
 
@@ -336,6 +340,55 @@ class Poem extends Component {
             }
         });
     }
+
+
+    removeFromAllUsers(removeID) {
+        firebase.database().ref().child('Users').once('value', (allUsers) => {
+            // Go through each user.
+            allUsers.forEach( (snap) => {
+                var user = snap.val();
+
+                // Remove from favorites
+                if(user.favorites) {
+                    if( user.favorites.includes(removeID) ) {
+                        // Get the old favorites, remove the rec id.
+                        var newFavorites = user.favorites;
+                        this.remove(newFavorites, removeID);
+
+                        // Set the new favorites.
+                        firebase.database().ref().child('Users').child(user.userID).child('favorites').set(newFavorites);
+                    }
+                }
+
+                // Do the same for likes
+                if(user.likes) {
+                    if( user.likes.includes(removeID) ) {
+                        var newLikes = user.likes;
+                        this.remove(newLikes, removeID);
+
+                        firebase.database().ref().child('Users').child(user.userID).child('likes').set(newLikes);
+                    }
+                }
+
+                // Do the same for likes
+                firebase.database().ref().child('Users').child(user.userID).child('Playlists').once('value', (playlists) => {
+                    playlists.forEach( (playlist) => {
+                        var newPlaylist = [];
+                        playlist.forEach( (rec) => {
+                            if(rec.val() !== removeID) {
+                                newPlaylist.push(rec.val());
+                            }
+                        });
+
+                        firebase.database().ref().child('Users').child(user.userID).child('Playlists').child(playlist.key).set(newPlaylist);
+                    });
+                });
+            });
+        });
+    }
+
+
+
 
     update() {
         const store = this.props.rStore.getState();

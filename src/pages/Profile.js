@@ -69,7 +69,7 @@ class Profile extends Component {
         }
         
         this.setState({
-            name: this.props.rStore.getState().currentUser != null ? this.props.rStore.getState().currentUser.fullname.split(" ")[0] : 'User'
+            name: this.props.rStore.getState().currentUser != null ? this.props.rStore.getState().currentUser.username : 'User'
         });
 
         this.loadUploadPlaylist(this.props.rStore, () => {
