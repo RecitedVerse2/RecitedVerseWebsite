@@ -8,6 +8,14 @@ import Alertify from 'alertify.js';
 import _ from '../css/UploadBox.css';
 
 import backgroundImage from '../res/brickBackground.jpg';
+import randImage1 from '../res/rand1.jpg';
+import randImage2 from '../res/rand2.jpg';
+import randImage3 from '../res/rand3.jpg';
+import randImage4 from '../res/rand4.jpg';
+import randImage5 from '../res/rand5.jpg';
+import randImage6 from '../res/rand6.jpg';
+import randImage7 from '../res/rand7.jpg';
+import randImage8 from '../res/rand8.jpg';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
@@ -34,7 +42,8 @@ class Upload extends Component {
             poemPublished:'',
             poemGenre:'',
             poemWrittenText:'',
-            poemDescription:''
+            poemDescription:'',
+            choseImage: false
         }
     }
 
@@ -261,6 +270,8 @@ class Upload extends Component {
     uploadRecitationImage(e) {
         var poemImage = this.poemImage;
         poemImage.src = e;
+
+        this.setState({ choseImage: true });
     };
 
     uploadAudioFile(e) {
@@ -403,6 +414,15 @@ class Upload extends Component {
         var poemWrittenText = this.transcriptField;
         var poemDescription = this.descriptionField;
 
+        // Select a random image if choseImage is false
+        if(this.state.choseImage === false) {
+            const images = [randImage1, randImage2, randImage3, randImage4, randImage5,
+                            randImage6, randImage7, randImage8];
+            const randIndex = Math.floor( (Math.random() * 8) + 1);
+
+            this.poemImage.src = images[randIndex];
+        }
+
         if( (this.valueExists(this.state.audioObj) || finalRecording !== null) && this.valueExists(poemName.value) && this.valueExists(poemAuthor.value) 
             && this.valueExists(poemRecitedBy.value) && this.valueExists(poemPublished.value)
             && this.valueExists(poemGenre.value) && this.valueExists(poemWrittenText.value)) {
@@ -448,6 +468,8 @@ class Upload extends Component {
                 /* Save the actual audio to the storage. */
                 storageRef.child('Recitations').child(dictionary['id']).put(myRecording).then(() => {
                     this.statusLabel.innerHTML = "Done!";
+                    document.body.scrollTop = 0;
+                    this.props.nav.goTo('home')
                     return;
                 });
 
@@ -463,6 +485,8 @@ class Upload extends Component {
                 /* Save the actual audio to the storage. */
                 storageRef.child('Recitations').child(dictionary['id']).putString(this.state.audioObj.src, 'data_url').then((snapshot) => {
                     this.statusLabel.innerHTML = "Done!";
+                    document.body.scrollTop = 0;
+                    this.props.nav.goTo('home')
                     return;
                 });
 

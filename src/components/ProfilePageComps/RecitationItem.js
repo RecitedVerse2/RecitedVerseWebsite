@@ -167,7 +167,7 @@ class RecitationItem extends Component {
             return;
         }
 
-        Alertify.defaultValue("").prompt("Which playlist would you like to add \"" + this.props.recitation.title + "\" to? If the playlist does not exist it will be created for you.", 
+        Alertify.defaultValue("Playlist Name").prompt("Which playlist would you like to add \"" + this.props.recitation.title + "\" to? If the playlist does not exist it will be created for you.", 
         
             (val, ev) => {
                 // The click event is in the event variable, so you can use it here.
