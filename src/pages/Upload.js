@@ -8,14 +8,7 @@ import Alertify from 'alertify.js';
 import _ from '../css/UploadBox.css';
 
 import backgroundImage from '../res/brickBackground.jpg';
-import randImage1 from '../res/rand1.jpg';
-import randImage2 from '../res/rand2.jpg';
-import randImage3 from '../res/rand3.jpg';
-import randImage4 from '../res/rand4.jpg';
-import randImage5 from '../res/rand5.jpg';
-import randImage6 from '../res/rand6.jpg';
-import randImage7 from '../res/rand7.jpg';
-import randImage8 from '../res/rand8.jpg';
+import randomImages from '../res/randomImageURLs.json';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
@@ -416,8 +409,9 @@ class Upload extends Component {
 
         // Select a random image if choseImage is false
         if(this.state.choseImage === false) {
-            const images = [randImage1, randImage2, randImage3, randImage4, randImage5,
-                            randImage6, randImage7, randImage8];
+            const images = [randomImages.image1,randomImages.image2,randomImages.image3,
+                            randomImages.image4,randomImages.image5,randomImages.image6,
+                            randomImages.image7, randomImages.image8];
             const randIndex = Math.floor( (Math.random() * 8) + 1);
 
             this.poemImage.src = images[randIndex];
