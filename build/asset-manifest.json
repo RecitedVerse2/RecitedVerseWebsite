@@ -1,8 +1,8 @@
 {
   "main.css": "static/css/main.24a9799d.css",
   "main.css.map": "static/css/main.24a9799d.css.map",
-  "main.js": "static/js/main.0fc180d0.js",
-  "main.js.map": "static/js/main.0fc180d0.js.map",
+  "main.js": "static/js/main.6b452e8e.js",
+  "main.js.map": "static/js/main.6b452e8e.js.map",
   "static/media/AmericanTypewriter.ttc": "static/media/AmericanTypewriter.acaf2139.ttc",
   "static/media/BlankBanner.png": "static/media/BlankBanner.4747d23d.png",
   "static/media/CaviarDreams.ttf": "static/media/CaviarDreams.3670aa49.ttf",
@@ -22,5 +22,13 @@
   "static/media/RVBanner.png": "static/media/RVBanner.8dd13c33.png",
   "static/media/SM-Icon.png": "static/media/SM-Icon.46bd7c34.png",
   "static/media/TW-Icon.png": "static/media/TW-Icon.adc5be78.png",
-  "static/media/brickBackground.jpg": "static/media/brickBackground.fa0bf54b.jpg"
+  "static/media/brickBackground.jpg": "static/media/brickBackground.fa0bf54b.jpg",
+  "static/media/rand1.jpg": "static/media/rand1.fc35229f.jpg",
+  "static/media/rand2.jpg": "static/media/rand2.b755a8b9.jpg",
+  "static/media/rand3.jpg": "static/media/rand3.8113e16e.jpg",
+  "static/media/rand4.jpg": "static/media/rand4.419d9d31.jpg",
+  "static/media/rand5.jpg": "static/media/rand5.38a93260.jpg",
+  "static/media/rand6.jpg": "static/media/rand6.5d8fc470.jpg",
+  "static/media/rand7.jpg": "static/media/rand7.03123755.jpg",
+  "static/media/rand8.jpg": "static/media/rand8.f9b77448.jpg"
 }
