@@ -8,7 +8,14 @@ import Alertify from 'alertify.js';
 import _ from '../css/UploadBox.css';
 
 import backgroundImage from '../res/brickBackground.jpg';
-import randomImages from '../res/randomImageURLs.json';
+import randImage1 from '../res/rand1.jpg';
+import randImage2 from '../res/rand2.jpg';
+import randImage3 from '../res/rand3.jpg';
+import randImage4 from '../res/rand4.jpg';
+import randImage5 from '../res/rand5.jpg';
+import randImage6 from '../res/rand6.jpg';
+import randImage7 from '../res/rand7.jpg';
+import randImage8 from '../res/rand8.jpg';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
@@ -125,7 +132,7 @@ class Upload extends Component {
         return (
             <div style={this.getStyles()}>
                 <Clock onupdate={this.handleStopPlaying.bind(this)}></Clock>
-                
+
                 {/* Header and Background stuff. */}
                 <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
                 <div style={this.getOverlay()}></div>
@@ -198,8 +205,8 @@ class Upload extends Component {
 
                         <FileChooserForm formButtonStyle={this.getFormButtonStyle()}
                                         ref={(FileChooserForm)=>{this.addPhotoBtn = FileChooserForm}}
-                                        formButtonId='addPhotoBtn' 
-                                        formButtonClass='pill_btn' name='recImageFile' 
+                                        formButtonId='addPhotoBtn'
+                                        formButtonClass='pill_btn' name='recImageFile'
                                         accept='image/x-png' multiple='false'
                                         fileSelectedHandler={(e)=>{this.uploadRecitationImage(e)}}>
                             Add Photo
@@ -211,15 +218,15 @@ class Upload extends Component {
                         {/* Upload from file */}
                         <h5 className='uploadTitle'>Upload A Recording</h5>
                         <br/>
-                        <FileChooserForm formButtonStyle={this.getFormButtonStyle2()} 
+                        <FileChooserForm formButtonStyle={this.getFormButtonStyle2()}
                                         ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
-                                        formButtonId='fromFileBtn' 
-                                        formButtonClass='pill_btn' name='fileRecitation' 
+                                        formButtonId='fromFileBtn'
+                                        formButtonClass='pill_btn' name='fileRecitation'
                                         accept='audio/*' multiple='false'
                                         fileSelectedHandler={(e)=>{this.uploadAudioFile(e)}}>
                             Upload
                         </FileChooserForm>
-                        
+
                         <br/>
                         <p style={{fontFamily:'Monthoers',fontSize:'25px'}}>Or</p>
                         <br/>
@@ -236,8 +243,8 @@ class Upload extends Component {
                             </div>
                             <br/>
                             <p ref={(p)=>{this.statusLabel = p}}></p>
-                            
-                            <button className='uploadButton' 
+
+                            <button className='uploadButton'
                                     ref={(button)=>{this.submitBtn = button}}
                                     onClick={this.handleSubmit.bind(this)}>Upload</button>
                             <br/>
@@ -409,15 +416,14 @@ class Upload extends Component {
 
         // Select a random image if choseImage is false
         if(this.state.choseImage === false) {
-            const images = [randomImages.image1,randomImages.image2,randomImages.image3,
-                            randomImages.image4,randomImages.image5,randomImages.image6,
-                            randomImages.image7, randomImages.image8];
+            const images = [randImage1, randImage2, randImage3, randImage4, randImage5,
+                            randImage6, randImage7, randImage8];
             const randIndex = Math.floor( (Math.random() * 8) + 1);
 
             this.poemImage.src = images[randIndex];
         }
 
-        if( (this.valueExists(this.state.audioObj) || finalRecording !== null) && this.valueExists(poemName.value) && this.valueExists(poemAuthor.value) 
+        if( (this.valueExists(this.state.audioObj) || finalRecording !== null) && this.valueExists(poemName.value) && this.valueExists(poemAuthor.value)
             && this.valueExists(poemRecitedBy.value) && this.valueExists(poemPublished.value)
             && this.valueExists(poemGenre.value) && this.valueExists(poemWrittenText.value)) {
 
@@ -487,7 +493,7 @@ class Upload extends Component {
             }
             return;
         } else {
-            
+
             if(!this.valueExists(this.state.audioObj) && finalRecording === null) { missingInfo += "You must upload or record a poem before submitting<br/>"; }
             if(!this.valueExists(poemName.value)) { missingInfo += "Enter a name for the poem<br/>"; }
             if(!this.valueExists(poemAuthor.value)) { missingInfo += "Enter a name of the poet<br/>"; }
