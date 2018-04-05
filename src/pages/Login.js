@@ -6,6 +6,7 @@ import background from '../res/BlankBanner.png';
 import RVLogo from '../res/RV-Final-Icon.png';
 import googleIcon from '../res/icon-google.png';
 
+
 import Header from '../components/LandingComps/Header';
 
 // eslint-disable-next-line
@@ -36,12 +37,34 @@ class Login extends Component {
     constructor() {
         super();
         this.state = {
-            backgroundColor:'rgba(0,0,0,0)'
+            email: '',
+            passwd: '',
+            backgroundColor:'rgba(0,0,0,0)',
+            errorInfoShow: 'none'
         };
+
+
+
+
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswdChange = this.handlePasswdChange.bind(this);
+        this.submit = this.submit.bind(this);
+        this.loginUser = this.loginUser.bind(this);
     }
 
-    componentDidMount() {
 
+    handleEmailChange(event) {
+        this.setState({email: event.target.value});
+    }
+
+
+     handlePasswdChange(event) {
+       this.setState({passwd: event.target.value});
+     }
+
+
+    submit(){
+        alert(this.state.email);
     }
 
 
@@ -207,6 +230,12 @@ class Login extends Component {
         }
     }
 
+    getErrorInfoStyle(){
+      return{
+        display: this.state.errorInfoShow
+      }
+
+    }
 
     /**********************
     *                     *
@@ -222,7 +251,7 @@ class Login extends Component {
                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
 
-              <Header nav={this.props.nav} style={this.getHeaderStyle()} ></Header>
+              <Header nav={this.props.nav} style={this.getHeaderStyle()} owner='login' ></Header>
 
 
 
@@ -234,8 +263,13 @@ class Login extends Component {
           						Login
           					</span>
 
+
+                    <div ref={(div)=>{this.errorInfo= div}} className="alert alert-danger" style={this.getErrorInfoStyle()}>
+                      <strong>Warning!</strong> Indicates a warning that might need attention.
+                    </div>
+
           					<div className="wrap-input100 validate-input m-b-16" data-validate = "Valid email is required: ex@abc.xyz">
-          						<input className="input100" type="text" name="email" placeholder="Email"/>
+          						<input className="input100" type="text" value={this.state.email}  onChange={this.handleEmailChange}   name="email" placeholder="Email"/>
           						<span className="focus-input100"></span>
           						<span className="symbol-input100">
           							<span className="lnr lnr-envelope"></span>
@@ -243,7 +277,7 @@ class Login extends Component {
           					</div>
 
           					<div className="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-          						<input className="input100" type="password" name="pass" placeholder="Password"/>
+          						<input className="input100" type="password" value={this.state.passwd} onChange={this.handlePasswdChange} name="pass" placeholder="Password"/>
           						<span className="focus-input100"></span>
           						<span className="symbol-input100">
           							<span className="lnr lnr-lock"></span>
@@ -251,17 +285,21 @@ class Login extends Component {
           					</div>
 
           					<div className="contact100-form-checkbox m-l-4">
-          						<input className="input-checkbox100" id="ckb1" type="checkbox" name="remember-me"/>
-          						<label className="label-checkbox100" for="ckb1">
+          						<input className="input-checkbox100" type="checkbox"  name="remember-me"/>
+          						<label className="label-checkbox100" >
           							Remember me
           						</label>
           					</div>
 
+
+
+
           					<div className="container-login100-form-btn p-t-25">
-          						<button className="login100-form-btn">
-          							Login
-          						</button>
+                    <button type="button" className="login100-form-btn" onClick={this.loginUser}>Login</button>
+
           					</div>
+
+
 
           					<div className="text-center w-full p-t-42 p-b-22">
           						<span className="txt1">
@@ -292,17 +330,6 @@ class Login extends Component {
           			</div>
           		</div>
 
-
-
-                <div style={{width:'100%',textAlign:'center',margin:'auto'}}>
-                    <button onMouseEnter={this.handleHover.bind(this)}
-                            onMouseLeave={this.handleUnhover.bind(this)}
-                            onClick={this.loginUser.bind(this)}
-                            style={this.getButton()}>
-                            Enter
-                    </button>
-                </div>
-
                 </div>
 
         );
@@ -328,8 +355,11 @@ class Login extends Component {
     }
 
     loginUser() {
-        var email = this.emailField.value;
-        var password = this.passwordField.value;
+
+        var email = this.state.email;
+        var password = this.state.passwd;
+
+
 
         // Make sure a value exists for the email and password.
         if(this.valueExists(email) && this.valueExists(password)) {
@@ -341,28 +371,24 @@ class Login extends Component {
                 var errorCode = error.code;
 
                 if(errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-email') {
-                    this.statusLabel.style.color = "red";
-                    this.statusLabel.innerHTML = "Incorrect Email or Password.";
-                    this.statusLabel.style.visibility = "visible";
+                  this.errorInfo.style.display =  'block';
+                  this.errorInfo.innerHTML = "<strong>Error : </strong> Incorrect Email or Password.";
                     return;
                 } else if(errorCode === 'auth/user-not-found') {
-                    this.statusLabel.style.color = "red";
-                    this.statusLabel.innerHTML = "No user was found with that email and password.";
-                    this.statusLabel.style.visibility = "visible";
+                  this.errorInfo.style.display =  'block';
+                  this.errorInfo.innerHTML = "<strong>Error : </strong> No user was found with that email and password.";
                     return;
                 } else {
-                    this.statusLabel.style.color = "red";
-                    this.statusLabel.innerHTML = "There was an error signing in.";
-                    this.statusLabel.style.visibility = "visible";
+                  this.errorInfo.style.display =  'block';
+                  this.errorInfo.innerHTML = "<strong>Error : </strong> There was an error signing in.";
                     return;
                 }
             }); // End of login.
 
             // Print out the logging in message.
-            this.statusLabel.style.color = "green";
-            this.statusLabel.innerHTML = "Logging in!";
-            this.statusLabel.style.visibility = "visible";
-
+            //this.statusLabel.style.color = "green";
+            //this.statusLabel.innerHTML = "Logging in!";
+            //this.statusLabel.style.visibility = "visible";
             // Wait for the login, then change pages.
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
@@ -382,11 +408,14 @@ class Login extends Component {
                 }
             });
         } else {
-            this.statusLabel.style.color = "red";
-            this.statusLabel.innerHTML = "Please enter both credentials.";
-            this.statusLabel.style.visibility = "visible";
+          this.errorInfo.style.display =  'block';
+          this.errorInfo.innerHTML = "<strong>Error : </strong> Incorrect Email or Password.";
             return;
+
         }
+
+
+
     }
 
 
