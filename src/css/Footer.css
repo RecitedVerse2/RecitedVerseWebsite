@@ -1,7 +1,6 @@
 h1 {
-    color: white;
     text-align: center;
-    font-family: "Monthoers"
+    font-family: "Alegreya"
 }
 #copyright {
     font-size: 18px;
@@ -34,13 +33,13 @@ button {
 }
 .userfulLinksSection {
     width: 25%;
-    color: white;
+    color: black;
     vertical-align: top;
     display: inline-block;
 }
 .buttonsSection {
     width: 25%;
-    color: white;
+    color: black;
     display: inline-block;
     vertical-align: top;
     margin-top: 100px;
