@@ -8,6 +8,7 @@ import __ from '../../css/Header.css';
 
 import Clock from '../Clock';
 
+
 class Header extends Component {
 
     /**********************
@@ -20,7 +21,7 @@ class Header extends Component {
         super();
 
         this.state = {
-            backgroundColor: 'rgba(0,0,0,0)'
+            backgroundColor: 'rgba(0,0,0, 0.75)'
         }
     }
 
@@ -42,7 +43,7 @@ class Header extends Component {
             height: '70px',
             display:'table',
             zIndex:'1000',
-            backgroundColor: this.state.backgroundColor,
+            backgroundColor: 'rgba(0,0,0, 0.75)',
         }
     }
     getLogoStyle() {
@@ -74,9 +75,16 @@ class Header extends Component {
             background:'none',
             color:'white',
             fontFamily:'HelveticaNeue',
-            fontSize:'14px',
+            fontSize:'18px',
+            padding:'0px 40px 0px 10px',
             outline:'none'
         }
+    }
+
+     getWhiteSpanStyle() {
+       return {
+         color:'white'
+       }
     }
 
 
@@ -87,11 +95,11 @@ class Header extends Component {
                 <img onClick={()=>{document.body.scrollTop = 0;this.props.nav.goTo('home')}} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
 
                 <div style={this.getButtonsSectionStyle()}>
-                    <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Login</button>
-                    
+                <span style={this.getWhiteSpanStyle()} className="glyphicon glyphicon-log-in" ></span>
+                    <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Sign in</button>
+
                     &nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <button style={this.getButtonsStyle()} onClick={this.goToSignup.bind(this)}>Sign Up</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
 

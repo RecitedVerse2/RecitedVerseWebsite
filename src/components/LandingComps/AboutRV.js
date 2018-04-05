@@ -18,28 +18,28 @@ class AboutRV extends Component {
         return {
             position: 'relative',
             width: '100%',
-            height: '500px'
+            height: '800px'
         };
     }
     getUpperStyles() {
         return {
             position: 'relative',
             top:'-15%',
-            height: '250px',
+            height: '550px',
             color: 'white'
         }
     }
     getImageStyle() {
         return {
             width: '100%',
-            height: '250px',
+            height: '550px',
             zIndex: 1
         }
     }
     getTextStyles() {
         return {
             position: 'relative',
-            marginTop: '-20%',
+            marginTop: '-40%',
             zIndex: 2,
             textAlign:'center'
         }
@@ -67,6 +67,14 @@ class AboutRV extends Component {
             width:'60%'
         }
     }
+    getPStyle(){
+      return {
+          fontFamily:'HelveticaNeue',
+          fontSize:'22px',
+          padding: '100px 50px 75px 100px',
+
+      }
+    }
 
 
     render() {
@@ -78,7 +86,7 @@ class AboutRV extends Component {
 
                     <div style={this.getTextStyles()}>
                         <h1 style={{fontFamily:'Monthoers',fontSize:'80px'}}>about recited verse</h1>
-                        <p style={{fontFamily:'HelveticaNeue', fontSize:'16px'}}>Recitation is interpretation! At RecitedVerse.com, we welcome your readings of your favorite poems. Our goal is to offer an unlimited number of readings for an unlimited number of poems throughout the ages and the world.</p>
+                        <p style={this.getPStyle()}>Recitation is interpretation! At RecitedVerse.com, we welcome your readings of your favorite poems. Our goal is to offer an unlimited number of readings for an unlimited number of poems throughout the ages and the world.</p>
                     </div>
                 </div>
             </div>

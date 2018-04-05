@@ -16,7 +16,7 @@ class PageFooter extends Component {
     ***********************/
 
     componentDidMount() {
-        
+
     }
 
 
@@ -33,7 +33,8 @@ class PageFooter extends Component {
             bottom: this.props.bottom || '150px',
             left: '0px',
             width: '100%',
-            height: '100%'
+            height: '100%',
+            backgroundColor: 'rgba(0,0,0, 0.75)'
         }
     }
 

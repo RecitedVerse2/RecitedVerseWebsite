@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 import backgroundImage from '../res/brickBackground.jpg';
-import CarouselImage from '../res/RVBanner.png';
+import CarouselImage1 from '../res/RVBanner.png';
+import CarouselImage2 from '../res/flash_2.jpg';
+import CarouselImage3 from '../res/flash_3.jpg';
 
 import Header from '../components/LandingComps/Header';
 import MainPointsSection from '../components/LandingComps/MainPointsSection';
@@ -19,9 +21,22 @@ class Landing extends Component {
     ***********************/
 
     componentDidMount() {
-        
+
     }
 
+
+    getHeaderStyle() {
+        return {
+            position: 'fixed',
+            top:'0px',
+            left:'0xp',
+            width: '100%',
+            height: '70px',
+            display:'table',
+            zIndex:'1000',
+            backgroundColor: 'rgba(0,0,0,0.85)'
+        }
+    }
 
 
     /**********************
@@ -52,15 +67,31 @@ class Landing extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+            backgroundColor: 'rgba(0, 0, 0, 0)'
         }
     }
-    getBannerStyle() {
+
+    getBannerDivStyle() {
         return {
             position:'relative',
-            top:'70px',
-            width:'100%'
+            width:'100%',
+            height:'100%',
+            padding:'60px 30px 200px 0px'
         }
+    }
+
+    getBannerStyle() {
+        return {
+            width:'100%',
+            height:'100%',
+            padding:'10px 0px 10px 0px'
+        }
+    }
+
+    getIndicatorStyle(){
+      return {
+        top: '600px'
+      }
     }
 
 
@@ -68,23 +99,32 @@ class Landing extends Component {
         return (
             <div style={this.getStyles()}>
                 <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
 
-                <Header nav={this.props.nav}></Header>
-                <img alt='ci' style={this.getBannerStyle()} src={CarouselImage}/>
+                <Header nav={this.props.nav} style={this.getHeaderStyle()} ></Header>
 
-                <MainPointsSection></MainPointsSection>
+                <div id="myCarousel" className="carousel slide"  style={this.getBannerDivStyle()} data-interval="4000" data-ride="carousel">
+                <ol className="carousel-indicators" style={this.getIndicatorStyle()}>
+                  <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <div className="carousel-inner" >
+                  <div className="item active" style={this.getBannerStyle()}>
+                    <img src={CarouselImage1} alt="" ></img>
+                  </div>
 
+                  <div className="item" style={this.getBannerStyle()}>
+                    <img src={CarouselImage2} alt="" ></img>
+                  </div>
 
-                {/*<br/><br/><br/><br/><br/><br/><br/><br/>*/}
-                {/*<PointDescriptionSection orientation='right'></PointDescriptionSection>*/}
-                <br/><br/><br/><br/><br/><br/>
-                {/*<PointDescriptionSection orientation='left'></PointDescriptionSection>*/}
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                  <div className="item" style={this.getBannerStyle()}>
+                    <img src={CarouselImage3} alt="" ></img>
+                  </div>
+                </div>
+                </div>
 
-
-                <AboutRV></AboutRV>
                 <PageFooter></PageFooter>
                 <br/><br/><br/><br/><br/><br/><br/>
                 {this.props.children}

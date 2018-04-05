@@ -4,6 +4,9 @@ import * as firebase from 'firebase';
 import backgroundImage from '../res/brickBackground.jpg';
 import background from '../res/BlankBanner.png';
 import RVLogo from '../res/RV-Final-Icon.png';
+import googleIcon from '../res/icon-google.png';
+
+import Header from '../components/LandingComps/Header';
 
 // eslint-disable-next-line
 import _ from '../css/fonts.css';
@@ -12,10 +15,18 @@ import ___ from '../css/Header.css';
 
 import Clock from '../components/Clock';
 
+import _1 from '../css/icon-font.min.css';
+import _2 from '../css/login_util.css';
+import _3 from '../css/login_main.css';
+
+
+
+
+
 
 // This is where users can log into accounts on RecitedVerse.com
 class Login extends Component {
-    
+
     /**********************
     *                     *
     *    INITIALIZATION   *
@@ -30,7 +41,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        
+
     }
 
 
@@ -134,10 +145,10 @@ class Login extends Component {
             position:'relative',
             width:'70%',
             height:'50px',
-            margin:'auto',   
+            margin:'auto',
             display:'table',
             color:'white',
-            borderRadius:'25px',    
+            borderRadius:'25px',
             backgroundColor:'rgba(255,255,255,0.5)'
         }
     }
@@ -205,54 +216,84 @@ class Login extends Component {
 
     render() {
         return (
-            <div style={this.getStyles()}>
-                {/* The header area */}
-                <div className='header' style={this.getHeaderStyle()}>
-                    &nbsp;&nbsp;
-                    <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
-                    <div style={this.getButtonsSectionStyle()}>
-                    <button style={this.getButtonsStyle()} onClick={this.goToAccountSettings.bind(this)}>Account Settings</button>
-                    
-                    &nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <button style={this.getButtonsStyle()} onClick={this.goToPRofile.bind(this)}>Profile</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-                </div>
-
-                {/* The background image */}
-                <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+          <div style={this.getStyles()}>
+              <div style={this.getOverlay()}></div>
+               <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
 
-                {/* The banner with the sign in text */}
-                <div style={this.getBannerStyle()}>
-                    <img style={{width:'100%',height:'150px'}} src={background} alt="bg2"/>
-                    <h1 style={this.getBannerTextStyles()}>Sign In</h1>
-                </div>
+              <Header nav={this.props.nav} style={this.getHeaderStyle()} ></Header>
 
 
-                {/* Email/Password field */}
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle(12)}>Email:</h1>
-                    <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(12)} type='email' />
-                </div>
 
-                <br/><br/><br/>
 
-                <div style={this.getSBStyles()}>
-                    <h1 style={this.getSearchBarStyle(15)}>Password:</h1>
-                    <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(15)} type='password' />
-                </div>
+              <div className="container-login100">
+          			<div className="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+          				<form className="login100-form validate-form">
+          					<span className="login100-form-title p-b-55">
+          						Login
+          					</span>
 
-                <br/><br/><br/>
+          					<div className="wrap-input100 validate-input m-b-16" data-validate = "Valid email is required: ex@abc.xyz">
+          						<input className="input100" type="text" name="email" placeholder="Email"/>
+          						<span className="focus-input100"></span>
+          						<span className="symbol-input100">
+          							<span className="lnr lnr-envelope"></span>
+          						</span>
+          					</div>
 
-                <div style={{position:'relative',width:'100%',margin:'auto',textAlign:'center'}}>
-                    <p style={this.getStatusLabelStyles()} ref={(p)=>{this.statusLabel = p}}></p>
-                </div>
+          					<div className="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+          						<input className="input100" type="password" name="pass" placeholder="Password"/>
+          						<span className="focus-input100"></span>
+          						<span className="symbol-input100">
+          							<span className="lnr lnr-lock"></span>
+          						</span>
+          					</div>
 
-                {/* Login button */}
+          					<div className="contact100-form-checkbox m-l-4">
+          						<input className="input-checkbox100" id="ckb1" type="checkbox" name="remember-me"/>
+          						<label className="label-checkbox100" for="ckb1">
+          							Remember me
+          						</label>
+          					</div>
+
+          					<div className="container-login100-form-btn p-t-25">
+          						<button className="login100-form-btn">
+          							Login
+          						</button>
+          					</div>
+
+          					<div className="text-center w-full p-t-42 p-b-22">
+          						<span className="txt1">
+          							Or login with
+          						</span>
+          					</div>
+
+          					<a href="#" className="btn-face m-b-10">
+          						<i className="fa fa-facebook-official"></i>
+          						Facebook
+          					</a>
+
+          					<a href="#" className="btn-google m-b-10">
+          						<img src={googleIcon} alt="GOOGLE"/>
+          						Google
+          					</a>
+
+          					<div className="text-center w-full p-t-30">
+          						<span className="txt1">
+          							Not a member?
+          						</span>
+
+          						<a className="txt1 bo1 hov1" href="#">
+          							Sign up now
+          						</a>
+          					</div>
+          				</form>
+          			</div>
+          		</div>
+
+
+
                 <div style={{width:'100%',textAlign:'center',margin:'auto'}}>
                     <button onMouseEnter={this.handleHover.bind(this)}
                             onMouseLeave={this.handleUnhover.bind(this)}
@@ -262,11 +303,8 @@ class Login extends Component {
                     </button>
                 </div>
 
+                </div>
 
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <Clock onupdate={this.update.bind(this)}></Clock>
-                {this.props.children}
-            </div>
         );
     }
 
@@ -331,7 +369,7 @@ class Login extends Component {
                     firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
                         var usr = snap.val();
                         window.localStorage.setItem('currentUser',JSON.stringify(usr));
-                    
+
                         this.props.rStore.dispatch({
                             type:'LOGIN',
                             currentUser: usr
@@ -363,13 +401,13 @@ class Login extends Component {
 
     handleHover() {
         this.setState({
-            
+
         })
     }
 
     handleUnhover() {
         this.setState({
-            
+
         })
     }
 
