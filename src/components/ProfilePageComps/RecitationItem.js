@@ -51,11 +51,11 @@ class RecitationItem extends Component {
    }
    getTextStyles() {
        return {
-           color:'white',
+           color:'black',
            border:'none',
            outline:'none',
            cursor:'pointer',
-           fontFamily:'MyriadPro',
+           fontFamily:'Quattrocento',
            fontSize:'20px',
            background:'none',
            paddingTop:'10px',
@@ -86,29 +86,29 @@ class RecitationItem extends Component {
 
     render() {
         return (
-            <div ref={(div)=>{this.theDiv = div}} style={this.getStyles()} onMouseOver={this.mouseEnter.bind(this)} onMouseLeave={this.mouseExit.bind(this)}>
-                <img onClick={this.playRecitation.bind(this)} 
-                    src={this.props.recitation.image}
-                    style={this.getImageStyles()}
-                    width='100%'
-                    height='100%'
-                    alt='recim'/>
+                <div ref={(div)=>{this.theDiv = div}} style={this.getStyles()} onMouseOver={this.mouseEnter.bind(this)} onMouseLeave={this.mouseExit.bind(this)}>
+                    <img onClick={this.playRecitation.bind(this)} 
+                        src={this.props.recitation.image}
+                        style={this.getImageStyles()}
+                        width='100%'
+                        height='100%'
+                        alt='recim'/>
 
-                <button onClick={this.goToPoemPage.bind(this)} 
-                        style={this.getTextStyles()}>
-                    {this.props.recitation.title}
-                    <br/>
-                    by {this.props.recitation.uploaderName}
-                </button>
+                    <button onClick={this.goToPoemPage.bind(this)} 
+                            style={this.getTextStyles()}>
+                        {this.props.recitation.title}
+                        <br/>
+                        by {this.props.recitation.uploaderName}
+                    </button>
 
 
-                <button onClick={this.addToPlaylist.bind(this)} style={this.addToPlaylistButtonStyles()}>
-                    <span className='fa fa-plus'></span>
-                </button>
+                    <button onClick={this.addToPlaylist.bind(this)} style={this.addToPlaylistButtonStyles()}>
+                        <span className='fa fa-plus'></span>
+                    </button>
 
-                <Clock onupdate={this.update.bind(this)}></Clock>
-                {this.props.children}
-            </div>
+                    <Clock onupdate={this.update.bind(this)}></Clock>
+                    {this.props.children}
+                </div>
         );
     }
 

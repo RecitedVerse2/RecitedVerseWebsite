@@ -43,7 +43,7 @@ class ROTDArea extends Component {
             position:'relative',
             top:'300px',
             width:'100%',
-            height:'250px'
+            height:'250px',
         }
     }
     getBackgroundStyles() {
@@ -92,10 +92,9 @@ class ROTDArea extends Component {
     render() {
         return (
             <div style={this.getStyles()}>
-                <img alt='abc' src={backgroundImage} style={this.getBackgroundStyles()} />
-
                 
                 <div style={{position:'relative',marginTop:'-220px',marginLeft:'auto',marginRight:'auto',display:'table'}}>
+                <div style={{border: '1px solid black'}}>
                     <img onClick={this.goToPage.bind(this)} alt='ROTD' src={this.state.recitation != null ? this.state.recitation.image : ''} style={this.getROTDImageStyles()} />
 
                     <div style={this.getROTDStyles()}>
@@ -106,6 +105,7 @@ class ROTDArea extends Component {
                         <p style={{fontFamily:'HelveticaNeue',fontSize:'16px'}} ref={(p)=>{this.playButton = p}} onClick={this.goToPage.bind(this)}>
                             Recited By: {this.state.recitation != null ? this.state.recitation.recitedBy : ""}
                         </p>
+                    </div>
                     </div>
                 </div>
                 {this.props.children}

@@ -75,11 +75,11 @@ class DisplaySection extends Component {
     }
     getTitleStyles() {
         return {
-            color:'white',
+            color:'black',
             width:'100%',
             textAlign:'center',
-            fontFamily:'Monthoers',
-            fontSize:'70px'
+            fontFamily:'Nunito',
+            fontSize:'50px'
         }
     }
     getDisplaySectionStyles() {
@@ -96,7 +96,7 @@ class DisplaySection extends Component {
             position:'absolute',
             top:'100px',
             left:'5px',
-            color:'white',
+            color:'black',
             fontSize:'70px',
             border:'none',
             outline:'none',
@@ -109,7 +109,7 @@ class DisplaySection extends Component {
             position:'absolute',
             top:'100px',
             right:'5px',
-            color:'white',
+            color:'black',
             fontSize:'70px',
             border:'none',
             outline:'none',

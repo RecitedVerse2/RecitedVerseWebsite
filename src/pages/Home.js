@@ -38,7 +38,7 @@ class Home extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+            backgroundColor: 'white',
         }
     }
     getImageStyles() {
@@ -59,12 +59,12 @@ class Home extends Component {
         return (
             <div style={this.getStyles()}>
                 <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+                {/* <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img> */}
 
                 <HomeHeader rStore={this.props.rStore} nav={this.props.nav}></HomeHeader>
                 <HomeCarousel rStore={this.props.rStore} nav={this.props.nav}></HomeCarousel>
 
-                <DisplaySection title="What's Trending Now"
+                <DisplaySection title="Trending Now"
                                 top='100px'
                                 rStore={this.props.rStore}
                                 nav={this.props.nav}
