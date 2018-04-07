@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import Alertify from 'alertify.js';
-
 import Clock from '../Clock';
 
 class RecitationItem extends Component {
@@ -34,19 +33,20 @@ class RecitationItem extends Component {
        return {
            position:'relative',
            width:'200px',
-           height:'200px',
+           height: '200px',
            marginTop: this.props.margin || '20px',
            marginLeft: this.props.margin || '20px',
            marginRight: this.props.margin || '20px',
            marginBottom:'80px',
            display:'inline-block',
+           backgroundColor: 'blue',
        }
    }
    getImageStyles() {
        return {
            position:'relative',
-           width:'100%',
-           heigth:'100%'
+           heigth:'100%',
+           width: '100%',
        }
    }
    getTextStyles() {
@@ -59,7 +59,22 @@ class RecitationItem extends Component {
            fontSize:'20px',
            background:'none',
            paddingTop:'10px',
-           textDecoration:'none'
+           textDecoration:'none',
+           fontWeight: '700',
+       }
+   }
+   getUploaderStyles() {
+       return {
+           color:'black',
+           border:'none',
+           outline:'none',
+           cursor:'pointer',
+           fontFamily:'Quattrocento',
+           fontSize:'16px',
+           background:'none',
+           paddingTop:'10px',
+           textDecoration:'none',
+           fontWeight: '500',
        }
    }
    addToPlaylistButtonStyles() {
@@ -77,6 +92,17 @@ class RecitationItem extends Component {
        }
    }
 
+   blockStyles(){
+       return {
+        background: '#fff',
+        display: 'inline-block',
+        boxShadow: ' 0 37.125px 70px -12.125px rgba(0,0,0,0.3)',
+        transition: '0 6px 6px rgba(0,0,0,0.23)',
+        marginLeft: '15px',
+        marginRight: '15px',
+       }
+   }
+
 
     /**********************
     *                     *
@@ -86,6 +112,7 @@ class RecitationItem extends Component {
 
     render() {
         return (
+            <div style={this.blockStyles()}>
                 <div ref={(div)=>{this.theDiv = div}} style={this.getStyles()} onMouseOver={this.mouseEnter.bind(this)} onMouseLeave={this.mouseExit.bind(this)}>
                     <img onClick={this.playRecitation.bind(this)} 
                         src={this.props.recitation.image}
@@ -93,14 +120,15 @@ class RecitationItem extends Component {
                         width='100%'
                         height='100%'
                         alt='recim'/>
-
+                <div>
                     <button onClick={this.goToPoemPage.bind(this)} 
                             style={this.getTextStyles()}>
                         {this.props.recitation.title}
-                        <br/>
-                        by {this.props.recitation.uploaderName}
                     </button>
-
+                    <button style={this.getUploaderStyles()}>
+                        {this.props.recitation.uploaderName}
+                    </button>
+                </div>
 
                     <button onClick={this.addToPlaylist.bind(this)} style={this.addToPlaylistButtonStyles()}>
                         <span className='fa fa-plus'></span>
@@ -108,7 +136,9 @@ class RecitationItem extends Component {
 
                     <Clock onupdate={this.update.bind(this)}></Clock>
                     {this.props.children}
-                </div>
+                    </div>
+            </div>
+
         );
     }
 

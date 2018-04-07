@@ -20,7 +20,8 @@ class Header extends Component {
         super();
 
         this.state = {
-            backgroundColor: 'rgba(0,0,0,0)'
+            backgroundColor: 'rgba(0,0,0,0)',
+            textColor: 'rgba(0,0,0,0)',
         }
     }
 
@@ -72,7 +73,7 @@ class Header extends Component {
             textDecoration:'none',
             border:'none',
             background:'none',
-            color:'white',
+            color: this.state.textColor,
             fontFamily:'HelveticaNeue',
             fontSize:'14px',
             outline:'none'
@@ -137,11 +138,14 @@ class Header extends Component {
     update() {
         if(document.body.scrollTop >= 30 || window.scrollY >= 30) {
             this.setState({
-                backgroundColor: 'rgba(0,0,0,0.85)'
+                backgroundColor: 'rgba(0,0,0,0.85)',
+                textColor: 'white',
             })
         } else {
             this.setState({
-                backgroundColor: 'rgba(0,0,0,0)'
+                backgroundColor: 'rgba(0,0,0,0)',
+                textColor: 'black',
+
             })
         }
     }
