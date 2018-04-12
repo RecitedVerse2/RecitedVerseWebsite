@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import * as firebase from 'firebase';
 import { createStore } from 'redux';
@@ -133,13 +133,13 @@ class App extends Component {
             if (user) {
                 firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
                     var usr = snap.val();
-                
+
                     store.dispatch({
                         type:'LOGIN',
                         currentUser: usr
                     });
                     //console.log(store.getState().currentUser);
-                    
+
                     if(callback) { callback(); }
                 })
             } else {
@@ -150,7 +150,7 @@ class App extends Component {
         // // Try to retrieve the user id of the person who is currently logged in.
         // var user = JSON.parse(window.localStorage.getItem('currentUser'));
         // console.log(user);
-        
+
         // if(user !== null) {
         //     store.dispatch({
         //         type:'LOGIN',
@@ -162,6 +162,10 @@ class App extends Component {
 
 
     render() {
+
+        var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+
+
         const navObj = new navigation();
         const navComp = () => { return navObj; }
         const AudioPlayerObj = <AudioPlayer rStore={store}></AudioPlayer>;
@@ -177,6 +181,22 @@ class App extends Component {
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
         const TranscriptPage = () => {return <Transcript audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Transcript>}
         const PlaylistPageComp = () => {return <PlaylistPage audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</PlaylistPage>}
+
+        console.log(cUser.name)
+        if(! cUser.name){  // before login
+          return (
+              <BrowserRouter>
+                  <div>
+                  <Switch>
+                      <Route exact path="/signup" component={SignUpPage}></Route>
+                      <Route exact path="/login" component={LoginPage}></Route>
+                      <Route component={LandingPage}></Route>
+                  </Switch>
+                  </div>
+              </BrowserRouter>
+          );
+
+        }
 
         return (
             <BrowserRouter>

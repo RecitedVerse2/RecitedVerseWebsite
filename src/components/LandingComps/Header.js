@@ -92,7 +92,7 @@ class Header extends Component {
         return (
             <div className='header' style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
-                <img onClick={()=>{document.body.scrollTop = 0;this.props.nav.goTo('home')}} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                <img onClick={this.goToHome.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
 
                 <div style={this.getButtonsSectionStyle()}>
                 <span style={this.getWhiteSpanStyle()} className="glyphicon glyphicon-log-in" ></span>
@@ -115,12 +115,14 @@ class Header extends Component {
     ***********************/
 
     goToLogin() {
-        document.body.scrollTop = 0;
-        this.props.nav.goTo('login');
+      window.location = 'login';
     }
     goToSignup() {
-        document.body.scrollTop = 0;
-        this.props.nav.goTo('signup');
+        window.location = 'signup';
+    }
+
+    goToHome() {
+        window.location = '/home';
     }
 
     update() {

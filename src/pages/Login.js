@@ -394,14 +394,16 @@ class Login extends Component {
                 if (user) {
                     firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
                         var usr = snap.val();
+                        var fullname = usr.fullname;
+                        usr.name = fullname.substring(0, fullname.indexOf(' '))
                         window.localStorage.setItem('currentUser',JSON.stringify(usr));
 
                         this.props.rStore.dispatch({
                             type:'LOGIN',
                             currentUser: usr
                         });
-                        document.body.scrollTop = 0;
-                        this.props.nav.goTo('home');
+
+                        window.location = 'home';
                     })
                 } else {
                     return;
