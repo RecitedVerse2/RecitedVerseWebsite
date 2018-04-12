@@ -34,7 +34,8 @@ class PageFooter extends Component {
             left: '0px',
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(0,0,0, 0.75)'
+            color: 'black',
+            marginBottom: '50px',
         }
     }
 

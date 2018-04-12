@@ -126,7 +126,6 @@ class Landing extends Component {
                 </div>
 
                 <PageFooter></PageFooter>
-                <br/><br/><br/><br/><br/><br/><br/>
                 {this.props.children}
             </div>
         );

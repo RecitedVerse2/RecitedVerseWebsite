@@ -43,7 +43,9 @@ class ROTDArea extends Component {
             position:'relative',
             top:'300px',
             width:'100%',
-            height:'250px',
+            marginTop: '50px',
+            height:'400px',
+            background: 'blue',
         }
     }
     getBackgroundStyles() {
@@ -91,25 +93,9 @@ class ROTDArea extends Component {
 
     render() {
         return (
-            <div style={this.getStyles()}>
-                
-                <div style={{position:'relative',marginTop:'-220px',marginLeft:'auto',marginRight:'auto',display:'table'}}>
-                <div style={{border: '1px solid black'}}>
-                    <img onClick={this.goToPage.bind(this)} alt='ROTD' src={this.state.recitation != null ? this.state.recitation.image : ''} style={this.getROTDImageStyles()} />
-
-                    <div style={this.getROTDStyles()}>
-                        <h1 style={{fontSize:'40px'}}>Recording of the day</h1>
-                        <p style={{fontFamily:'HelveticaNeue',fontSize:'16px'}} onClick={this.goToPage.bind(this)}>Title: {this.state.recitation != null ? this.state.recitation.title : ""}</p>
-                        <p style={{fontFamily:'HelveticaNeue',fontSize:'16px'}} onClick={this.goToPage.bind(this)}>Genre: {this.state.recitation != null ? this.state.recitation.genre : ""}</p>
-                        
-                        <p style={{fontFamily:'HelveticaNeue',fontSize:'16px'}} ref={(p)=>{this.playButton = p}} onClick={this.goToPage.bind(this)}>
-                            Recited By: {this.state.recitation != null ? this.state.recitation.recitedBy : ""}
-                        </p>
-                    </div>
-                    </div>
-                </div>
-                {this.props.children}
-            </div>
+            <div style={{display: 'block', marginTop: '50px'}}>
+            <h1>test</h1>
+             </div>
         );
     }
 
