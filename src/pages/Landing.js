@@ -99,7 +99,7 @@ class Landing extends Component {
         return (
             <div style={this.getStyles()}>
                 <div style={this.getOverlay()}></div>
-                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+                 {/* <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img> */}
 
 
                 <Header nav={this.props.nav} style={this.getHeaderStyle()} ></Header>

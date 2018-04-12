@@ -248,7 +248,6 @@ class Login extends Component {
 
           <div style={this.getStyles()}>
               <div style={this.getOverlay()}></div>
-               <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
 
               <Header nav={this.props.nav} style={this.getHeaderStyle()} owner='login' ></Header>
@@ -262,7 +261,6 @@ class Login extends Component {
           					<span className="login100-form-title p-b-55">
           						Login
           					</span>
-
 
                     <div ref={(div)=>{this.errorInfo= div}} className="alert alert-danger" style={this.getErrorInfoStyle()}>
                       <strong>Warning!</strong> Indicates a warning that might need attention.
