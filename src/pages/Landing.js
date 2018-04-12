@@ -67,7 +67,7 @@ class Landing extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0)'
+            backgroundColor: 'white'
         }
     }
 
@@ -126,7 +126,6 @@ class Landing extends Component {
                 </div>
 
                 <PageFooter></PageFooter>
-                <br/><br/><br/><br/><br/><br/><br/>
                 {this.props.children}
             </div>
         );

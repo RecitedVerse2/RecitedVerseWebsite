@@ -59,8 +59,6 @@ class Home extends Component {
         return (
             <div style={this.getStyles()}>
                 <div style={this.getOverlay()}></div>
-                {/* <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img> */}
-
                 <HomeHeader rStore={this.props.rStore} nav={this.props.nav}></HomeHeader>
 
 
@@ -70,9 +68,6 @@ class Home extends Component {
                                 nav={this.props.nav}
                                 name='Trending'>
                 </DisplaySection>
-
-                <br/><br/><br/><br/><br/><br/><br/>
-
                 <DisplaySection title='Recent Uploads'
                                 top='150px'
                                 rStore={this.props.rStore}
@@ -80,20 +75,13 @@ class Home extends Component {
                                 name='Recent'>
                 </DisplaySection>
 
-
-                <br/><br/><br/><br/><br/><br/><br/><br/>
                 <ROTDArea rStore={this.props.rStore}
                             nav={this.props.nav}
+
                             audioPlayer={this.props.children}></ROTDArea>
 
-                <br/><br/>
                 <PageFooter bottom='-400px'>
-                    <br/><br/><br/>
                 </PageFooter>
-                <br/><br/><br/>
-
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 {this.props.children}
             </div>
         );

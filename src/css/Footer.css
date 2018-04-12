@@ -21,13 +21,13 @@ button {
 
 .companyInfoSection {
     width: 25%;
-    color: white;
+    color: block;
     vertical-align: top;
     display: inline-block;
 }
 .communitiesSection {
     width: 25%;
-    color: white;
+    color: black;
     vertical-align: top;
     display: inline-block;
 }
