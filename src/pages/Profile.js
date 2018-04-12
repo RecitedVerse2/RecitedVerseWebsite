@@ -7,6 +7,7 @@ import backgroundImage from '../res/brickBackground.jpg';
 import _ from '../css/Profile.css';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import PlaylistItem from '../components/ProfilePageComps/PlaylistItem';
 import RecitationItem from '../components/ProfilePageComps/RecitationItem';
@@ -17,7 +18,7 @@ import Playlist from '../objects/Playlist';
 
 // Here is where users will view their own profiles.
 class Profile extends Component {
-    
+
     /**********************
     *                     *
     *    INITIALIZATION   *
@@ -26,7 +27,7 @@ class Profile extends Component {
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
             name:'User',
 
@@ -34,14 +35,14 @@ class Profile extends Component {
             likedPlaylist:null,
             favoritedPlaylist:null,
             playlistPlaylist:null,
-            
+
             showUploads:true,
             showPopular:false,
             showLikes:false,
             showFavorties:false,
             showPlaylists:false,
 
-            // Temporary recitation when the page first loads, just to let the user know 
+            // Temporary recitation when the page first loads, just to let the user know
             // that something is loading.
             recitations:[<PlaylistItem showLoadingIndicator={true} key={0}></PlaylistItem>,
                         <PlaylistItem showLoadingIndicator={true} key={1}></PlaylistItem>,
@@ -51,11 +52,11 @@ class Profile extends Component {
 
     componentDidMount() {
         this.allButton.style.textDecoration = 'underline';
-        
+
         // Check for null objects.
         if(this.props.rStore.getState().currentUser == null) {
             var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
-            
+
             // If the window's current use is/isn't null...
             if(cUser === null || cUser === undefined) {
                 this.props.nav.goTo('home');
@@ -64,10 +65,10 @@ class Profile extends Component {
                 this.props.rStore.dispatch({
                     type:'LOGIN',
                     currentUser: cUser
-                });              
+                });
             }
         }
-        
+
         this.setState({
             name: this.props.rStore.getState().currentUser != null ? this.props.rStore.getState().currentUser.username : 'User'
         });
@@ -128,7 +129,7 @@ class Profile extends Component {
             <div style={this.getStyles()}>
 
                 <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
-                
+
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
@@ -138,24 +139,22 @@ class Profile extends Component {
                 </ProfileBanner>
 
                 <div className='buttonsArea'>
-                    <button ref={(button)=>{this.uploadButton = button}}
-                            className='changeRecitationsButton'
-                            onClick={this.goToUploadPage.bind(this)}>Upload</button>
+
                     <div>
-                        <button ref={(button)=>{this.allButton = button}} 
-                                onClick={this.changeRecitations.bind(this)} 
+                        <button ref={(button)=>{this.allButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
                                 id='all' className='changeRecitationsButton'>All</button>
-                        <button ref={(button)=>{this.popularButton = button}} 
-                                onClick={this.changeRecitations.bind(this)} 
+                        <button ref={(button)=>{this.popularButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
                                 id='popular' className='changeRecitationsButton'>Popular</button>
-                        <button ref={(button)=>{this.likesButton = button}} 
-                                onClick={this.changeRecitations.bind(this)} 
+                        <button ref={(button)=>{this.likesButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
                                 id='like' className='changeRecitationsButton'>Liked</button>
-                        <button ref={(button)=>{this.favoritesButton = button}} 
-                                onClick={this.changeRecitations.bind(this)} 
+                        <button ref={(button)=>{this.favoritesButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
                                 id='favorite' className='changeRecitationsButton'>Favorites</button>
-                        <button ref={(button)=>{this.playlistButton = button}} 
-                                onClick={this.changeRecitations.bind(this)} 
+                        <button ref={(button)=>{this.playlistButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
                                 id='playlist' className='changeRecitationsButton'>Playlists</button>
                     </div>
                 </div>
@@ -317,10 +316,10 @@ class Profile extends Component {
                                                     rO.val().text,
                                                     rO.val().audio,
                                                     rO.val().timestamp  );
-                    
+
                         playlist.add(recObj);
                         i++;
-                        
+
                         this.setState({
                             likedPlaylist: playlist
                         });
@@ -368,7 +367,7 @@ class Profile extends Component {
                                                     rO.val().text,
                                                     rO.val().audio,
                                                     rO.val().timestamp  );
-                    
+
                         playlist.add(recObj);
                         i++;
 
@@ -442,7 +441,7 @@ class Profile extends Component {
 
                 recs.forEach((rec)=>{
                     var recItem = <RecitationItem margin='30px'
-                                              key={rec.id} 
+                                              key={rec.id}
                                               recitation={rec}
                                               nav={this.props.nav}
                                               rStore={this.props.rStore}></RecitationItem>
@@ -471,7 +470,7 @@ class Profile extends Component {
 
                 recs.forEach((rec)=>{
                     var recItem = <RecitationItem margin='30px'
-                                              key={rec.id} 
+                                              key={rec.id}
                                               recitation={rec}
                                               nav={this.props.nav}
                                               rStore={this.props.rStore}></RecitationItem>
@@ -499,7 +498,7 @@ class Profile extends Component {
 
                 recs.forEach((rec)=>{
                     var recItem = <RecitationItem margin='30px'
-                                              key={rec.id} 
+                                              key={rec.id}
                                               recitation={rec}
                                               nav={this.props.nav}
                                               rStore={this.props.rStore}></RecitationItem>
@@ -527,7 +526,7 @@ class Profile extends Component {
 
                 recs.forEach((rec)=>{
                     var recItem = <RecitationItem margin='30px'
-                                              key={rec.id} 
+                                              key={rec.id}
                                               recitation={rec}
                                               nav={this.props.nav}
                                               rStore={this.props.rStore}></RecitationItem>
@@ -592,7 +591,7 @@ class Profile extends Component {
                                         rO.val().text,
                                         rO.val().audio,
                                         rO.val().timestamp );
-            
+
             if(callback) {
                 callback(recObj);
             }

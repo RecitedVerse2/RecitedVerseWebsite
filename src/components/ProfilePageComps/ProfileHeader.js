@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import * as firebase from 'firebase';
 
 import RVLogo from '../../res/RV-Final-Icon.png';
@@ -21,8 +22,17 @@ class ProfileHeader extends Component {
         super();
 
         this.state = {
-            backgroundColor: 'rgba(0,0,0,0)'
+            backgroundColor: 'rgba(0,0,0,0)',
+            textColor: 'rgba(0,0,0,0)',
+            showDownMenu:false
         }
+
+
+        var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+        this.state.name = cUser.name;
+
+        this.mouseOver = this.mouseOver.bind(this)
+        this.mouseLeaves = this.mouseLeaves.bind(this)
     }
 
 
@@ -43,7 +53,7 @@ class ProfileHeader extends Component {
             height: '70px',
             display:'table',
             zIndex:'1000',
-            backgroundColor: this.state.backgroundColor,
+            backgroundColor: this.state.backgroundColor
         }
     }
     getLogoStyle() {
@@ -58,43 +68,185 @@ class ProfileHeader extends Component {
             display:'table-cell'
         }
     }
+
+
+
+
+
+    getSearchContainerStyle(){
+      return {
+          float: 'left',
+          marginLeft: '200px',
+          marginTop: '5px',
+          backgroundColor: 'black'
+      }
+    }
+
+    getSearchInputStyle(){
+      return {
+        padding: '5px',
+        marginTop: '5px',
+        marginLeft: '10px',
+        fontSize: '17px',
+        width: '400px',
+        border: '2px red'
+      }
+    }
+
+    getSearchButtonStyle(){
+      return {
+        float: 'right',
+        padding: '6px 10px',
+        marginTop: '5px',
+        marginBottom: '5px',
+        marginLeft: '10px',
+        marginRight: '16px',
+        background: '#ddd',
+        fontSize: '17px',
+        border: 'none',
+        cursor: 'pointer'
+      }
+    }
+
+
     getButtonsSectionStyle() {
         return {
             position:'absolute',
             top:'0px',
             right:'0px',
             textAlign:'right',
+            width: '200px',
             marginTop:'20px',
             display:'table-cell',
         }
     }
-    getButtonsStyle() {
+
+    getUploadButtonsStyle() {
         return {
             textDecoration:'none',
             border:'none',
             background:'none',
-            color:'white',
+            color: this.state.textColor,
             fontFamily:'HelveticaNeue',
             fontSize:'14px',
-            outline:'none'
+            outline:'none',
+            marginLeft: '20px',
+            marginRight: '20px',
+            float:'left',
+            marginTop:'6px',
+            fontWeight: 'bold'
         }
     }
 
+    getButtonsUserStyle() {
+        return {
+            textDecoration:'none',
+            border:'none',
+            background:'none',
+            color: this.state.textColor,
+            fontFamily:'HelveticaNeue',
+            fontSize:'14px',
+            marginRight: '20px',
+            paddingRight: '0px',
+            fontWeight: 'bold'
+        }
+    }
+
+    getDownAreatyle(){
+      return {
+        marginRight: '50px',
+        width: '50px',
+        float:'right',
+        paddingTop: '0px',
+      }
+
+    }
+
+    getDownAreatyle(){
+      return {
+        width: '100px',
+        float:'right',
+        paddingTop: '0px'
+      }
+
+    }
+
+
+    getDropdownMenu(){
+      return {
+        display: 'block',
+        position: 'absolute',
+        backgroundColor: '#f9f9f9',
+        minWidth: '80px',
+        boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+        zIndex: '1',
+        marginLeft: "20px"
+      }
+    }
+
+    getDropdownItem(){
+      return {
+        float: 'none',
+        color: 'black',
+        padding: '10px 5px',
+        textDecoration: 'none',
+        display: 'block',
+        textAlign: 'left'
+
+      }
+    }
+   getDownArrowStyle(){
+     return {
+       color: 'black',
+       paddingTop:'10px',
+       paddingLeft: '0px',
+     }
+   }
+
+
+
 
     render() {
+       var downMeue = "";
+       if(this.state.showDownMenu){
+          downMeue = (
+                <div  style={this.getDropdownMenu()}   >
+                <a style={this.getDropdownItem()} href="profile">profile</a>
+                <a style={this.getDropdownItem()} href="accountsettings">Setting</a>
+                <a style={this.getDropdownItem()} onClick={this.handleLogout.bind(this)} >Logout</a>
+                </div>
+          );
+         }
+
+
+
+
+
+
         return (
             <div className='header' style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
-                <img alt='logo' onClick={this.goToHomePage.bind(this)} style={this.getLogoStyle()} src={RVLogo}></img>
+                <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+
+                <div style={this.getSearchContainerStyle()} className="search-container">
+                    <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" />
+                    <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button>
+                </div>
 
                 <div style={this.getButtonsSectionStyle()}>
-                    <button style={this.getButtonsStyle()} onClick={this.goToSettings.bind(this)}>Account Settings</button>
-                    
-                    &nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <button style={this.getButtonsStyle()} onClick={this.handleLogout.bind(this)}>Logout</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <button style={this.getUploadButtonsStyle()} onClick={this.goToUploadPage.bind(this)}>Upload</button>
+
+                    <div className="dropdown"   onMouseEnter={this.mouseOver} onMouseLeave={this.mouseLeaves} style={this.getDownAreatyle()}  >
+                      <button  style={this.getButtonsUserStyle()}  className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {this.state.name} <i className="fa fa-caret-down"  style={this.getDownArrowStyle()} ></i>
+                      </button>
+                     {downMeue}
+                    </div>
+
                 </div>
+
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
             </div>
@@ -107,14 +259,53 @@ class ProfileHeader extends Component {
     *                     *
     ***********************/
 
+    mouseOver(){
+        this.state.showDownMenu = true;
+    }
+
+    mouseLeaves(){
+        this.state.showDownMenu = false;
+    }
+
+    goToAccountSettings() {
+        const store = this.props.rStore.getState();
+        document.body.scrollTop = 0;
+
+        if(store.currentUser !== null) {
+            this.props.nav.goTo('accountsettings');
+        } else {
+            this.props.nav.goTo('login');
+        }
+    }
+
+    goToPRofile() {
+        const store = this.props.rStore.getState();
+        document.body.scrollTop = 0;
+
+        if(store.currentUser !== null) {
+            this.props.nav.goTo('accountsettings');
+        } else {
+            this.props.nav.goTo('login');
+        }
+    }
+
     goToHomePage() {
-        document.body.scrollTop = 0;
-        this.props.nav.goTo('home');
+        window.location = '/home';
     }
-    goToSettings() {
-        document.body.scrollTop = 0;
-        this.props.nav.goTo('accountsettings');
+
+    handleSearch(e) {
+        if(e.key === 'Enter') {
+            window.sessionStorage.setItem('LastSearch', this.searchBar.value);
+            window.location = 'search';
+        }
     }
+
+
+    handleSearchButton() {
+            window.sessionStorage.setItem('LastSearch', this.searchBar.value);
+            window.location = 'search';
+    }
+
     handleLogout() {
         try {
             firebase.auth().signOut();
@@ -127,18 +318,25 @@ class ProfileHeader extends Component {
             return;
         }
 
-        document.body.scrollTop = 0;
-        this.props.nav.goTo('login');
+        window.location = '/';
+
+    }
+
+    goToUploadPage() {
+        window.location = '/upload';
     }
 
     update() {
         if(document.body.scrollTop >= 30 || window.scrollY >= 30) {
             this.setState({
-                backgroundColor: 'rgba(0,0,0,0.85)'
+                backgroundColor: 'rgba(0,0,0,0.85)',
+                textColor: 'white',
             })
         } else {
             this.setState({
-                backgroundColor: 'rgba(0,0,0,0)'
+                backgroundColor: 'rgba(0,0,0,0)',
+                textColor: 'black',
+
             })
         }
     }

@@ -182,8 +182,8 @@ class App extends Component {
         const TranscriptPage = () => {return <Transcript audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Transcript>}
         const PlaylistPageComp = () => {return <PlaylistPage audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</PlaylistPage>}
 
-        console.log(cUser.name)
-        if(! cUser.name){  // before login
+
+        if(!cUser){  // before login
           return (
               <BrowserRouter>
                   <div>

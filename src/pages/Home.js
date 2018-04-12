@@ -10,7 +10,7 @@ import PageFooter from '../components/PageFooter';
 
 // This is the home page.
 class Home extends Component {
-    
+
     /**********************
     *                     *
     *    INITIALIZATION   *
@@ -49,7 +49,7 @@ class Home extends Component {
             zIndex:'-1',
         }
     }
-    
+
 
 
 
@@ -62,7 +62,7 @@ class Home extends Component {
                 {/* <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img> */}
 
                 <HomeHeader rStore={this.props.rStore} nav={this.props.nav}></HomeHeader>
-                <HomeCarousel rStore={this.props.rStore} nav={this.props.nav}></HomeCarousel>
+
 
                 <DisplaySection title="Trending Now"
                                 top='100px'
@@ -82,8 +82,8 @@ class Home extends Component {
 
 
                 <br/><br/><br/><br/><br/><br/><br/><br/>
-                <ROTDArea rStore={this.props.rStore} 
-                            nav={this.props.nav} 
+                <ROTDArea rStore={this.props.rStore}
+                            nav={this.props.nav}
                             audioPlayer={this.props.children}></ROTDArea>
 
                 <br/><br/>

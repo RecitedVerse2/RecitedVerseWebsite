@@ -11,12 +11,13 @@ import backgroundImage from '../res/brickBackground.jpg';
 import RecitationItem2 from '../components/SearchPageComps/RecitationItem2';
 import Clock from '../components/Clock';
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import Recitation from '../objects/Recitation';
 
 // This is the search results page.
 class Search extends Component {
-    
+
     /**********************
     *                     *
     *    INITIALIZATION   *
@@ -98,7 +99,7 @@ class Search extends Component {
         return (
             <div style={this.getStyles()}>
                 {/* All header, background, and banner stuff. */}
-                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
                 <ProfileBanner top='100px' rStore={this.props.rStore}>
@@ -106,8 +107,8 @@ class Search extends Component {
                     <h1 style={this.getBannerTextStyles()}>Search</h1>
                     <div className='searchBar'>
                         <h1 ref={(h1)=>{this.searchText = h1}} className='searchBarTitle'>Search:</h1>
-                        <input  onKeyPress={this.reSearch.bind(this)} 
-                                ref={(input)=>{this.searchBar = input}} 
+                        <input  onKeyPress={this.reSearch.bind(this)}
+                                ref={(input)=>{this.searchBar = input}}
                                 className='inputStyles' type='text' />
                     </div>
                 </ProfileBanner>
@@ -177,7 +178,7 @@ class Search extends Component {
     reSearch(e) {
         //if(e.key === 'Enter') {
             window.sessionStorage.setItem('LastSearch', this.searchBar.value);
-            
+
             this.setState({
                 search: window.sessionStorage.getItem('LastSearch') || "",
                 matchingRecitations: [],
@@ -198,7 +199,7 @@ class Search extends Component {
         firebase.database().ref().child('Recitations').orderByChild('title').startAt(this.state.search).once('value', (snap) => {
             var recs = [];
             var comps = [];
-            
+
             // For each search match create a recitation item.
             snap.forEach((element) => {
                 var match = element.val();
@@ -242,7 +243,7 @@ class Search extends Component {
             if(callback) { callback(); }
         });
     }
-   
+
 
     // Handles loading users
     loadUsers() {
@@ -250,8 +251,8 @@ class Search extends Component {
         var comps = [];
 
         for(var i = 0; i < this.state.matchingRecitations.length; i++) {
-            var rec = this.state.matchingRecitations[i];            
-            
+            var rec = this.state.matchingRecitations[i];
+
             firebase.database().ref().child('Users').child(rec.uploaderID).once('value', (snap) => {
                 var usr = snap.val();
                 users.push(usr);
@@ -261,7 +262,7 @@ class Search extends Component {
                 })
 
 
-                var item = 
+                var item =
                     <div key={Date.now()} style={{color:'white'}}>
                         <img src="" alt="usr" width='200px' height='200px'/>
                         <h1>{usr.fullname}</h1>

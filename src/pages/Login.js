@@ -320,7 +320,7 @@ class Login extends Component {
           							Not a member?
           						</span>
 
-          						<a className="txt1 bo1 hov1" href="#">
+          						<a className="txt1 bo1 hov1" href="Signup">
           							Sign up now
           						</a>
           					</div>

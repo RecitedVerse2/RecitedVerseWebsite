@@ -132,9 +132,9 @@ class SignUp extends Component {
             position:'relative',
             width:'70%',
             height:'50px',
-            margin:'auto',   
+            margin:'auto',
             display:'table',
-            color:'white',   
+            color:'white',
             borderRadius:'25px',
             backgroundColor:'rgba(255,255,255,0.5)'
         }
@@ -144,10 +144,10 @@ class SignUp extends Component {
             position:'relative',
             width:'75%',
             height:'50px',
-            margin:'auto',   
+            margin:'auto',
             display:'table',
             color:'white',
-            borderRadius:'25px',      
+            borderRadius:'25px',
             backgroundColor:'rgba(255,255,255,0.5)'
         }
     }
@@ -206,7 +206,7 @@ class SignUp extends Component {
             fontFamily:'HelveticaNeue'
         }
     }
-    
+
 
 
 
@@ -223,14 +223,7 @@ class SignUp extends Component {
                 <div className='header' style={this.getHeaderStyle()}>
                     &nbsp;&nbsp;
                     <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
-                    <div style={this.getButtonsSectionStyle()}>
-                        <button style={this.getButtonsStyle()} onClick={this.goToAccountSettings.bind(this)}>Account Settings</button>
-                        
-                        &nbsp;&nbsp;&nbsp;&nbsp;
 
-                        <button style={this.getButtonsStyle()} onClick={this.goToPRofile.bind(this)}>Profile</button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </div>
                 </div>
 
                 {/* The background image */}
@@ -265,7 +258,7 @@ class SignUp extends Component {
                     <h1 style={this.getSearchBarStyle(11)}>Email:</h1>
                     <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(11)} type='email' />
                 </div>
-                
+
                 <br/><br/><br/>
 
                 <div style={this.getSBStyles()}>
@@ -285,7 +278,7 @@ class SignUp extends Component {
                 <div style={{position:'relative',width:'100%',margin:'auto',textAlign:'center'}}>
                     <p style={this.getStatusLabelStyles()} ref={(p)=>{this.statusLabel = p}}></p>
                 </div>
-                
+
 
                 {/* Sign up button */}
                 <div style={{width:'100%',textAlign:'center',margin:'auto'}}>
@@ -313,7 +306,7 @@ class SignUp extends Component {
     ***********************/
 
     goToHomePage() {
-        this.props.nav.goTo('home');
+          window.location = '/';
     }
 
     goToAccountSettings() {
@@ -340,7 +333,7 @@ class SignUp extends Component {
 
                 // Login with Firebase.
                 fireAuth.createUserWithEmailAndPassword(email, password).catch( (error) => {
-                    
+
                     this.statusLabel.style.color = "red";
                     this.statusLabel.style.visibility = "visible";
                     this.statusLabel.innerHTML = "Error creating account. Make sure all information is entered properly.";
@@ -392,7 +385,7 @@ class SignUp extends Component {
         } else {
             this.statusLabel.style.color = "red";
             this.statusLabel.style.visibility = "visible";
-            this.statusLabel.innerHTML = "Please enter all credentials.";    
+            this.statusLabel.innerHTML = "Please enter all credentials.";
         }// End of making sure values exist.
     }
 
@@ -443,13 +436,13 @@ class SignUp extends Component {
 
     handleHover() {
         this.setState({
-            
+
         })
     }
 
     handleUnhover() {
         this.setState({
-            
+
         })
     }
 
