@@ -45,7 +45,6 @@ class ROTDArea extends Component {
             width:'100%',
             marginTop: '50px',
             height:'400px',
-            background: 'blue',
         }
     }
     getBackgroundStyles() {

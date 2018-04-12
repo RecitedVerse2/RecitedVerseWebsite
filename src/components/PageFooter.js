@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import facebookBtn from '../res/FB-Icon.png';
-import instagramBtn from '../res/IG-Icon.png';
-import twitterBtn from '../res/TW-Icon.png';
+import facebookBtn from '../res/facebook-logo.svg';
+import instagramBtn from '../res/instagram-logo.svg';
+import twitterBtn from '../res/twitter-logo.svg';
 
 // eslint-disable-next-line
 import _ from '../css/Footer.css';
@@ -36,6 +36,7 @@ class PageFooter extends Component {
             height: '100%',
             color: 'black',
             marginBottom: '50px',
+            backgroundColor: 'white',
         }
     }
 

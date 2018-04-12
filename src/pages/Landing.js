@@ -67,7 +67,7 @@ class Landing extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0)'
+            backgroundColor: 'white'
         }
     }
 
