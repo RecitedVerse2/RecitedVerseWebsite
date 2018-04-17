@@ -7,9 +7,9 @@ import _ from '../css/Poem.css';
 // eslint-disable-next-line
 import __ from '../css/Header.css';
 
-import backgroundImage from '../res/brickBackground.jpg';
 import RVLogo from '../res/RV-Final-Icon.png';
 
+import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import Clock from '../components/Clock';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 
@@ -51,6 +51,7 @@ class Poem extends Component {
         var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
         this.reloadData();
         this.loadRecitationAudio();
+        console.log(recitation)
 
         // Button for deleting recitations
         if(store.currentUser !== null) {
@@ -58,7 +59,7 @@ class Poem extends Component {
                var btn = <button className='deleteButton' onClick={this.handleDeleteRecitation.bind(this)}>
                                 Delete Recitation
                         </button>
-                
+
                 this.setState({
                     deleteButton: btn
                 });
@@ -152,7 +153,7 @@ class Poem extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+            backgroundColor: '#000000',
         }
     }
     getImageStyles() {
@@ -191,8 +192,29 @@ class Poem extends Component {
             display: 'inline-block'
         }
     }
-    
-   
+
+    getPlayFont(){
+      return {
+        fontSize:'40px',
+        paddingLeft:'5px',
+        paddingRight:'30px',
+      }
+    }
+
+    getPlayButtonSize(){
+      return {
+        width:'50px',
+        height:'30px',
+
+      }
+    }
+
+    getTextAreaStyle(){
+      return{
+        paddingTop:'30px',
+      }
+    }
+
 
 
     /**********************
@@ -205,26 +227,17 @@ class Poem extends Component {
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
-                <div className='header' style={this.getHeaderStyle()}>
-                    &nbsp;&nbsp;
-                    <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
-                    <div style={this.getButtonsSectionStyle()}>
-                        <button style={this.getButtonsStyle()} onClick={this.goToAccountSettings.bind(this)}>Account Settings</button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button style={this.getButtonsStyle()} onClick={this.goToPRofile.bind(this)}>Profile</button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </div>
-                </div>
+                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
 
                 {/* The background image */}
                 <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+
 
                 {/* The banner with the sign in text */}
                 <ProfileBanner rStore={this.props.rStore}>
                     <h1 style={this.getBannerTextStyles()}>{this.state.poemName}</h1>
                     <h1 style={this.getBannerTextStyles2()}>By {this.state.poemAuthor}</h1>
-                    
+
                     <p style={this.getPlayLikeFavoriteInfo()}><span className='fa fa-play'></span>&nbsp;{this.state.plays}</p>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p style={this.getPlayLikeFavoriteInfo()}><span className='fa fa-thumbs-up'></span>&nbsp;{this.state.likes}</p>
@@ -234,25 +247,31 @@ class Poem extends Component {
 
 
                 {/* The div that shows the image. */}
-                <div className='contentArea'>
+                <div className='contentArea' >
                     <img className='poemImage' src={this.state.poemImage} alt="poemimg" />
 
-                    <div className='verticalTextArea'>
+                    <div className='verticalTextArea' style={this.getTextAreaStyle()}>
                         <h1 className='headerText'>Recited by {this.state.recitedBy}</h1>
                         <h1 className='headerText'>Published: {this.state.published}</h1>
                         <h1 className='headerText'>Genre: {this.state.genre}</h1>
                         <h1 className='headerText'>Uploaded By: {this.state.uploaderName}</h1>
 
-                        <div style={{marginLeft:'70px'}}>
-                            <button className='interactButton fa fa-play'
-                                    ref={(button)=>{this.playBtn = button}}
-                                    onClick={this.playRecitation.bind(this)}></button>
-                            <button className='interactButton fa fa-thumbs-up' 
+                        <div style={{marginLeft:'10px'}}>
+                            <button style={this.getPlayButtonSize()} className='interactButton fa fa-play'
+                            ref={(button)=>{this.playBtn = button}}
+                            onClick={this.playRecitation.bind(this)}>
+                            &nbsp;&nbsp;
+                            </button>  <span style={this.getPlayFont()}> {this.state.plays}  </span>
+
+                          <button className='interactButton fa fa-thumbs-up' style={this.getPlayButtonSize()}
                                     ref={(button)=>{this.likeBtn = button}}
-                                    onClick={this.likeRecitation.bind(this)}></button>
-                            <button className='interactButton fa fa-heart'
+                                    onClick={this.likeRecitation.bind(this)}>
+
+                                    </button>           <span style={this.getPlayFont()}> {this.state.likes} </span>
+                          {/*  <button className='interactButton fa fa-heart'
                                     ref={(button)=>{this.favoriteBtn = button}}
                                     onClick={this.favoriteRecitation.bind(this)}></button>
+                                    */}
                         </div>
 
                         <button className='transcriptButton' onClick={this.goToTranscript.bind(this)}>See Transcript</button>
@@ -433,7 +452,7 @@ class Poem extends Component {
 
         recitation.plays += 1;
         window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
-        
+
         firebase.database().ref().child('Recitations').child(recitation.id).update({
             plays: recitation.plays
         }, this.reloadData(() => {
@@ -638,7 +657,7 @@ class Poem extends Component {
         const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
         const fireRef = firebase.database().ref();
 
-        fireRef.child('Recitations').child(recitation.id).once('value').then((rO)=> {            
+        fireRef.child('Recitations').child(recitation.id).once('value').then((rO)=> {
             var recObj = new Recitation( rO.val().id,
                                         rO.val().uploaderID,
                                         rO.val().uploaderName,
@@ -656,7 +675,7 @@ class Poem extends Component {
                                         rO.val().audio,
                                         rO.val().timestamp,
                                         null );
-                                        
+
             window.sessionStorage.setItem('CurrentRecitation', this.stringify(recObj));
             this.setState({
                 plays: recObj.plays,

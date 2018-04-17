@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Poem from './pages/Poem';
 import Upload from './pages/Upload';
+import Upload2 from './pages/Upload2';
 import Search from './pages/Search';
 import Transcript from './pages/Transcript';
 import PlaylistPage from './pages/PlaylistPage';
@@ -178,6 +179,7 @@ class App extends Component {
         const EditProfilePage = () => {return <EditProfile audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</EditProfile>}
         const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Poem>}
         const UploadPage = () => {return <Upload audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Upload>}
+        const UploadPage2 = () => {return <Upload2 audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Upload2>}
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
         const TranscriptPage = () => {return <Transcript audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Transcript>}
         const PlaylistPageComp = () => {return <PlaylistPage audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</PlaylistPage>}
@@ -202,13 +204,14 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                     <Route path="*" component={navComp}></Route>
-                    <Route exact path="/" component={LandingPage}></Route>
+                    <Route exact path="/" component={HomePage}></Route>
                     <Route exact path="/home" component={HomePage}></Route>
                     <Route exact path="/signup" component={SignUpPage}></Route>
                     <Route exact path="/login" component={LoginPage}></Route>
                     <Route exact path="/profile" component={ProfilePage}></Route>
                     <Route exact path="/accountsettings" component={EditProfilePage}></Route>
-                    <Route exact path="/upload" component={UploadPage}></Route>
+                    <Route exact path="/upload" component={UploadPage2}></Route>
+                    <Route exact path="/upload2" component={UploadPage2}></Route>
                     <Route exact path="/poem" component={PoemPage}></Route>
                     <Route exact path="/search" component={SearchPage}></Route>
                     <Route exact path="/transcript" component={TranscriptPage}></Route>

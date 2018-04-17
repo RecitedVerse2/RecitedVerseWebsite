@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import backgroundImage from '../res/brickBackground.jpg';
+
 
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import HomeCarousel from '../components/HomePageComponents/Carousel';

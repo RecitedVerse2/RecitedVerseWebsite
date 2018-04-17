@@ -10,6 +10,7 @@ import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import PlaylistItem from '../components/ProfilePageComps/PlaylistItem';
+import RecitationItem2 from '../components/ProfilePageComps/RecitationItem2';
 import RecitationItem from '../components/ProfilePageComps/RecitationItem';
 import PageFooter from '../components/PageFooter';
 
@@ -46,7 +47,8 @@ class Profile extends Component {
             // that something is loading.
             recitations:[<PlaylistItem showLoadingIndicator={true} key={0}></PlaylistItem>,
                         <PlaylistItem showLoadingIndicator={true} key={1}></PlaylistItem>,
-                        <PlaylistItem showLoadingIndicator={true} key={2}></PlaylistItem>]
+                        <PlaylistItem showLoadingIndicator={true} key={2}></PlaylistItem>,
+                        <PlaylistItem showLoadingIndicator={true} key={3}></PlaylistItem>]
         }
     }
 
@@ -69,9 +71,7 @@ class Profile extends Component {
             }
         }
 
-        this.setState({
-            name: this.props.rStore.getState().currentUser != null ? this.props.rStore.getState().currentUser.username : 'User'
-        });
+
 
         this.loadUploadPlaylist(this.props.rStore, () => {
             this.loadLikedPlaylist(this.props.rStore, () => {
@@ -143,7 +143,7 @@ class Profile extends Component {
                     <div>
                         <button ref={(button)=>{this.allButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
-                                id='all' className='changeRecitationsButton'>All</button>
+                                id='records' className='changeRecitationsButton'>Records</button>
                         <button ref={(button)=>{this.popularButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
                                 id='popular' className='changeRecitationsButton'>Popular</button>
@@ -188,7 +188,7 @@ class Profile extends Component {
     changeRecitations(e) {
         var sender = e.target.id;
 
-        if(sender === 'all') {
+        if(sender === 'records') {
             this.setState({ showUploads: true, showPopular: false, showLikes: false, showFavorties: false, showPlaylists: false},
             () => { this.pushOntoPage(); });
             this.allButton.style.textDecoration = 'underline';
@@ -392,6 +392,7 @@ class Profile extends Component {
 
         let playlists = [];
 
+
         fireRef.child('Users').child(store.currentUser.userID).child('Playlists').once('value').then((snapshot)=> {
             // Go through the playlist objects.
             snapshot.forEach((playlist) => {
@@ -440,11 +441,11 @@ class Profile extends Component {
                 });
 
                 recs.forEach((rec)=>{
-                    var recItem = <RecitationItem margin='30px'
+                    var recItem = <RecitationItem2 margin='30px'
                                               key={rec.id}
                                               recitation={rec}
                                               nav={this.props.nav}
-                                              rStore={this.props.rStore}></RecitationItem>
+                                              rStore={this.props.rStore}></RecitationItem2>
                     items.push(recItem);
 
                     // Update the state.
@@ -559,14 +560,6 @@ class Profile extends Component {
             });
         }
 
-        // var items = [<PlaylistItem key={0} showLoadingIndicator={false} playlist={this.state.uploadPlaylist}></PlaylistItem>,
-        //             <PlaylistItem key={1} showLoadingIndicator={false} playlist={this.state.likedPlaylist}></PlaylistItem>,
-        //             <PlaylistItem key={2} showLoadingIndicator={false} playlist={this.state.favoritedPlaylist}></PlaylistItem>,
-        //             <PlaylistItem key={3} showLoadingIndicator={false} playlist={this.state.favoritedPlaylist}></PlaylistItem>];
-
-        // this.setState({
-        //     htmlElements:items
-        // });
     }
 
 

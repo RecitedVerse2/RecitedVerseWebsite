@@ -59,7 +59,7 @@
 }
 .recitationResults {
     position: relative;
-    width: 50%;
+    background-color: white;
     margin: auto;
     text-align: center;
     display: table-cell;

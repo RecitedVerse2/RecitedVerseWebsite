@@ -31,6 +31,7 @@ class RecitationItem2 extends Component {
            marginLeft: this.props.margin || 'auto',
            marginRight: this.props.margin || 'auto',
            marginBottom:'20px',
+           backgroundColor:'#ffffff'
        }
    }
 

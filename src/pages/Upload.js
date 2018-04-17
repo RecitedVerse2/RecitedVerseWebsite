@@ -7,7 +7,7 @@ import Alertify from 'alertify.js';
 // eslint-disable-next-line
 import _ from '../css/UploadBox.css';
 
-import backgroundImage from '../res/brickBackground.jpg';
+
 import randImage1 from '../res/rand1.jpg';
 import randImage2 from '../res/rand2.jpg';
 import randImage3 from '../res/rand3.jpg';
@@ -74,7 +74,7 @@ class Upload extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+            backgroundColor: 'black',
         }
     }
     getImageStyles() {
@@ -136,12 +136,13 @@ class Upload extends Component {
                 {/* Header and Background stuff. */}
                 <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
                 <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+
 
 
                 {/* The banner that displays the page title. */}
-                <ProfileBanner top='150px' height='180px' rStore={this.props.rStore}>
-                    <h1 style={{fontFamily:'Monthoers', fontSize:'80px'}}>Upload your Recording</h1>
+                <ProfileBanner rStore={this.props.rStore}>
+                    <h1 style={{fontFamily:'NEB', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}'s</h1>
+                    <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>Recordings</h1>
                 </ProfileBanner>
 
 

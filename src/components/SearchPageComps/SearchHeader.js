@@ -10,7 +10,7 @@ import __ from '../../css/Header.css';
 
 import Clock from '../Clock';
 
-class ProfileHeader extends Component {
+class SearchHeader extends Component {
 
     /**********************
     *                     *
@@ -53,7 +53,7 @@ class ProfileHeader extends Component {
             height: '70px',
             display:'table',
             zIndex:'1000',
-            backgroundColor: 'rgba(100, 100, 100, 0.3)'
+            backgroundColor: this.state.backgroundColor
         }
     }
     getLogoStyle() {
@@ -229,7 +229,7 @@ class ProfileHeader extends Component {
                 <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
 
                 <div style={this.getSearchContainerStyle()} className="search-container">
-                    <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" />
+                    <input type="text" style={this.getSearchInputStyle()} onKeyUp={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" />
                     <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button>
                 </div>
 
@@ -294,16 +294,19 @@ class ProfileHeader extends Component {
     }
 
     handleSearch(e) {
-        if(e.key === 'Enter') {
-            window.sessionStorage.setItem('LastSearch', this.searchBar.value);
-            window.location = 'search';
-        }
+        // if(e.key === 'Enter') {
+        //     window.sessionStorage.setItem('LastSearch', this.searchBar.value);
+        //     window.location = 'search';
+        // }
+        //alert(this.searchBar.value)
+        this.props.callbackParent(this.searchBar.value);
     }
 
 
     handleSearchButton() {
-            window.sessionStorage.setItem('LastSearch', this.searchBar.value);
-            window.location = 'search';
+            // window.sessionStorage.setItem('LastSearch', this.searchBar.value);
+            // window.location = 'search';
+            this.props.callbackParent(this.searchBar.value);
     }
 
     handleLogout() {
@@ -343,4 +346,4 @@ class ProfileHeader extends Component {
 
 };
 
-export default ProfileHeader;
+export default SearchHeader;
