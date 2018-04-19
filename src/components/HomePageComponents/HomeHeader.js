@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
 import RVLogo from '../../res/RV-Final-Icon.png';
+import TextLogo from '../../res/recitedverselogo.png';
 // eslint-disable-next-line
 import _ from '../../css/fonts.css';
 // eslint-disable-next-line
@@ -53,7 +54,7 @@ class Header extends Component {
             height: '70px',
             display:'table',
             zIndex:'1000',
-            backgroundColor: this.state.backgroundColor
+            backgroundColor: 'white',
         }
     }
     getLogoStyle() {
@@ -61,11 +62,11 @@ class Header extends Component {
             position:'absolute',
             top:'0px',
             left:'20px',
-            width:'80px',
+            width:'254',
             height:'90%',
             cursor:'pointer',
             marginTop:'5px',
-            display:'table-cell'
+            display:'table-cell',
         }
     }
 
@@ -78,7 +79,6 @@ class Header extends Component {
           float: 'left',
           marginLeft: '200px',
           marginTop: '5px',
-          backgroundColor: 'black'
       }
     }
 
@@ -86,10 +86,15 @@ class Header extends Component {
       return {
         padding: '5px',
         marginTop: '5px',
-        marginLeft: '10px',
+        marginLeft: '250px',
         fontSize: '17px',
         width: '400px',
-        border: '2px red'
+        border: '2px red',
+        boxShadow: '0 1px 3px 0 rgba(0,0,0,0.20)',
+        borderRadius: '5px',
+        fontFamily: 'Roboto-Regular',
+        color: 'rgba(0,0,0,0.50)',
+        textAlign: 'left',
       }
     }
 
@@ -101,7 +106,6 @@ class Header extends Component {
         marginBottom: '5px',
         marginLeft: '10px',
         marginRight: '16px',
-        background: '#ddd',
         fontSize: '17px',
         border: 'none',
         cursor: 'pointer'
@@ -126,7 +130,7 @@ class Header extends Component {
             textDecoration:'none',
             border:'none',
             background:'none',
-            color: this.state.textColor,
+            color: 'black',
             fontFamily:'HelveticaNeue',
             fontSize:'14px',
             outline:'none',
@@ -143,7 +147,7 @@ class Header extends Component {
             textDecoration:'none',
             border:'none',
             background:'none',
-            color: this.state.textColor,
+            color: 'black',
             fontFamily:'HelveticaNeue',
             fontSize:'14px',
             marginRight: '20px',
@@ -225,8 +229,7 @@ class Header extends Component {
 
         return (
             <div className='header' style={this.getHeaderStyle()}>
-                &nbsp;&nbsp;
-                <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={TextLogo}></img>
 
                 <div style={this.getSearchContainerStyle()} className="search-container">
                     <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" />

@@ -34,12 +34,10 @@ class RecitationItem extends Component {
            position:'relative',
            width:'200px',
            height: '200px',
-           marginTop: this.props.margin || '20px',
-           marginLeft: this.props.margin || '20px',
-           marginRight: this.props.margin || '20px',
            marginBottom:'80px',
            display:'inline-block',
            backgroundColor: 'blue',
+           
        }
    }
    getImageStyles() {
@@ -55,26 +53,31 @@ class RecitationItem extends Component {
            border:'none',
            outline:'none',
            cursor:'pointer',
-           fontFamily:'Quattrocento',
+           fontFamily:'Roboto',
            fontSize:'20px',
            background:'none',
            paddingTop:'10px',
            textDecoration:'none',
            fontWeight: '700',
+           textAlign: 'left',
+           marginLeft: '5px',
        }
    }
    getUploaderStyles() {
        return {
-           color:'black',
+           color:'#595959',
            border:'none',
            outline:'none',
            cursor:'pointer',
-           fontFamily:'Quattrocento',
+           fontFamily:'Roboto',
            fontSize:'16px',
            background:'none',
            paddingTop:'10px',
            textDecoration:'none',
            fontWeight: '500',
+           marginLeft: '5px',
+           
+
        }
    }
    addToPlaylistButtonStyles() {
@@ -96,13 +99,17 @@ class RecitationItem extends Component {
        return {
         background: '#fff',
         display: 'inline-block',
-        boxShadow: ' 0 37.125px 70px -12.125px rgba(0,0,0,0.3)',
-        transition: '0 6px 6px rgba(0,0,0,0.23)',
+        boxShadow: ' 0 1px 3px 0 rgba(0,0,0,0.20)',
         marginLeft: '15px',
         marginRight: '15px',
+        borderRadius: '5px',
+        textAlign: 'left',
+        marginLeft: '5px',
+
        }
    }
 
+   
 
     /**********************
     *                     *
