@@ -10,7 +10,7 @@ import backgroundImage from '../res/brickBackground.jpg';
 
 import RecitationItem2 from '../components/SearchPageComps/RecitationItem2';
 import Clock from '../components/Clock';
-import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
+import Header from '../components/SearchPageComps/SearchHeader';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import Recitation from '../objects/Recitation';
@@ -35,6 +35,8 @@ class Search extends Component {
             recComponents:[],
             userComponents:[]
         }
+
+        this.onChildChanged = this.onChildChanged.bind(this)
     }
 
     componentDidMount() {
@@ -99,19 +101,9 @@ class Search extends Component {
         return (
             <div style={this.getStyles()}>
                 {/* All header, background, and banner stuff. */}
-                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
+                <Header nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></Header>
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
-                <ProfileBanner top='100px' rStore={this.props.rStore}>
-                    {/* The search bar. */}
-                    <h1 style={this.getBannerTextStyles()}>Search</h1>
-                    <div className='searchBar'>
-                        <h1 ref={(h1)=>{this.searchText = h1}} className='searchBarTitle'>Search:</h1>
-                        <input  onKeyPress={this.reSearch.bind(this)}
-                                ref={(input)=>{this.searchBar = input}}
-                                className='inputStyles' type='text' />
-                    </div>
-                </ProfileBanner>
 
 
 
@@ -119,21 +111,13 @@ class Search extends Component {
                 {/* The are for displaying results. */}
                 <div className='resultsSection'>
                     <div className='recitationResults'>
-                        <h1>Recitations</h1>
+                        <h1>Result</h1>
                         {this.state.recComponents}
-                        <br/><br/><br/><br/><br/>
-                    </div>
-                    <div className='userResults'>
-                        <h1>Users</h1>
-                        {this.state.userComponents}
-                        <br/><br/><br/><br/><br/>
                     </div>
                 </div>
 
 
 
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <Clock onupdate={this.update.bind(this)}></Clock>
                 {this.props.children}
             </div>
@@ -150,6 +134,11 @@ class Search extends Component {
 
     goToHomePage() {
         this.props.nav.goTo('home');
+    }
+
+    onChildChanged(keyword) {
+        window.sessionStorage.setItem('LastSearch', keyword);
+        this.reSearch(keyword)
     }
 
     goToAccountSettings() {
@@ -176,8 +165,9 @@ class Search extends Component {
 
     // Handles when the user wants to make a new search and is already on the search page.
     reSearch(e) {
+
         //if(e.key === 'Enter') {
-            window.sessionStorage.setItem('LastSearch', this.searchBar.value);
+
 
             this.setState({
                 search: window.sessionStorage.getItem('LastSearch') || "",
@@ -240,7 +230,7 @@ class Search extends Component {
                     recComponents: comps
                 });
             });
-            if(callback) { callback(); }
+            //if(callback) { callback(); }
         });
     }
 
