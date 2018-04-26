@@ -11,9 +11,10 @@ import RVLogo from '../res/RV-Final-Icon.png';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import Clock from '../components/Clock';
-import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 
 import Recitation from '../objects/Recitation';
+
+import Comments from '../components/PoemPageComps/Comments';
 
 class Poem extends Component {
 
@@ -149,11 +150,12 @@ class Poem extends Component {
     }
     getOverlay() {
         return {
-            position:'absolute',
-            width:'100%',
-            height:'100%',
-            zIndex:'0',
-            backgroundColor: '#000000',
+           backgroundImage: `url(${this.state.poemImage})`,
+           height: '100%',
+           zIndex: '999',
+           backgroundPosition: 'center',
+           backgroundRepeat: 'no-repeat',
+           backgroundSize: 'cover',
         }
     }
     getImageStyles() {
@@ -230,25 +232,11 @@ class Poem extends Component {
                 <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
 
                 {/* The background image */}
-                <div style={this.getOverlay()}></div>
-
-
-                {/* The banner with the sign in text */}
-                <ProfileBanner rStore={this.props.rStore}>
-                    <h1 style={this.getBannerTextStyles()}>{this.state.poemName}</h1>
-                    <h1 style={this.getBannerTextStyles2()}>By {this.state.poemAuthor}</h1>
-
-                    <p style={this.getPlayLikeFavoriteInfo()}><span className='fa fa-play'></span>&nbsp;{this.state.plays}</p>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p style={this.getPlayLikeFavoriteInfo()}><span className='fa fa-thumbs-up'></span>&nbsp;{this.state.likes}</p>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p style={this.getPlayLikeFavoriteInfo()}><span className='fa fa-heart'></span>&nbsp;{this.state.favorites}</p>
-                </ProfileBanner>
+                <div style={this.getOverlay()}>
 
 
                 {/* The div that shows the image. */}
                 <div className='contentArea' >
-                    <img className='poemImage' src={this.state.poemImage} alt="poemimg" />
 
                     <div className='verticalTextArea' style={this.getTextAreaStyle()}>
                         <h1 className='headerText'>Recited by {this.state.recitedBy}</h1>
@@ -273,9 +261,8 @@ class Poem extends Component {
                                     onClick={this.favoriteRecitation.bind(this)}></button>
                                     */}
                         </div>
-
-                        <button className='transcriptButton' onClick={this.goToTranscript.bind(this)}>See Transcript</button>
-                        <br/><br/><br/>
+                        {this.state.poemTranscript}
+                        <Comments />
                         {this.state.deleteButton}
                     </div>
                 </div>
@@ -283,6 +270,7 @@ class Poem extends Component {
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
                 {this.props.children}
+                </div>
             </div>
         );
     }
@@ -340,6 +328,7 @@ class Poem extends Component {
 
                 // Delete the recitation.
                 firebase.database().ref().child('Recitations').child(recitation.id).remove( (err) => {
+
 
                     if(!err) {
                         firebase.storage().ref().child('Recitations').child(recitation.id).delete().then( () => {

@@ -1,7 +1,7 @@
 class Recitation {
 
     constructor(id, uploaderID, uploadername, image, title, author, recited_by,published, genre, description, 
-                likes, plays, favorites, text, audio, timestamp, playlist) {
+                likes, plays, favorites, text, audio, timestamp, playlist, comments) {
         this.id = id;
         this.uploaderID = uploaderID;
         this.uploaderName = uploadername;
@@ -19,6 +19,7 @@ class Recitation {
         this.audio = audio;
         this.timestamp = timestamp;
         this.playlist = playlist;
+        this.comments = comments;
 
         this.__type = 'Recitation';
     };
