@@ -16,7 +16,7 @@ export default class Comments extends Component {
     render(){
         return (
             <div>
-                <p>comments</p>
+                <h2>Comments:</h2>
             </div>
         )
     }

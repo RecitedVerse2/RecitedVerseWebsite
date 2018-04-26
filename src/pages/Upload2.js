@@ -18,10 +18,12 @@ import randImage7 from '../res/rand7.jpg';
 import randImage8 from '../res/rand8.jpg';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
+
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import FileChooserForm from '../components/FileChooserForm';
 import Clock from '../components/Clock';
-
+import { Button } from 'react-bootstrap';
 
 class Upload extends Component {
 
@@ -66,7 +68,7 @@ class Upload extends Component {
             top:'0px',
             width:'100%',
             height:'2500px',
-            color:'white'
+            backgroundColor:'white'
         };
     }
     getOverlay() {
@@ -93,7 +95,7 @@ class Upload extends Component {
             color: 'white',
             cursor: 'pointer',
             fontSize: '40px',
-            fontFamily:'Monthoers',
+            fontFamily:'Roboto',
             textAlign: 'center',
             background: 'none',
             border: 'none',
@@ -121,14 +123,15 @@ class Upload extends Component {
           height: '400px',
           margin: 'auto',
           marginTop: '80px',
-          backgroundColor: 'blue'
+          backgroundColor: '#FAFAFA'
       }
     }
 
     getUploadH1Style() {
       return {
          paddingTop:'50px',
-         color: 'black'
+         color: 'black',
+         fontFamily: 'Roboto',
       }
     }
 
@@ -255,18 +258,18 @@ class Upload extends Component {
    getLoadFileFormHtml(){
      return(
        <div style={this.getUploadDivStyle()}>
-        <h1 style={this.getUploadH1Style()}>Upload Record</h1>
+        <h1 style={this.getUploadH1Style()}>Upload Recording</h1>
        <div style={this.getUploadButtonDivStyle()} >
        <FileChooserForm formButtonStyle={this.getFormButtonStyle2()}
                        ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
-                       formButtonId='fromFileBtn'
+                       formButtonId='btn btn-default'
                        formButtonClass='pill_btn' name='fileRecitation'
                        accept='audio/*' multiple='false'
                        fileSelectedHandler={(e)=>{this.uploadAudioFile(e)}}>
            Upload
        </FileChooserForm>
-
-         <h2 style={this.getRecordingH2Style()}  onClick={this.recordNow.bind(this)}   >record now</h2>
+       or
+        <Button onClick={this.recordNow.bind(this)}>Record Now</Button>
 
 
        </div>
@@ -297,7 +300,7 @@ class Upload extends Component {
                 <Clock onupdate={this.handleStopPlaying.bind(this)}></Clock>
 
                 {/* Header and Background stuff. */}
-                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
 
 
 

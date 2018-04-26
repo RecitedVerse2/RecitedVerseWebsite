@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Button } from 'react-bootstrap';
 
 class FileChooserForm extends Component {
 
@@ -26,13 +26,9 @@ class FileChooserForm extends Component {
                        multiple={this.props.multiple || 'false'}
                        onChange={this.handleLoaded.bind(this)}
                        style={this.getStyles()} />
+            
+            <Button type="submit">Upload{this.props.children}</Button>
 
-                <label htmlFor={this.props.name}
-                       style={this.props.formButtonStyle}
-                       id={this.props.formButtonId}
-                       className={this.props.formButtonClass}>
-                    {this.props.children}
-                </label>
 
             </form>
         );

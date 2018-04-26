@@ -10,11 +10,14 @@ import __ from '../css/Header.css';
 import RVLogo from '../res/RV-Final-Icon.png';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
+
 import Clock from '../components/Clock';
 
 import Recitation from '../objects/Recitation';
 
 import Comments from '../components/PoemPageComps/Comments';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 class Poem extends Component {
 
@@ -100,7 +103,7 @@ class Poem extends Component {
             left:'0px',
             top:'0px',
             width:'100%',
-            paddingBottom:'500px'
+            height: '100%',
         };
     }
     getHeaderStyle() {
@@ -217,6 +220,13 @@ class Poem extends Component {
       }
     }
 
+    getTranscriptStyles(){
+        return {
+            maxWidth: '300px',
+            float: 'right',
+        }
+    }
+
 
 
     /**********************
@@ -229,7 +239,7 @@ class Poem extends Component {
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
-                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
 
                 {/* The background image */}
                 <div style={this.getOverlay()}>
@@ -261,8 +271,18 @@ class Poem extends Component {
                                     onClick={this.favoriteRecitation.bind(this)}></button>
                                     */}
                         </div>
-                        {this.state.poemTranscript}
-                        <Comments />
+                        <Grid>
+                        <Row className="show-grid">
+                            <Col md={8}>
+                            <div style={{lineHeight: '2', fontWeight: '700' }}>
+                            {this.state.poemTranscript}
+                            </div>
+                            </Col>
+                            <Col md={4}>
+                            <Comments />
+                            </Col>
+                        </Row>
+                        </Grid>
                         {this.state.deleteButton}
                     </div>
                 </div>
