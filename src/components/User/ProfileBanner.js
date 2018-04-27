@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Background from '../../res/profile.png';
+import * as firebase from 'firebase';
 
 class ProfileBanner extends Component {
 
@@ -13,19 +15,14 @@ class ProfileBanner extends Component {
         super();
         this.state = {
             name:'User',
-            bio:"",
-            avatar:"",
-            backgroundImage:""
+            bio:""
         }
 
 
         var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
-        console.log(cUser);
+        console.log(cUser)
         this.state.name = cUser.fullname;
         this.state.bio = cUser.bio;
-        this.state.avatar = cUser.photoURL
-        this.state.backgroundImage = cUser.backgroundImage
-
     }
 
     componentDidMount() {
@@ -36,6 +33,12 @@ class ProfileBanner extends Component {
                 name:store.currentUser.fullname.substring(0,store.currentUser.fullname.indexOf(' '))
             })
         }
+
+
+        //var user = firebase.database().ref("User/"+this.props.userID)
+        //console.log(user);
+
+
     }
 
     /**********************
@@ -76,9 +79,10 @@ class ProfileBanner extends Component {
             position:'absolute',
             top: this.props.top || '120px',
             color:'white',
+            margin:'auto',
             left: '300px',
             fontSize: '24px',
-            textAlign:'left',
+            textAlign:'center',
             padding:'5px 20px 5px 20px',
             width:'50%',
             backgroundColor: 'rgba(0, 0, 0, 0.4)'
@@ -119,14 +123,14 @@ class ProfileBanner extends Component {
     render() {
         return (
             <div style={this.getStyles()}>
-                <img alt='bckg' style={this.getImageStyle()} src={this.state.backgroundImage}/>
-                 <img src={this.state.avatar}  style={this.getAvatorStyles()} />
+                <img alt='bckg' style={this.getImageStyle()} src={this.props.userInfo.backgroundImage}/>
+                 <img src={this.props.userInfo.photoURL}  style={this.getAvatorStyles()} />
                     <div style={this.getNameStyles()}>
-                        {this.state.name}
+                        {this.props.userInfo.fullname}
                     </div>
 
                     <div >
-                        <p style={this.getBioStyles()}>{this.state.bio}</p>
+                        <p style={this.getBioStyles()}>{this.props.userInfo.bio}</p>
                     </div>
             </div>
         );

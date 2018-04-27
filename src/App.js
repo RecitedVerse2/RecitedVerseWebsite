@@ -16,6 +16,7 @@ import Upload2 from './pages/Upload2';
 import Search from './pages/Search';
 import Transcript from './pages/Transcript';
 import PlaylistPage from './pages/PlaylistPage';
+import User from './pages/User';
 
 import AudioPlayer from './components/AudioPlayer';
 import navigation from './components/navigation';
@@ -183,7 +184,7 @@ class App extends Component {
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
         const TranscriptPage = () => {return <Transcript audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Transcript>}
         const PlaylistPageComp = () => {return <PlaylistPage audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</PlaylistPage>}
-
+        const UserPageComp = () => {return <User audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</User>}
 
         if(!cUser){  // before login
           return (
@@ -216,6 +217,7 @@ class App extends Component {
                     <Route exact path="/search" component={SearchPage}></Route>
                     <Route exact path="/transcript" component={TranscriptPage}></Route>
                     <Route exact path="/playlist" component={PlaylistPageComp}></Route>
+                    <Route exact path="/User" component={UserPageComp}></Route>
                 </div>
             </BrowserRouter>
         );

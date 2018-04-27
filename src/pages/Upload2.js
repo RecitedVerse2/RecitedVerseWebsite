@@ -4,6 +4,9 @@ import * as firebase from 'firebase';
 import audioRec from 'au-audio-recorder';
 import Alertify from 'alertify.js';
 
+
+import emptyImage from '../res/empty.png';
+
 // eslint-disable-next-line
 import _ from '../css/UploadBox.css';
 
@@ -45,6 +48,8 @@ class Upload extends Component {
             poemDescription:'',
             choseImage: false,
             isFileUpdate: true,
+            isUpdateDone: true
+
         }
     }
 
@@ -125,7 +130,24 @@ class Upload extends Component {
       }
     }
 
+    getUploadDiv2Style() {
+      return {
+          width: '600px',
+          height: '600px',
+          margin: 'auto',
+          marginTop: '80px',
+          backgroundColor: 'blue'
+      }
+    }
+
     getUploadH1Style() {
+      return {
+         paddingTop:'50px',
+         color: 'black'
+      }
+    }
+
+    getUploadH2Style() {
       return {
          paddingTop:'50px',
          color: 'black'
@@ -204,11 +226,110 @@ class Upload extends Component {
 
    }
 
-   getButtonTDDivStyle(){
-     return{
+   getUploadInfoDivStyle() {
+     return {
+       backgroundColor:'black'
      }
-
    }
+
+   getUploadLeftInfoDivStyle(){
+     return {
+       marginTop: '20px',
+       float: 'left',
+       width: '50%',
+       backgroundColor:'yellow'
+     }
+   }
+
+   getUploadRightInfoDivStyle(){
+     return {
+       float: 'left',
+       width: '50%',
+       paddingRight: '20px',
+       backgroundColor:'grey',
+
+       padding:'20px 20px 20px 20px',
+     }
+   }
+
+   getEmptyImageStyle(){
+     return {
+        position: 'absolute',
+        height: '200px',
+        width: '200px',
+        marginLeft: '20px'
+
+     }
+   }
+
+   getUploadImageButtonStyle(){
+     return{
+       position:'absolute',
+       marginTop: '150px',
+       marginLeft:'40px',
+
+     }
+   }
+
+   GalleryButtonStyle(){
+     return{
+       position:'absolute',
+       marginTop: '220px',
+       marginLeft:'50px',
+
+     }
+   }
+
+   getDownArrowStyle(){
+     return {
+       color: 'black',
+       paddingTop:'10px',
+       paddingLeft: '0px',
+       position:'relative',
+       width: '100px'
+     }
+   }
+
+ getPTagStyle(){
+   return{
+     fontWeight: 'bold',
+     color:'white'
+   }
+ }
+
+ submitButtonStyle(){
+   return{
+     marginLeft:'20px'
+   }
+ }
+
+ cancelButtonStyle(){
+   return{
+      marginLeft:'20px'
+   }
+ }
+
+ getSubmitDivStyle(){
+   return{
+     marginTop:'20px'
+   }
+ }
+
+ getInputImageStyle(){
+   return{
+      display: 'none'
+   }
+ }
+
+ getStatusLabelStyle(){
+   return{
+     color: "red",
+     padding:'10px 30px  20 px',
+     backgroundColor: 'black',
+     marginLeft: '50px',
+   }
+ }
+
 
    getRecodingButtonsHtml() {
 
@@ -218,7 +339,8 @@ class Upload extends Component {
                <h1 className='recordTitle'>Record a poem</h1>
 
                <div style={this.getRecodingButtonsDivStyle()}>
-               <table><tr>
+               <table>
+               <tr>
                <td style={this.getButtonTDDivStyle()}><button onClick={this.handleRecord.bind(this)} ref={(button)=>{this.recordBtn = button}} className='recordingButtons fa fa-microphone'></button></td>
               <td style={this.getButtonTDDivStyle()} ><button onClick={this.handleStop.bind(this)} ref={(button)=>{this.stopBtn = button}} className='recordingButtons fa fa-stop'></button></td>
 
@@ -242,7 +364,7 @@ class Upload extends Component {
 
                <button  style={this.getRecodingDoneButtonStyle()}
                        ref={(button)=>{this.submitBtn = button}}
-                       onClick={this.handleSubmit.bind(this)}>Done</button>
+                       onClick={this.recordDone.bind(this)}>Done</button>
 
            </div>
             </div>
@@ -274,6 +396,79 @@ class Upload extends Component {
      )
    }
 
+   getFormAfterUpdate(){
+     return(
+       <div style={this.getUploadDiv2Style()}>
+        <h1 style={this.getUploadH2Style()}>Record Info</h1>
+       <div style={this.getUploadInfoDivStyle()} >
+
+          <div style={this.getUploadLeftInfoDivStyle()}  >
+
+          <img style={this.getEmptyImageStyle()} src={emptyImage}  ref={(img)=>{this.poemImage= img}}  ></img>
+
+          <FileChooserForm formButtonStyle={this.getUploadImageButtonStyle()}
+                          ref={(FileChooserForm)=>{this.addPhotoBtn = FileChooserForm}}
+                          formButtonId='addPhotoBtn'
+                          formButtonClass='pill_btn' name='recImageFile'
+                          accept='image/x-png' multiple='false'
+                          fileSelectedHandler={(e)=>{this.uploadRecitationImage(e)}}>
+            Update Cover Image
+          </FileChooserForm>
+
+          <button type="button" style={this.GalleryButtonStyle()}  onClick={this.RandomGallery.bind(this)} className="btn btn-success">Random Gallery</button>
+
+          </div>
+            <div  style={this.getUploadRightInfoDivStyle()} >
+             <label className="control-label col-sm-2" >Poem:</label><br/>
+             <div >
+               <input type="email" className="form-control"  placeholder="Enter Title" ref={(input)=>{this.poemField = input}} ></input>
+             </div>
+
+             <label className="control-label col-sm-2" >Poet:</label><br/>
+             <div >
+               <input type="email" className="form-control"  placeholder="Enter Author" ref={(input)=>{this.poetField = input}}  ></input>
+             </div>
+
+
+             <label className="control-label col-sm-2" >Genre:</label><br/>
+             <div >
+               <input type="email" className="form-control"  placeholder="Enter Title" ref={(input)=>{this.genreField = input}} ></input>
+             </div>
+              <label className="control-label col-sm-2" >Transcript:</label><br/>
+             <div >
+               <textarea rows="4" cols="50" className="form-control" id="email" placeholder="Enter Description & Poem Transcript"  ref={(textarea)=>{this.transcriptField = textarea}}  ></textarea>
+             </div>
+
+  <div className="checkbox">
+  <p style={this.getPTagStyle()} >The duration of copyright in these works is generally computed the same way as for works created on or after January 1, 1978.</p>
+  <label><input type="checkbox" name="remember" ref={(input)=>{this.copyRightField = input}} ></input> Yes, I known</label>
+
+ <div  style={this.getSubmitDivStyle()}>
+  <p style={this.getStatusLabelStyle()} ref={(p)=>{this.statusLabel = p}}></p>
+  <button type="button" style={this.cancelButtonStyle()}  onClick={this.cancel.bind(this)} className="btn btn-success">Cancel</button>
+  <button type="button" style={this.submitButtonStyle()} onClick={this.handleSubmit.bind(this)} className ="btn btn-success">Submit</button>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+             </div>
+
+
+
+
+       </div>
+       </div>
+     )
+   }
+
     /**********************
     *                     *
     *        RENDER       *
@@ -287,6 +482,10 @@ class Upload extends Component {
        loadDiv = this.getLoadFileFormHtml()
      }else{
        loadDiv = this.getRecodingButtonsHtml();
+     }
+
+     if(this.state.isUpdateDone == true){
+       loadDiv = this.getFormAfterUpdate();
      }
 
 
@@ -317,23 +516,43 @@ class Upload extends Component {
     *                     *
     ***********************/
 
+    cancel(){
+      alert(this.poemImage.src)
+
+    }
+
+    RandomGallery(){
+          const images = [randImage1, randImage2, randImage3, randImage4, randImage5,
+                          randImage6, randImage7, randImage8];
+          const randIndex = Math.floor( (Math.random() * 8) + 1);
+
+          this.poemImage.src = images[randIndex];
+    }
+
     uploadRecitationImage(e) {
         var poemImage = this.poemImage;
         poemImage.src = e;
 
+
         this.setState({ choseImage: true });
     };
 
+    recordDone(){
+        this.setState({ isUpdateDone: true });
+    }
     uploadAudioFile(e) {
+
         var aud = new Audio();
         aud.src = e;
         this.setState({
             audioObj:aud
         });
-        alert("upload done")
+        this.setState({ isUpdateDone: true });
+
     }
 
     recordNow(){
+
       this.setState({ isFileUpdate: false });
     }
 
@@ -470,6 +689,16 @@ class Upload extends Component {
         this.statusLabel.style.visibility = 'visible';
         this.statusLabel.style.opacity = '1';
 
+        if(! this.copyRightField.checked){
+           missingInfo += "check CheckBox \"Yes I know\", to make sure your record not agaist law";
+
+          Alertify.alert(missingInfo);
+
+            return;
+        }else{
+          this.statusLabel.innerHTML = "";
+        }
+
         var finalRecording = audioRec.getRecording();
         const fireRef = firebase.database().ref();
         const storageRef = firebase.storage().ref();
@@ -493,14 +722,16 @@ class Upload extends Component {
         }
 
         if( (this.valueExists(this.state.audioObj) || finalRecording !== null) && this.valueExists(poemName.value) && this.valueExists(poemAuthor.value)
-            && this.valueExists(poemRecitedBy.value) && this.valueExists(poemPublished.value)
-            && this.valueExists(poemGenre.value) && this.valueExists(poemWrittenText.value)) {
+        && this.valueExists(poemGenre.value) && this.valueExists(poemWrittenText.value)) {
 
             // Create a dictionary object for the audio.
             // Save that dictionary to the Firebase database.
             // Save the audio to the Firebase storage.
             // Return from this method.
             var fp = fireRef.child("Recitations").push();
+
+
+            var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
 
             /* Create dictionary for the recitation. */
             var dictionary = {
@@ -509,12 +740,11 @@ class Upload extends Component {
                 "uploaderName":store.currentUser.fullname,
                 "title":poemName.value,
                 "author":poemAuthor.value,
-                "published":poemPublished.value,
                 "genre":poemGenre.value,
                 "text":poemWrittenText.value,
-                "description":poemDescription.value || "",
+                "Published":"unkown",
                 "image":this.poemImage.src,
-                "recited_by":poemRecitedBy.value,
+                "recited_by": store.currentUser.fullname,
                 "plays":0,
                 "likes":0,
                 "favorites":0,
@@ -566,8 +796,6 @@ class Upload extends Component {
             if(!this.valueExists(this.state.audioObj) && finalRecording === null) { missingInfo += "You must upload or record a poem before submitting<br/>"; }
             if(!this.valueExists(poemName.value)) { missingInfo += "Enter a name for the poem<br/>"; }
             if(!this.valueExists(poemAuthor.value)) { missingInfo += "Enter a name of the poet<br/>"; }
-            if(!this.valueExists(poemRecitedBy.value)) { missingInfo += "Enter a name for the reciting artist<br/>"; }
-            if(!this.valueExists(poemPublished.value)) { missingInfo += "Enter a year of publication<br/>"; }
             if(!this.valueExists(poemGenre.value)) { missingInfo += "Enter the genre of the poem<br/>"; }
             if(!this.valueExists(poemWrittenText.value)) { missingInfo += "Enter the transcript of the poem<br/>"; }
 
@@ -592,7 +820,7 @@ class Upload extends Component {
                 });
             }
         } else {
-            if(audioRec.isFinished() === true) {
+            if(audioRec.isFinished() === true && this.statusLabel) {
                 this.statusLabel.innerHTML = '';
             }
         }

@@ -15,7 +15,7 @@ import ProfileBanner from '../components/User/ProfileBanner';
 
 import Recitation from '../objects/Recitation';
 
-class Poem extends Component {
+class User extends Component {
 
     /**********************
     *                     *
@@ -268,38 +268,7 @@ class Poem extends Component {
 
 
                 {/* The div that shows the image. */}
-                <div className='contentArea' >
-                    <img className='poemImage' src={this.state.poemImage} alt="poemimg" />
 
-                    <div className='verticalTextArea' style={this.getTextAreaStyle()}>
-                        <h1 className='headerText'>Recited by {this.state.recitedBy}{this.userID}</h1>
-                        <h1 className='headerText'>Published: {this.state.published}</h1>
-                        <h1 className='headerText'>Genre: {this.state.genre}</h1>
-                        <h1 className='headerText'>Uploaded By:<a style={this.getUserAlinkStyle()} href="user"> {this.state.uploaderName}</a></h1>
-
-                        <div style={{marginLeft:'10px'}}>
-                            <button style={this.getPlayButtonSize()} className='interactButton fa fa-play'
-                            ref={(button)=>{this.playBtn = button}}
-                            onClick={this.playRecitation.bind(this)}>
-                            &nbsp;&nbsp;
-                            </button>  <span style={this.getPlayFont()}> {this.state.plays}  </span>
-
-                          <button className='interactButton fa fa-thumbs-up' style={this.getPlayButtonSize()}
-                                    ref={(button)=>{this.likeBtn = button}}
-                                    onClick={this.likeRecitation.bind(this)}>
-
-                                    </button>           <span style={this.getPlayFont()}> {this.state.likes} </span>
-                          {/*  <button className='interactButton fa fa-heart'
-                                    ref={(button)=>{this.favoriteBtn = button}}
-                                    onClick={this.favoriteRecitation.bind(this)}></button>
-                                    */}
-                        </div>
-
-                        <button className='transcriptButton' onClick={this.goToTranscript.bind(this)}>See Transcript1111</button>
-                        <br/><br/><br/>
-                        {this.state.deleteButton}
-                    </div>
-                </div>
 
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
@@ -711,4 +680,4 @@ class Poem extends Component {
 
 }
 
-export default Poem;
+export default User;

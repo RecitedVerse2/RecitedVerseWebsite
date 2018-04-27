@@ -3,8 +3,11 @@ import * as firebase from 'firebase';
 
 import backgroundImage from '../res/brickBackground.jpg';
 
+
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
+
+import FileChooserForm from '../components/FileChooserFormAndSave';
 
 // eslint-disable-next-line
 import _ from '../css/EditProfile.css';
@@ -24,19 +27,27 @@ class EditProfile extends Component {
             name:'',
             email:'',
             bio:'',
+            backgroundImage: '',
+            photoURL:'',
             password:'Enter your password',
             passwordConfirm:'Re-enter your password',
-            social:['','','','']
+            social:['','','',''],
+            userID:'',
         }
     }
 
     componentDidMount() {
         var cUser = this.getCurrentUser();
+        console.log(cUser);
+
 
         this.setState({
             name: cUser.fullname,
             email: cUser.email,
             bio: cUser.bio,
+            backgroundImage: cUser.backgroundImage,
+            photoURL: cUser.photoURL,
+            userID:cUser.userID,
             social: [
                 cUser.social_media_links[0],
                 cUser.social_media_links[1],
@@ -48,7 +59,7 @@ class EditProfile extends Component {
 
     getCurrentUser() {
         var cUser = this.props.rStore.getState().currentUser;
-        if(cUser === null) { 
+        if(cUser === null) {
             cUser = JSON.parse(window.localStorage.getItem('currentUser'));
 
             if(cUser === null || cUser === undefined) {
@@ -97,10 +108,9 @@ class EditProfile extends Component {
             position:'relative',
             width: width + '%' || '50%',
             height:'50px',
-            margin:'auto',   
+            margin:'auto',
             display:'table',
-            color:'white',       
-            backgroundColor:'rgba(255,255,255,0.5)'
+            color:'white',
         }
     }
     getSearchBarTitleStyle(width = 15, left = 0) {
@@ -113,7 +123,7 @@ class EditProfile extends Component {
             float:'left',
             fontSize:'20px',
             fontFamily:'HelveticaNeue',
-            paddingLeft: '5px',
+            paddingLeft: '20px',
             WebkitPaddingBefore: '10px',
             display:'table-cell',
         }
@@ -123,19 +133,109 @@ class EditProfile extends Component {
             position:'absolute',
             left: left + '%' || '15%',
             width: 100 - left + '%' || '85%',
-            height:'100%',
-            border:'none',
-            color:'white',
-            outline:'none',
-            background:'none',
-            textDecoration:'none',
-            fontFamily:'HelveticaNeue',
+            height:'80%',
             fontSize:'20px',
-            MozPaddingBefore:'-20px',
-            display:'table-cell'
+            paddingLeft:'10px',
+            color:'white',
+
         }
     }
 
+    getFormButtonStyle2() {
+        return {
+          position:'absolute',
+          left: '60px',
+          top: '-150px',
+          width: '70px',
+          height: '30px',
+          margin: 'auto',
+          textAlign: 'center',
+          fontSize: '15px',
+          borderRadius:'10px'
+        };
+    }
+
+    getFormButtonStyle3() {
+        return {
+          position:'absolute',
+          left: '50px',
+          top: '-80px',
+          width: '180px',
+          height: '30px',
+          margin: 'auto',
+          textAlign: 'center',
+          fontSize: '15px',
+          borderRadius:'10px'
+        };
+    }
+
+
+    /// new from profile Banner
+    getStyles2() {
+        return {
+            position:'relative',
+            top:'70px',
+            margin: '0px',
+
+        }
+    }
+    getImageStyle() {
+        return {
+            width:'100%',
+            height:'260px'
+        }
+    }
+    getNameStyles() {
+        return {
+            position:'absolute',
+            top: this.props.top || '60px',
+            color:'white',
+            margin:'auto',
+            left: '300px',
+            fontSize: '24px',
+            textAlign:'center',
+            padding:'5px 20px 5px 20px',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        }
+    }
+    getBioStyles() {
+        return {
+            position:'absolute',
+            top: this.props.top || '120px',
+            color:'white',
+            margin:'auto',
+            left: '300px',
+            fontSize: '24px',
+            textAlign:'left',
+            padding:'5px 20px 5px 20px',
+            width:'50%',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)'
+
+        }
+    }
+
+    getSBStyles() {
+        return {
+            position:'relative',
+            width:'60%',
+            height:'50px',
+            margin:'auto',
+
+        }
+    }
+
+
+    getavatarStyles() {
+        return {
+            position:'absolute',
+            borderRadius: '50%',
+            left:'20px',
+            top:'20px',
+            width:'150px',
+            height:'150px',
+
+        }
+    }
 
 
     /**********************
@@ -147,13 +247,27 @@ class EditProfile extends Component {
     render() {
         return (
             <div style={this.getStyles()}>
+
+
                 {/* Header and Banner stuff. */}
                 <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
-                <ProfileBanner top='100px' rStore={this.props.rStore}>
-                    <h1 style={{marginTop:'65px',fontFamily:'Monthoers',fontSize:'90px'}}>Edit Profile</h1>
-                </ProfileBanner>
+
+
+                // banner
+                <div style={this.getStyles2()}>
+                    <img alt='bckg' style={this.getImageStyle()} ref={(img)=>{this.backgroundImage= img}} src={this.state.backgroundImage}/>
+                     <img src={this.state.photoURL} ref={(img)=>{this.avatar= img}}  style={this.getavatarStyles()} />
+                        <div style={this.getNameStyles()}>
+                            {this.state.name}
+                        </div>
+
+                        <div >
+                            <p style={this.getBioStyles()}>{this.state.bio}</p>
+                        </div>
+                </div>
+
 
 
 
@@ -164,25 +278,47 @@ class EditProfile extends Component {
                     {/* All of the input fields. */}
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(10, -2)}>Name:</h1>
-                        <input ref={(input)=>{this.nameField = input}} style={this.getInputStyles(10)} type='text' placeholder={this.state.name} />
+                        <input ref={(input)=>{this.nameField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.name} />
                     </div>
-                    <p></p><p></p><p></p>
+
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(10, -2)}>Email:</h1>
-                        <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(10)} type='text' placeholder={this.state.email} />
+                        <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.email} />
                     </div>
-                    <p></p><p></p><p></p>
+
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                        <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(17)} type='text' placeholder={this.state.password} />
+                        <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.password} />
                     </div>
-                    <p></p><p></p><p></p>
-                    <div style={this.getSBStyles(70)}>
-                        <h1 style={this.getSearchBarTitleStyle(25, -2)}>Re-enter Password:</h1>
+
+                    <div style={this.getSBStyles()}>
+                        <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
                         <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.password} />
                     </div>
-                    <p></p><p></p><p></p>
+
                     <br/>
+
+                    <div>
+                    <FileChooserForm formButtonStyle={this.getFormButtonStyle2()}
+                                    ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
+                                    formButtonId='fromFileBtn'
+                                    path={"Avatar/"+this.state.userID}
+                                    formButtonClass='pill_btn' name='fileRecitation'
+                                    accept='image/x-png' multiple='false'
+                                    fileSelectedHandler={(e)=>{this.uploadAavatarImage(e)}}>
+                        Upload
+                    </FileChooserForm>
+
+                    <FileChooserForm formButtonStyle={this.getFormButtonStyle3()}
+                                    ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
+                                    formButtonId='fromFileBtn'
+                                    path={"Avatar/"+this.state.userID}
+                                    formButtonClass='pill_btn2' name='fileRecitation2'
+                                    accept='image/x-png' multiple='false'
+                                    fileSelectedHandler={(e)=>{this.uploadBackgrouandImage(e)}}>
+                        Upload background
+                    </FileChooserForm>
+                    </div>
 
 
                     {/* Setting the bio. */}
@@ -194,34 +330,31 @@ class EditProfile extends Component {
                               placeholder={this.state.bio}></textarea>
 
 
-                    <br/><br/><br/>
+
 
                     <h1 className='titleText'>Social Media Links</h1>
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(15, 5)}>Facebook:</h1>
                         <input ref={(input)=>{this.facebookField = input}} style={this.getInputStyles(20)} type='text' placeholder={this.state.social[0]} />
                     </div>
-                    <p></p><p></p><p></p>
+
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(15, 5)}>Twitter:</h1>
                         <input ref={(input)=>{this.twitterField = input}} style={this.getInputStyles(18)} type='text' placeholder={this.state.social[1]} />
                     </div>
-                    <p></p><p></p><p></p>
+
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(15, 5)}>LinkedIn:</h1>
                         <input ref={(input)=>{this.linkedinField = input}} style={this.getInputStyles(18)} type='text' placeholder={this.state.social[2]} />
                     </div>
-                    <p></p><p></p><p></p>
+
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(15, 5)}>Instagram:</h1>
                         <input ref={(input)=>{this.instagramField = input}} style={this.getInputStyles(20)} type='text' placeholder={this.state.social[3]} />
                     </div>
-                    <p></p><p></p><p></p>
 
-                    <br/><br/><br/><br/>
                     <button className='titleText' onClick={this.handleSaveChanges.bind(this)}>Save Changes</button>
-                    <br/><br/><br/><br/>
-                    <br/><br/><br/><br/>
+
                 </div>
 
                 {this.props.children}
@@ -237,6 +370,15 @@ class EditProfile extends Component {
     *       METHODS       *
     *                     *
     ***********************/
+    uploadAavatarImage(url) {
+     this.setState({photoURL:url})
+
+
+    };
+
+    uploadBackgrouandImage(url) {
+        this.setState({backgroundImage:url})
+    };
 
     handleSaveChanges() {
         var cUser = this.getCurrentUser();
@@ -253,6 +395,8 @@ class EditProfile extends Component {
         var twitter = this.twitterField.value;
         var linkedin = this.linkedinField.value;
         var instagram = this.instagramField.value;
+
+
 
 
         // Set all the appropriate values.
@@ -300,6 +444,11 @@ class EditProfile extends Component {
         changes["social_media_links"] = social;
 
 
+
+        changes["photoURL"] = this.state.photoURL
+        changes["backgroundImage"] = this.state.backgroundImage
+
+
         if(canSaveChanges === true) {
             this.saveToFirebase(changes);
         } else {
@@ -312,18 +461,26 @@ class EditProfile extends Component {
         var cUser = this.getCurrentUser();
 
         firebase.database().ref().child("Users").child(cUser.userID).update(changes);
-        
+
         // Update the current user object.
         firebase.database().ref().child('Users').child(cUser.userID).once('value', (snap) => {
             var usr = snap.val();
             window.localStorage.setItem('currentUser',JSON.stringify(usr));
-        
+
             this.props.rStore.dispatch({
                 type:'LOGIN',
                 currentUser: usr
             });
             document.body.scrollTop = 0;
         });
+
+
+        firebase.database().ref().child('Users').child(cUser.userID).once('value', (snap) => {
+            var usr = snap.val();
+            var fullname = usr.fullname;
+            usr.name = fullname.substring(0, fullname.indexOf(' '))
+            window.localStorage.setItem('currentUser',JSON.stringify(usr));
+          });
 
 
         this.props.nav.goTo('profile');
