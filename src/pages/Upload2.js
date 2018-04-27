@@ -48,7 +48,7 @@ class Upload extends Component {
             poemDescription:'',
             choseImage: false,
             isFileUpdate: true,
-            isUpdateDone: true
+            isUpdateDone: false
 
         }
     }
@@ -385,7 +385,7 @@ class Upload extends Component {
                        formButtonClass='pill_btn' name='fileRecitation'
                        accept='audio/*' multiple='false'
                        fileSelectedHandler={(e)=>{this.uploadAudioFile(e)}}>
-           Upload
+           Upload Audio Record
        </FileChooserForm>
 
          <h2 style={this.getRecordingH2Style()}  onClick={this.recordNow.bind(this)}   >record now</h2>

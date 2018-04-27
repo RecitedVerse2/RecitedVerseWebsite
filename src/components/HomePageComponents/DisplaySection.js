@@ -76,10 +76,9 @@ class DisplaySection extends Component {
     getTitleStyles() {
         return {
             color:'black',
-            width:'100%',
-            textAlign:'center',
-            fontFamily:'Nunito',
-            fontSize:'50px'
+            fontFamily:'Arimo',
+            fontSize:'50px',
+            marginLeft: '5%',
         }
     }
     getDisplaySectionStyles() {
@@ -134,9 +133,6 @@ class DisplaySection extends Component {
                 <div style={this.getTitleStyles()}>
                     {this.props.title}
                 </div>
-
-
-                <br/>
 
                 {/* Displays the recitations in a slider type area. */}
                 <div style={this.getDisplaySectionStyles()}>

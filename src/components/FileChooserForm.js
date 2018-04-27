@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Button } from 'react-bootstrap';
 
 class FileChooserForm extends Component {
 
@@ -27,12 +27,13 @@ class FileChooserForm extends Component {
                        onChange={this.handleLoaded.bind(this)}
                        style={this.getStyles()} />
 
-                <label htmlFor={this.props.name}
-                       style={this.props.formButtonStyle}
-                       id={this.props.formButtonId}
-                       className={this.props.formButtonClass}>
-                    {this.props.children}
-                </label>
+                       <label htmlFor={this.props.name}
+                              style={this.props.formButtonStyle}
+                              id={this.props.formButtonId}
+                              className={this.props.formButtonClass}>
+                           { this.props.children}
+                       </label>
+
 
             </form>
         );

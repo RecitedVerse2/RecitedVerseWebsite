@@ -10,10 +10,14 @@ import __ from '../css/Header.css';
 import RVLogo from '../res/RV-Final-Icon.png';
 
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
+
 import Clock from '../components/Clock';
-import ProfileBanner from '../components/User/ProfileBanner';
 
 import Recitation from '../objects/Recitation';
+
+import Comments from '../components/PoemPageComps/Comments';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 class Poem extends Component {
 
@@ -122,7 +126,7 @@ class Poem extends Component {
             left:'0px',
             top:'0px',
             width:'100%',
-            paddingBottom:'500px'
+            height: '100%',
         };
     }
     getHeaderStyle() {
@@ -172,11 +176,12 @@ class Poem extends Component {
     }
     getOverlay() {
         return {
-            position:'absolute',
-            width:'100%',
-            height:'100%',
-            zIndex:'0',
-            backgroundColor: '#000000',
+           backgroundImage: `url(${this.state.poemImage})`,
+           height: '100%',
+           zIndex: '999',
+           backgroundPosition: 'center',
+           backgroundRepeat: 'no-repeat',
+           backgroundSize: 'cover',
         }
     }
     getImageStyles() {
@@ -238,11 +243,19 @@ class Poem extends Component {
       }
     }
 
+
     getUserAlinkStyle(){
       return{
         fontSize: '40px',
         color:'blue'
       }
+    }
+
+    getTranscriptStyles(){
+        return {
+            maxWidth: '300px',
+            float: 'right',
+        }
     }
 
 
@@ -257,19 +270,15 @@ class Poem extends Component {
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
-                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
 
                 {/* The background image */}
-                <div style={this.getOverlay()}></div>
 
-                {/* The banner with the sign in text */}
-                <ProfileBanner  userInfo={this.state.userInfo} rStore={this.props.rStore}>
-                  </ProfileBanner>
+                <div style={this.getOverlay()}>
 
 
                 {/* The div that shows the image. */}
                 <div className='contentArea' >
-                    <img className='poemImage' src={this.state.poemImage} alt="poemimg" />
 
                     <div className='verticalTextArea' style={this.getTextAreaStyle()}>
                         <h1 className='headerText'>Recited by {this.state.recitedBy}{this.userID}</h1>
@@ -294,9 +303,18 @@ class Poem extends Component {
                                     onClick={this.favoriteRecitation.bind(this)}></button>
                                     */}
                         </div>
-
-                        <button className='transcriptButton' onClick={this.goToTranscript.bind(this)}>See Transcript1111</button>
-                        <br/><br/><br/>
+                        <Grid>
+                        <Row className="show-grid">
+                            <Col md={8}>
+                            <div style={{lineHeight: '2', fontWeight: '700' }}>
+                            {this.state.poemTranscript}
+                            </div>
+                            </Col>
+                            <Col md={4}>
+                            <Comments />
+                            </Col>
+                        </Row>
+                        </Grid>
                         {this.state.deleteButton}
                     </div>
                 </div>
@@ -304,6 +322,7 @@ class Poem extends Component {
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
                 {this.props.children}
+                </div>
             </div>
         );
     }
@@ -361,6 +380,7 @@ class Poem extends Component {
 
                 // Delete the recitation.
                 firebase.database().ref().child('Recitations').child(recitation.id).remove( (err) => {
+
 
                     if(!err) {
                         firebase.storage().ref().child('Recitations').child(recitation.id).delete().then( () => {

@@ -62,13 +62,13 @@ class Home extends Component {
                 <div style={this.getOverlay()}></div>
                 <HomeHeader rStore={this.props.rStore} nav={this.props.nav}></HomeHeader>
 
-
                 <DisplaySection title="Trending Now"
                                 top='100px'
                                 rStore={this.props.rStore}
                                 nav={this.props.nav}
                                 name='Trending'>
                 </DisplaySection>
+
                 <DisplaySection title='Recent Uploads'
                                 top='150px'
                                 rStore={this.props.rStore}
