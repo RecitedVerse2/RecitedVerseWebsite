@@ -5,6 +5,7 @@
   "dependencies": {
     "alertify.js": "^1.0.12",
     "alertifyjs": "^1.10.0",
+    "algoliasearch": "^3.27.0",
     "au-audio-recorder": "^1.6.0",
     "express": "^4.15.3",
     "firebase": "^4.1.3",
