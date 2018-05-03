@@ -20,7 +20,7 @@ class ProfileBanner extends Component {
 
 
         var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
-        console.log(cUser);
+
         this.state.name = cUser.fullname;
         this.state.bio = cUser.bio;
         this.state.avatar = cUser.photoURL
@@ -31,11 +31,6 @@ class ProfileBanner extends Component {
     componentDidMount() {
         const store = this.props.rStore.getState();
 
-        if(store.currentUser != null) {
-            this.setState({
-                name:store.currentUser.fullname.substring(0,store.currentUser.fullname.indexOf(' '))
-            })
-        }
     }
 
     /**********************
@@ -55,7 +50,7 @@ class ProfileBanner extends Component {
     getImageStyle() {
         return {
             width:'100%',
-            height:'260px'
+            height:'260px',
         }
     }
     getNameStyles() {
@@ -71,6 +66,36 @@ class ProfileBanner extends Component {
             backgroundColor: 'rgba(0, 0, 0, 0.7)'
         }
     }
+
+    getFollowStyles() {
+        return {
+            position:'absolute',
+            color:'white',
+            margin:'auto',
+            left: '20px',
+            top: '200px',
+            fontSize: '24px',
+            textAlign:'center',
+            padding:'5px 20px 5px 20px',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        }
+    }
+
+    getFollowAStyles() {
+        return {
+            cursor: 'pointer',
+            color:'white',
+        }
+    }
+
+    getFollowARightStyles() {
+        return {
+            cursor: 'pointer',
+            marginLeft:'20px',
+            color:'white',
+        }
+    }
+
     getBioStyles() {
         return {
             position:'absolute',
@@ -101,7 +126,7 @@ class ProfileBanner extends Component {
         return {
             position:'absolute',
             borderRadius: '50%',
-            left:'20px',
+            left:'50px',
             top:'20px',
             width:'150px',
             height:'150px',
@@ -124,6 +149,10 @@ class ProfileBanner extends Component {
                     <div style={this.getNameStyles()}>
                         {this.state.name}
                     </div>
+                    <div style={this.getFollowStyles()}>
+                        <a style={this.getFollowAStyles()} onClick={this.goToFolllowing.bind(this)}><strong>25</strong> Following</a>
+
+                    </div>
 
                     <div >
                         <p style={this.getBioStyles()}>{this.state.bio}</p>
@@ -132,6 +161,19 @@ class ProfileBanner extends Component {
         );
     }
 
+
+    // button callbck method
+    goToFolllowing(){
+      window.location.href = 'profile?type=following';
+    }
+
+    goToFolllower(){
+      window.location.href = 'profile?type=follower';
+    }
+
+
 }
+
+
 
 export default ProfileBanner;

@@ -46,6 +46,7 @@ class FileChooserFormAndSave extends Component {
         const storageRef = firebase.storage().ref();
         var reader  = new FileReader();
         const thisClass = this;
+        this.props.startFileSelectedHandler()
         // reader.addEventListener("load", function () {
         //
         //

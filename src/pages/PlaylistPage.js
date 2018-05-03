@@ -37,15 +37,17 @@ class PlaylistPage extends Component {
         var loadedPlaylist = JSON.parse(window.sessionStorage.getItem('CurrentPlaylist'));
         var playlist = new Playlist(loadedPlaylist.name);
         var recs = [];
-        
+
+        console.log(loadedPlaylist);
+
         if(loadedPlaylist !== null) {
             loadedPlaylist.recitations.forEach( (rec) => {
-                var rO = new Recitation(rec.id, rec.uploaderID, rec.uploaderName, rec.image, rec.title, rec.author, rec.recitedBy, rec.published, rec.genre, rec.description, 
+                var rO = new Recitation(rec.id, rec.uploaderID, rec.uploaderName, rec.image, rec.title, rec.author, rec.recitedBy, rec.published, rec.genre, rec.description,
                                         rec.likes, rec.plays, rec.favorites, rec.text, rec.audio, rec.timestamp, playlist);
                 playlist.add(rO);
-                
+
                 var recItem = <RecitationItem margin='30px'
-                                              key={rec.id} 
+                                              key={rec.id}
                                               recitation={rO}
                                               nav={this.props.nav}
                                               rStore={this.props.rStore}>
@@ -173,7 +175,7 @@ class PlaylistPage extends Component {
 
                 {/* The banner with the sign in text */}
                 <ProfileBanner rStore={this.props.rStore}>
-                    <h1 className='playlistName'>{this.state.playlist !== null ? this.state.playlist.name : "Playlist"} Playlist</h1>    
+                    <h1 className='playlistName'>{this.state.playlist !== null ? this.state.playlist.name : "Playlist"} Playlist</h1>
                 </ProfileBanner>
 
                 <div className='profileDisplayArea'>
@@ -237,7 +239,7 @@ class PlaylistPage extends Component {
             return;
         }
 
-        Alertify.confirm("Are you sure you want to remove " + name + " from this playlist?", () => {
+           Alertify.confirm("Are you sure you want to remove " + name + " from this playlist?", () => {
             firebase.database().ref().child('Users')
                                     .child(cUser.userID)
                                     .child('Playlists')
@@ -281,7 +283,7 @@ class PlaylistPage extends Component {
 
         firebase.database().ref().child('Users').child(userID).child('Playlists').child(playlist.name).child(firebaseID).remove( (err) => {
             if(!err) {
-                
+
                 return;
             } else {
                 return;

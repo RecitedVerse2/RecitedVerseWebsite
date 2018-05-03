@@ -20,6 +20,7 @@ class EditProfile extends Component {
     *                     *
     ***********************/
 
+
     constructor() {
         super();
 
@@ -34,6 +35,8 @@ class EditProfile extends Component {
             social:['','','',''],
             userID:'',
         }
+
+
     }
 
     componentDidMount() {
@@ -55,7 +58,13 @@ class EditProfile extends Component {
                 cUser.social_media_links[3]
             ]
         });
+
+
+
     }
+
+
+
 
     getCurrentUser() {
         var cUser = this.props.rStore.getState().currentUser;
@@ -237,6 +246,19 @@ class EditProfile extends Component {
         }
     }
 
+    getSaveButtonStyle(){
+      return{
+        backgroundColor: '#4CAF50', /* Green */
+        marginTop:'50px',
+        color: 'white',
+        padding: '15px 32px',
+        textAlign: 'center',
+
+        display: 'inline-block',
+        fontSize: '16px'
+      }
+    }
+
 
     /**********************
     *                     *
@@ -257,6 +279,7 @@ class EditProfile extends Component {
 
                 // banner
                 <div style={this.getStyles2()}>
+                <p ref={(p)=>{this.statusLabel = p}}></p>
                     <img alt='bckg' style={this.getImageStyle()} ref={(img)=>{this.backgroundImage= img}} src={this.state.backgroundImage}/>
                      <img src={this.state.photoURL} ref={(img)=>{this.avatar= img}}  style={this.getavatarStyles()} />
                         <div style={this.getNameStyles()}>
@@ -305,6 +328,7 @@ class EditProfile extends Component {
                                     path={"Avatar/"+this.state.userID}
                                     formButtonClass='pill_btn' name='fileRecitation'
                                     accept='image/x-png' multiple='false'
+                                    startFileSelectedHandler={(e)=>{this.startUploadAavatarImage()}}
                                     fileSelectedHandler={(e)=>{this.uploadAavatarImage(e)}}>
                         Upload
                     </FileChooserForm>
@@ -315,6 +339,7 @@ class EditProfile extends Component {
                                     path={"Avatar/"+this.state.userID}
                                     formButtonClass='pill_btn2' name='fileRecitation2'
                                     accept='image/x-png' multiple='false'
+                                    startFileSelectedHandler={(e)=>{this.startUploadBackgrouandImage()}}
                                     fileSelectedHandler={(e)=>{this.uploadBackgrouandImage(e)}}>
                         Upload background
                     </FileChooserForm>
@@ -332,29 +357,10 @@ class EditProfile extends Component {
 
 
 
-                    <h1 className='titleText'>Social Media Links</h1>
-                    <div style={this.getSBStyles()}>
-                        <h1 style={this.getSearchBarTitleStyle(15, 5)}>Facebook:</h1>
-                        <input ref={(input)=>{this.facebookField = input}} style={this.getInputStyles(20)} type='text' placeholder={this.state.social[0]} />
-                    </div>
+              <div>
 
-                    <div style={this.getSBStyles()}>
-                        <h1 style={this.getSearchBarTitleStyle(15, 5)}>Twitter:</h1>
-                        <input ref={(input)=>{this.twitterField = input}} style={this.getInputStyles(18)} type='text' placeholder={this.state.social[1]} />
-                    </div>
-
-                    <div style={this.getSBStyles()}>
-                        <h1 style={this.getSearchBarTitleStyle(15, 5)}>LinkedIn:</h1>
-                        <input ref={(input)=>{this.linkedinField = input}} style={this.getInputStyles(18)} type='text' placeholder={this.state.social[2]} />
-                    </div>
-
-                    <div style={this.getSBStyles()}>
-                        <h1 style={this.getSearchBarTitleStyle(15, 5)}>Instagram:</h1>
-                        <input ref={(input)=>{this.instagramField = input}} style={this.getInputStyles(20)} type='text' placeholder={this.state.social[3]} />
-                    </div>
-
-                    <button className='titleText' onClick={this.handleSaveChanges.bind(this)}>Save Changes</button>
-
+                    <button className='titleText' style={this.getSaveButtonStyle()} onClick={this.handleSaveChanges.bind(this)}>Save Changes</button>
+</div>
                 </div>
 
                 {this.props.children}
@@ -371,14 +377,32 @@ class EditProfile extends Component {
     *                     *
     ***********************/
     uploadAavatarImage(url) {
-     this.setState({photoURL:url})
+      this.statusLabel.innerHTML =  "";
+      this.setState({photoURL:url})
+    };
 
-
+    startUploadAavatarImage() {
+      this.statusLabel.style.visibility = 'visible';
+      this.statusLabel.style.WebkitTransitionDuration = '0.5s';
+      this.statusLabel.style.paddingLeft='60px';
+      this.statusLabel.style.color = 'red';
+      this.statusLabel.style.opacity = '1';
+      this.statusLabel.innerHTML = "Uploading...";
     };
 
     uploadBackgrouandImage(url) {
+        this.statusLabel.innerHTML =  "";
         this.setState({backgroundImage:url})
     };
+
+    startUploadBackgrouandImage(){
+      this.statusLabel.style.visibility = 'visible';
+      this.statusLabel.style.WebkitTransitionDuration = '0.5s';
+      this.statusLabel.style.paddingLeft='60px';
+      this.statusLabel.style.color = 'red';
+      this.statusLabel.style.opacity = '1';
+      this.statusLabel.innerHTML = "Uploading...";
+    }
 
     handleSaveChanges() {
         var cUser = this.getCurrentUser();
@@ -391,10 +415,10 @@ class EditProfile extends Component {
         var password = this.passwordField.value;
         var passwordConfirm = this.passwordConfirmField.value;
         var bio = this.bioField.value;
-        var facebook = this.facebookField.value;
-        var twitter = this.twitterField.value;
-        var linkedin = this.linkedinField.value;
-        var instagram = this.instagramField.value;
+        //var facebook = this.facebookField.value;
+        //var twitter = this.twitterField.value;
+        //var linkedin = this.linkedinField.value;
+        //var instagram = this.instagramField.value;
 
 
 
@@ -437,11 +461,11 @@ class EditProfile extends Component {
             changes['bio'] = bio;
         }
 
-        var social = [facebook || cUser.social_media_links[0],
-                     twitter || cUser.social_media_links[1],
-                     linkedin || cUser.social_media_links[2],
-                     instagram || cUser.social_media_links[3]];
-        changes["social_media_links"] = social;
+        // var social = [facebook || cUser.social_media_links[0],
+        //              twitter || cUser.social_media_links[1],
+        //              linkedin || cUser.social_media_links[2],
+        //              instagram || cUser.social_media_links[3]];
+        // changes["social_media_links"] = social;
 
 
 
@@ -480,10 +504,12 @@ class EditProfile extends Component {
             var fullname = usr.fullname;
             usr.name = fullname.substring(0, fullname.indexOf(' '))
             window.localStorage.setItem('currentUser',JSON.stringify(usr));
+
+            this.props.nav.goTo('profile');
           });
 
 
-        this.props.nav.goTo('profile');
+
     }
 
 

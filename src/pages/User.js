@@ -15,6 +15,11 @@ import ProfileBanner from '../components/User/ProfileBanner';
 
 import Recitation from '../objects/Recitation';
 
+import RecitationItem2 from '../components/ProfilePageComps/RecitationItem2';
+import RecitationItem from '../components/ProfilePageComps/RecitationItem';
+import PlaylistItem from '../components/ProfilePageComps/PlaylistItem';
+import Playlist from '../objects/Playlist';
+
 class User extends Component {
 
     /**********************
@@ -23,8 +28,8 @@ class User extends Component {
     *                     *
     ***********************/
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             poemName:'...',
@@ -43,17 +48,34 @@ class User extends Component {
             show:false,
             backgroundColor:'rgba(0,0,0,0)',
             userInfo:'',
+            uploadPlaylist:null,
+            likedPlaylist:null,
+            favoritedPlaylist:null,
+            playlistPlaylist:null,
+
+            showUploads:true,
+            showPopular:false,
+            showLikes:false,
+            showFavorties:false,
+            showPlaylists:false,
+
+            // Temporary recitation when the page first loads, just to let the user know
+            // that something is loading.
+            recitations:[<PlaylistItem showLoadingIndicator={true} key={0}></PlaylistItem>,
+                        <PlaylistItem showLoadingIndicator={true} key={1}></PlaylistItem>,
+                        <PlaylistItem showLoadingIndicator={true} key={2}></PlaylistItem>,
+                        <PlaylistItem showLoadingIndicator={true} key={3}></PlaylistItem>]
         }
 
 
     }
 
     componentDidMount() {
+      //this.props.match.params.id
         const store = this.props.rStore.getState();
         var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
 
-        this.reloadData();
-        this.loadRecitationAudio();
+
 
 
 
@@ -96,11 +118,27 @@ class User extends Component {
 
    //    var user = firebase.database().ref("User/"+recitation.uploaderID).child()
 
-       firebase.database().ref().child('Users').child(recitation.uploaderID).once('value', (snap) => {
+
+       var uid = this.props.match.params.uid;
+
+
+
+
+       firebase.database().ref().child('Users').child(uid).once('value', (snap) => {
            var user = snap.val();
            console.log(user);
            this.setState({userInfo:user});
-});
+      });
+
+      this.loadUploadPlaylist(this.props.rStore, () => {
+          this.loadLikedPlaylist(this.props.rStore, () => {
+              this.loadFavoritedPlaylist(this.props.rStore, () => {
+                  this.loadPlaylists(this.props.rStore, () => {
+                      this.pushOntoPage();
+                  });
+              });
+          });
+      });
 
 
     }
@@ -125,51 +163,9 @@ class User extends Component {
             paddingBottom:'500px'
         };
     }
-    getHeaderStyle() {
-        return {
-            position: 'fixed',
-            top:'0px',
-            left:'0xp',
-            width: '100%',
-            height: '70px',
-            display:'table',
-            zIndex:'1000',
-            backgroundColor: this.state.backgroundColor
-        }
-    }
-    getLogoStyle() {
-        return {
-            position:'absolute',
-            top:'0px',
-            left:'20px',
-            width:'80px',
-            height:'90%',
-            cursor:'pointer',
-            marginTop:'5px',
-            display:'table-cell'
-        }
-    }
-    getButtonsSectionStyle() {
-        return {
-            position:'absolute',
-            top:'0px',
-            right:'0px',
-            textAlign:'right',
-            marginTop:'20px',
-            display:'table-cell',
-        }
-    }
-    getButtonsStyle() {
-        return {
-            textDecoration:'none',
-            border:'none',
-            background:'none',
-            color:'white',
-            fontFamily:'HelveticaNeue',
-            fontSize:'14px',
-            outline:'none'
-        }
-    }
+
+
+
     getOverlay() {
         return {
             position:'absolute',
@@ -179,71 +175,8 @@ class User extends Component {
             backgroundColor: '#000000',
         }
     }
-    getImageStyles() {
-        return {
-            position:'absolute',
-            width:'100%',
-            height:'100%',
-            zIndex:'-1'
-        }
-    }
-    getBannerTextStyles() {
-        return {
-            position:'relative',
-            top:'20px',
-            color:'white',
-            textAlign:'center',
-            fontSize:'100px',
-            fontFamily:'Monthoers'
-        }
-    }
-    getBannerTextStyles2() {
-        return {
-            position:'relative',
-            color:'white',
-            textAlign:'center',
-            fontSize:'70px',
-            fontFamily:'Monthoers'
-        }
-    }
-    getPlayLikeFavoriteInfo() {
-        return {
-            position:'relative',
-            top:'50px',
-            fontSize:'17px',
-            fontFamily:'MyriadPro',
-            display: 'inline-block'
-        }
-    }
 
-    getPlayFont(){
-      return {
-        fontSize:'40px',
-        paddingLeft:'5px',
-        paddingRight:'30px',
-      }
-    }
 
-    getPlayButtonSize(){
-      return {
-        width:'50px',
-        height:'30px',
-
-      }
-    }
-
-    getTextAreaStyle(){
-      return{
-        paddingTop:'30px',
-      }
-    }
-
-    getUserAlinkStyle(){
-      return{
-        fontSize: '40px',
-        color:'blue'
-      }
-    }
 
 
 
@@ -268,11 +201,32 @@ class User extends Component {
 
 
                 {/* The div that shows the image. */}
+                <div className='buttonsArea'>
+
+                    <div>
+                        <button ref={(button)=>{this.allButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
+                                id='records' className='changeRecitationsButton'>Records</button>
+                        <button ref={(button)=>{this.popularButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
+                                id='popular' className='changeRecitationsButton'>Popular</button>
+                        <button ref={(button)=>{this.likesButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
+                                id='like' className='changeRecitationsButton'>Liked</button>
+                        <button ref={(button)=>{this.favoritesButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
+                                id='favorite' className='changeRecitationsButton'>Favorites</button>
+                        <button ref={(button)=>{this.playlistButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
+                                id='playlist' className='changeRecitationsButton'>Playlists</button>
+                    </div>
+                </div>
+                <div className='profileDisplayArea'>
+                    {this.state.recitations}
+                </div>
 
 
 
-                <Clock onupdate={this.update.bind(this)}></Clock>
-                {this.props.children}
             </div>
         );
     }
@@ -284,372 +238,379 @@ class User extends Component {
     *                     *
     ***********************/
 
-    goToHomePage() {
-        document.body.scrollTop = 0;
-        this.props.nav.goTo('home');
+    /** Changes the recitations that are being looked at based on which button is clicked. */
+    changeRecitations(e) {
+        var sender = e.target.id;
+
+        if(sender === 'records') {
+            this.setState({ showUploads: true, showPopular: false, showLikes: false, showFavorties: false, showPlaylists: false},
+            () => { this.pushOntoPage(); });
+            this.allButton.style.textDecoration = 'underline';
+            this.popularButton.style.textDecoration = 'none';
+            this.likesButton.style.textDecoration = 'none';
+            this.favoritesButton.style.textDecoration = 'none';
+            this.playlistButton.style.textDecoration = 'none';
+        } else if(sender === 'popular') {
+            this.setState({ showUploads: false, showPopular: true, showLikes: false, showFavorties: false, showPlaylists: false},
+            () => { this.pushOntoPage(); });
+            this.allButton.style.textDecoration = 'none';
+            this.popularButton.style.textDecoration = 'underline';
+            this.likesButton.style.textDecoration = 'none';
+            this.favoritesButton.style.textDecoration = 'none';
+            this.playlistButton.style.textDecoration = 'none';
+        } else if(sender === 'like') {
+            this.setState({ showUploads: false, showPopular: false, showLikes: true, showFavorties: false, showPlaylists: false},
+            () => { this.pushOntoPage(); });
+            this.allButton.style.textDecoration = 'none';
+            this.popularButton.style.textDecoration = 'none';
+            this.likesButton.style.textDecoration = 'underline';
+            this.favoritesButton.style.textDecoration = 'none';
+            this.playlistButton.style.textDecoration = 'none';
+        } else if(sender === 'favorite') {
+            this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: true, showPlaylists: false},
+            () => { this.pushOntoPage(); });
+            this.allButton.style.textDecoration = 'none';
+            this.popularButton.style.textDecoration = 'none';
+            this.likesButton.style.textDecoration = 'none';
+            this.favoritesButton.style.textDecoration = 'underline';
+            this.playlistButton.style.textDecoration = 'none';
+        } else if(sender === 'playlist') {
+            this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: false, showPlaylists: true},
+            () => { this.pushOntoPage(); });
+            this.allButton.style.textDecoration = 'none';
+            this.popularButton.style.textDecoration = 'none';
+            this.likesButton.style.textDecoration = 'none';
+            this.favoritesButton.style.textDecoration = 'none';
+            this.playlistButton.style.textDecoration = 'underline';
+        }
     }
 
-    goToTranscript() {
-        document.body.scrollTop = 0;
-        this.props.nav.goTo('transcript');
-    }
 
-    goToAccountSettings() {
-        document.body.scrollTop = 0;
-        this.props.nav.goTo('accountsettings');
-    }
 
-    goToPRofile() {
-        document.body.scrollTop = 0;
-        this.props.nav.goTo('profile');
-    }
+    /** Loads all of the recitations that the user has uploaded into a playlist. */
+    loadUploadPlaylist(rStore, callback) {
+        const fireRef = firebase.database().ref();
+        //const storageRef = firebase.storage().ref();
+        const store = rStore.getState();
 
-    stringify(element) {
-        var cache = [];
-        return JSON.stringify(element, (key, value) => {
-            if (typeof value === 'object' && value !== null) {
-                if (cache.indexOf(value) !== -1) {
-                    // Circular reference found, discard key
-                    return;
-                }
-                // Store value in our collection
-                cache.push(value);
-            }
-            return value;
+        // The final playlist
+        var playlist = new Playlist("Uploads");
+
+        fireRef.child('Recitations').orderByChild('uploaderID').equalTo(this.props.match.params.uid).once('value').then((snapshot)=> {
+            /* Go through each recitation that the user has. If the array of recitations does not contain
+            that recitation, then add it. */
+            snapshot.forEach((rO) => {
+                var recObj = new Recitation( rO.val().id,
+                                             rO.val().uploaderID,
+                                             rO.val().uploaderName,
+                                             rO.val().image,
+                                             rO.val().title,
+                                             rO.val().author,
+                                             rO.val().recited_by,
+                                             rO.val().published,
+                                             rO.val().genre,
+                                             rO.val().description,
+                                             rO.val().likes,
+                                             rO.val().plays,
+                                             rO.val().favorites,
+                                             rO.val().text,
+                                             rO.val().audio,
+                                             rO.val().timestamp );
+
+                playlist.add(recObj);
+            });
+            this.setState({
+                uploadPlaylist: playlist
+            });
+            callback();
         });
     }
 
-    handleDeleteRecitation() {
-        var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
+    /** Loads all of the recitations that the user has liked into a playlist. */
+    loadLikedPlaylist(rStore, callback) {
+        const fireRef = firebase.database().ref();
+        //const storageRef = firebase.storage().ref();
+        const store = rStore.getState();
 
-        Alertify.confirm("Are you sure you want to delete this recitation?", (e) => {
-            if (e) {
-                // Remove the recitations from all users' likes,favorites,playlists.
-                this.removeFromAllUsers(recitation.id);
+        // The final playlist
+        var playlist = new Playlist("Liked");
+        var i = 0;
 
+        // Get all the like ids.
+        fireRef.child('Users').child(this.props.match.params.uid).once('value', (snap) => {
+            var likes = snap.val().likes;
 
-                // Delete the recitation.
-                firebase.database().ref().child('Recitations').child(recitation.id).remove( (err) => {
+            if(likes) {
+                likes.forEach( (e) => {
+                    fireRef.child('Recitations').child(e).once('value', (rO) => {
+                        var recObj = new Recitation( rO.val().id,
+                                                    rO.val().uploaderID,
+                                                    rO.val().uploaderName,
+                                                    rO.val().image,
+                                                    rO.val().title,
+                                                    rO.val().author,
+                                                    rO.val().recited_by,
+                                                    rO.val().published,
+                                                    rO.val().genre,
+                                                    rO.val().description,
+                                                    rO.val().likes,
+                                                    rO.val().plays,
+                                                    rO.val().favorites,
+                                                    rO.val().text,
+                                                    rO.val().audio,
+                                                    rO.val().timestamp  );
 
-                    if(!err) {
-                        firebase.storage().ref().child('Recitations').child(recitation.id).delete().then( () => {
+                        playlist.add(recObj);
+                        i++;
 
-                            this.props.nav.goTo('home');
-
-                        }).catch( (err) => {
-                            console.log(err);
+                        this.setState({
+                            likedPlaylist: playlist
                         });
-                    }
-                    else {
-                        console.log(err);
-                    }
+                        if(i === likes.length) {
+                            callback();
+                        }
+                    });
                 });
             } else {
-                // user clicked "cancel"
+                callback();
             }
         });
     }
 
+    /** Loads all of the recitations that the user has favorited into a playlist. */
+    loadFavoritedPlaylist(rStore, callback) {
+        const fireRef = firebase.database().ref();
+        //const storageRef = firebase.storage().ref();
+        const store = rStore.getState();
 
-    removeFromAllUsers(removeID) {
-        firebase.database().ref().child('Users').once('value', (allUsers) => {
-            // Go through each user.
-            allUsers.forEach( (snap) => {
-                var user = snap.val();
+        // The final playlist
+        var playlist = new Playlist("Favorited");
+        var i = 0;
 
-                // Remove from favorites
-                if(user.favorites) {
-                    if( user.favorites.includes(removeID) ) {
-                        // Get the old favorites, remove the rec id.
-                        var newFavorites = user.favorites;
-                        this.remove(newFavorites, removeID);
+        // Get all the like ids.
+        fireRef.child('Users').child(this.props.match.params.uid).once('value', (snap) => {
+            var favorites = snap.val().favorites;
 
-                        // Set the new favorites.
-                        firebase.database().ref().child('Users').child(user.userID).child('favorites').set(newFavorites);
-                    }
-                }
+            if(favorites) {
+                favorites.forEach( (e) => {
+                    fireRef.child('Recitations').child(e).once('value', (rO) => {
+                        var recObj = new Recitation( rO.val().id,
+                                                    rO.val().uploaderID,
+                                                    rO.val().uploaderName,
+                                                    rO.val().image,
+                                                    rO.val().title,
+                                                    rO.val().author,
+                                                    rO.val().recited_by,
+                                                    rO.val().published,
+                                                    rO.val().genre,
+                                                    rO.val().description,
+                                                    rO.val().likes,
+                                                    rO.val().plays,
+                                                    rO.val().favorites,
+                                                    rO.val().text,
+                                                    rO.val().audio,
+                                                    rO.val().timestamp  );
 
-                // Do the same for likes
-                if(user.likes) {
-                    if( user.likes.includes(removeID) ) {
-                        var newLikes = user.likes;
-                        this.remove(newLikes, removeID);
+                        playlist.add(recObj);
+                        i++;
 
-                        firebase.database().ref().child('Users').child(user.userID).child('likes').set(newLikes);
-                    }
-                }
-
-                // Do the same for likes
-                firebase.database().ref().child('Users').child(user.userID).child('Playlists').once('value', (playlists) => {
-                    playlists.forEach( (playlist) => {
-                        var newPlaylist = [];
-                        playlist.forEach( (rec) => {
-                            if(rec.val() !== removeID) {
-                                newPlaylist.push(rec.val());
-                            }
+                        this.setState({
+                            favoritedPlaylist: playlist
                         });
+                        if(i === favorites.length) {
+                            callback();
+                        }
+                    });
+                });
+            } else {
+                callback();
+            }
+        });
+    }
 
-                        firebase.database().ref().child('Users').child(user.userID).child('Playlists').child(playlist.key).set(newPlaylist);
+    /** Loads all of the user's playlists. */
+    loadPlaylists(rStore, callback) {
+        const fireRef = firebase.database().ref();
+        const store = rStore.getState();
+
+        let playlists = [];
+
+
+        fireRef.child('Users').child(this.props.match.params.uid).child('Playlists').once('value').then((snapshot)=> {
+            // Go through the playlist objects.
+            snapshot.forEach((playlist) => {
+                let actualPlaylist = new Playlist(playlist.key);
+
+                // For each playlist, go through the recitation IDs.
+                playlist.forEach( (itm) => {
+                    var recID = itm.val();
+
+                    // Load the recitation and add it to the array.
+                    this.loadRecitationsForPlaylist(recID, (obj) => {
+                        obj.setPlaylist(actualPlaylist);
+                        actualPlaylist.add(obj);
+                    });
+                });
+
+                playlists.push(actualPlaylist);
+
+                this.setState({
+                    playlistPlaylist: playlists
+                });
+                callback();
+            });
+        });
+    }
+
+
+    /** Takes the playlists (once they are loaded) and pushes new html elements onto the page. */
+    pushOntoPage() {
+        // Clear all of the recitations.
+        var items = [];
+        var recs = [];
+        this.setState({ recitations: [] });
+
+        if(this.state.showUploads === true) {
+            if(this.state.uploadPlaylist) {
+                if(this.state.uploadPlaylist.length() === 0) { return; }
+            } else { return; }
+
+            // Create the array of recitation items.
+            this.state.uploadPlaylist.forEach( (rec) => {
+                recs.push(rec);
+            }, () => {
+                recs.sort((a,b)=>{
+                    return b.timestamp - a.timestamp
+                });
+
+                recs.forEach((rec)=>{
+                    var recItem = <RecitationItem2 margin='30px'
+                                              key={rec.id}
+                                              recitation={rec}
+                                              nav={this.props.nav}
+                                              rStore={this.props.rStore}></RecitationItem2>
+                    items.push(recItem);
+
+                    // Update the state.
+                    this.setState({
+                        recitations: items
+                    });
+                });
+
+            });
+        }
+        else if(this.state.showPopular === true) {
+            if(this.state.uploadPlaylist) {
+                if(this.state.uploadPlaylist.length() === 0) { return; }
+            } else { return; }
+
+            // Create the array of recitation items.
+            this.state.uploadPlaylist.forEach( (rec) => {
+                recs.push(rec);
+            }, () => {
+                recs.sort((a,b)=>{
+                    return b.plays - a.plays
+                });
+
+                recs.forEach((rec)=>{
+                    var recItem = <RecitationItem margin='30px'
+                                              key={rec.id}
+                                              recitation={rec}
+                                              nav={this.props.nav}
+                                              rStore={this.props.rStore}></RecitationItem>
+                    items.push(recItem);
+
+                    // Update the state.
+                    this.setState({
+                        recitations: items
                     });
                 });
             });
-        });
-    }
-
-
-
-
-    update() {
-        const store = this.props.rStore.getState();
-        const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
-
-        // Change to play/pause button when audio is/isn't playing.
-        if(store.audio !== null) {
-            if(store.id === recitation.id) {
-                if(store.audio.paused === true || store.audio.ended === true) {
-                    this.playBtn.className = 'interactButton fa fa-play';
-                } else {
-                    this.playBtn.className = 'interactButton fa fa-pause';
-                }
-
-                if(store.audio.ended === true) {
-                    if(store.shouldUpdatePlayCount === true) {
-                        this.handleUpdatePlayCount();
-                        this.props.rStore.dispatch({
-                            type:'UPDATE_PLAYCOUNT',
-                            shouldUpdatePlayCount: false
-                        });
-                    }
-                }
-            }
         }
+        else if(this.state.showLikes === true) {
+            if(this.state.likedPlaylist){
+                if(this.state.likedPlaylist.length() === 0) { return; }
+            } else { return; }
 
-        if(document.body.scrollTop >= 30 || window.scrollY >= 30) {
-            this.setState({
-                backgroundColor: 'rgba(0,0,0,0.85)'
-            })
-        } else {
-            this.setState({
-                backgroundColor: 'rgba(0,0,0,0)'
-            })
-        }
-    }
-
-
-    // Adds 1 to the play count everytime the audio is finished playing.
-    handleUpdatePlayCount() {
-        const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
-
-        recitation.plays += 1;
-        window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
-
-        firebase.database().ref().child('Recitations').child(recitation.id).update({
-            plays: recitation.plays
-        }, this.reloadData(() => {
-            this.props.rStore.dispatch({
-                type:'UPDATE_PLAYCOUNT',
-                shouldUpdatePlayCount: false
-            });
-        }));
-        return;
-    }
-
-
-    // Removes an item from an array.
-    remove(arr) {
-        var what, a = arguments, L = a.length, ax;
-        while (L > 1 && arr.length) {
-            what = a[--L];
-            // eslint-disable-next-line
-            while ((ax= arr.indexOf(what)) !== -1) {
-                arr.splice(ax, 1);
-            }
-        }
-        return arr;
-    }
-
-
-    /** Loads the audio that will be played. */
-    loadRecitationAudio() {
-        const rec = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
-
-        firebase.storage().ref().child('Recitations').child(rec.id).getDownloadURL().then( (url) => {
-            var audio = new Audio(url);
-            audio.loop = false;
-
-            this.setState({
-                audio: audio
-            });
-        });
-    }
-
-
-    /** RECITATION PLAYING/LIKING/FAVORITING */
-
-    playRecitation() {
-        const store = this.props.rStore.getState();
-        const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
-        this.setState({ plays: this.state.plays + 1 });
-
-        this.props.rStore.dispatch({
-            type:'UPDATE_PLAYCOUNT',
-            shouldUpdatePlayCount: true
-        });
-
-        // If the button has a pause symbol, then just pause the store's audio object.
-        if(this.playBtn.className.includes('pause')) {
-
-            store.audio.pause();
-            this.playBtn.className = 'interactButton fa fa-play';
-
-        // If it does not have a pause sign...
-        } else {
-
-            // First set the audio if it is null. Then play it.
-            if(store.audio === null) {
-                this.props.rStore.dispatch({
-                    type:'SET',
-                    id: recitation.id,
-                    uploaderID: recitation.uploaderID,
-                    uploaderName: recitation.uploaderName,
-                    image: recitation.image,
-                    title: recitation.title,
-                    author: recitation.author,
-                    recitedBy: recitation.recitedBy,
-                    published: recitation.published,
-                    genre: recitation.genre,
-                    description: recitation.description,
-                    likes: recitation.likes,
-                    plays: recitation.plays,
-                    favorites: recitation.favorites,
-                    text: recitation.text,
-                    recitation: recitation.recitation,
-                    audio: this.state.audio
+            // Create the array of recitation items.
+            this.state.likedPlaylist.forEach( (rec) => {
+                recs.push(rec);
+            }, () => {
+                recs.sort((a,b)=>{
+                    return b.likes - a.likes
                 });
-                store.audio.play();
-                this.playBtn.className = 'interactButton fa fa-pause';
-            }
-            // Otherwise, if there is already an audio object.
-            else {
 
-                // If the recitation that you are looking at has the same src as the one in the store...
-                if(store.audio.src === this.state.audio.src) {
-                    store.audio.play();
-                    this.playBtn.className = 'interactButton fa fa-pause';
-                }
-                // Otherwise, clear and play the new audio.
-                else {
-                    store.audio.pause();
-                    this.props.rStore.dispatch({
-                        type:'SET',
-                        id: recitation.id,
-                        uploaderID: recitation.uploaderID,
-                        uploaderName: recitation.uploaderName,
-                        image: recitation.image,
-                        title: recitation.title,
-                        author: recitation.author,
-                        recitedBy: recitation.recitedBy,
-                        published: recitation.published,
-                        genre: recitation.genre,
-                        description: recitation.description,
-                        likes: recitation.likes,
-                        plays: recitation.plays,
-                        favorites: recitation.favorites,
-                        text: recitation.text,
-                        recitation: recitation.recitation,
-                        audio: this.state.audio
+                recs.forEach((rec)=>{
+                    var recItem = <RecitationItem margin='30px'
+                                              key={rec.id}
+                                              recitation={rec}
+                                              nav={this.props.nav}
+                                              rStore={this.props.rStore}></RecitationItem>
+                    items.push(recItem);
+
+                    // Update the state.
+                    this.setState({
+                        recitations: items
                     });
-                    store.audio.play();
-                    this.playBtn.className = 'interactButton fa fa-pause';
-                }
-
-            }
+                });
+            });
         }
-    }
+        else if(this.state.showFavorties === true) {
+            if(this.state.favoritedPlaylist) {
+                if(this.state.favoritedPlaylist.length() === 0) { return; }
+            } else { return; }
 
-    likeRecitation() {
-        const store = this.props.rStore.getState();
-        if(store.currentUser === null || store.currentUser === undefined) { alert('You must be signed in to like a recitation.'); return; }
+            // Create the array of recitation items.
+            this.state.favoritedPlaylist.forEach( (rec) => {
+                recs.push(rec);
+            }, () => {
+                recs.sort((a,b)=>{
+                    return b.favorites - a.favorites
+                });
 
-        const fireRef = firebase.database().ref();
-        const uid = store.currentUser.userID;
-        var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
+                recs.forEach((rec)=>{
+                    var recItem = <RecitationItem margin='30px'
+                                              key={rec.id}
+                                              recitation={rec}
+                                              nav={this.props.nav}
+                                              rStore={this.props.rStore}></RecitationItem>
+                    items.push(recItem);
 
-        fireRef.child('Users').child(uid).once('value').then((snap)=>{
-            var likes = snap.val().likes || [];
+                    // Update the state.
+                    this.setState({
+                        recitations: items
+                    });
+                });
+            });
+        }
+        else if(this.state.showPlaylists === true) {
+            if(this.state.playlistPlaylist) {
+                if(this.state.playlistPlaylist.length === 0) { return; }
+            } else { return; }
 
-            if(!likes.includes(recitation.id)) {
-                // Set the user's likes array.
-                likes.push(recitation.id);
-                fireRef.child('Users').child(uid).child('likes').set(likes);
+            // Create the array of recitation items.
+            this.state.playlistPlaylist.forEach( (pl) => {
+                var playItem = <PlaylistItem key={pl.name}
+                                             playlist={pl}
+                                             nav={this.props.nav}
+                                             rStore={this.props.rStore}></PlaylistItem>
+                items.push(playItem);
+            })
 
-                // Change the recitation's like number
-                recitation.likes += 1;
-                window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
-                fireRef.child('Recitations').child(recitation.id).update({
-                    likes: recitation.likes
-                }, this.reloadData());
-                return;
-            } else {
-                // Set the user's likes array.
-                this.remove(likes, recitation.id);
-                fireRef.child('Users').child(uid).child('likes').set(likes);
+            // Update the state.
+            this.setState({
+                recitations: items
+            });
+        }
 
-                // Change the recitation's like number
-                recitation.likes -= 1;
-                fireRef.child('Recitations').child(recitation.id).update({
-                    likes: recitation.likes
-                }, this.reloadData());
-                return;
-            }
-        });
-    }
-
-    favoriteRecitation() {
-        const store = this.props.rStore.getState();
-        if(store.currentUser === null) { alert('You must be signed in to favorite a recitation.'); return; }
-
-        const fireRef = firebase.database().ref();
-        const uid = store.currentUser.userID;
-        const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
-
-        fireRef.child('Users').child(uid).once('value').then((snap)=>{
-            var favorites = snap.val().favorites || [];
-
-            if(!favorites.includes(recitation.id)) {
-                // Set the user's favorite array.
-                favorites.push(recitation.id);
-                fireRef.child('Users').child(uid).child('favorites').set(favorites);
-
-                // Change the recitation's favorite number
-                recitation.favorites += 1;
-                window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
-                fireRef.child('Recitations').child(recitation.id).update({
-                    favorites: recitation.favorites
-                }, this.reloadData());
-                return;
-            } else {
-                // Set the user's favorite array.
-                this.remove(favorites, recitation.id);
-                fireRef.child('Users').child(uid).child('favorites').set(favorites);
-
-                // Change the recitation's favorite number
-                recitation.favorites -= 1;
-                window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
-                fireRef.child('Recitations').child(recitation.id).update({
-                    favorites: recitation.favorites
-                }, this.reloadData());
-                return;
-            }
-        });
     }
 
 
-    reloadData(callback) {
-        const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
-        const fireRef = firebase.database().ref();
 
-        fireRef.child('Recitations').child(recitation.id).once('value').then((rO)=> {
+
+    // Loads a recitation with a given id.
+    loadRecitationsForPlaylist(id, callback) {
+        firebase.database().ref().child('Recitations').child(id).once('value', (rO) => {
             var recObj = new Recitation( rO.val().id,
                                         rO.val().uploaderID,
                                         rO.val().uploaderName,
@@ -665,19 +626,22 @@ class User extends Component {
                                         rO.val().favorites,
                                         rO.val().text,
                                         rO.val().audio,
-                                        rO.val().timestamp,
-                                        null );
+                                        rO.val().timestamp );
 
-            window.sessionStorage.setItem('CurrentRecitation', this.stringify(recObj));
-            this.setState({
-                plays: recObj.plays,
-                likes: recObj.likes,
-                favorites: recObj.favorites
-            });
-        });
+            if(callback) {
+                callback(recObj);
+            }
+        })
     }
 
 
-}
+
+
+
+
+  }
+
+
+
 
 export default User;

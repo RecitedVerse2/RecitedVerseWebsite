@@ -522,18 +522,15 @@ class Upload extends Component {
     }
 
     RandomGallery(){
-          const images = [randImage1, randImage2, randImage3, randImage4, randImage5,
-                          randImage6, randImage7, randImage8];
           const randIndex = Math.floor( (Math.random() * 8) + 1);
-
-          this.poemImage.src = images[randIndex];
+          //  1 ---  8 storage in firebase
+          var url = 'https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2Frand' + randIndex +'.jpg?alt=media'
+          this.poemImage.src = url;
+          this.setState({ choseImage: true });
     }
 
     uploadRecitationImage(e) {
-        var poemImage = this.poemImage;
-        poemImage.src = e;
-
-
+        this.poemImage.src = e;
         this.setState({ choseImage: true });
     };
 
@@ -712,13 +709,15 @@ class Upload extends Component {
         var poemWrittenText = this.transcriptField;
         var poemDescription = this.descriptionField;
 
+
         // Select a random image if choseImage is false
         if(this.state.choseImage === false) {
-            const images = [randImage1, randImage2, randImage3, randImage4, randImage5,
-                            randImage6, randImage7, randImage8];
-            const randIndex = Math.floor( (Math.random() * 8) + 1);
+          const randIndex = Math.floor( (Math.random() * 8) + 1);
+          //  1 ---  8 storage in firebase
+          var url = 'https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2Frand' + randIndex +'.jpg?alt=media'
 
-            this.poemImage.src = images[randIndex];
+
+            this.poemImage.src = url;
         }
 
         if( (this.valueExists(this.state.audioObj) || finalRecording !== null) && this.valueExists(poemName.value) && this.valueExists(poemAuthor.value)

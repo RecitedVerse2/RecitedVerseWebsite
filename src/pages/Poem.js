@@ -284,7 +284,7 @@ class Poem extends Component {
                         <h1 className='headerText'>Recited by {this.state.recitedBy}{this.userID}</h1>
                         <h1 className='headerText'>Published: {this.state.published}</h1>
                         <h1 className='headerText'>Genre: {this.state.genre}</h1>
-                        <h1 className='headerText'>Uploaded By:<a style={this.getUserAlinkStyle()} href="user"> {this.state.uploaderName}</a></h1>
+                        <h1 className='headerText'>Uploaded By:<a style={this.getUserAlinkStyle()} href={'/user/' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
 
                         <div style={{marginLeft:'10px'}}>
                             <button style={this.getPlayButtonSize()} className='interactButton fa fa-play'
@@ -368,6 +368,7 @@ class Poem extends Component {
             return value;
         });
     }
+
 
     handleDeleteRecitation() {
         var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));

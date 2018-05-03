@@ -6,7 +6,7 @@ import { createStore } from 'redux';
 
 import Landing from './pages/Landing';
 import Home from './pages/Home';
-import SignUp from './pages/SignUp';
+import SignUp from './pages/SignUp2';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
@@ -184,7 +184,7 @@ class App extends Component {
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
         const TranscriptPage = () => {return <Transcript audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Transcript>}
         const PlaylistPageComp = () => {return <PlaylistPage audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</PlaylistPage>}
-        const UserPageComp = () => {return <User audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</User>}
+        const UserPageComp = ({match}) => {return <User audioPlayer={AudioPlayerObj} match={match} nav={navObj} rStore={store}>{AudioPlayerObj}</User>}
 
         if(!cUser){  // before login
           return (
@@ -217,7 +217,7 @@ class App extends Component {
                     <Route exact path="/search" component={SearchPage}></Route>
                     <Route exact path="/transcript" component={TranscriptPage}></Route>
                     <Route exact path="/playlist" component={PlaylistPageComp}></Route>
-                    <Route exact path="/User" component={UserPageComp}></Route>
+                    <Route exact path="/User/:uid" component={UserPageComp}></Route>
                 </div>
             </BrowserRouter>
         );

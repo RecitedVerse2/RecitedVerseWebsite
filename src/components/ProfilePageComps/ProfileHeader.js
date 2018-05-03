@@ -28,11 +28,14 @@ class ProfileHeader extends Component {
         }
 
 
-        var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
-        this.state.name = cUser.name;
+          var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+          var fullname = cUser.fullname;
 
-        this.mouseOver = this.mouseOver.bind(this)
-        this.mouseLeaves = this.mouseLeaves.bind(this)
+          this.state.name = fullname.substring(0, fullname.indexOf(' '))
+
+
+         this.mouseOver = this.mouseOver.bind(this)
+         this.mouseLeaves = this.mouseLeaves.bind(this)
     }
 
 
@@ -115,7 +118,8 @@ class ProfileHeader extends Component {
             top:'0px',
             right:'0px',
             textAlign:'right',
-            width: '200px',
+            paddingRight:'50px',
+            width: '250px',
             marginTop:'20px',
             display:'table-cell',
         }
@@ -211,8 +215,8 @@ class ProfileHeader extends Component {
        if(this.state.showDownMenu){
           downMeue = (
                 <div  style={this.getDropdownMenu()}   >
-                <a style={this.getDropdownItem()} href="profile">profile</a>
-                <a style={this.getDropdownItem()} href="accountsettings">Setting</a>
+                <a style={this.getDropdownItem()} href="/profile">profile</a>
+                <a style={this.getDropdownItem()} href="/accountsettings">Setting</a>
                 <a style={this.getDropdownItem()} onClick={this.handleLogout.bind(this)} >Logout</a>
                 </div>
           );

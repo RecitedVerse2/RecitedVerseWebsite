@@ -30,7 +30,8 @@ class Header extends Component {
 
 
         var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
-        this.state.name = cUser.name;
+        var fullname = cUser.fullname;
+        this.state.name = fullname.substring(0, fullname.indexOf(' '))
 
         this.mouseOver = this.mouseOver.bind(this)
         this.mouseLeaves = this.mouseLeaves.bind(this)

@@ -41,6 +41,7 @@ class Profile extends Component {
             showPopular:false,
             showLikes:false,
             showFavorties:false,
+            showFollower:false,
             showPlaylists:false,
 
             // Temporary recitation when the page first loads, just to let the user know
@@ -82,6 +83,15 @@ class Profile extends Component {
                 });
             });
         });
+
+       if(window.location.href.includes('following')){
+
+
+       }else if(window.location.href.includes('follower')){
+
+       }else{
+        
+       }
     }
 
 
@@ -134,7 +144,7 @@ class Profile extends Component {
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
                 <ProfileBanner rStore={this.props.rStore}>
-                    <h1 style={{fontFamily:'NEB', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}'s</h1>
+                    <h1 style={{fontFamily:'NEB', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}</h1>
                     <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>Recordings</h1>
                 </ProfileBanner>
 
@@ -152,7 +162,7 @@ class Profile extends Component {
                                 id='like' className='changeRecitationsButton'>Liked</button>
                         <button ref={(button)=>{this.favoritesButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
-                                id='favorite' className='changeRecitationsButton'>Favorites</button>
+                                id='favorite' className='changeRecitationsButton'>Following</button>
                         <button ref={(button)=>{this.playlistButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
                                 id='playlist' className='changeRecitationsButton'>Playlists</button>
@@ -441,11 +451,11 @@ class Profile extends Component {
                 });
 
                 recs.forEach((rec)=>{
-                    var recItem = <RecitationItem2 margin='30px'
+                    var recItem = <RecitationItem margin='30px'
                                               key={rec.id}
                                               recitation={rec}
                                               nav={this.props.nav}
-                                              rStore={this.props.rStore}></RecitationItem2>
+                                              rStore={this.props.rStore}></RecitationItem>
                     items.push(recItem);
 
                     // Update the state.

@@ -234,7 +234,6 @@ class Login extends Component {
       return{
         display: this.state.errorInfoShow
       }
-
     }
 
     /**********************
