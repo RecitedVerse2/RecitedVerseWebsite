@@ -3,11 +3,12 @@ import * as firebase from 'firebase';
 
 import backgroundImage from '../res/brickBackground.jpg';
 
-
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 
 import FileChooserForm from '../components/FileChooserFormAndSave';
+import PageFooter from '../components/PageFooter';
 
 // eslint-disable-next-line
 import _ from '../css/EditProfile.css';
@@ -41,7 +42,7 @@ class EditProfile extends Component {
 
     componentDidMount() {
         var cUser = this.getCurrentUser();
-        console.log(cUser);
+
 
 
         this.setState({
@@ -272,7 +273,7 @@ class EditProfile extends Component {
 
 
                 {/* Header and Banner stuff. */}
-                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
 
@@ -363,6 +364,9 @@ class EditProfile extends Component {
 </div>
                 </div>
 
+
+                <PageFooter bottom='-240px'>
+                </PageFooter>
                 {this.props.children}
             </div>
         );

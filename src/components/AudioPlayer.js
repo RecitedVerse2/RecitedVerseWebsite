@@ -104,7 +104,7 @@ class AudioPlayer extends Component {
 
         return (
             <div ref={(AudioPlayer)=>{this.ap = AudioPlayer}} style={this.getStyles()}>
-                
+
                 {/* The buttons for playing the audio. */}
                 <div className="audio_buttons_section">
                     <CircleButton {...this.getCBS()} clickFunction={this.handleStepbackward.bind(this)}>
@@ -119,7 +119,7 @@ class AudioPlayer extends Component {
                         <p className='fa fa-step-forward' style={{paddingTop:'10px'}}></p>
                     </CircleButton>
                 </div>
-            
+
 
                 {/* The audio slider. */}
                 <div className="title_area">
@@ -141,6 +141,7 @@ class AudioPlayer extends Component {
 
                 {/* The buttons for volume and looping. */}
                 <div className="right_buttons">
+                  <button style={{color:'white'}} className="fa fa-bars" onClick={this.ShowPlayList.bind(this)} ref={(button)=>{this.loopBtn = button}}/>&nbsp; &nbsp;
                     <OverlayTrigger trigger="click" placement="top" overlay={popover}>
                         <button id='volumeBtn' ref={(button)=>{this.volumeButton = button}} data-toggle="popover" data-placement="top">
                             <p ref={(p)=>{this.volumeIcon = p}} className='fa fa-volume-up'></p>
@@ -150,11 +151,11 @@ class AudioPlayer extends Component {
                     &nbsp;&nbsp;&nbsp;
 
                     <button style={{color:'white'}} className="fa fa-repeat" onClick={this.handleLoop.bind(this)} ref={(button)=>{this.loopBtn = button}}/>
-                
+
                     &nbsp;&nbsp;&nbsp;
                 </div>
                 <button style={{color:'white',fontSize:'20px'}} className="fa fa-caret-up" onClick={this.toggleAudioPlayer.bind(this)} ref={(button)=>{this.toggleBtn = button}}/>
-                
+
 
 
                 {/* The background for the audio player. */}
@@ -182,6 +183,10 @@ class AudioPlayer extends Component {
         this.setState({
             doubleClickBack:false
         })
+    }
+
+    ShowPlayList(){
+      window.location.href = "playlist"
     }
 
     handlePlay() {
@@ -212,7 +217,7 @@ class AudioPlayer extends Component {
 
         if(store.audio !== null) {
             store.audio.loop = store.audio.loop === true ? false : true;
-            this.loopBtn.style.color = this.loopBtn.style.color === 'white' ? 'red' : 'white';
+            this.loopBtn.style.color = this.loopBtn.style.color === 'white' ? 'blue' : 'white';
             this.props.rStore.dispatch({
                 type: 'LOOP_AUDIO'
             })
@@ -338,7 +343,7 @@ class AudioPlayer extends Component {
 
         recitation.plays += 1;
         window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
-        
+
         firebase.database().ref().child('Recitations').child(recitation.id).update({
             plays: recitation.plays
         }, () => {
@@ -412,14 +417,14 @@ class AudioPlayer extends Component {
         }
         const storageRef = firebase.storage().ref();
         var rec;
-        
+
 
         if(next === 'next') {
             rec = store.recitation.playlist.next(store.recitation);
         } else if(next === 'last') {
             rec = store.recitation.playlist.last(store.recitation);
         }
-        
+
         // First, check if that next recitation is null. If so, just return.
         if(rec === null) { return; }
 

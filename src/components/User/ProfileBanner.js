@@ -14,27 +14,17 @@ class ProfileBanner extends Component {
     constructor() {
         super();
         this.state = {
-            name:'User',
-            bio:""
+            follow:'Following',
         }
 
-
-        var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
-        console.log(cUser)
-        this.state.name = cUser.fullname;
-        this.state.bio = cUser.bio;
     }
 
     componentDidMount() {
-        const store = this.props.rStore.getState();
 
-        if(store.currentUser != null) {
-            this.setState({
-                name:store.currentUser.fullname.substring(0,store.currentUser.fullname.indexOf(' '))
-            })
+
+        if(this.props.userInfo.following == true){
+          this.setState({follow:'Followed'});
         }
-
-
         //var user = firebase.database().ref("User/"+this.props.userID)
         //console.log(user);
 
@@ -74,6 +64,27 @@ class ProfileBanner extends Component {
             backgroundColor: 'rgba(0, 0, 0, 0.7)'
         }
     }
+
+    getFollowStyles() {
+        return {
+            position:'absolute',
+            color:'white',
+            margin:'auto',
+            left: '70px',
+            top: '190px',
+            fontSize: '24px',
+            textAlign:'center',
+            padding:'5px 20px 5px 20px',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        }
+    }
+
+    getFollowAStyles() {
+        return {
+            cursor: 'pointer',
+            color:'white',
+        }
+    }
     getBioStyles() {
         return {
             position:'absolute',
@@ -105,7 +116,7 @@ class ProfileBanner extends Component {
         return {
             position:'absolute',
             borderRadius: '50%',
-            left:'20px',
+            left:'50px',
             top:'20px',
             width:'150px',
             height:'150px',
@@ -128,6 +139,10 @@ class ProfileBanner extends Component {
                     <div style={this.getNameStyles()}>
                         {this.props.userInfo.fullname}
                     </div>
+                    <div style={this.getFollowStyles()}>
+                        <a style={this.getFollowAStyles()} onClick={this.goToFolllowing.bind(this)}>{this.props.userInfo.follow}</a>
+
+                    </div>
 
                     <div >
                         <p style={this.getBioStyles()}>{this.props.userInfo.bio}</p>
@@ -136,6 +151,16 @@ class ProfileBanner extends Component {
         );
     }
 
+
+    // button callbck method
+    goToFolllowing(){
+        this.props.changeFollowStatus()
+    }
+
 }
+
+
+
+
 
 export default ProfileBanner;

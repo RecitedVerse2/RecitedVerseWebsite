@@ -281,12 +281,7 @@ class Login extends Component {
           						</span>
           					</div>
 
-          					<div className="contact100-form-checkbox m-l-4">
-          						<input className="input-checkbox100" type="checkbox"  name="remember-me"/>
-          						<label className="label-checkbox100" >
-          							Remember me
-          						</label>
-          					</div>
+  
 
 
 

@@ -79,7 +79,7 @@ class Header extends Component {
       return {
           float: 'left',
           marginLeft: '200px',
-          marginTop: '5px',
+          marginTop: '10px',
       }
     }
 
@@ -120,7 +120,8 @@ class Header extends Component {
             top:'0px',
             right:'0px',
             textAlign:'right',
-            width: '200px',
+            paddingRight:'50px',
+            width: '250px',
             marginTop:'20px',
             display:'table-cell',
         }

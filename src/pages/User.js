@@ -9,6 +9,7 @@ import __ from '../css/Header.css';
 
 import RVLogo from '../res/RV-Final-Icon.png';
 
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import Clock from '../components/Clock';
 import ProfileBanner from '../components/User/ProfileBanner';
@@ -19,6 +20,10 @@ import RecitationItem2 from '../components/ProfilePageComps/RecitationItem2';
 import RecitationItem from '../components/ProfilePageComps/RecitationItem';
 import PlaylistItem from '../components/ProfilePageComps/PlaylistItem';
 import Playlist from '../objects/Playlist';
+import Userlist from '../objects/Userlist';
+import UserObject from '../objects/User';
+import UserItem from '../components/ProfilePageComps/UserItem';
+import PageFooter from '../components/PageFooter';
 
 class User extends Component {
 
@@ -58,13 +63,12 @@ class User extends Component {
             showLikes:false,
             showFavorties:false,
             showPlaylists:false,
+            uid:'',
+            my_uid:'',
 
             // Temporary recitation when the page first loads, just to let the user know
             // that something is loading.
-            recitations:[<PlaylistItem showLoadingIndicator={true} key={0}></PlaylistItem>,
-                        <PlaylistItem showLoadingIndicator={true} key={1}></PlaylistItem>,
-                        <PlaylistItem showLoadingIndicator={true} key={2}></PlaylistItem>,
-                        <PlaylistItem showLoadingIndicator={true} key={3}></PlaylistItem>]
+            recitations:[]
         }
 
 
@@ -79,55 +83,37 @@ class User extends Component {
 
 
 
-        // Button for deleting recitations
-        if(store.currentUser !== null) {
-            if(store.currentUser.userID === recitation.uploaderID) {
-               var btn = <button className='deleteButton' onClick={this.handleDeleteRecitation.bind(this)}>
-                                Delete Recitation
-                        </button>
-
-                this.setState({
-                    deleteButton: btn
-                });
-            } else {
-                this.setState({
-                    deleteButton: <div></div>
-                });
-            }
-        }
-
-
-
-
-        this.setState({
-            poemName: recitation.title,
-            poemAuthor: recitation.author,
-            recitedBy: recitation.recitedBy,
-            published: recitation.published,
-            genre: recitation.genre,
-            uploaderName: recitation.uploaderName,
-            poemImage: recitation.image,
-            poemTranscript: recitation.text,
-            plays: recitation.plays,
-            likes: recitation.likes,
-            favorits: recitation.favorites,
-        })
-
-
-
-
    //    var user = firebase.database().ref("User/"+recitation.uploaderID).child()
 
 
-       var uid = this.props.match.params.uid;
+
+      var url = window.location.href;
+      var n = url.indexOf("user");
+      var uid = url.substring(n+5);
+      this.state.uid = uid;
+
+      var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+
 
 
 
 
        firebase.database().ref().child('Users').child(uid).once('value', (snap) => {
            var user = snap.val();
-           console.log(user);
-           this.setState({userInfo:user});
+
+         firebase.database().ref().child('Users').child(cUser.userID).once('value').then((snap2)=>{
+               var usr =  snap2.val();
+               var follow = usr.follow || [];
+
+               if(!follow.includes(uid)) {
+                 user.follow = "Follow"
+               }else{
+                 user.follow = "Followed"
+               }
+               this.setState({userInfo:user});
+             });
+
+
       });
 
       this.loadUploadPlaylist(this.props.rStore, () => {
@@ -190,13 +176,13 @@ class User extends Component {
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
-                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
 
                 {/* The background image */}
                 <div style={this.getOverlay()}></div>
 
                 {/* The banner with the sign in text */}
-                <ProfileBanner  userInfo={this.state.userInfo} rStore={this.props.rStore}>
+                <ProfileBanner changeFollowStatus={(e)=>{this.changeFollowStatus(e)}}  userInfo={this.state.userInfo} rStore={this.props.rStore}>
                   </ProfileBanner>
 
 
@@ -215,7 +201,7 @@ class User extends Component {
                                 id='like' className='changeRecitationsButton'>Liked</button>
                         <button ref={(button)=>{this.favoritesButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
-                                id='favorite' className='changeRecitationsButton'>Favorites</button>
+                                id='favorite' className='changeRecitationsButton'>Following</button>
                         <button ref={(button)=>{this.playlistButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
                                 id='playlist' className='changeRecitationsButton'>Playlists</button>
@@ -226,7 +212,7 @@ class User extends Component {
                 </div>
 
 
-
+                {this.props.children}
             </div>
         );
     }
@@ -237,6 +223,61 @@ class User extends Component {
     *       METHODS       *
     *                     *
     ***********************/
+
+    changeFollowStatus(){
+      var user = this.state.userInfo;
+
+      if(this.state.userInfo.follow == "Follow"){
+        user.follow = "Followed";
+        this.setState({userInfo:user});
+
+      }else{
+        user.follow = "Follow";
+        this.setState({userInfo:user});
+
+      }
+
+       this.changeFirebaseFollow(this.state.userInfo.userID);
+
+    }
+
+    // Removes an item from an array.
+    remove(arr) {
+        var what, a = arguments, L = a.length, ax;
+        while (L > 1 && arr.length) {
+            what = a[--L];
+            // eslint-disable-next-line
+            while ((ax= arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+            }
+        }
+        return arr;
+    }
+
+    changeFirebaseFollow(his_uid) {
+      const fireRef = firebase.database().ref();
+      const store = this.props.rStore.getState();
+      const uid = store.currentUser.userID;
+
+
+      fireRef.child('Users').child(uid).once('value').then((snap)=>{
+          var usr =  snap.val();
+          var follow = usr.follow || [];
+
+          if(!follow.includes(his_uid)) {
+              follow.push(his_uid);
+              fireRef.child('Users').child(uid).child('follow').set(follow);
+
+          } else {
+              this.remove(follow, his_uid);
+              fireRef.child('Users').child(uid).child('follow').set(follow);
+
+          }
+
+          usr.follow = follow;
+          window.localStorage.setItem('currentUser',JSON.stringify(usr));
+      });
+    }
 
     /** Changes the recitations that are being looked at based on which button is clicked. */
     changeRecitations(e) {
@@ -296,7 +337,7 @@ class User extends Component {
         // The final playlist
         var playlist = new Playlist("Uploads");
 
-        fireRef.child('Recitations').orderByChild('uploaderID').equalTo(this.props.match.params.uid).once('value').then((snapshot)=> {
+        fireRef.child('Recitations').orderByChild('uploaderID').equalTo(this.state.uid).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((rO) => {
@@ -337,7 +378,7 @@ class User extends Component {
         var i = 0;
 
         // Get all the like ids.
-        fireRef.child('Users').child(this.props.match.params.uid).once('value', (snap) => {
+        fireRef.child('Users').child(this.state.uid).once('value', (snap) => {
             var likes = snap.val().likes;
 
             if(likes) {
@@ -384,47 +425,46 @@ class User extends Component {
         const store = rStore.getState();
 
         // The final playlist
-        var playlist = new Playlist("Favorited");
+        var playlist = new Userlist("Following");
         var i = 0;
 
         // Get all the like ids.
-        fireRef.child('Users').child(this.props.match.params.uid).once('value', (snap) => {
-            var favorites = snap.val().favorites;
+        fireRef.child('Users').child(this.state.uid).once('value', (snap) => {
+            var follows = snap.val().follow;
+            if(follows) {
+                follows.forEach( (e) => {
+                    fireRef.child('Users').child(e).once('value', (rO) => {
+                      console.log(e);
+                        var recObj = new UserObject( rO.val().userID,
+                                                    rO.val().photoURL,
+                                                    rO.val().fullname,
+                                                  );
 
-            if(favorites) {
-                favorites.forEach( (e) => {
-                    fireRef.child('Recitations').child(e).once('value', (rO) => {
-                        var recObj = new Recitation( rO.val().id,
-                                                    rO.val().uploaderID,
-                                                    rO.val().uploaderName,
-                                                    rO.val().image,
-                                                    rO.val().title,
-                                                    rO.val().author,
-                                                    rO.val().recited_by,
-                                                    rO.val().published,
-                                                    rO.val().genre,
-                                                    rO.val().description,
-                                                    rO.val().likes,
-                                                    rO.val().plays,
-                                                    rO.val().favorites,
-                                                    rO.val().text,
-                                                    rO.val().audio,
-                                                    rO.val().timestamp  );
 
                         playlist.add(recObj);
+                        console.log(playlist);
+
                         i++;
 
-                        this.setState({
-                            favoritedPlaylist: playlist
-                        });
-                        if(i === favorites.length) {
+
+
+                        if(i === follows.length) {
+                          this.setState({
+                              favoritedPlaylist: playlist
+                          });
+
                             callback();
                         }
                     });
                 });
+
+
+
             } else {
                 callback();
             }
+
+
         });
     }
 
@@ -436,7 +476,7 @@ class User extends Component {
         let playlists = [];
 
 
-        fireRef.child('Users').child(this.props.match.params.uid).child('Playlists').once('value').then((snapshot)=> {
+        fireRef.child('Users').child(this.state.uid).child('Playlists').once('value').then((snapshot)=> {
             // Go through the playlist objects.
             snapshot.forEach((playlist) => {
                 let actualPlaylist = new Playlist(playlist.key);
@@ -484,11 +524,11 @@ class User extends Component {
                 });
 
                 recs.forEach((rec)=>{
-                    var recItem = <RecitationItem2 margin='30px'
+                    var recItem = <RecitationItem margin='30px'
                                               key={rec.id}
                                               recitation={rec}
                                               nav={this.props.nav}
-                                              rStore={this.props.rStore}></RecitationItem2>
+                                              rStore={this.props.rStore}></RecitationItem>
                     items.push(recItem);
 
                     // Update the state.
@@ -569,11 +609,11 @@ class User extends Component {
                 });
 
                 recs.forEach((rec)=>{
-                    var recItem = <RecitationItem margin='30px'
+                    var recItem = <UserItem margin='30px'
                                               key={rec.id}
                                               recitation={rec}
                                               nav={this.props.nav}
-                                              rStore={this.props.rStore}></RecitationItem>
+                                              rStore={this.props.rStore}></UserItem>
                     items.push(recItem);
 
                     // Update the state.

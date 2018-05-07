@@ -25,7 +25,7 @@ class RecitationItem2 extends Component {
    getStyles() {
        return {
            position:'relative',
-           width: '500px',
+           width: '600px',
            height: '200px',
            marginTop: this.props.margin || '20px',
            marginLeft: this.props.margin || 'auto',
@@ -37,7 +37,7 @@ class RecitationItem2 extends Component {
    getImageDivStyles(){
      return {
        float: 'left',
-       width: '200px',
+       width: '250px',
        paddingLeft: '50px'
      }
    }
@@ -47,13 +47,14 @@ class RecitationItem2 extends Component {
        float: 'left',
        width: '300px',
        height: '200px',
-       paddingLeft: '50px'
+       paddingLeft: '50px',
+       paddingTop:'20px'
      }
    }
 
    getImageStyles() {
        return {
-         width: '150px',
+         width: '200px',
          height: '200px',
          cursor: 'pointer',
        }
@@ -83,7 +84,8 @@ class RecitationItem2 extends Component {
      return {
        margin: '0',
        padding: '0',
-       textAlign: 'left'
+       textAlign: 'left',
+       fontSize:'18px',
      }
    }
 
@@ -111,9 +113,7 @@ class RecitationItem2 extends Component {
 
 
       var d = new Date(this.props.recitation.timestamp);
-      var createTime = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " +
-d.getHours() + ":" + d.getMinutes();
-
+      var createTime = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
 
         return (
             <div style={this.getStyles()}>
@@ -128,14 +128,12 @@ d.getHours() + ":" + d.getMinutes();
                    <div style={this.getImageRightDivStyles()} >
                     <ul style={this.getDescULStyle()}>
 
-                                <li style={this.getDescLiStyle()}>Poem: &nbsp; {this.props.recitation.title}</li>
-                                <li style={this.getDescLiStyle()} >Poet: &nbsp; &nbsp;{this.props.recitation.author}</li>
-                                <li style={this.getDescLiStyle()} >Reciter:&nbsp;{this.props.recitation.recited_by} </li>
-                                <li style={this.getDescLiStyle()} >Upload Time:&nbsp;  {createTime}</li>
+                                <li style={this.getDescLiStyle()}> <strong> {this.props.recitation.title}</strong></li>
+                                <li style={this.getDescLiStyle()} >By:&nbsp;<strong> &nbsp;{this.props.recitation.author}</strong></li>
+                                <li style={this.getDescLiStyle()} >Recited By:&nbsp;{this.props.recitation.recited_by} </li>
+                                <li style={this.getDescLiStyle()} >Date:&nbsp;  {createTime}</li>
                                 <li style={this.getDescLiStyle()}  >Like:&nbsp; {this.props.recitation.likes} </li>
                                 <li style={this.getDescLiStyle()}  >Genre: &nbsp;{this.props.recitation.genre}</li>
-                                <li style={this.getDescDetailLiStyle()} onClick={this.playRecitation.bind(this)}  > Add to PlayList </li>
-                                <li style={this.getDescDetailLiStyle()}  onClick={this.goToPoemPage.bind(this)} > go to Detail </li>
 
 
 

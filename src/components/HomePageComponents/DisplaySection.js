@@ -27,7 +27,7 @@ class DisplaySection extends Component {
 
         // Load the appropriate playlist.
         const fireRef = firebase.database().ref();
-        
+
         // Load recitations based on this display's name.
         if(this.props.name === 'Trending') {
             this.loadMostPopular(fireRef, (playlist) => {
@@ -129,24 +129,26 @@ class DisplaySection extends Component {
     render() {
         return (
             <div style={this.getGridStyles()}>
-                
+
                 <div style={this.getTitleStyles()}>
                     {this.props.title}
                 </div>
 
                 {/* Displays the recitations in a slider type area. */}
                 <div style={this.getDisplaySectionStyles()}>
-                    <button onClick={this.slideRight.bind(this)} 
-                            style={this.getSliderButtonStylesLeft()} 
+                    <button onClick={this.slideRight.bind(this)}
+                            style={this.getSliderButtonStylesLeft()}
                             className='fa fa-caret-left'></button>
 
                     {this.state.recitations[0]}
                     {this.state.recitations[1]}
                     {this.state.recitations[2]}
                     {this.state.recitations[3]}
-                    
-                    <button onClick={this.slideLeft.bind(this)} 
-                            style={this.getSliderButtonStylesRight()} 
+                    {this.state.recitations[4]}
+    
+
+                    <button onClick={this.slideLeft.bind(this)}
+                            style={this.getSliderButtonStylesRight()}
                             className='fa fa-caret-right'></button>
                 </div>
                 <br/>
@@ -160,7 +162,7 @@ class DisplaySection extends Component {
     *       UTILITY       *
     *                     *
     ***********************/
- 
+
     // Loads the 8 most popular recitations.
     loadMostPopular(fireRef, callback) {
         var playlist = new Playlist("Popular");
@@ -241,7 +243,7 @@ class DisplaySection extends Component {
         });
     }
 
-    
+
     // Changes the order of the recitations in the array to give the allusion of a slider
     slideLeft() {
         var first = this.state.recitations[0];

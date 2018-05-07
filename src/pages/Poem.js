@@ -78,7 +78,8 @@ class Poem extends Component {
             }
         }
 
-
+        var d = new Date(recitation.timestamp);
+        var dateString = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
 
 
         this.setState({
@@ -93,6 +94,7 @@ class Poem extends Component {
             plays: recitation.plays,
             likes: recitation.likes,
             favorits: recitation.favorites,
+            date: dateString,
         })
 
 
@@ -231,8 +233,11 @@ class Poem extends Component {
 
     getPlayButtonSize(){
       return {
-        width:'50px',
-        height:'30px',
+        marginTop:'0px',
+        marginRight:'0px',
+        width:'70px',
+
+        height:'50px',
 
       }
     }
@@ -258,6 +263,14 @@ class Poem extends Component {
         }
     }
 
+    getTitleStyles(){
+      return {
+        padding:'10px, 10px, 10px, 10px',
+        fontWeight:800
+
+      }
+    }
+
 
 
     /**********************
@@ -281,10 +294,12 @@ class Poem extends Component {
                 <div className='contentArea' >
 
                     <div className='verticalTextArea' style={this.getTextAreaStyle()}>
-                        <h1 className='headerText'>Recited by {this.state.recitedBy}{this.userID}</h1>
-                        <h1 className='headerText'>Published: {this.state.published}</h1>
-                        <h1 className='headerText'>Genre: {this.state.genre}</h1>
-                        <h1 className='headerText'>Uploaded By:<a style={this.getUserAlinkStyle()} href={'/user/' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
+                       <h1 className='headerText'><strong>{this.state.poemName}</strong></h1>
+                       <h1 className='headerText'>by <strong>{this.state.poemAuthor} </strong></h1>
+                       <h1 className='headerText'>Genre: {this.state.genre}</h1>
+                      <h1 className='headerText'>Date:  {this.state.date}</h1>
+
+                        <h1 className='headerText'>Recited By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
 
                         <div style={{marginLeft:'10px'}}>
                             <button style={this.getPlayButtonSize()} className='interactButton fa fa-play'
@@ -293,11 +308,11 @@ class Poem extends Component {
                             &nbsp;&nbsp;
                             </button>  <span style={this.getPlayFont()}> {this.state.plays}  </span>
 
-                          <button className='interactButton fa fa-thumbs-up' style={this.getPlayButtonSize()}
+                          <button className='interactButton fa fa-heart' style={this.getPlayButtonSize()}
                                     ref={(button)=>{this.likeBtn = button}}
                                     onClick={this.likeRecitation.bind(this)}>
 
-                                    </button>           <span style={this.getPlayFont()}> {this.state.likes} </span>
+                                    </button>     <span style={this.getPlayFont()}> {this.state.likes} </span>
                           {/*  <button className='interactButton fa fa-heart'
                                     ref={(button)=>{this.favoriteBtn = button}}
                                     onClick={this.favoriteRecitation.bind(this)}></button>

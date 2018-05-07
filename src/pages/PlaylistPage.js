@@ -8,6 +8,7 @@ import RVLogo from '../res/RV-Final-Icon.png';
 // eslint-disable-next-line
 import _ from '../css/Playlist.css';
 
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import PageFooter from '../components/PageFooter';
 import RecitationItem from '../components/ProfilePageComps/RecitationItem';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
@@ -131,7 +132,7 @@ class PlaylistPage extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+            backgroundColor: 'white'
         }
     }
     getImageStyles() {
@@ -155,45 +156,27 @@ class PlaylistPage extends Component {
     render() {
         return (
             <div style={this.getStyles()}>
-                {/* The header area */}
-                <div className='header' style={this.getHeaderStyle()}>
-                    &nbsp;&nbsp;
-                    <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
-                    <div style={this.getButtonsSectionStyle()}>
-                        <button style={this.getButtonsStyle()} onClick={this.goToPRofile.bind(this)}>Profile</button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </div>
-                </div>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
 
                 {/* The background image */}
                 <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+
 
 
 
 
 
                 {/* The banner with the sign in text */}
-                <ProfileBanner rStore={this.props.rStore}>
-                    <h1 className='playlistName'>{this.state.playlist !== null ? this.state.playlist.name : "Playlist"} Playlist</h1>
-                </ProfileBanner>
+
 
                 <div className='profileDisplayArea'>
                     {this.state.recitations}
                 </div>
 
 
-                <PageFooter bottom='-250px'>
-                </PageFooter>
-                <br/><br/><br/>
-                <br/><br/><br/>
-                <br/><br/><br/>
-                <br/><br/><br/>
-                <br/><br/><br/>
-                <br/><br/><br/>
+                  {this.props.children}
 
-                <Clock onupdate={this.update.bind(this)}></Clock>
-                {this.props.children}
+
             </div>
         );
     }

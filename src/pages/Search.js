@@ -7,11 +7,10 @@ import _ from '../css/Search.css';
 import ___ from '../css/Header.css';
 
 import backgroundImage from '../res/brickBackground.jpg';
-
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import RecitationItem2 from '../components/SearchPageComps/RecitationItem2';
 import Clock from '../components/Clock';
 import Header from '../components/SearchPageComps/SearchHeader';
-import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import Recitation from '../objects/Recitation';
 
@@ -66,7 +65,7 @@ class Search extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+            backgroundColor: 'white'
         }
     }
     getImageStyles() {
@@ -88,6 +87,11 @@ class Search extends Component {
         }
     }
 
+    getTitleStyles(){
+      return{
+        marginBottom:'50px'
+      }
+    }
 
 
 
@@ -101,9 +105,9 @@ class Search extends Component {
         return (
             <div style={this.getStyles()}>
                 {/* All header, background, and banner stuff. */}
-                <Header nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></Header>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></HomeHeader>
                 <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+
 
 
 
@@ -111,7 +115,7 @@ class Search extends Component {
                 {/* The are for displaying results. */}
                 <div className='resultsSection'>
                     <div className='recitationResults'>
-                        <h1>Result</h1>
+                        <div style={this.getTitleStyles()}><h1>Result</h1></div>
                         {this.state.recComponents}
                     </div>
                 </div>
@@ -119,6 +123,7 @@ class Search extends Component {
 
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
+              
                 {this.props.children}
             </div>
         );

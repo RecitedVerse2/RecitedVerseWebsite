@@ -11,10 +11,13 @@ import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import PlaylistItem from '../components/ProfilePageComps/PlaylistItem';
 import RecitationItem2 from '../components/ProfilePageComps/RecitationItem2';
+import UserItem from '../components/ProfilePageComps/UserItem';
 import RecitationItem from '../components/ProfilePageComps/RecitationItem';
 import PageFooter from '../components/PageFooter';
 
 import Recitation from '../objects/Recitation';
+import Userlist from '../objects/Userlist';
+import User from '../objects/User';
 import Playlist from '../objects/Playlist';
 
 // Here is where users will view their own profiles.
@@ -46,10 +49,7 @@ class Profile extends Component {
 
             // Temporary recitation when the page first loads, just to let the user know
             // that something is loading.
-            recitations:[<PlaylistItem showLoadingIndicator={true} key={0}></PlaylistItem>,
-                        <PlaylistItem showLoadingIndicator={true} key={1}></PlaylistItem>,
-                        <PlaylistItem showLoadingIndicator={true} key={2}></PlaylistItem>,
-                        <PlaylistItem showLoadingIndicator={true} key={3}></PlaylistItem>]
+            recitations:[]
         }
     }
 
@@ -90,7 +90,7 @@ class Profile extends Component {
        }else if(window.location.href.includes('follower')){
 
        }else{
-        
+
        }
     }
 
@@ -138,7 +138,7 @@ class Profile extends Component {
         return (
             <div style={this.getStyles()}>
 
-                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
 
                 <div style={this.getOverlay()}></div>
                 <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
@@ -175,12 +175,7 @@ class Profile extends Component {
 
                 <PageFooter bottom='-250px'>
                 </PageFooter>
-                <br/><br/><br/>
-                <br/><br/><br/>
-                <br/><br/><br/>
-                <br/><br/><br/>
-                <br/><br/><br/>
-                <br/><br/><br/>
+
 
                 {this.props.children}
             </div>
@@ -344,51 +339,51 @@ class Profile extends Component {
         });
     }
 
-    /** Loads all of the recitations that the user has favorited into a playlist. */
+    /** remove favorite  , replace with follow */
+
     loadFavoritedPlaylist(rStore, callback) {
         const fireRef = firebase.database().ref();
         //const storageRef = firebase.storage().ref();
         const store = rStore.getState();
 
         // The final playlist
-        var playlist = new Playlist("Favorited");
+        var playlist = new Userlist("Following");
         var i = 0;
+
+
 
         // Get all the like ids.
         fireRef.child('Users').child(store.currentUser.userID).once('value', (snap) => {
-            var favorites = snap.val().favorites;
+            var follows = snap.val().follow;
 
-            if(favorites) {
-                favorites.forEach( (e) => {
-                    fireRef.child('Recitations').child(e).once('value', (rO) => {
-                        var recObj = new Recitation( rO.val().id,
-                                                    rO.val().uploaderID,
-                                                    rO.val().uploaderName,
-                                                    rO.val().image,
-                                                    rO.val().title,
-                                                    rO.val().author,
-                                                    rO.val().recited_by,
-                                                    rO.val().published,
-                                                    rO.val().genre,
-                                                    rO.val().description,
-                                                    rO.val().likes,
-                                                    rO.val().plays,
-                                                    rO.val().favorites,
-                                                    rO.val().text,
-                                                    rO.val().audio,
-                                                    rO.val().timestamp  );
+
+            if(follows) {
+                follows.forEach( (e) => {
+                    fireRef.child('Users').child(e).once('value', (rO) => {
+                        var recObj = new User( rO.val().userID,
+                                                    rO.val().photoURL,
+                                                    rO.val().fullname,
+                                                  );
+
 
                         playlist.add(recObj);
+
                         i++;
 
-                        this.setState({
-                            favoritedPlaylist: playlist
-                        });
-                        if(i === favorites.length) {
+
+
+                        if(i === follows.length) {
+                          this.setState({
+                              favoritedPlaylist: playlist
+                          });
+
                             callback();
                         }
                     });
                 });
+
+
+
             } else {
                 callback();
             }
@@ -523,9 +518,11 @@ class Profile extends Component {
             });
         }
         else if(this.state.showFavorties === true) {
+
             if(this.state.favoritedPlaylist) {
                 if(this.state.favoritedPlaylist.length() === 0) { return; }
             } else { return; }
+
 
             // Create the array of recitation items.
             this.state.favoritedPlaylist.forEach( (rec) => {
@@ -536,11 +533,11 @@ class Profile extends Component {
                 });
 
                 recs.forEach((rec)=>{
-                    var recItem = <RecitationItem margin='30px'
+                    var recItem = <UserItem margin='30px'
                                               key={rec.id}
                                               recitation={rec}
                                               nav={this.props.nav}
-                                              rStore={this.props.rStore}></RecitationItem>
+                                              rStore={this.props.rStore}></UserItem>
                     items.push(recItem);
 
                     // Update the state.

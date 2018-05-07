@@ -70,10 +70,11 @@ class ProfileBanner extends Component {
     getFollowStyles() {
         return {
             position:'absolute',
+            display:'none',
             color:'white',
             margin:'auto',
-            left: '20px',
-            top: '200px',
+            left: '70px',
+            top: '190px',
             fontSize: '24px',
             textAlign:'center',
             padding:'5px 20px 5px 20px',

@@ -23,6 +23,7 @@
 }
 
 .headerText {
+    margin-top: 10px;
     text-align: left;
     font-size: 32px;
     font-family: 'HelveticaNeue';
@@ -46,7 +47,7 @@ button {
     text-align: center;
 }
 .deletePopoverBtn {
-    
+
 }
 .transcriptButton {
     font-size: 60px;

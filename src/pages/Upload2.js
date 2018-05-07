@@ -20,6 +20,7 @@ import randImage6 from '../res/rand6.jpg';
 import randImage7 from '../res/rand7.jpg';
 import randImage8 from '../res/rand8.jpg';
 
+import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import FileChooserForm from '../components/FileChooserForm';
@@ -496,7 +497,7 @@ class Upload extends Component {
                 <Clock onupdate={this.handleStopPlaying.bind(this)}></Clock>
 
                 {/* Header and Background stuff. */}
-                <ProfileHeader nav={this.props.nav} rStore={this.props.rStore}></ProfileHeader>
+                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
 
 
 

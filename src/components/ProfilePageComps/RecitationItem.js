@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import Alertify from 'alertify.js';
 import Clock from '../Clock';
@@ -21,7 +21,7 @@ class RecitationItem extends Component {
             opacity:'0.0'
         }
     }
-    
+
 
     /**********************
     *                     *
@@ -37,7 +37,7 @@ class RecitationItem extends Component {
            marginBottom:'80px',
            display:'inline-block',
            backgroundColor: 'blue',
-           
+
        }
    }
    getImageStyles() {
@@ -45,6 +45,7 @@ class RecitationItem extends Component {
            position:'relative',
            heigth:'100%',
            width: '100%',
+           cursor : 'pointer'
        }
    }
    getTextStyles() {
@@ -61,6 +62,10 @@ class RecitationItem extends Component {
            fontWeight: '700',
            textAlign: 'left',
            marginLeft: '5px',
+           width: '90%',
+           whiteSpace: 'nowrap',
+           overflow:'hidden'
+
        }
    }
    getUploaderStyles() {
@@ -76,7 +81,7 @@ class RecitationItem extends Component {
            textDecoration:'none',
            fontWeight: '500',
            marginLeft: '5px',
-           
+
 
        }
    }
@@ -97,6 +102,7 @@ class RecitationItem extends Component {
 
    blockStyles(){
        return {
+        marginTop:'20px',
         background: '#fff',
         display: 'inline-block',
         boxShadow: ' 0 1px 3px 0 rgba(0,0,0,0.20)',
@@ -105,11 +111,12 @@ class RecitationItem extends Component {
         borderRadius: '5px',
         textAlign: 'left',
         marginLeft: '5px',
+        textAlign:'left'
 
        }
    }
 
-   
+
 
     /**********************
     *                     *
@@ -121,18 +128,18 @@ class RecitationItem extends Component {
         return (
             <div style={this.blockStyles()}>
                 <div ref={(div)=>{this.theDiv = div}} style={this.getStyles()} onMouseOver={this.mouseEnter.bind(this)} onMouseLeave={this.mouseExit.bind(this)}>
-                    <img onClick={this.playRecitation.bind(this)} 
+                    <img onClick={this.playRecitation.bind(this)}
                         src={this.props.recitation.image}
                         style={this.getImageStyles()}
                         width='100%'
                         height='100%'
                         alt='recim'/>
                 <div>
-                    <button onClick={this.goToPoemPage.bind(this)} 
+                    <button onClick={this.goToPoemPage.bind(this)}
                             style={this.getTextStyles()}>
                         {this.props.recitation.title}
                     </button>
-                    <button style={this.getUploaderStyles()}>
+                    <button  onClick={this.goToPoemPage.bind(this)} style={this.getUploaderStyles()}>
                         {this.props.recitation.uploaderName}
                     </button>
                 </div>
@@ -204,8 +211,8 @@ class RecitationItem extends Component {
             return;
         }
 
-        Alertify.defaultValue("Playlist Name").prompt("Which playlist would you like to add \"" + this.props.recitation.title + "\" to? If the playlist does not exist it will be created for you.", 
-        
+        Alertify.defaultValue("Playlist Name").prompt("Which playlist would you like to add \"" + this.props.recitation.title + "\" to? If the playlist does not exist it will be created for you.",
+
             (val, ev) => {
                 // The click event is in the event variable, so you can use it here.
                 ev.preventDefault();
@@ -257,7 +264,7 @@ class RecitationItem extends Component {
             }
             return value;
         });
-        
+
         window.sessionStorage.setItem('CurrentRecitation', rec);
         document.body.scrollTop = 0;
         this.props.nav.goTo('poem');
@@ -271,7 +278,7 @@ class RecitationItem extends Component {
             type:'UPDATE_PLAYCOUNT',
             shouldUpdatePlayCount: true
         });
-        
+
         // First, clear whatever is there.
         if(store.audio !== null) { store.audio.pause(); }
         this.props.rStore.dispatch({

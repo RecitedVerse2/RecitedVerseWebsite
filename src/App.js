@@ -217,7 +217,7 @@ class App extends Component {
                     <Route exact path="/search" component={SearchPage}></Route>
                     <Route exact path="/transcript" component={TranscriptPage}></Route>
                     <Route exact path="/playlist" component={PlaylistPageComp}></Route>
-                    <Route exact path="/User/:uid" component={UserPageComp}></Route>
+                    <Route exact path="/User" component={UserPageComp}></Route>
                 </div>
             </BrowserRouter>
         );
