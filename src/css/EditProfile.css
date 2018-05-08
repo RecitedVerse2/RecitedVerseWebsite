@@ -1,7 +1,6 @@
 .editingContainer {
     position: relative;
     width: 100%;
-    height: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 90px;
@@ -9,15 +8,17 @@
 }
 
 .titleText {
-    color: white;
+    margin-top: 30px;
+    color: black;
     font-size: 50px;
     margin-bottom: 40px;
 }
 
 .bioText {
-    color: white;
+    color: black;
     font-size: 25px;
     font-family: 'HelveticaNeue';
+    margin-bottom: 40px;
 }
 .bioField {
     position: relative;
@@ -32,6 +33,9 @@
     resize: none;
     color: white;
     background-color: rgba(255,255,255,0.5);
+    border:1px solid black;
+    box-shadow: 0 0 1px black;
+    padding: 5px 5px 5px 5px;
 }
 
 
@@ -54,4 +58,14 @@
 ::-ms-input-placeholder { /* Microsoft Edge */
    color: white;
    opacity: 0.35;
+}
+
+.FormDiv{
+  padding-top: 10px;
+  padding-right: 10px;
+  width:500px;
+  height:220px;
+  margin:auto;
+  background-color: rgba(0, 0, 0, 0.3);
+
 }

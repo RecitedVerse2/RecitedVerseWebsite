@@ -134,7 +134,7 @@ class Header extends Component {
             background:'none',
             color: 'black',
             fontFamily:'HelveticaNeue',
-            fontSize:'14px',
+            fontSize:'16px',
             outline:'none',
             marginLeft: '20px',
             marginRight: '20px',
@@ -151,7 +151,7 @@ class Header extends Component {
             background:'none',
             color: 'black',
             fontFamily:'HelveticaNeue',
-            fontSize:'14px',
+            fontSize:'16px',
             marginRight: '20px',
             paddingRight: '0px',
             fontWeight: 'bold'
@@ -194,10 +194,11 @@ class Header extends Component {
       return {
         float: 'none',
         color: 'black',
-        padding: '10px 5px',
+        padding: '10px 5px 5px 15px',
         textDecoration: 'none',
         display: 'block',
-        textAlign: 'left'
+        textAlign: 'left',
+        fontWeight: 'bold'
 
       }
     }

@@ -49,7 +49,7 @@ class Upload extends Component {
             poemDescription:'',
             choseImage: false,
             isFileUpdate: true,
-            isUpdateDone: false
+            isUpdateDone: false,
 
         }
     }
@@ -71,8 +71,9 @@ class Upload extends Component {
             left:'0px',
             top:'0px',
             width:'100%',
-            height:'2500px',
-            color:'white'
+            height:'1000px',
+            color:'white',
+            backgroundColor:'rgba(0, 0, 0, 0.7)'
         };
     }
     getOverlay() {
@@ -81,7 +82,7 @@ class Upload extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'blue',
+            backgroundColor: 'white',
         }
     }
     getImageStyles() {
@@ -116,7 +117,8 @@ class Upload extends Component {
           paddingTop: '3px',
           textAlign: 'center',
           fontSize: '15px',
-          borderRadius:'10px'
+          borderRadius:'4px',
+          backgroundColor:'#5cb85c'
         };
     }
 
@@ -126,18 +128,18 @@ class Upload extends Component {
           width: '600px',
           height: '400px',
           margin: 'auto',
-          marginTop: '80px',
-          backgroundColor: 'blue'
+          marginTop: '100px',
+          backgroundColor: 'white'
       }
     }
 
     getUploadDiv2Style() {
       return {
-          width: '600px',
-          height: '600px',
+          width: '800px',
+          height: '800px',
           margin: 'auto',
-          marginTop: '80px',
-          backgroundColor: 'blue'
+          marginTop: '100px',
+          backgroundColor: 'white'
       }
     }
 
@@ -157,14 +159,14 @@ class Upload extends Component {
 
     getUploadButtonDivStyle() {
       return {
-          width: '160px',
+          width: '200px',
           margin: 'auto',
       }
     }
 
    getRecordingStyle() {
      return{
-       background:'blue',
+       background:'white',
        paddingTop:'10px'
 
      }
@@ -222,13 +224,15 @@ class Upload extends Component {
 
    getButtonTDDivStyle(){
      return{
-       width:'30px'
+       width:'30px',
+       color:'black'
      }
 
    }
 
    getUploadInfoDivStyle() {
      return {
+       marginTop:'40px',
        backgroundColor:'black'
      }
    }
@@ -237,7 +241,8 @@ class Upload extends Component {
      return {
        marginTop: '20px',
        float: 'left',
-       width: '50%',
+       width: '300px',
+       marginLeft: '80px',
        backgroundColor:'yellow'
      }
    }
@@ -245,8 +250,7 @@ class Upload extends Component {
    getUploadRightInfoDivStyle(){
      return {
        float: 'left',
-       width: '50%',
-       paddingRight: '20px',
+       width: '300px',
        backgroundColor:'grey',
 
        padding:'20px 20px 20px 20px',
@@ -266,9 +270,12 @@ class Upload extends Component {
    getUploadImageButtonStyle(){
      return{
        position:'absolute',
-       marginTop: '150px',
-       marginLeft:'40px',
-
+       marginTop: '140px',
+       marginLeft:'60px',
+       width:'130px',
+       textAlign: 'center',
+       fontSize: '12px',
+       borderRadius:'4px',
      }
    }
 
@@ -300,13 +307,13 @@ class Upload extends Component {
 
  submitButtonStyle(){
    return{
-     marginLeft:'20px'
+     marginLeft:'40px'
    }
  }
 
  cancelButtonStyle(){
    return{
-      marginLeft:'20px'
+      marginLeft:'40px'
    }
  }
 
@@ -411,7 +418,7 @@ class Upload extends Component {
                           ref={(FileChooserForm)=>{this.addPhotoBtn = FileChooserForm}}
                           formButtonId='addPhotoBtn'
                           formButtonClass='pill_btn' name='recImageFile'
-                          accept='image/x-png' multiple='false'
+                          accept='image' multiple='false'
                           fileSelectedHandler={(e)=>{this.uploadRecitationImage(e)}}>
             Update Cover Image
           </FileChooserForm>

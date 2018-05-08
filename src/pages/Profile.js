@@ -106,7 +106,8 @@ class Profile extends Component {
             position:'absolute',
             left:'0px',
             top:'0px',
-            width:'100%'
+            width:'100%',
+            marginBottom:'200px'
         };
     }
     getOverlay() {
@@ -115,7 +116,7 @@ class Profile extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+
         }
     }
     getImageStyles() {
@@ -141,7 +142,7 @@ class Profile extends Component {
                 <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
 
                 <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+
 
                 <ProfileBanner rStore={this.props.rStore}>
                     <h1 style={{fontFamily:'NEB', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}</h1>
@@ -172,9 +173,6 @@ class Profile extends Component {
                     {this.state.recitations}
                 </div>
 
-
-                <PageFooter bottom='-250px'>
-                </PageFooter>
 
 
                 {this.props.children}

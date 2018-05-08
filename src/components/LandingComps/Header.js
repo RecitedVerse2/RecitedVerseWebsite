@@ -43,7 +43,7 @@ class Header extends Component {
             height: '70px',
             display:'table',
             zIndex:'1000',
-            backgroundColor: 'rgba(0,0,0, 0.75)',
+            backgroundColor: 'white',
         }
     }
     getLogoStyle() {
@@ -73,11 +73,12 @@ class Header extends Component {
             textDecoration:'none',
             border:'none',
             background:'none',
-            color:'white',
+            color:'black',
             fontFamily:'HelveticaNeue',
             fontSize:'18px',
             padding:'0px 40px 0px 10px',
-            outline:'none'
+            outline:'none',
+            fontWeight: 'bold'
         }
     }
 

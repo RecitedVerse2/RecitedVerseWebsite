@@ -101,7 +101,7 @@ class EditProfile extends Component {
             width:'100%',
             height:'100%',
             zIndex:'0',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+            backgroundColor: 'white'
         }
     }
     getImageStyles() {
@@ -113,16 +113,7 @@ class EditProfile extends Component {
         }
     }
 
-    getSBStyles(width = 60) {
-        return {
-            position:'relative',
-            width: width + '%' || '50%',
-            height:'50px',
-            margin:'auto',
-            display:'table',
-            color:'white',
-        }
-    }
+
     getSearchBarTitleStyle(width = 15, left = 0) {
         return {
             position:'absolute',
@@ -226,8 +217,9 @@ class EditProfile extends Component {
 
     getSBStyles() {
         return {
+            padding:'10px, 10px, 10px 10px',
             position:'relative',
-            width:'60%',
+            width:'100%',
             height:'50px',
             margin:'auto',
 
@@ -261,6 +253,8 @@ class EditProfile extends Component {
     }
 
 
+
+
     /**********************
     *                     *
     *        RENDER       *
@@ -275,7 +269,7 @@ class EditProfile extends Component {
                 {/* Header and Banner stuff. */}
                 <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
                 <div style={this.getOverlay()}></div>
-                <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img>
+
 
 
                 // banner
@@ -297,15 +291,18 @@ class EditProfile extends Component {
 
                 {/* Edit personal information. */}
                 <div className='editingContainer'>
+                     <div>
                     <h1 className='titleText'>Personal</h1>
+                    </div>
 
                     {/* All of the input fields. */}
+                    <div className='FormDiv' >
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(10, -2)}>Name:</h1>
                         <input ref={(input)=>{this.nameField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.name} />
                     </div>
 
-                    <div style={this.getSBStyles()}>
+                    <div style={this.getSBStyles()} >
                         <h1 style={this.getSearchBarTitleStyle(10, -2)}>Email:</h1>
                         <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.email} />
                     </div>
@@ -320,7 +317,9 @@ class EditProfile extends Component {
                         <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.password} />
                     </div>
 
-                    <br/>
+                    </div>
+
+
 
                     <div>
                     <FileChooserForm formButtonStyle={this.getFormButtonStyle2()}
@@ -328,7 +327,7 @@ class EditProfile extends Component {
                                     formButtonId='fromFileBtn'
                                     path={"Avatar/"+this.state.userID}
                                     formButtonClass='pill_btn' name='fileRecitation'
-                                    accept='image/x-png' multiple='false'
+                                    accept='image' multiple='false'
                                     startFileSelectedHandler={(e)=>{this.startUploadAavatarImage()}}
                                     fileSelectedHandler={(e)=>{this.uploadAavatarImage(e)}}>
                         Upload
@@ -339,7 +338,7 @@ class EditProfile extends Component {
                                     formButtonId='fromFileBtn'
                                     path={"Avatar/"+this.state.userID}
                                     formButtonClass='pill_btn2' name='fileRecitation2'
-                                    accept='image/x-png' multiple='false'
+                                    accept='image' multiple='false'
                                     startFileSelectedHandler={(e)=>{this.startUploadBackgrouandImage()}}
                                     fileSelectedHandler={(e)=>{this.uploadBackgrouandImage(e)}}>
                         Upload background
@@ -350,6 +349,7 @@ class EditProfile extends Component {
                     {/* Setting the bio. */}
                     <h1 className='titleText'>Profile</h1>
                     <h1 className='bioText'>Bio</h1>
+                    
                     <textarea className='bioField'
                               ref={(textarea)=>{this.bioField = textarea}}
                               rows={5} cols={45}

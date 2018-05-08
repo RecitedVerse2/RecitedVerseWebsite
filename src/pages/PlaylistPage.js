@@ -30,16 +30,17 @@ class PlaylistPage extends Component {
 
         this.state = {
             playlist: null,
-            recitations: []
+            recitations: [],
+            title:""
         }
     }
 
     componentDidMount() {
         var loadedPlaylist = JSON.parse(window.sessionStorage.getItem('CurrentPlaylist'));
         var playlist = new Playlist(loadedPlaylist.name);
+        this.state.title = loadedPlaylist.name;
         var recs = [];
 
-        console.log(loadedPlaylist);
 
         if(loadedPlaylist !== null) {
             loadedPlaylist.recitations.forEach( (rec) => {
@@ -167,7 +168,7 @@ class PlaylistPage extends Component {
 
 
                 {/* The banner with the sign in text */}
-
+        
 
                 <div className='profileDisplayArea'>
                     {this.state.recitations}
