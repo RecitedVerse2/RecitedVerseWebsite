@@ -73,7 +73,7 @@ class Upload extends Component {
             width:'100%',
             height:'1000px',
             color:'white',
-            backgroundColor:'rgba(0, 0, 0, 0.7)'
+            backgroundColor:'#FAFAFA'
         };
     }
     getOverlay() {
@@ -129,7 +129,8 @@ class Upload extends Component {
           height: '400px',
           margin: 'auto',
           marginTop: '100px',
-          backgroundColor: 'white'
+          backgroundColor: 'white',
+          boxShadow: '0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12)',
       }
     }
 
@@ -139,21 +140,27 @@ class Upload extends Component {
           height: '800px',
           margin: 'auto',
           marginTop: '100px',
-          backgroundColor: 'white'
+          backgroundColor: 'white',
+          boxShadow: '0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12)',
+          fontFamily: 'Roboto',
       }
     }
 
     getUploadH1Style() {
       return {
          paddingTop:'50px',
-         color: 'black'
+         color: '#757575',
+         fontFamily: 'Roboto',
+         lineHeight: '62px',
+         fontWeight: '400',
       }
     }
 
     getUploadH2Style() {
       return {
          paddingTop:'50px',
-         color: 'black'
+         color: 'black',
+         fontFamily: 'Roboto',
       }
     }
 
@@ -175,10 +182,16 @@ class Upload extends Component {
    getRecordingH2Style() {
      return{
        paddingTop:'10px',
-       marginLeft:'80px',
        color:'black',
        fontSize:'12px',
-       cursor: 'pointer'
+       cursor: 'pointer',
+       textAlign: 'center',
+       marginTop: '5px',
+       backgroundColor: 'rgb(92, 184, 92)',
+       borderRadius: '4px',
+       fontSize: '15px',
+       paddingTop: '6px',
+       height: '30px',
 
      }
    }
@@ -385,7 +398,7 @@ class Upload extends Component {
    getLoadFileFormHtml(){
      return(
        <div style={this.getUploadDivStyle()}>
-        <h1 style={this.getUploadH1Style()}>Upload Record</h1>
+        <h1 style={this.getUploadH1Style()}>Upload Recording</h1>
        <div style={this.getUploadButtonDivStyle()} >
        <FileChooserForm formButtonStyle={this.getFormButtonStyle2()}
                        ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
@@ -396,7 +409,7 @@ class Upload extends Component {
            Upload Audio Record
        </FileChooserForm>
 
-         <h2 style={this.getRecordingH2Style()}  onClick={this.recordNow.bind(this)}   >record now</h2>
+         <h2 style={this.getRecordingH2Style()}  onClick={this.recordNow.bind(this)}   >Record Now</h2>
 
 
        </div>
@@ -449,7 +462,7 @@ class Upload extends Component {
 
   <div className="checkbox">
   <p style={this.getPTagStyle()} >The duration of copyright in these works is generally computed the same way as for works created on or after January 1, 1978.</p>
-  <label><input type="checkbox" name="remember" ref={(input)=>{this.copyRightField = input}} ></input> Yes, I known</label>
+  <label><input type="checkbox" name="remember" ref={(input)=>{this.copyRightField = input}} ></input> Yes, I know</label>
 
  <div  style={this.getSubmitDivStyle()}>
   <p style={this.getStatusLabelStyle()} ref={(p)=>{this.statusLabel = p}}></p>

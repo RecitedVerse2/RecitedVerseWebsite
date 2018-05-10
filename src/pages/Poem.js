@@ -17,7 +17,8 @@ import Clock from '../components/Clock';
 import Recitation from '../objects/Recitation';
 
 import Comments from '../components/PoemPageComps/Comments';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { base } from '../objects/config';
 
 class Poem extends Component {
 
@@ -47,7 +48,10 @@ class Poem extends Component {
             show:false,
             backgroundColor:'rgba(0,0,0,0)',
             userInfo:'',
+            comments: [],
+            commentMessage: '',
         }
+        this.addComment = this.addComment.bind(this);
 
 
     }
@@ -95,6 +99,17 @@ class Poem extends Component {
             likes: recitation.likes,
             favorits: recitation.favorites,
             date: dateString,
+            recitationId: recitation.id,
+        })
+
+
+        // get comments 
+        base.listenTo(`/Recitations/${recitation.id}/comments`, {
+            context: this,
+            asArray: true,
+            then(data){
+                this.setState({comments: data});
+            }
         })
 
 
@@ -108,6 +123,26 @@ class Poem extends Component {
            this.setState({userInfo:user});
 });
 
+
+    }
+
+    addComment(){
+        var usersUid = firebase.auth().currentUser.uid;
+        base.fetch(`/Users/${usersUid}`, {
+            context: this,
+            then(data){
+                
+                base.push(`/Recitations/${this.state.recitationId}/comments`, {
+                    data: {userId: firebase.auth().currentUser.uid, userName: data.fullname, comment: this.state.commentMessage}
+                  }).then(newLocation => {
+
+                }).catch(err => {
+                    //handle error
+                    console.log('an error occurred');
+                  });
+
+            }
+        }, this);
 
     }
 
@@ -183,9 +218,10 @@ class Poem extends Component {
            zIndex: '999',
            backgroundPosition: 'center',
            backgroundRepeat: 'no-repeat',
-           backgroundSize: 'cover',
+           backgroundSize: 'cover',          
         }
     }
+
     getImageStyles() {
         return {
             position:'absolute',
@@ -273,6 +309,7 @@ class Poem extends Component {
 
 
 
+
     /**********************
     *                     *
     *        RENDER       *
@@ -295,7 +332,7 @@ class Poem extends Component {
 
                     <div className='verticalTextArea' style={this.getTextAreaStyle()}>
                        <h1 className='headerText'><strong>{this.state.poemName}</strong></h1>
-                       <h1 className='headerText'>by <strong>{this.state.poemAuthor} </strong></h1>
+                       <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
                        <h1 className='headerText'>Genre: {this.state.genre}</h1>
                       <h1 className='headerText'>Date:  {this.state.date}</h1>
 
@@ -326,7 +363,20 @@ class Poem extends Component {
                             </div>
                             </Col>
                             <Col md={4}>
-                            <Comments />
+                            
+                            <h2>Comments: </h2>
+                            {this.state.comments.map((item,i) => <li key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment}</li>)} 
+                            <Form>
+                                <FormGroup>
+                                <FormControl
+                                    type="text"
+                                    value={this.state.value}
+                                    placeholder="Enter text"
+                                    onChange={(e) => this.setState({commentMessage: e.target.value})}
+                                />
+                                <Button onClick={this.addComment}>Add Comment</Button>
+                                </FormGroup>
+                            </Form>                         
                             </Col>
                         </Row>
                         </Grid>

@@ -26,7 +26,6 @@ class FileChooserForm extends Component {
                        multiple={this.props.multiple || 'false'}
                        onChange={this.handleLoaded.bind(this)}
                        style={this.getStyles()} />
-
                        <label htmlFor={this.props.name}
                               style={this.props.formButtonStyle}
                               id={this.props.formButtonId}

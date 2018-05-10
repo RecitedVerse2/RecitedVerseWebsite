@@ -218,7 +218,7 @@ class Header extends Component {
        if(this.state.showDownMenu){
           downMeue = (
                 <div  style={this.getDropdownMenu()}   >
-                <a style={this.getDropdownItem()} href="profile">profile</a>
+                <a style={this.getDropdownItem()} href="profile">Profile</a>
                 <a style={this.getDropdownItem()} href="accountsettings">Setting</a>
                 <a style={this.getDropdownItem()} onClick={this.handleLogout.bind(this)} >Logout</a>
                 </div>

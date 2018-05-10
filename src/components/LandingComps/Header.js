@@ -5,6 +5,7 @@ import RVLogo from '../../res/RV-Final-Icon.png';
 import _ from '../../css/fonts.css';
 // eslint-disable-next-line
 import __ from '../../css/Header.css';
+import TextLogo from '../../res/recitedverselogo.png';
 
 import Clock from '../Clock';
 
@@ -51,11 +52,11 @@ class Header extends Component {
             position:'absolute',
             top:'0px',
             left:'20px',
-            width:'80px',
+            width:'254',
             height:'90%',
             cursor:'pointer',
             marginTop:'5px',
-            display:'table-cell'
+            display:'table-cell',
         }
     }
     getButtonsSectionStyle() {
@@ -93,11 +94,11 @@ class Header extends Component {
         return (
             <div className='header' style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
-                <img onClick={this.goToHome.bind(this)} alt='logo' style={this.getLogoStyle()} src={RVLogo}></img>
+                <img onClick={this.goToHome.bind(this)} alt='logo' style={this.getLogoStyle()} src={TextLogo}></img>
 
                 <div style={this.getButtonsSectionStyle()}>
                 <span style={this.getWhiteSpanStyle()} className="glyphicon glyphicon-log-in" ></span>
-                    <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Sign in</button>
+                    <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Sign In</button>
 
                     &nbsp;&nbsp;&nbsp;&nbsp;
 

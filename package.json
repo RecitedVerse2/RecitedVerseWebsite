@@ -11,6 +11,7 @@
     "firebase": "^4.1.3",
     "history": "^4.6.3",
     "morgan": "^1.8.2",
+    "re-base": "^3.2.2",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^15.6.1",
@@ -19,6 +20,9 @@
     "react-modal": "^2.0.6",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "react-scroll-box": "^0.3.5",
+    "react-scrollarea": "^0.6.15",
+    "react-scrollbar": "^0.5.4",
     "redux": "^3.7.0"
   },
   "devDependencies": {
