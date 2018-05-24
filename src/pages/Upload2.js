@@ -231,7 +231,7 @@ class Upload extends Component {
          textAlign: 'center',
          fontSize: '15px',
          borderRadius:'10px',
-         backgroundColor:'grey'
+         backgroundColor: 'rgb(92, 184, 92)'
        };
    }
 
@@ -708,7 +708,7 @@ class Upload extends Component {
         this.statusLabel.style.opacity = '1';
 
         if(! this.copyRightField.checked){
-           missingInfo += "check CheckBox \"Yes I know\", to make sure your record not agaist law";
+           missingInfo += "Plase check the box \"Yes I know\", to make sure your recording does not violate copyright law.";
 
           Alertify.alert(missingInfo);
 
