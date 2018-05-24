@@ -281,7 +281,7 @@ class Login extends Component {
           						</span>
           					</div>
 
-  
+
 
 
 
@@ -299,12 +299,12 @@ class Login extends Component {
           						</span>
           					</div>
 
-          					<a href="#" className="btn-face m-b-10">
+          					<a  className="btn-face m-b-10" onClick={this.FacebookLogin}>
           						<i className="fa fa-facebook-official"></i>
           						Facebook
           					</a>
 
-          					<a href="#" className="btn-google m-b-10">
+          					<a className="btn-google m-b-10" onClick={this.GoogleLogin}>
           						<img src={googleIcon} alt="GOOGLE"/>
           						Google
           					</a>
@@ -345,6 +345,131 @@ class Login extends Component {
     goToPRofile() {
         this.props.nav.goTo('profile');
     }
+
+    GoogleLogin(){
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
+            var usr = snap.val();
+            console.log(usr);
+            if(!usr){
+              // Create the user dictionary that gets saved to firebase.
+              var social = {0:'',1:'',2:'',3:''};
+              var fullname = user.displayName;
+              var userName = fullname.substring(0, fullname.indexOf(' '))
+              if(userName.length <= 0){
+                userName = fullname;
+              }
+              var email = user.email;
+              var createdUser = {
+                  "fullname" : fullname,
+                  "username": userName,
+                  "email" : email,
+                  "userID" : user.uid,
+                  "photoURL" : user.photoURL,
+                  "backgroundImage" : "https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FemptyProfileBackground.png?alt=media&token=68191f6d-9d79-4a2e-9047-87b7803e52f9",
+                  "followers" : 0,
+                  "following" : 0,
+                  "bio" : "Bio",
+                  "social_media_links" : social,
+                  "likes":[],
+                  "favorites":[]
+              };
+             //console.log(createdUser);
+              // Save that user to firebase.
+              firebase.database().ref().child('Users').child(user.uid).set(createdUser);
+              usr = createdUser;
+            }
+
+            var fullname = usr.fullname;
+            usr.name = fullname.substring(0, fullname.indexOf(' '))
+            window.localStorage.setItem('currentUser',JSON.stringify(usr));
+            window.location = 'home';
+
+        });
+        // ...
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+    }
+    FacebookLogin(){
+         var provider = new firebase.auth.FacebookAuthProvider();
+         firebase.auth().signInWithPopup(provider).then(function(result) {
+
+           // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+
+           var token = result.credential.accessToken;
+           //console.log(token);
+           // The signed-in user info.
+           var user = result.user;
+
+           firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
+               var usr = snap.val();
+               console.log(usr);
+               if(!usr){
+                 // Create the user dictionary that gets saved to firebase.
+                 var social = {0:'',1:'',2:'',3:''};
+                 var fullname = user.displayName;
+                 var userName = fullname.substring(0, fullname.indexOf(' '))
+                 if(userName.length <= 0){
+                   userName = fullname;
+                 }
+                 var email = user.email;
+                 var createdUser = {
+                     "fullname" : fullname,
+                     "username": userName,
+                     "email" : email,
+                     "userID" : user.uid,
+                     "photoURL" : user.photoURL,
+                     "backgroundImage" : "https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FemptyProfileBackground.png?alt=media&token=68191f6d-9d79-4a2e-9047-87b7803e52f9",
+                     "followers" : 0,
+                     "following" : 0,
+                     "bio" : "Bio",
+                     "social_media_links" : social,
+                     "likes":[],
+                     "favorites":[]
+                 };
+                //console.log(createdUser);
+                 // Save that user to firebase.
+                 firebase.database().ref().child('Users').child(user.uid).set(createdUser);
+                 usr = createdUser;
+               }
+
+               var fullname = usr.fullname;
+               usr.name = fullname.substring(0, fullname.indexOf(' '))
+               window.localStorage.setItem('currentUser',JSON.stringify(usr));
+               window.location = 'home';
+
+           });
+
+         }).catch(function(error) {
+           // Handle Errors here.
+           var errorCode = error.code;
+           var errorMessage = error.message;
+           // The email of the user's account used.
+           var email = error.email;
+           // The firebase.auth.AuthCredential type that was used.
+           var credential = error.credential;
+           // ...
+         });
+
+
+    }
+
+
+
+
 
     loginUser() {
 

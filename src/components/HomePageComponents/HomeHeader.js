@@ -63,7 +63,7 @@ class Header extends Component {
             position:'absolute',
             top:'0px',
             left:'20px',
-            width:'254',
+            width:'254px',
             height:'90%',
             cursor:'pointer',
             marginTop:'5px',
