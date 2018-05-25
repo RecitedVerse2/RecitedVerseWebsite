@@ -62,11 +62,11 @@ class PoemShare extends Component {
         var n = url.indexOf("share");
         var rid = url.substring(n+6);
 
-        console.log(rid);
+
         fireRef.child('Recitations').child(rid).once('value', (snap) => {
 
                         var record = snap.val();
-                        console.log(snap.record);
+
                         var recObj = new Recitation( record.id,
                                                     record.uploaderID,
                                                     record.uploaderName,
@@ -87,7 +87,7 @@ class PoemShare extends Component {
 
 
                     var recStr = JSON.stringify(recObj)
-                    console.log(recObj);
+
                     window.sessionStorage.setItem('CurrentRecitation', recStr);
 
                     this.loadRecitationAudio();
@@ -116,7 +116,7 @@ class PoemShare extends Component {
 
                    });
 
-                   var cUser = JSON.parse(window.localStorage.getItem('currentUser111'));
+                   var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
                    if(cUser){
                         window.location.href = '/poem';
                    }
