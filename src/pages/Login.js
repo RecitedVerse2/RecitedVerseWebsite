@@ -445,7 +445,7 @@ class Login extends Component {
                  firebase.database().ref().child('Users').child(user.uid).set(createdUser);
                  usr = createdUser;
                }
-
+               alert("ready to home page")
                var fullname = usr.fullname;
                usr.name = fullname.substring(0, fullname.indexOf(' '))
                window.localStorage.setItem('currentUser',JSON.stringify(usr));
