@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import * as firebase from 'firebase';
+import {InstantSearch, SearchBox, Hits, Highlight} from 'react-instantsearch/dom';
+import { createConnector } from "react-instantsearch";
 
 import RVLogo from '../../res/RV-Final-Icon.png';
 import TextLogo from '../../res/recitedverselogo.png';
@@ -10,7 +12,7 @@ import _ from '../../css/fonts.css';
 import __ from '../../css/Header.css';
 
 import Clock from '../Clock';
-
+import { Link } from 'react-router-dom';
 class Header extends Component {
 
     /**********************
@@ -77,9 +79,9 @@ class Header extends Component {
 
     getSearchContainerStyle(){
       return {
-          float: 'left',
-          marginLeft: '200px',
-          marginTop: '10px',
+          marginLeft: '500px',
+          marginTop: '20px',
+          width: '15%',
       }
     }
 
@@ -224,6 +226,31 @@ class Header extends Component {
                 </div>
           );
          }
+         const ConditionalHits = createConnector({
+            displayName: "ConditionalQuery",
+            getProvidedProps(props, searchState, searchResults) {
+              const { query, hits } = searchResults.results ? searchResults.results : {};
+              return { query, hits };
+            }
+          })(({ query, hits }) => {
+            const hs =
+              hits && query
+                ? hits.map(hit =>
+                  <li>
+                      <div style={{zIndex: '999', marginTop: '10px'}} className="inc-name">
+                        {/* {hit.text.title} | <a href={'/user?' + hit.text.uploaderID}>{hit.text.uploaderName}</a> */}
+
+                        {hit.text.title} |  <a target="_blank" href={`/user?${hit.text.uploaderID}`}>{hit.text.uploaderName}</a>
+                      </div>
+                  </li>
+                  )
+                : null;
+            return (
+              <div id="hits">
+                {hs}
+              </div>
+            );
+          });
 
 
 
@@ -235,9 +262,20 @@ class Header extends Component {
                 <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={TextLogo}></img>
 
                 <div style={this.getSearchContainerStyle()} className="search-container">
-                    <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" />
-                    <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button>
-                </div>
+                    {/* <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" /> */}
+                    {/* <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button> */}
+                    <InstantSearch
+                    appId="I5KQF3O5KB"
+                    apiKey="8199ff4474cffdde931f62cc2bfe4d53"
+                    indexName="recitedverse"
+                >
+                    {/* Use widgets here */}
+                    <SearchBox />
+                    <ul className="suggestions" id="sugg">
+                        <ConditionalHits />
+                    </ul>
+                </InstantSearch>               
+                 </div>
 
                 <div style={this.getButtonsSectionStyle()}>
 
