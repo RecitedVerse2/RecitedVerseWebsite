@@ -404,7 +404,6 @@ class Login extends Component {
       });
     }
     FacebookLogin(){
-         alert("this is begin")
          var provider = new firebase.auth.FacebookAuthProvider();
          firebase.auth().signInWithPopup(provider).then(function(result) {
 
@@ -417,7 +416,6 @@ class Login extends Component {
 
            firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
                var usr = snap.val();
-               console.log(usr);
                if(!usr){
                  // Create the user dictionary that gets saved to firebase.
                  var social = {0:'',1:'',2:'',3:''};
@@ -446,7 +444,6 @@ class Login extends Component {
                  firebase.database().ref().child('Users').child(user.uid).set(createdUser);
                  usr = createdUser;
                }
-               alert("ready to home page")
                var fullname = usr.fullname;
                usr.name = fullname.substring(0, fullname.indexOf(' '))
                window.localStorage.setItem('currentUser',JSON.stringify(usr));
@@ -456,7 +453,6 @@ class Login extends Component {
 
          }).catch(function(error) {
            // Handle Errors here.
-           alert("ohn no error" + error.message )
            var errorCode = error.code;
            var errorMessage = error.message;
            // The email of the user's account used.
