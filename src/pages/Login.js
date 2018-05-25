@@ -404,6 +404,7 @@ class Login extends Component {
       });
     }
     FacebookLogin(){
+         alert("this is begin")
          var provider = new firebase.auth.FacebookAuthProvider();
          firebase.auth().signInWithPopup(provider).then(function(result) {
 
@@ -455,6 +456,7 @@ class Login extends Component {
 
          }).catch(function(error) {
            // Handle Errors here.
+           alert("ohn no error" + error.message )
            var errorCode = error.code;
            var errorMessage = error.message;
            // The email of the user's account used.

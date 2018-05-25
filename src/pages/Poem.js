@@ -321,9 +321,9 @@ class Poem extends Component {
     render() {
         var title = "Have you heard ‘" + this.state.poemName +"’ by " + this.state.poemAuthor + " @recitedverse   "
         var titleStr = encodeURIComponent(title);
-        console.log(title);
+
         var share_url = 'https://twitter.com/intent/tweet?text='+ titleStr +'&url=https%3A%2F%2Frecitedverse.com/share?'+this.state.recitationId;
-         console.log(share_url);
+         
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
