@@ -240,7 +240,8 @@ class Header extends Component {
                       <div style={{zIndex: '999', marginTop: '10px'}} className="inc-name">
                         {/* {hit.text.title} | <a href={'/user?' + hit.text.uploaderID}>{hit.text.uploaderName}</a> */}
 
-                        {hit.text.title} |  <a target="_blank" href={`/user?${hit.text.uploaderID}`}>{hit.text.uploaderName}</a>
+                        {hit.recitation.title} | <a target="_blank" href={`/user?${hit.recitation.uploaderID}`}>{hit.recitation.uploaderName}</a>
+
                       </div>
                   </li>
                   )
