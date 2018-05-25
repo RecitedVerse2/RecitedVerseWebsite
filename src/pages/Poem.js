@@ -9,6 +9,8 @@ import __ from '../css/Header.css';
 
 import RVLogo from '../res/RV-Final-Icon.png';
 
+import TwitterImage from '../res/twitter_share.png';
+
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 
@@ -103,7 +105,7 @@ class Poem extends Component {
         })
 
 
-        // get comments 
+        // get comments
         base.listenTo(`/Recitations/${recitation.id}/comments`, {
             context: this,
             asArray: true,
@@ -131,7 +133,7 @@ class Poem extends Component {
         base.fetch(`/Users/${usersUid}`, {
             context: this,
             then(data){
-                
+
                 base.push(`/Recitations/${this.state.recitationId}/comments`, {
                     data: {userId: firebase.auth().currentUser.uid, userName: data.fullname, comment: this.state.commentMessage}
                   }).then(newLocation => {
@@ -218,7 +220,7 @@ class Poem extends Component {
            zIndex: '999',
            backgroundPosition: 'center',
            backgroundRepeat: 'no-repeat',
-           backgroundSize: 'cover',          
+           backgroundSize: 'cover',
         }
     }
 
@@ -317,6 +319,11 @@ class Poem extends Component {
     ***********************/
 
     render() {
+        var title = "Have you heard ‘" + this.state.poemName +"’ by " + this.state.poemAuthor + " @recitedverse   "
+        var titleStr = encodeURIComponent(title);
+        console.log(title);
+        var share_url = 'https://twitter.com/intent/tweet?text='+ titleStr +'&url=https%3A%2F%2Frecitedverse.com/share?'+this.state.recitationId;
+         console.log(share_url);
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
@@ -335,6 +342,7 @@ class Poem extends Component {
                        <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
                        <h1 className='headerText'>Genre: {this.state.genre}</h1>
                       <h1 className='headerText'>Date:  {this.state.date}</h1>
+                  <a href={share_url} title="Twitter" > <img className="sharebutton" src={TwitterImage} alt="Snow"></img></a>
 
                         <h1 className='headerText'>Recited By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
 
@@ -363,9 +371,9 @@ class Poem extends Component {
                             </div>
                             </Col>
                             <Col md={4}>
-                            
+
                             <h2>Comments: </h2>
-                            {this.state.comments.map((item,i) => <li key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment}</li>)} 
+                            {this.state.comments.map((item,i) => <li key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment}</li>)}
                             <Form>
                                 <FormGroup>
                                 <FormControl
@@ -376,7 +384,7 @@ class Poem extends Component {
                                 />
                                 <Button onClick={this.addComment}>Add Comment</Button>
                                 </FormGroup>
-                            </Form>                         
+                            </Form>
                             </Col>
                         </Row>
                         </Grid>

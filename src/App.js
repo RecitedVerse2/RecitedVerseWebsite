@@ -11,7 +11,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Poem from './pages/Poem';
-import Upload from './pages/Upload';
+import PoemShare from './pages/PoemShare';
 import Upload2 from './pages/Upload2';
 import Search from './pages/Search';
 import Transcript from './pages/Transcript';
@@ -179,7 +179,7 @@ class App extends Component {
         const ProfilePage = () => {return <Profile nav={navObj} audioPlayer={AudioPlayerObj} rStore={store}>{AudioPlayerObj}</Profile>}
         const EditProfilePage = () => {return <EditProfile audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</EditProfile>}
         const PoemPage = () => {return <Poem audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Poem>}
-        const UploadPage = () => {return <Upload audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Upload>}
+        const PoemSharePage = () => {return <PoemShare audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</PoemShare>}
         const UploadPage2 = () => {return <Upload2 audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Upload2>}
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
         const TranscriptPage = () => {return <Transcript audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Transcript>}
@@ -193,6 +193,7 @@ class App extends Component {
                   <Switch>
                       <Route exact path="/signup" component={SignUpPage}></Route>
                       <Route exact path="/login" component={LoginPage}></Route>
+                      <Route exact path="/share" component={PoemSharePage}></Route>
                       <Route component={LandingPage}></Route>
                   </Switch>
                   </div>
@@ -218,6 +219,8 @@ class App extends Component {
                     <Route exact path="/transcript" component={TranscriptPage}></Route>
                     <Route exact path="/playlist" component={PlaylistPageComp}></Route>
                     <Route exact path="/User" component={UserPageComp}></Route>
+                    <Route exact path="/share" component={PoemSharePage}></Route>
+                    
                 </div>
             </BrowserRouter>
         );
