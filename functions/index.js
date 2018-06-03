@@ -13,6 +13,7 @@ exports.recitationCreated = functions.database.ref('/Recitations/{pushId}/').onC
     const original = snapshot.val();
     const firebaseObject = {
       recitation: original,
+      objectID: snapshot.val().id
     };
   
     return index.saveObject(firebaseObject);

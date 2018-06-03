@@ -19,7 +19,7 @@ import Clock from '../components/Clock';
 import Recitation from '../objects/Recitation';
 
 import Comments from '../components/PoemPageComps/Comments';
-import { Grid, Row, Col, Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Form, FormGroup, FormControl, Button, Glyphicon } from 'react-bootstrap';
 import { base } from '../objects/config';
 
 class Poem extends Component {
@@ -54,6 +54,7 @@ class Poem extends Component {
             commentMessage: '',
         }
         this.addComment = this.addComment.bind(this);
+        this.reportComment = this.reportComment.bind(this);
 
 
     }
@@ -146,6 +147,17 @@ class Poem extends Component {
             }
         }, this);
 
+    }
+
+    reportComment(comment){
+        base.push(`reportedcomments`, {
+            data: {comment},
+            then(err){
+                if(!err){
+                    console.log('successfully reported');
+                }
+            }
+        });
     }
 
 
@@ -323,7 +335,7 @@ class Poem extends Component {
         var titleStr = encodeURIComponent(title);
 
         var share_url = 'https://twitter.com/intent/tweet?text='+ titleStr +'&url=https%3A%2F%2Frecitedverse.com/share?'+this.state.recitationId;
-         
+        
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
@@ -370,10 +382,26 @@ class Poem extends Component {
                             {this.state.poemTranscript}
                             </div>
                             </Col>
-                            <Col md={4}>
+                        </Row>
+                        </Grid>
+                        {this.state.deleteButton}
+                    </div>
+                </div>
 
-                            <h2>Comments: </h2>
-                            {this.state.comments.map((item,i) => <li key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment}</li>)}
+
+                <Clock onupdate={this.update.bind(this)}></Clock>
+                {this.props.children}
+                </div>
+                <div style={{paddingTop: '10px', paddingBottom: '20px'}}>
+                    <Grid>
+                    <Row className="show-grid">
+                            <Col md={4}>
+                            {this.state.comments.length > 1 ? (
+                                <h2>{this.state.comments.length} comments</h2>
+                            ) : (
+                                <h2>Comment:</h2>
+                            )}
+                            {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a></li>)}
                             <Form>
                                 <FormGroup>
                                 <FormControl
@@ -386,15 +414,8 @@ class Poem extends Component {
                                 </FormGroup>
                             </Form>
                             </Col>
-                        </Row>
-                        </Grid>
-                        {this.state.deleteButton}
-                    </div>
-                </div>
-
-
-                <Clock onupdate={this.update.bind(this)}></Clock>
-                {this.props.children}
+                            </Row>
+                    </Grid>
                 </div>
             </div>
         );
