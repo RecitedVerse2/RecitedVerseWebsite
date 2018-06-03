@@ -55,6 +55,7 @@ class Poem extends Component {
         }
         this.addComment = this.addComment.bind(this);
         this.reportComment = this.reportComment.bind(this);
+        this.reportPoem = this.reportPoem.bind(this);
 
 
     }
@@ -154,7 +155,18 @@ class Poem extends Component {
             data: {comment},
             then(err){
                 if(!err){
-                    console.log('successfully reported');
+                    console.log('successfully reported recording');
+                }
+            }
+        });
+    }
+
+    reportPoem(poem){
+        base.push('reportedpoems', {
+            data: {poem},
+            then(err){
+                if(!err){
+                    console.log('successfully reported poem');
                 }
             }
         });
@@ -350,7 +362,7 @@ class Poem extends Component {
                 <div className='contentArea' >
 
                     <div className='verticalTextArea' style={this.getTextAreaStyle()}>
-                       <h1 className='headerText'><strong>{this.state.poemName}</strong></h1>
+                       <h1 className='headerText'><strong>{this.state.poemName} <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
                        <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
                        <h1 className='headerText'>Genre: {this.state.genre}</h1>
                       <h1 className='headerText'>Date:  {this.state.date}</h1>
