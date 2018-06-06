@@ -203,9 +203,11 @@ class Poem extends Component {
             then(err){
                 if(!err){
                     console.log('successfully reported recording');
+                    Alertify.alert('This comment has been reported.', function(){ Alertify.success('Ok'); });
+
                 }
             }
-        });
+        }, this);
     }
 
     reportPoem(poem){
@@ -214,9 +216,10 @@ class Poem extends Component {
             then(err){
                 if(!err){
                     console.log('successfully reported poem');
+                    Alertify.alert('This poem has been reported.', function(){ Alertify.success('Ok'); });
                 }
             }
-        });
+        }, this);
     }
 
 
@@ -460,6 +463,7 @@ class Poem extends Component {
                             ) : (
                                 <h2>Comment:</h2>
                             )}
+                            <hr></hr>
                             {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a></li>)}
                             {/* <Form>
                                 <FormGroup>
