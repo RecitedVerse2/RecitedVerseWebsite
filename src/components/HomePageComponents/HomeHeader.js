@@ -66,7 +66,7 @@ class Header extends Component {
             top:'0px',
             left:'20px',
             width:'254px',
-            height:'90%',
+            height:'50px',
             cursor:'pointer',
             marginTop:'5px',
             display:'table-cell',
