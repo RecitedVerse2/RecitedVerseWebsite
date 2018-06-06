@@ -21,6 +21,7 @@ import Recitation from '../objects/Recitation';
 import Comments from '../components/PoemPageComps/Comments';
 import { Grid, Row, Col, Form, FormGroup, FormControl, Button, Glyphicon } from 'react-bootstrap';
 import { base } from '../objects/config';
+import { MentionsInput, Mention } from 'react-mentions'
 
 class Poem extends Component {
 
@@ -52,6 +53,37 @@ class Poem extends Component {
             userInfo:'',
             comments: [],
             commentMessage: '',
+            users: [
+                {
+                    id: 'walter',
+                    display: 'Walter White',
+                  },
+                  {
+                    id: 'jesse',
+                    display: 'Jesse Pinkman',
+                  },
+                  {
+                    id: 'gus',
+                    display: 'Gustavo "Gus" Fring',
+                  },
+                  {
+                    id: 'saul',
+                    display: 'Saul Goodman',
+                  },
+                  {
+                    id: 'hank',
+                    display: 'Hank Schrader',
+                  },
+                  {
+                    id: 'skyler',
+                    display: 'Skyler White',
+                  },
+                  {
+                    id: 'mike',
+                    display: 'Mike Ehrmantraut',
+                  },
+            ]
+            
         }
         this.addComment = this.addComment.bind(this);
         this.reportComment = this.reportComment.bind(this);
@@ -126,6 +158,21 @@ class Poem extends Component {
            console.log(user);
            this.setState({userInfo:user});
 });
+
+// set user list
+        var displayableUsers = [];
+        base.fetch(`/Users/`, {
+            context: this,
+            asArray: true,
+            then(data){
+                data.map((user) => {
+                    var id = user.userID;
+                    var display = user.fullname;
+                    displayableUsers.push({id, display});
+                })
+            }
+        });
+        this.setState({users: displayableUsers});
 
 
     }
@@ -404,7 +451,7 @@ class Poem extends Component {
                 <Clock onupdate={this.update.bind(this)}></Clock>
                 {this.props.children}
                 </div>
-                <div style={{paddingTop: '10px', paddingBottom: '20px'}}>
+                <div style={{paddingTop: '10px', paddingBottom: '100px'}}>
                     <Grid>
                     <Row className="show-grid">
                             <Col md={4}>
@@ -414,7 +461,7 @@ class Poem extends Component {
                                 <h2>Comment:</h2>
                             )}
                             {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a></li>)}
-                            <Form>
+                            {/* <Form>
                                 <FormGroup>
                                 <FormControl
                                     type="text"
@@ -422,9 +469,18 @@ class Poem extends Component {
                                     placeholder="Enter text"
                                     onChange={(e) => this.setState({commentMessage: e.target.value})}
                                 />
+                                
                                 <Button onClick={this.addComment}>Add Comment</Button>
                                 </FormGroup>
-                            </Form>
+                            </Form> */}
+                            <MentionsInput value={this.state.commentMessage} onChange={(event) => this.setState({commentMessage: event.target.value})}>
+                                <Mention
+                                    trigger="@"
+                                    data={this.state.users}
+                                    renderSuggestion={this.renderUserSuggestion}
+                                />
+                                </MentionsInput>
+                                <Button onClick={this.addComment}>Add Comment</Button>
                             </Col>
                             </Row>
                     </Grid>
