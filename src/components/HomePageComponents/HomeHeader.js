@@ -121,7 +121,7 @@ class Header extends Component {
             right:'0px',
             textAlign:'right',
             paddingRight:'50px',
-            width: '250px',
+            width: '365px',
             marginTop:'20px',
             display:'table-cell',
         }
@@ -137,7 +137,23 @@ class Header extends Component {
             fontSize:'16px',
             outline:'none',
             marginLeft: '20px',
-            marginRight: '20px',
+
+            float:'left',
+            marginTop:'6px',
+            fontWeight: 'bold'
+        }
+    }
+
+    getMessagesButtonsStyle() {
+        return {
+            textDecoration:'none',
+            border:'none',
+            background:'none',
+            color: 'black',
+            fontFamily:'HelveticaNeue',
+            fontSize:'16px',
+            outline:'none',
+            marginLeft: '20px',
             float:'left',
             marginTop:'6px',
             fontWeight: 'bold'
@@ -210,6 +226,26 @@ class Header extends Component {
      }
    }
 
+   getMessgesRedAlert(){
+     return{
+       marginLeft: '0px',
+       float:'left',
+       top: '-5px',
+       left: '50%',
+       height: '18px',
+       minWidth: '18px',
+       lineHeight: '14px',
+       backgroundColor: '#ff2c33',
+       borderRadius: '14px',
+       zIndex: '1',
+      fontSize: '12px',
+      fontWeight: '400',
+      textAlign: 'center',
+      padding:'2px 4px'
+
+     }
+   }
+
 
 
 
@@ -243,6 +279,9 @@ class Header extends Component {
 
 
                     <button style={this.getUploadButtonsStyle()} onClick={this.goToUploadPage.bind(this)}>Upload</button>
+                      <button style={this.getMessagesButtonsStyle()} onClick={this.goToMessagesPage.bind(this)}>Notifications</button>
+                      <span style={this.getMessgesRedAlert()} >4</span>
+
 
                     <div className="dropdown"   onMouseEnter={this.mouseOver} onMouseLeave={this.mouseLeaves} style={this.getDownAreatyle()}  >
                       <button  style={this.getButtonsUserStyle()}  className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -330,6 +369,10 @@ class Header extends Component {
 
     goToUploadPage() {
         window.location = '/upload';
+    }
+
+    goToMessagesPage() {
+        window.location = '/notifications';
     }
 
     update() {

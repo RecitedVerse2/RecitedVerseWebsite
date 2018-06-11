@@ -254,6 +254,19 @@ class User extends Component {
         return arr;
     }
 
+
+    NotificationAddFollow(userID, followerID){
+      var key = "follow_{followerID}";
+      firebase.database().ref().child('Notifications').child(userID).child(key).once('value', (snap) => {
+        var record = snap.val();
+      });
+
+
+
+
+    }
+
+
     changeFirebaseFollow(his_uid) {
       const fireRef = firebase.database().ref();
       const store = this.props.rStore.getState();

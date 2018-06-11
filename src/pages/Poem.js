@@ -317,13 +317,16 @@ class Poem extends Component {
     *        RENDER       *
     *                     *
     ***********************/
+//  after date <a href={share_url} title="Twitter" > <img className="sharebutton" src={TwitterImage} alt="Snow"></img></a>
+
+
 
     render() {
         var title = "Have you heard ‘" + this.state.poemName +"’ by " + this.state.poemAuthor + " @recitedverse   "
         var titleStr = encodeURIComponent(title);
 
         var share_url = 'https://twitter.com/intent/tweet?text='+ titleStr +'&url=https%3A%2F%2Frecitedverse.com/share?'+this.state.recitationId;
-         
+
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
@@ -342,7 +345,6 @@ class Poem extends Component {
                        <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
                        <h1 className='headerText'>Genre: {this.state.genre}</h1>
                       <h1 className='headerText'>Date:  {this.state.date}</h1>
-                  <a href={share_url} title="Twitter" > <img className="sharebutton" src={TwitterImage} alt="Snow"></img></a>
 
                         <h1 className='headerText'>Recited By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
 
