@@ -17,6 +17,7 @@ import Search from './pages/Search';
 import Transcript from './pages/Transcript';
 import PlaylistPage from './pages/PlaylistPage';
 import User from './pages/User';
+import Notifications from './pages/Notifications';
 
 import AudioPlayer from './components/AudioPlayer';
 import navigation from './components/navigation';
@@ -184,7 +185,9 @@ class App extends Component {
         const SearchPage = () => {return <Search audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Search>}
         const TranscriptPage = () => {return <Transcript audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</Transcript>}
         const PlaylistPageComp = () => {return <PlaylistPage audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</PlaylistPage>}
+        const NotificationsPage = () => {return <Notifications audioPlayer={AudioPlayerObj}  nav={navObj} rStore={store}>{AudioPlayerObj}</Notifications>}
         const UserPageComp = ({match}) => {return <User audioPlayer={AudioPlayerObj} match={match} nav={navObj} rStore={store}>{AudioPlayerObj}</User>}
+
 
         if(!cUser){  // before login
           return (
@@ -220,7 +223,8 @@ class App extends Component {
                     <Route exact path="/playlist" component={PlaylistPageComp}></Route>
                     <Route exact path="/User" component={UserPageComp}></Route>
                     <Route exact path="/share" component={PoemSharePage}></Route>
-                    
+                    <Route exact path="/notifications" component={NotificationsPage}></Route>
+
                 </div>
             </BrowserRouter>
         );
