@@ -132,7 +132,9 @@ getPoelinkStyle(){
    getFollowHtml(){
      return(
       <div style={this.getDivFloatLeftStyles()}>
-       <strong>{this.props.notification.userName} </strong>followed you
+      <a style={this.getPoelinkStyle()}  onClick={this.goToUserPage.bind(this)} > <strong>{this.props.notification.userName}</strong></a>
+      &nbsp;
+      followed you
        </div>
      )
      }
@@ -140,7 +142,8 @@ getPoelinkStyle(){
      getLikeHtml(){
        return(
         <div style={this.getDivFloatLeftStyles()}>
-         <strong>{this.props.notification.userName} </strong> Liked <a style={this.getPoelinkStyle()}  onClick={this.goToPoemPage.bind(this)} > <strong>{this.props.notification.uploaderName}</strong></a>
+        <a style={this.getPoelinkStyle()}  onClick={this.goToUserPage.bind(this)} > <strong>{this.props.notification.userName}</strong></a>
+        &nbsp; Liked <a style={this.getPoelinkStyle()}  onClick={this.goToPoemPage.bind(this)} > <strong>{this.props.notification.uploaderName}</strong></a>
          </div>
        )
     }
@@ -149,7 +152,8 @@ getPoelinkStyle(){
     getCommentHtml(){
       return(
        <div style={this.getDivFloatLeftStyles()}>
-        <strong>{this.props.notification.userName} </strong>commented  <a style={this.getPoelinkStyle()}  onClick={this.goToPoemPage.bind(this)} > <strong>{this.props.notification.uploaderName}</strong></a>
+       <a style={this.getPoelinkStyle()}  onClick={this.goToUserPage.bind(this)} > <strong>{this.props.notification.userName}</strong></a>
+       &nbsp;commented  <a style={this.getPoelinkStyle()}  onClick={this.goToPoemPage.bind(this)} > <strong>{this.props.notification.uploaderName}</strong></a>
         </div>
       )
    }
