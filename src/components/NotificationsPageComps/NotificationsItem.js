@@ -143,7 +143,7 @@ getPoelinkStyle(){
        return(
         <div style={this.getDivFloatLeftStyles()}>
         <a style={this.getPoelinkStyle()}  onClick={this.goToUserPage.bind(this)} > <strong>{this.props.notification.userName}</strong></a>
-        &nbsp; Liked <a style={this.getPoelinkStyle()}  onClick={this.goToPoemPage.bind(this)} > <strong>{this.props.notification.uploaderName}</strong></a>
+        &nbsp; Liked <a style={this.getPoelinkStyle()}  onClick={this.goToPoemPage.bind(this)} > <strong>{this.props.notification.title}</strong></a>
          </div>
        )
     }
@@ -153,7 +153,7 @@ getPoelinkStyle(){
       return(
        <div style={this.getDivFloatLeftStyles()}>
        <a style={this.getPoelinkStyle()}  onClick={this.goToUserPage.bind(this)} > <strong>{this.props.notification.userName}</strong></a>
-       &nbsp;commented  <a style={this.getPoelinkStyle()}  onClick={this.goToPoemPage.bind(this)} > <strong>{this.props.notification.uploaderName}</strong></a>
+       &nbsp;commented  <a style={this.getPoelinkStyle()}  onClick={this.goToPoemPage.bind(this)} > <strong>{this.props.notification.title}</strong></a>
         </div>
       )
    }
@@ -171,6 +171,7 @@ getPoelinkStyle(){
 
       var d = new Date(this.props.notification.timestamp);
       var createTime = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
+      var duartion = this.getTimeDuration(d);
 
       var text = "";
       if(this.props.notification.type == "follow"){
@@ -199,7 +200,7 @@ getPoelinkStyle(){
                     </div>
                    <div style={this.getImageRightDivStyles()} >
                     {text}
-                    <div style={this.getDivFloatRightStyles()}>{this.props.notification.time}</div>
+                    <div style={this.getDivFloatRightStyles()}>{duartion}</div>
 
                  </div>
             </div>
@@ -219,6 +220,42 @@ getPoelinkStyle(){
 
           window.location = '/user?' + this.props.notification.userID;
 
+
+    }
+
+    getTimeDuration(dateTimeStamp){
+      //JavaScript函数：
+      var minute = 1000 * 60;
+      var hour = minute * 60;
+      var day = hour * 24;
+      var month = day * 30;
+
+      var now = new Date().getTime();
+      var diffValue = now - dateTimeStamp;
+
+
+      var monthC =diffValue/month;
+      var weekC =diffValue/(7*day);
+      var dayC =diffValue/day;
+      var hourC =diffValue/hour;
+      var minC =diffValue/minute;
+      var result = "";
+      if(monthC>=1){
+        result = parseInt(monthC) + "M";
+       }
+       else if(weekC>=1){
+         result = parseInt(weekC) + "W";
+       }
+       else if(dayC>=1){
+        result = parseInt(dayC) +"D";
+       }
+       else if(hourC>=1){
+         result = parseInt(hourC) +"H";
+       }
+       else {
+         result = parseInt(minC) +"M";
+       }
+      return result;
 
     }
 

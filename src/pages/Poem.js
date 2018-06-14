@@ -186,7 +186,7 @@ class Poem extends Component {
                 base.push(`/Recitations/${this.state.recitationId}/comments`, {
                     data: {userId: firebase.auth().currentUser.uid, userName: data.fullname, comment: this.state.commentMessage}
                   }).then(newLocation => {
-
+                    this.NotificationAddComment()
                 }).catch(err => {
                     //handle error
                     console.log('an error occurred');
@@ -220,6 +220,68 @@ class Poem extends Component {
                 }
             }
         }, this);
+    }
+
+
+
+    NotificationAddComment(){
+      var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
+      const store = this.props.rStore.getState();
+      const follower = store.currentUser;
+      var userID = recitation.uploaderID;
+      console.log(follower);
+
+     //   var recObj3 = {'type':'comment','time': "3d", 'uploaderName':'When I Was One and Twenty', 'recordID':"-Kp147Fest1erZpQPQ7f" , 'photoURL':'http://www.99sns.com/man.jpg', 'userID':'JdojbbrAmifYlR3LhoNKpw45p1j2', 'userName':'Adeola Uthman', 'timestamp':'1499784218435'}
+
+     var key = "comment_" + recitation.id;
+     console.log(userID);
+     console.log(key);
+     firebase.database().ref().child('Notifications').child(userID).child(key).once('value', (snap) => {
+       var record = snap.val();
+       if(!record){
+           var data = {'type': 'comment',
+                        'photoURL': follower.photoURL,
+                        'userID': follower.userID,
+                        'userName': follower.fullname,
+                        'title': recitation.title,
+                        'recordID': recitation.id,
+                        'timestamp': Date.now(),
+                        'timestampDESC': -Date.now()
+                      };
+
+           firebase.database().ref().child('Notifications').child(userID).child(key).set(data);
+           this.userNotificationIncease(userID);
+
+
+       }else{
+         var lastCommentTime = record.timestamp;
+         firebase.database().ref().child('Notifications').child(userID).child(key).update({
+             'timestamp': Date.now(),
+             'timestampDESC': -Date.now()
+         });
+
+         firebase.database().ref().child('Users').child(userID).once('value').then((snap)=>{
+             var user = snap.val()
+             var notifications = 1;
+             if(user.notifications){
+                 notifications = user.notifications + 1;
+             }
+
+
+             if(user.notificationsLastRead > lastCommentTime){  // has read add no comment notifications
+               firebase.database().ref().child('Users').child(userID).update({
+                   'notifications': notifications
+               });
+             }
+
+
+
+         });
+
+       }
+
+     });
+
     }
 
 
@@ -788,6 +850,7 @@ class Poem extends Component {
     }
 
     likeRecitation() {
+
         const store = this.props.rStore.getState();
         if(store.currentUser === null || store.currentUser === undefined) { alert('You must be signed in to like a recitation.'); return; }
 
@@ -795,13 +858,19 @@ class Poem extends Component {
         const uid = store.currentUser.userID;
         var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
 
+
         fireRef.child('Users').child(uid).once('value').then((snap)=>{
             var likes = snap.val().likes || [];
 
             if(!likes.includes(recitation.id)) {
+
                 // Set the user's likes array.
                 likes.push(recitation.id);
                 fireRef.child('Users').child(uid).child('likes').set(likes);
+
+                // add notifications
+                this.NotificationAddLike(recitation);
+
 
                 // Change the recitation's like number
                 recitation.likes += 1;
@@ -823,6 +892,58 @@ class Poem extends Component {
                 return;
             }
         });
+    }
+
+
+
+
+    NotificationAddLike(recitation){
+
+      const store = this.props.rStore.getState();
+      const follower = store.currentUser;
+      var userID = recitation.uploaderID;
+
+
+      //  var recObj2 = {'type':'like','time':"12h", 'uploaderName':'Looking For Delights', 'recordID':"-LBx4DeRxhuX6C_DgnKR" , 'photoURL':'http://www.99sns.com/man.jpg', 'userID':'JdojbbrAmifYlR3LhoNKpw45p1j2', 'userName':'Adeola Uthman', 'timestamp':'1499784218435'}
+
+
+      var key = "like_" + recitation.id;
+
+      firebase.database().ref().child('Notifications').child(userID).child(key).once('value', (snap) => {
+        var record = snap.val();
+        if(!record){
+            var data = {'type': 'like',
+                         'photoURL': follower.photoURL,
+                         'userID': follower.userID,
+                         'userName': follower.fullname,
+                         'title': recitation.title,
+                         'recordID': recitation.id,
+                         'timestamp': Date.now(),
+                         'timestampDESC': -Date.now()
+                       };
+
+            firebase.database().ref().child('Notifications').child(userID).child(key).set(data);
+            this.userNotificationIncease(userID);
+
+
+        }
+
+      });
+    }
+
+    userNotificationIncease(uid){
+      firebase.database().ref().child('Users').child(uid).once('value').then((snap)=>{
+          var user = snap.val()
+          var notifications = 1;
+          if(user.notifications){
+             notifications = user.notifications + 1;
+          }
+
+          firebase.database().ref().child('Users').child(uid).update({
+              'notifications': notifications
+          });
+
+      });
     }
 
     favoriteRecitation() {
