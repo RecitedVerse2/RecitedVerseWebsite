@@ -137,7 +137,7 @@ class EditProfile extends Component {
             height:'80%',
             fontSize:'20px',
             paddingLeft:'10px',
-            color:'white',
+            color:'black',
 
         }
     }

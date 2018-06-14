@@ -357,7 +357,7 @@ class Upload extends Component {
          return(
           <div style={this.getUploadDivStyle()}>
            <div style={this.getRecodingDivStyle()}>
-               <h1 className='recordTitle'>Record a poem</h1>
+               <h2 style={{fontFamily: 'Roboto', color: 'black'}}>Create Your Recording</h2>
 
                <div style={this.getRecodingButtonsDivStyle()}>
                <table>
@@ -385,7 +385,7 @@ class Upload extends Component {
 
                <button  style={this.getRecodingDoneButtonStyle()}
                        ref={(button)=>{this.submitBtn = button}}
-                       onClick={this.recordDone.bind(this)}>Done</button>
+                       onClick={this.recordDone.bind(this)}>Continue</button>
 
            </div>
             </div>
@@ -420,7 +420,7 @@ class Upload extends Component {
    getFormAfterUpdate(){
      return(
        <div style={this.getUploadDiv2Style()}>
-        <h1 style={this.getUploadH2Style()}>Record Info</h1>
+        <h1 style={this.getUploadH2Style()}>Poem/Excerpt Details</h1>
        <div style={this.getUploadInfoDivStyle()} >
 
           <div style={this.getUploadLeftInfoDivStyle()}  >
@@ -433,10 +433,10 @@ class Upload extends Component {
                           formButtonClass='pill_btn' name='recImageFile'
                           accept='image' multiple='false'
                           fileSelectedHandler={(e)=>{this.uploadRecitationImage(e)}}>
-            Update Cover Image
+            Select Default Image
           </FileChooserForm>
 
-          <button type="button" style={this.GalleryButtonStyle()}  onClick={this.RandomGallery.bind(this)} className="btn btn-success">Random Gallery</button>
+          <button type="button" style={this.GalleryButtonStyle()}  onClick={this.RandomGallery.bind(this)} className="btn btn-success">Select Default Image</button>
 
           </div>
             <div  style={this.getUploadRightInfoDivStyle()} >
@@ -461,8 +461,10 @@ class Upload extends Component {
              </div>
 
   <div className="checkbox">
-  <p style={this.getPTagStyle()} >The duration of copyright in these works is generally computed the same way as for works created on or after January 1, 1978.</p>
-  <label><input type="checkbox" name="remember" ref={(input)=>{this.copyRightField = input}} ></input> Yes, I know</label>
+  <p style={this.getPTagStyle()} >This is a recording of a work of poetry that is either in the
+public domain (published before 1923) or I am its author and authorize its circulation as written and
+recorded text on the Recited Verse archive</p>
+  <label><input type="checkbox" name="remember" ref={(input)=>{this.copyRightField = input}} ></input> Yes, I agree.</label>
 
  <div  style={this.getSubmitDivStyle()}>
   <p style={this.getStatusLabelStyle()} ref={(p)=>{this.statusLabel = p}}></p>

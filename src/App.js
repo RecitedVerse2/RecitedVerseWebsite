@@ -18,7 +18,7 @@ import Transcript from './pages/Transcript';
 import PlaylistPage from './pages/PlaylistPage';
 import User from './pages/User';
 import Notifications from './pages/Notifications';
-
+import MainPoem from './pages/MainPoem';
 import AudioPlayer from './components/AudioPlayer';
 import navigation from './components/navigation';
 
@@ -187,7 +187,7 @@ class App extends Component {
         const PlaylistPageComp = () => {return <PlaylistPage audioPlayer={AudioPlayerObj} nav={navObj} rStore={store}>{AudioPlayerObj}</PlaylistPage>}
         const NotificationsPage = () => {return <Notifications audioPlayer={AudioPlayerObj}  nav={navObj} rStore={store}>{AudioPlayerObj}</Notifications>}
         const UserPageComp = ({match}) => {return <User audioPlayer={AudioPlayerObj} match={match} nav={navObj} rStore={store}>{AudioPlayerObj}</User>}
-
+        const PoemByName = ({match}) => {return <MainPoem audioPlayer={AudioPlayerObj} match={match} nav={navObj} rStore={store}>{AudioPlayerObj}</MainPoem> }
 
         if(!cUser){  // before login
           return (
@@ -224,7 +224,7 @@ class App extends Component {
                     <Route exact path="/User" component={UserPageComp}></Route>
                     <Route exact path="/share" component={PoemSharePage}></Route>
                     <Route exact path="/notifications" component={NotificationsPage}></Route>
-
+                    <Route exact path="/allrecordings" component={PoemByName}></Route>
                 </div>
             </BrowserRouter>
         );
