@@ -433,7 +433,7 @@ class Upload extends Component {
                           formButtonClass='pill_btn' name='recImageFile'
                           accept='image' multiple='false'
                           fileSelectedHandler={(e)=>{this.uploadRecitationImage(e)}}>
-            Select Default Image
+            Upload Cover Image
           </FileChooserForm>
 
           <button type="button" style={this.GalleryButtonStyle()}  onClick={this.RandomGallery.bind(this)} className="btn btn-success">Select Default Image</button>
