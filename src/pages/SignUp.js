@@ -360,7 +360,8 @@ class SignUp extends Component {
                         "bio" : "Bio",
                         "social_media_links" : social,
                         "likes":[],
-                        "favorites":[]
+                        "favorites":[],
+                        "notifications":0
                     };
 
                     // Save that user to firebase.

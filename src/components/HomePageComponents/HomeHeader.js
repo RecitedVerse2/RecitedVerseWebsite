@@ -27,13 +27,26 @@ class Header extends Component {
         this.state = {
             backgroundColor: 'rgba(0,0,0,0)',
             textColor: 'rgba(0,0,0,0)',
-            showDownMenu:false
+            showDownMenu:false,
+            notifications:0,
         }
 
 
         var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
         var fullname = cUser.fullname;
         this.state.name = fullname.substring(0, fullname.indexOf(' '))
+
+
+        firebase.database().ref().child('Users').child(cUser.userID).once('value').then((snap)=>{
+            var user = snap.val()
+            var notifications = 0;
+            if(user.notifications){
+              notifications = user.notifications;
+             }
+
+             this.setState({'notifications' : notifications});
+           });
+
 
         this.mouseOver = this.mouseOver.bind(this)
         this.mouseLeaves = this.mouseLeaves.bind(this)
@@ -253,6 +266,11 @@ class Header extends Component {
 
     render() {
        var downMeue = "";
+       let redNotifications = "";
+       if(this.state.notifications){
+         redNotifications = (<span style={this.getMessgesRedAlert()} >{this.state.notifications}</span>);
+       }
+
        if(this.state.showDownMenu){
           downMeue = (
                 <div  style={this.getDropdownMenu()}   >
@@ -295,6 +313,7 @@ class Header extends Component {
 
 
         return (
+
             <div className='header' style={this.getHeaderStyle()}>
                 <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={TextLogo}></img>
 
@@ -311,7 +330,7 @@ class Header extends Component {
                     <ul className="suggestions" id="sugg">
                         <ConditionalHits />
                     </ul>
-                </InstantSearch>               
+                </InstantSearch>
                  </div>
 
                 <div style={this.getButtonsSectionStyle()}>
@@ -319,7 +338,8 @@ class Header extends Component {
 
                     <button style={this.getUploadButtonsStyle()} onClick={this.goToUploadPage.bind(this)}>Upload</button>
                       <button style={this.getMessagesButtonsStyle()} onClick={this.goToMessagesPage.bind(this)}>Notifications</button>
-                      <span style={this.getMessgesRedAlert()} >4</span>
+                      {redNotifications}
+
 
 
                     <div className="dropdown"   onMouseEnter={this.mouseOver} onMouseLeave={this.mouseLeaves} style={this.getDownAreatyle()}  >

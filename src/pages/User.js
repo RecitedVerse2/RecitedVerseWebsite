@@ -230,6 +230,7 @@ class User extends Component {
       if(this.state.userInfo.follow == "Follow"){
         user.follow = "Followed";
         this.setState({userInfo:user});
+        this.NotificationAddFollow(user)
 
       }else{
         user.follow = "Follow";
@@ -255,15 +256,51 @@ class User extends Component {
     }
 
 
-    NotificationAddFollow(userID, followerID){
-      var key = "follow_{followerID}";
+    NotificationAddFollow(user){
+
+      const store = this.props.rStore.getState();
+      const follower = store.currentUser;
+      var userID = user.userID;
+      console.log(follower);
+
+
+      var key = "follow_" + follower.userID;
+      console.log(userID);
+      console.log(key);
+
       firebase.database().ref().child('Notifications').child(userID).child(key).once('value', (snap) => {
         var record = snap.val();
+        if(!record){
+            var data = {'type': 'follow',
+                         'photoURL': follower.photoURL,
+                         'userID': follower.userID,
+                         'userName': follower.fullname,
+                         'timestamp': Date.now(),
+                         'timestampDESC': -Date.now()
+                       };
+
+            firebase.database().ref().child('Notifications').child(userID).child(key).set(data);
+            this.userNotificationIncease(userID);
+
+
+        }
+
       });
+    }
 
+    userNotificationIncease(uid){
+      firebase.database().ref().child('Users').child(uid).once('value').then((snap)=>{
+          var user = snap.val()
+          var notifications = 1;
+          if(user.notifications){
+             notifications = user.notifications + 1;
+          }
 
+          firebase.database().ref().child('Users').child(uid).update({
+              'notifications': notifications
+          });
 
-
+      });
     }
 
 

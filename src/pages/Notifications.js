@@ -29,8 +29,13 @@ class Notifications extends Component {
 
 
         this.state = {
-          recComponents:[]
+          recComponents:[],
+
         }
+
+
+        var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+        this.state.userID = cUser.userID;
 
     }
 
@@ -96,31 +101,9 @@ class Notifications extends Component {
     ***********************/
 
     render() {
-      var recObj = {'type':'follow','time': "10h", 'photoURL':'http://www.99sns.com/man.jpg', 'userID':'JdojbbrAmifYlR3LhoNKpw45p1j2', 'userName':'Adeola Uthman', 'timestamp':'1499784218435'}
-      var notificationsItem =                 <NotificationsItem
-                                                  notification={recObj}
-                                                  nav={this.props.nav}
-                                                  rStore={this.props.rStore}></NotificationsItem>;
 
-    var recObj2 = {'type':'like','time':"12h", 'uploaderName':'Looking For Delights', 'recordID':"-LBx4DeRxhuX6C_DgnKR" , 'photoURL':'http://www.99sns.com/man.jpg', 'userID':'JdojbbrAmifYlR3LhoNKpw45p1j2', 'userName':'Adeola Uthman', 'timestamp':'1499784218435'}
-    var notificationsItem2 = <NotificationsItem notification={recObj2}
-                                            nav={this.props.nav}
-                                            rStore={this.props.rStore}></NotificationsItem>;
-
-  var recObj3 = {'type':'comment','time': "3d", 'uploaderName':'When I Was One and Twenty', 'recordID':"-Kp147Fest1erZpQPQ7f" , 'photoURL':'http://www.99sns.com/man.jpg', 'userID':'JdojbbrAmifYlR3LhoNKpw45p1j2', 'userName':'Adeola Uthman', 'timestamp':'1499784218435'}
-  var notificationsItem3 = <NotificationsItem notification={recObj3}
-                              nav={this.props.nav}
-                                rStore={this.props.rStore}></NotificationsItem>;
-
-var recObj4 = {'type':'like','time':"1w", 'uploaderName':'Looking For Delights', 'recordID':"-LBx4DeRxhuX6C_DgnKR" , 'photoURL':'https://graph.facebook.com/10155293182842064/picture', 'userID':'PluIC3hvrZVtNOr2ryvxZMEzXkj2', 'userName':'Yousong Zhang', 'timestamp':'1499784218435'}
-                                var notificationsItem4 = <NotificationsItem notification={recObj4}
-                                                            nav={this.props.nav}
-                                                              rStore={this.props.rStore}></NotificationsItem>;
-
-
-
-
-
+      this.LoadNotification();
+      this.clearNotification();
 
 
         return (
@@ -139,10 +122,6 @@ var recObj4 = {'type':'like','time':"1w", 'uploaderName':'Looking For Delights',
 
                     {this.state.recComponents}
                 </div>
-                {notificationsItem}
-                {notificationsItem2}
-                {notificationsItem3}
-                {notificationsItem4}
             </div>
 
 
@@ -163,77 +142,38 @@ var recObj4 = {'type':'like','time':"1w", 'uploaderName':'Looking For Delights',
     *                     *
     ***********************/
 
-
-    // Loads the results of the current search and updates the state.
-    LoadNotification(callback) {
-        firebase.database().ref().child('Notifications').child('title').startAt(this.state.search).once('value', (snap) => {
-            var recs = [];
-            var comps = [];
-
-            // For each search match create a recitation item.
-            snap.forEach((element) => {
-                var match = element.val();
-
-                // If the beginnings do not match, just forget this one and keep going.
-                if(!match.title.startsWith(this.state.search)) {
-                    return;
-                }
-
-                var recObj = new Recitation(match.id,
-                                            match.uploaderID,
-                                            match.uploaderName,
-                                            match.image,
-                                            match.title,
-                                            match.author,
-                                            match.recited_by,
-                                            match.published,
-                                            match.genre,
-                                            match.description,
-                                            match.likes,
-                                            match.plays,
-                                            match.favorites,
-                                            match.text,
-                                            match.audio,
-                                            match.timestamp,
-                                            null)
-                recs.push(recObj);
-                this.setState({
-                    matchingRecitations: recs
-                });
-
-                var item = <RecitationItem2 key={match.timestamp}
-                                            recitation={recObj}
-                                            nav={this.props.nav}
-                                            rStore={this.props.rStore}></RecitationItem2>
-                comps.push(item);
-                this.setState({
-                    recComponents: comps
-                });
-            });
-            //if(callback) { callback(); }
-        });
-
-       // fake data
-
+    LoadNotification(){
+      var query = firebase.database().ref().child('Notifications').child(this.state.userID)
+      .orderByChild('timestamp').limitToFirst(100).startAt(0).once('value',(snap) =>{
 
        var comps = [];
-       var recObj = {'type':'follow','photoURL':'https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FcircleProfilePic.png?alt=media&token=7725c514-2e32-4feb-a4ff-de2b8be2e865', 'userID':'JdojbbrAmifYlR3LhoNKpw45p1j2', 'userName':'Adeola Uthman', 'timestamp':'1499784218435'}
-       var item = <NotificationsItem
-                                   notification={recObj}
-                                   nav={this.props.nav}
-                                   rStore={this.props.rStore}></NotificationsItem>
-       comps.push(item);
-       this.setState({
-           recComponents: comps
-       });
+       snap.forEach((element) => {
+           var notification = element.val();
+           console.log(notification);
 
+           var item = <NotificationsItem notification={notification}
+                                       nav={this.props.nav}
+                                       rStore={this.props.rStore}></NotificationsItem>
+           comps.push(item);
+         });
+         comps.reverse();
+
+         this.setState({
+             recComponents: comps
+         });
+
+     });
 
     }
 
-
-
-
-
+    clearNotification(){
+      var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+      var uid = cUser.userID;
+      firebase.database().ref().child('Users').child(uid).update({
+          'notifications': 0,
+          'notificationsLastRead':Date.now()
+      });
+    }
 
 
 }
