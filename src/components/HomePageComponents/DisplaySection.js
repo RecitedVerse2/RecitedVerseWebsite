@@ -145,7 +145,7 @@ class DisplaySection extends Component {
                     {this.state.recitations[2]}
                     {this.state.recitations[3]}
                     {this.state.recitations[4]}
-    
+
 
                     <button onClick={this.slideLeft.bind(this)}
                             style={this.getSliderButtonStylesRight()}
@@ -207,7 +207,7 @@ class DisplaySection extends Component {
     loadMostRecent(fireRef, callback) {
         var playlist = new Playlist("Recently Uploaded");
         var nowMS = Date.now();
-        fireRef.child('Recitations').orderByChild('timestamp').endAt(nowMS).limitToFirst(8).once('value').then((snapshot)=> {
+        fireRef.child('Recitations').orderByChild('timestamp').startAt().limitToLast(8).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((rO) => {
@@ -231,6 +231,10 @@ class DisplaySection extends Component {
                                              rO.val().timestamp,
                                              playlist );
                 playlist.add(recObj);
+
+                //var d = new Date(recObj.timestamp);
+                //var dateString = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + (d.getMonth()+1) + (d.getMonth()+1);
+              //console.log(d.toGMTString());
 
                 playlist.recitations.sort( (a, b) => {
                     return b.timestamp - a.timestamp;
