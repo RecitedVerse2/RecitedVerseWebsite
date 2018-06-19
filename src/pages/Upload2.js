@@ -586,8 +586,12 @@ recorded text on the Recited Verse archive</p>
 
     handleRecord() {
         var statusLabel = this.statusLabel;
+        console.log("I am in ");
+
 
         if(!this.recordBtn.className.includes('fa-microphone-slash')) {
+            this.audioStart = true;
+            this.start = Date.now();
             audioRec.startRecording();
             this.recordBtn.className = 'recordingButtons fa fa-microphone-slash';
             statusLabel.innerHTML = 'Recording...';
@@ -605,7 +609,13 @@ recorded text on the Recited Verse archive</p>
     handleEndRecord() {
         audioRec.stopRecording();
         var statusLabel = this.statusLabel;
-        statusLabel.innerHTML = '';
+        if(this.audioStart == true){
+          this.end =  Date.now()
+          this.audioStart  = false;
+        }
+
+        var duration = (this.end - this.start)/1000;
+        statusLabel.innerHTML =  duration + ' seconds audio is recorded';
         statusLabel.style.WebkitTransitionDuration = '0s';
         statusLabel.style.opacity = '1';
 
@@ -661,7 +671,7 @@ recorded text on the Recited Verse archive</p>
             this.statusLabel.innerHTML = '';
             this.statusLabel.style.WebkitTransitionDuration = '0s';
             this.statusLabel.style.opacity = '1';
-            alert("I am first")
+
             return;
         } else if(audioRec.getRecording() !== null) {
             audioRec.stop();
