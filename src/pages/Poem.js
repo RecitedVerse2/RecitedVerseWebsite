@@ -482,7 +482,7 @@ class Poem extends Component {
                        <h1 className='headerText'>Genre: {this.state.genre}</h1>
                       <h1 className='headerText'>Date:  {this.state.date}</h1>
 
-                        <h1 className='headerText'>Recited By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
+                        <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
 
                         <div style={{marginLeft:'10px'}}>
                             <button style={this.getPlayButtonSize()} className='interactButton fa fa-play'

@@ -4,6 +4,11 @@ import * as firebase from 'firebase';
 import audioRec from 'au-audio-recorder';
 import Alertify from 'alertify.js';
 
+import { confirmAlert } from 'react-confirm-alert'; // Import
+
+import '../css/react-confirm-alert.css'
+
+
 
 import emptyImage from '../res/empty.png';
 
@@ -35,6 +40,7 @@ class Upload extends Component {
     *                     *
     ***********************/
 
+
     constructor() {
         super();
 
@@ -52,10 +58,29 @@ class Upload extends Component {
             isUpdateDone: false,
 
         }
+
+        this.func123 = this.showReminder.bind(this);
+    }
+
+    showReminder(event){
+      //alert("this is a test")
+      event.preventDefault();
+      this.beforeUpload()
+
     }
 
     componentDidMount() {
         audioRec.requestPermission();
+        console.log("componentDidMountcomponentDidMountcomponentDidMountcomponentDidMount 11111111");
+
+          document.getElementById("fromFileBtn").addEventListener("click", this.func123);
+
+
+      //   document.getElementById("fromFileBtn").addEventListener("click", function(event){
+      //    alert("this is a test")
+      //    event.preventDefault()
+      // });
+
     }
 
 
@@ -395,6 +420,8 @@ class Upload extends Component {
 
    }
 
+
+
    getLoadFileFormHtml(){
      return(
        <div style={this.getUploadDivStyle()}>
@@ -405,6 +432,7 @@ class Upload extends Component {
                        formButtonId='fromFileBtn'
                        formButtonClass='pill_btn' name='fileRecitation'
                        accept='audio/*' multiple='false'
+                       beforeUploadHandler={(e)=>{this.beforeUpload(e)}}
                        fileSelectedHandler={(e)=>{this.uploadAudioFile(e)}}>
            Upload Audio Record
        </FileChooserForm>
@@ -492,6 +520,53 @@ recorded text on the Recited Verse archive</p>
      )
    }
 
+
+
+   beforeUpload = () => {
+
+
+    confirmAlert({
+      title: 'Reminder',
+      message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original peom that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
+      buttons: [
+        {
+          label: 'I Understand',
+          onClick: () => {
+
+
+              document.getElementById("fromFileBtn").removeEventListener('click', this.func123, false);
+            
+          //  document.getElementById("fromFileBtn").removeEventListener("check", (event)=>this.showReminder(event));
+          }
+        },
+        // {
+        //   label: 'No',
+        //   onClick: () => alert('Click No')
+        // }
+      ]
+    })
+  }
+
+    submitForRecordNow = () => {
+     confirmAlert({
+       title: 'Reminder',
+       message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original peom that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
+       buttons: [
+         {
+           label: 'I Understand',
+           onClick: () => {
+             this.setState({ isFileUpdate: false });
+           }
+         },
+         // {
+         //   label: 'No',
+         //   onClick: () => alert('Click No')
+         // }
+       ]
+     })
+   }
+
+
     /**********************
     *                     *
     *        RENDER       *
@@ -572,8 +647,9 @@ recorded text on the Recited Verse archive</p>
     }
 
     recordNow(){
+      this.submitForRecordNow()
 
-      this.setState({ isFileUpdate: false });
+      //this.setState({ isFileUpdate: false });
     }
 
     /**********************
