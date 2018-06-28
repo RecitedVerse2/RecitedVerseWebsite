@@ -214,7 +214,7 @@ class User extends Component {
                     <div>
                         <button ref={(button)=>{this.allButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
-                                id='records' className='changeRecitationsButton'>Records</button>
+                                id='records' className='changeRecitationsButton'>Recordings</button>
                         <button ref={(button)=>{this.popularButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
                                 id='popular' className='changeRecitationsButton'>Popular</button>

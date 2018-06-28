@@ -95,7 +95,7 @@ class Upload extends Component {
 
         confirmAlert({
           title: 'Warning',
-          message: 'Only Chrome browser supports Upload Record.',
+          message: 'Only Chrome browser supports Upload.',
           buttons: [
             {
               label: 'OK',
@@ -774,8 +774,6 @@ recorded text on the Recited Verse archive</p>
     }
 
     handlePlay() {
-       alert("I am here")
-       console.log(this.state.audioObj);
         var statusLabel = this.statusLabel;
         if(this.state.audioObj !== null) {
             this.state.audioObj.play();
@@ -895,13 +893,13 @@ recorded text on the Recited Verse archive</p>
           });
 
         })
-        
+
         let genre = '';
         this.state.multiValue.map((option) => {
           genre.concat(' ', option.value, ' , ');
         })
 
-        
+
 
         var finalRecording = audioRec.getRecording();
         const fireRef = firebase.database().ref();
