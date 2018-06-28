@@ -23,6 +23,9 @@ import { Grid, Row, Col, Form, FormGroup, FormControl, Button, Glyphicon } from 
 import { base } from '../objects/config';
 import { MentionsInput, Mention } from 'react-mentions'
 
+const processString = require('react-process-string');
+
+
 class Poem extends Component {
 
     /**********************
@@ -88,6 +91,7 @@ class Poem extends Component {
         this.addComment = this.addComment.bind(this);
         this.reportComment = this.reportComment.bind(this);
         this.reportPoem = this.reportPoem.bind(this);
+        this.returnPhoto = this.returnPhoto.bind(this);
 
 
     }
@@ -182,9 +186,8 @@ class Poem extends Component {
         base.fetch(`/Users/${usersUid}`, {
             context: this,
             then(data){
-
                 base.push(`/Recitations/${this.state.recitationId}/comments`, {
-                    data: {userId: firebase.auth().currentUser.uid, userName: data.fullname, comment: this.state.commentMessage}
+                    data: {userId: firebase.auth().currentUser.uid, userName: data.fullname, comment: this.state.commentMessage, photo: data.photoURL}
                   }).then(newLocation => {
                     this.NotificationAddComment()
                 }).catch(err => {
@@ -220,6 +223,12 @@ class Poem extends Component {
                 }
             }
         }, this);
+    }
+
+    returnPhoto(photoURl){
+        if(photoURl){
+            return <img height="25" width="25" src={`${photoURl}`} />;
+        }
     }
 
 
@@ -477,6 +486,7 @@ class Poem extends Component {
 
 
         const isMobile = window.innerWidth <= 800;
+
         if(isMobile){
           return (
               <div style={this.getStyles()}>
@@ -492,9 +502,9 @@ class Poem extends Component {
                   <div className='contentArea' >
 
                       <div className='verticalTextArea' style={this.getTextAreaStyle()}>
-                         <h1 className='headerText'><strong>{this.state.poemName} <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
+                         <h1 className='headerText'><strong><a className="headerText" style={{color: 'white'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
                          <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
-                         <h1 className='headerText'>Genre: {this.state.genre}</h1>
+                         {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
                         <h1 className='headerText'>Date:  {this.state.date}</h1>
 
                           <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
@@ -533,17 +543,17 @@ class Poem extends Component {
                   <Clock onupdate={this.update.bind(this)}></Clock>
                   {this.props.children}
                   </div>
-                  <div style={{paddingTop: '10px', paddingBottom: '100px'}}>
+                  <div className="poemCommentBox" style={{paddingTop: '10px', paddingBottom: '100px'}}>
                       <Grid>
                       <Row className="show-grid">
-                              <Col md={4}>
+                              <Col style={{padding: '20px', backgroundColor: '#FAFAFA', borderRadius: '5px'}} md={4}>
                               {this.state.comments.length > 1 ? (
                                   <h2>{this.state.comments.length} comments</h2>
                               ) : (
                                   <h2>Comment:</h2>
                               )}
                               <hr></hr>
-                              {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a></li>)}
+                              {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}>{this.returnPhoto(item.photo)}<a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a><hr/></li>)}
                               {/* <Form>
                                   <FormGroup>
                                   <FormControl
@@ -556,7 +566,7 @@ class Poem extends Component {
                                   <Button onClick={this.addComment}>Add Comment</Button>
                                   </FormGroup>
                               </Form> */}
-                              <MentionsInput value={this.state.commentMessage} onChange={(event) => this.setState({commentMessage: event.target.value})}>
+                              <MentionsInput placeholder="Write a comment..." value={this.state.commentMessage} onChange={(event) => this.setState({commentMessage: event.target.value})}>
                                   <Mention
                                       trigger="@"
                                       data={this.state.users}
@@ -571,8 +581,8 @@ class Poem extends Component {
               </div>
           );
 
-
         }else{
+
           return (
               <div style={this.getStyles()}>
                   {/* The header area */}
@@ -587,9 +597,9 @@ class Poem extends Component {
                   <div className='contentArea' >
 
                       <div className='verticalTextArea' style={this.getTextAreaStyle()}>
-                         <h1 className='headerText'><strong>{this.state.poemName} <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
+                         <h1 className='headerText'><strong><a className="headerText" style={{color: 'white'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
                          <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
-                         <h1 className='headerText'>Genre: {this.state.genre}</h1>
+                         {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
                         <h1 className='headerText'>Date:  {this.state.date}</h1>
 
                           <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
@@ -628,17 +638,17 @@ class Poem extends Component {
                   <Clock onupdate={this.update.bind(this)}></Clock>
                   {this.props.children}
                   </div>
-                  <div style={{paddingTop: '10px', paddingBottom: '100px'}}>
+                  <div className="poemCommentBox" style={{paddingTop: '10px', paddingBottom: '100px'}}>
                       <Grid>
                       <Row className="show-grid">
-                              <Col md={4}>
+                              <Col style={{padding: '20px', backgroundColor: '#FAFAFA', borderRadius: '5px'}} md={4}>
                               {this.state.comments.length > 1 ? (
                                   <h2>{this.state.comments.length} comments</h2>
                               ) : (
                                   <h2>Comment:</h2>
                               )}
                               <hr></hr>
-                              {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a></li>)}
+                              {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}>{this.returnPhoto(item.photo)}<a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a><hr/></li>)}
                               {/* <Form>
                                   <FormGroup>
                                   <FormControl
@@ -651,7 +661,7 @@ class Poem extends Component {
                                   <Button onClick={this.addComment}>Add Comment</Button>
                                   </FormGroup>
                               </Form> */}
-                              <MentionsInput value={this.state.commentMessage} onChange={(event) => this.setState({commentMessage: event.target.value})}>
+                              <MentionsInput placeholder="Write a comment..." value={this.state.commentMessage} onChange={(event) => this.setState({commentMessage: event.target.value})}>
                                   <Mention
                                       trigger="@"
                                       data={this.state.users}
@@ -665,8 +675,8 @@ class Poem extends Component {
                   </div>
               </div>
           );
-
         }
+
 
     }
 

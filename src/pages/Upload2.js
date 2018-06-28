@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import audioRec from 'au-audio-recorder';
 import Alertify from 'alertify.js';
+import Select from 'react-select';
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 
@@ -30,6 +31,8 @@ import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
 import ProfileBanner from '../components/ProfilePageComps/ProfileBanner';
 import FileChooserForm from '../components/FileChooserForm';
 import Clock from '../components/Clock';
+import 'react-select/dist/react-select.css';
+import { base } from '../objects/config';
 
 
 class Upload extends Component {
@@ -56,10 +59,19 @@ class Upload extends Component {
             choseImage: false,
             isFileUpdate: true,
             isUpdateDone: false,
+            multiValue: [],
+            multi: true,
+            options: [
+              { value: 'R', label: 'Red' },
+              { value: 'G', label: 'Green' },
+              { value: 'B', label: 'Blue' }
+            ],
+            value: undefined
 
         }
 
         this.func123 = this.showReminder.bind(this);
+        this.handleOnChange = this.handleOnChange.bind(this);
     }
 
     showReminder(event){
@@ -96,6 +108,28 @@ class Upload extends Component {
 
       }
 
+      let tags = [];
+      // fetch tags
+      base.fetch('/tags', {
+        context: this,
+        asArray: true,
+        then(data){
+          data.map((tag) => {
+            tags.push(tag.option);
+          })
+        }
+      })
+      this.setState({options: tags});
+
+    }
+
+    handleOnChange(value){
+      const { multi } = this.state;
+        if (multi) {
+          this.setState({ multiValue: value });
+        } else {
+          this.setState({ value });
+        }
     }
 
 
@@ -476,7 +510,7 @@ class Upload extends Component {
                           formButtonClass='pill_btn' name='recImageFile'
                           accept='image' multiple='false'
                           fileSelectedHandler={(e)=>{this.uploadRecitationImage(e)}}>
-            Select Default Image
+            Upload Cover Image
           </FileChooserForm>
 
           <button type="button" style={this.GalleryButtonStyle()}  onClick={this.RandomGallery.bind(this)} className="btn btn-success">Select Default Image</button>
@@ -494,9 +528,15 @@ class Upload extends Component {
              </div>
 
 
-             <label className="control-label col-sm-2" >Genre:</label><br/>
+             <label className="control-label col-sm-2" >Tags:</label><br/>
              <div >
-               <input type="email" className="form-control"  placeholder="Enter Title" ref={(input)=>{this.genreField = input}} ></input>
+               {/* <input type="email" className="form-control"  placeholder="Enter Tags" ref={(input)=>{this.genreField = input}} ></input> */}
+               <Select.Creatable
+                multi={this.state.multi}
+                options={this.state.options}
+                onChange={this.handleOnChange}
+                value={this.state.multi ? this.state.multiValue : this.state.value}
+              />
              </div>
               <label className="control-label col-sm-2" >Transcript:</label><br/>
              <div >
@@ -842,6 +882,27 @@ recorded text on the Recited Verse archive</p>
           this.statusLabel.innerHTML = "";
         }
 
+        //upload tags
+        this.state.multiValue.map((option) => {
+
+          base.push('tags', {
+            data: {option},
+            then(err){
+              if(!err){
+                console.log('uploaded tag');
+              }
+            }
+          });
+
+        })
+        
+        let genre = '';
+        this.state.multiValue.map((option) => {
+          genre.concat(' ', option.value, ' , ');
+        })
+
+        
+
         var finalRecording = audioRec.getRecording();
         const fireRef = firebase.database().ref();
         const storageRef = firebase.storage().ref();
@@ -851,7 +912,7 @@ recorded text on the Recited Verse archive</p>
         var poemAuthor = this.poetField;
         var poemRecitedBy = this.recitedByField;
         var poemPublished = this.publishedField;
-        var poemGenre = this.genreField;
+        var poemGenre = genre;
         var poemWrittenText = this.transcriptField;
         var poemDescription = this.descriptionField;
 
@@ -867,7 +928,7 @@ recorded text on the Recited Verse archive</p>
         }
 
         if( (this.valueExists(this.state.audioObj) || finalRecording !== null) && this.valueExists(poemName.value) && this.valueExists(poemAuthor.value)
-        && this.valueExists(poemGenre.value) && this.valueExists(poemWrittenText.value)) {
+        && this.valueExists(poemWrittenText.value)) {
 
             // Create a dictionary object for the audio.
             // Save that dictionary to the Firebase database.
@@ -885,7 +946,7 @@ recorded text on the Recited Verse archive</p>
                 "uploaderName":store.currentUser.fullname,
                 "title":poemName.value,
                 "author":poemAuthor.value,
-                "genre":poemGenre.value,
+                "genre": genre,
                 "text":poemWrittenText.value,
                 "Published":"unkown",
                 "image":this.poemImage.src,
@@ -941,7 +1002,6 @@ recorded text on the Recited Verse archive</p>
             if(!this.valueExists(this.state.audioObj) && finalRecording === null) { missingInfo += "You must upload or record a poem before submitting<br/>"; }
             if(!this.valueExists(poemName.value)) { missingInfo += "Enter a name for the poem<br/>"; }
             if(!this.valueExists(poemAuthor.value)) { missingInfo += "Enter a name of the poet<br/>"; }
-            if(!this.valueExists(poemGenre.value)) { missingInfo += "Enter the genre of the poem<br/>"; }
             if(!this.valueExists(poemWrittenText.value)) { missingInfo += "Enter the transcript of the poem<br/>"; }
 
             Alertify.alert(missingInfo);

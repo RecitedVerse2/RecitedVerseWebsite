@@ -327,7 +327,7 @@ class Header extends Component {
             const hs =
               hits && query
                 ? hits.map(hit =>
-                  <li>
+                  <li key={hit.recitation.title}>
                       <div style={{zIndex: '999', marginTop: '10px'}} className="inc-name">
                         {/* {hit.text.title} | <a href={'/user?' + hit.text.uploaderID}>{hit.text.uploaderName}</a> */}
 

@@ -159,9 +159,9 @@ class RecitationItem extends Component {
                     </button>
                 </div>
 
-                    <button onClick={this.addToPlaylist.bind(this)} style={this.addToPlaylistButtonStyles()}>
+                    {/* <button onClick={this.addToPlaylist.bind(this)} style={this.addToPlaylistButtonStyles()}>
                         <span className='fa fa-plus'></span>
-                    </button>
+                    </button> */}
 
                     <Clock onupdate={this.update.bind(this)}></Clock>
                     {this.props.children}

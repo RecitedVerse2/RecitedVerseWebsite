@@ -86,3 +86,26 @@
     display: inline-block;
     cursor: pointer;
 }
+.poemCommentBox li {
+    margin-top: 2px;
+}
+
+.poemCommentBox textarea {
+    position: relative !important;
+    border: 1px solid rgb(160, 160, 160);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-shadow:  0 1px 3px 0 rgba(0,0,0,0.20);
+
+
+}
+
+.poemCommentBox textarea:focus {
+    position: relative !important;
+    border: 1px solid rgb(160, 160, 160);
+    border-radius: 5px !important;
+    margin-bottom: 15px !important;
+    padding: 10px;
+
+}
