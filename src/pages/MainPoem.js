@@ -13,6 +13,7 @@ export default class MainPoem extends Component {
             allPoemData: [],
             loading: true,
             recComponents: [],
+            text: '',
         }
     }
 
@@ -33,7 +34,7 @@ export default class MainPoem extends Component {
             context: this,
             then(data){
                 console.log(data);
-                this.setState({title: data.title});
+                this.setState({title: data.title, text: data.text});
 
                 base.fetch(`/Recitations`, {
                     context: this,
@@ -126,6 +127,7 @@ export default class MainPoem extends Component {
 
                 <div style={{marginTop: '5%'}} className="content">
                 <h2>{this.state.title} - <i>All Recordings</i></h2>
+                <p style={{textAlign: 'center', marginRight: '25%', marginLeft: '25%', marginTop: '25px'}}>{this.state.text}</p>
                     <div style={{marginLeft: '20px'}}>
                         {this.state.recComponents}
                     </div>
