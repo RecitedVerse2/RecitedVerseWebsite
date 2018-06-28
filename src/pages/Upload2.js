@@ -71,15 +71,30 @@ class Upload extends Component {
 
     componentDidMount() {
         audioRec.requestPermission();
-        console.log("componentDidMountcomponentDidMountcomponentDidMountcomponentDidMount 11111111");
-
-          document.getElementById("fromFileBtn").addEventListener("click", this.func123);
+        document.getElementById("fromFileBtn").addEventListener("click", this.func123);
 
 
       //   document.getElementById("fromFileBtn").addEventListener("click", function(event){
       //    alert("this is a test")
       //    event.preventDefault()
       // });
+      if (navigator.userAgent.indexOf("Chrome") !== -1){
+      }else{
+
+        confirmAlert({
+          title: 'Warning',
+          message: 'Only Chrome browser supports Upload Record.',
+          buttons: [
+            {
+              label: 'OK',
+              onClick: () => {
+
+              }
+            },
+          ]
+        })
+
+      }
 
     }
 
@@ -535,7 +550,7 @@ recorded text on the Recited Verse archive</p>
 
 
               document.getElementById("fromFileBtn").removeEventListener('click', this.func123, false);
-            
+
           //  document.getElementById("fromFileBtn").removeEventListener("check", (event)=>this.showReminder(event));
           }
         },
@@ -548,22 +563,43 @@ recorded text on the Recited Verse archive</p>
   }
 
     submitForRecordNow = () => {
-     confirmAlert({
-       title: 'Reminder',
-       message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original peom that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
-       buttons: [
-         {
-           label: 'I Understand',
-           onClick: () => {
-             this.setState({ isFileUpdate: false });
-           }
-         },
-         // {
-         //   label: 'No',
-         //   onClick: () => alert('Click No')
-         // }
-       ]
-     })
+
+      if (navigator.userAgent.indexOf("Chrome") !== -1){
+        confirmAlert({
+          title: 'Reminder',
+          message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original peom that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
+          buttons: [
+            {
+              label: 'I Understand',
+              onClick: () => {
+                this.setState({ isFileUpdate: false });
+              }
+            },
+            // {
+            //   label: 'No',
+            //   onClick: () => alert('Click No')
+            // }
+          ]
+        })
+
+      } else {
+        confirmAlert({
+          title: 'Warning',
+          message: 'Only Chrome browser supports Record Now function.',
+          buttons: [
+            {
+              label: 'OK',
+              onClick: () => {
+
+              }
+            },
+
+          ]
+        })
+
+      }
+
+
    }
 
 
@@ -615,7 +651,7 @@ recorded text on the Recited Verse archive</p>
     ***********************/
 
     cancel(){
-      alert(this.poemImage.src)
+
 
     }
 
@@ -662,12 +698,11 @@ recorded text on the Recited Verse archive</p>
 
     handleRecord() {
         var statusLabel = this.statusLabel;
-        console.log("I am in ");
-
-
         if(!this.recordBtn.className.includes('fa-microphone-slash')) {
             this.audioStart = true;
             this.start = Date.now();
+            console.log("startRecording");
+            console.log(audioRec);
             audioRec.startRecording();
             this.recordBtn.className = 'recordingButtons fa fa-microphone-slash';
             statusLabel.innerHTML = 'Recording...';
@@ -699,6 +734,8 @@ recorded text on the Recited Verse archive</p>
     }
 
     handlePlay() {
+       alert("I am here")
+       console.log(this.state.audioObj);
         var statusLabel = this.statusLabel;
         if(this.state.audioObj !== null) {
             this.state.audioObj.play();
