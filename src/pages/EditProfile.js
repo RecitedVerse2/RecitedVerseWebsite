@@ -299,22 +299,27 @@ class EditProfile extends Component {
                     <div className='FormDiv' >
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(10, -2)}>Name:</h1>
-                        <input ref={(input)=>{this.nameField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.name} />
+                        <input ref={(input)=>{this.nameField = input}} style={this.getInputStyles(25)} type='text' value={this.state.name} />
                     </div>
 
                     <div style={this.getSBStyles()} >
                         <h1 style={this.getSearchBarTitleStyle(10, -2)}>Email:</h1>
-                        <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.email} />
+                        <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(25)} type='text' value={this.state.email} />
+                    </div>
+
+                    <div style={this.getSBStyles()}>
+                        <h1 style={this.getSearchBarTitleStyle(15, 0)}>Title:</h1>
+                        <input ref={(input)=>{this.titleField = input}} style={this.getInputStyles(25)} type='text'  />
                     </div>
 
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                        <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.password} />
+                        <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)} type='text'  />
                     </div>
 
                     <div style={this.getSBStyles()}>
                         <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                        <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text' placeholder={this.state.password} />
+                        <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text'  />
                     </div>
 
                     </div>
@@ -347,13 +352,13 @@ class EditProfile extends Component {
 
 
                     {/* Setting the bio. */}
-                    <h1 className='titleText'>Profile</h1>
+
                     <h1 className='bioText'>Bio</h1>
-                    
+
                     <textarea className='bioField'
                               ref={(textarea)=>{this.bioField = textarea}}
                               rows={5} cols={45}
-                              placeholder={this.state.bio}></textarea>
+                              value={this.state.bio}></textarea>
 
 
 
@@ -419,6 +424,7 @@ class EditProfile extends Component {
         var password = this.passwordField.value;
         var passwordConfirm = this.passwordConfirmField.value;
         var bio = this.bioField.value;
+        var title = this.titleField.value;
         //var facebook = this.facebookField.value;
         //var twitter = this.twitterField.value;
         //var linkedin = this.linkedinField.value;
@@ -430,6 +436,10 @@ class EditProfile extends Component {
         // Set all the appropriate values.
         if(this.valueExists(name) && name !== cUser.fullname) {
             changes['fullname'] = name;
+        }
+
+        if(this.valueExists(title)) {
+            changes['title'] = title;
         }
 
         if(this.valueExists(email)) {

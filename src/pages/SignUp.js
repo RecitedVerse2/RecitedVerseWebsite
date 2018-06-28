@@ -355,8 +355,8 @@ class SignUp extends Component {
                         "userID" : user.uid,
                         "photoURL" : "https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FcircleProfilePic.png?alt=media&token=7725c514-2e32-4feb-a4ff-de2b8be2e865",
                         "backgroundImage" : "https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2FemptyProfileBackground.png?alt=media&token=68191f6d-9d79-4a2e-9047-87b7803e52f9",
-                        "followers" : 0,
-                        "following" : 0,
+      //                  "followers" : 0,  create when click follow button
+    //                    "follow" : 0,
                         "bio" : "Bio",
                         "social_media_links" : social,
                         "likes":[],

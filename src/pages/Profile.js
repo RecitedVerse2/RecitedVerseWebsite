@@ -39,6 +39,7 @@ class Profile extends Component {
             likedPlaylist:null,
             favoritedPlaylist:null,
             playlistPlaylist:null,
+            followersPlayList:null,
 
             showUploads:true,
             showPopular:false,
@@ -46,6 +47,9 @@ class Profile extends Component {
             showFavorties:false,
             showFollower:false,
             showPlaylists:false,
+            showFolloers:false,
+            following:0,
+            followers:0,
 
             // Temporary recitation when the page first loads, just to let the user know
             // that something is loading.
@@ -53,6 +57,18 @@ class Profile extends Component {
         }
     }
 
+
+    updateFollowCount(uid) {
+
+      firebase.database().ref().child('Users').child(uid).once('value').then((snap)=>{
+          var usr =  snap.val();
+          var following = usr.follow || [];
+          var followers = usr.followers || [];
+          this.setState({following:following.length, followers:followers.length})
+    });
+
+
+    }
     componentDidMount() {
         this.allButton.style.textDecoration = 'underline';
 
@@ -72,14 +88,18 @@ class Profile extends Component {
             }
         }
 
+        this.updateFollowCount(cUser.userID);
+
 
 
         this.loadUploadPlaylist(this.props.rStore, () => {
             this.loadLikedPlaylist(this.props.rStore, () => {
                 this.loadFavoritedPlaylist(this.props.rStore, () => {
+                  this.loadFollowersPlaylist(this.props.rStore, () => {
                     this.loadPlaylists(this.props.rStore, () => {
                         this.pushOntoPage();
                     });
+                  });
                 });
             });
         });
@@ -163,7 +183,10 @@ class Profile extends Component {
                                 id='like' className='changeRecitationsButton'>Liked</button>
                         <button ref={(button)=>{this.favoritesButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
-                                id='favorite' className='changeRecitationsButton'>Following</button>
+                                id='favorite' className='changeRecitationsButton'>Following {this.state.following}</button>
+                        <button  ref={(button)=>{this.followersButton = button}}
+                                onClick={this.changeRecitations.bind(this)}
+                                id='followers' className='changeRecitationsButton'>Followers {this.state.followers}</button>
                         <button ref={(button)=>{this.playlistButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
                                 id='playlist' className='changeRecitationsButton'>Playlists</button>
@@ -192,45 +215,61 @@ class Profile extends Component {
         var sender = e.target.id;
 
         if(sender === 'records') {
-            this.setState({ showUploads: true, showPopular: false, showLikes: false, showFavorties: false, showPlaylists: false},
+            this.setState({ showUploads: true, showPopular: false, showLikes: false, showFavorties: false, showFollowers:false, showPlaylists: false},
             () => { this.pushOntoPage(); });
             this.allButton.style.textDecoration = 'underline';
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'none';
             this.playlistButton.style.textDecoration = 'none';
+            this.followersButton.style.textDecoration = "none";
         } else if(sender === 'popular') {
-            this.setState({ showUploads: false, showPopular: true, showLikes: false, showFavorties: false, showPlaylists: false},
+            this.setState({ showUploads: false, showPopular: true, showLikes: false, showFavorties: false, showFollowers:false, showPlaylists: false},
             () => { this.pushOntoPage(); });
             this.allButton.style.textDecoration = 'none';
             this.popularButton.style.textDecoration = 'underline';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'none';
             this.playlistButton.style.textDecoration = 'none';
+            this.followersButton.style.textDecoration = "none";
         } else if(sender === 'like') {
-            this.setState({ showUploads: false, showPopular: false, showLikes: true, showFavorties: false, showPlaylists: false},
+            this.setState({ showUploads: false, showPopular: false, showLikes: true, showFavorties: false, showFollowers:false, showPlaylists: false},
             () => { this.pushOntoPage(); });
             this.allButton.style.textDecoration = 'none';
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'underline';
             this.favoritesButton.style.textDecoration = 'none';
             this.playlistButton.style.textDecoration = 'none';
+            this.followersButton.style.textDecoration = "none";
         } else if(sender === 'favorite') {
-            this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: true, showPlaylists: false},
+            this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: true, showFollowers:false, showPlaylists: false},
             () => { this.pushOntoPage(); });
             this.allButton.style.textDecoration = 'none';
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'underline';
             this.playlistButton.style.textDecoration = 'none';
-        } else if(sender === 'playlist') {
-            this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: false, showPlaylists: true},
+            this.followersButton.style.textDecoration = "none";
+        }else if(sender === 'followers') {
+            this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: false, showFollowers:true, showPlaylists: false},
+            () => { this.pushOntoPage(); });
+            this.allButton.style.textDecoration = 'none';
+            this.popularButton.style.textDecoration = 'none';
+            this.likesButton.style.textDecoration = 'none';
+            this.favoritesButton.style.textDecoration = 'none';
+            this.followersButton.style.textDecoration = 'underline';
+            this.playlistButton.style.textDecoration = 'none';
+
+        }
+        else if(sender === 'playlist') {
+            this.setState({ showUploads: false, showPopular: false, showLikes: false, showFavorties: false, showFollowers:false, showPlaylists: true},
             () => { this.pushOntoPage(); });
             this.allButton.style.textDecoration = 'none';
             this.popularButton.style.textDecoration = 'none';
             this.likesButton.style.textDecoration = 'none';
             this.favoritesButton.style.textDecoration = 'none';
             this.playlistButton.style.textDecoration = 'underline';
+            this.followersButton.style.textDecoration = "none";
         }
     }
 
@@ -388,6 +427,56 @@ class Profile extends Component {
         });
     }
 
+
+    loadFollowersPlaylist(rStore, callback) {
+        const fireRef = firebase.database().ref();
+        //const storageRef = firebase.storage().ref();
+        const store = rStore.getState();
+
+        // The final playlist
+        var playlist = new Userlist("Followers");
+        var i = 0;
+
+
+
+        // Get all the like ids.
+        fireRef.child('Users').child(store.currentUser.userID).once('value', (snap) => {
+            var followers = snap.val().followers;
+
+            if(followers) {
+                followers.forEach( (e) => {
+                    fireRef.child('Users').child(e).once('value', (rO) => {
+                        var recObj = new User( rO.val().userID,
+                                                    rO.val().photoURL,
+                                                    rO.val().fullname,
+                                                  );
+
+
+                        playlist.add(recObj);
+
+                        i++;
+
+
+
+                        if(i === followers.length) {
+
+                          this.setState({
+                              followersPlayList: playlist
+                          });
+
+                            callback();
+                        }
+                    });
+                });
+
+
+
+            } else {
+                callback();
+            }
+        });
+    }
+
     /** Loads all of the user's playlists. */
     loadPlaylists(rStore, callback) {
         const fireRef = firebase.database().ref();
@@ -515,7 +604,38 @@ class Profile extends Component {
                 });
             });
         }
+        else if(this.state.showFollowers=== true) {
+
+            if(this.state.followersPlayList) {
+                if(this.state.followersPlayList.length() === 0) { return; }
+            } else { return; }
+
+
+            // Create the array of recitation items.
+            this.state.followersPlayList.forEach( (rec) => {
+                recs.push(rec);
+            }, () => {
+                recs.sort((a,b)=>{
+                    return b.favorites - a.favorites
+                });
+
+                recs.forEach((rec)=>{
+                    var recItem = <UserItem margin='30px'
+                                              key={rec.id}
+                                              recitation={rec}
+                                              nav={this.props.nav}
+                                              rStore={this.props.rStore}></UserItem>
+                    items.push(recItem);
+
+                    // Update the state.
+                    this.setState({
+                        recitations: items
+                    });
+                });
+            });
+        }
         else if(this.state.showFavorties === true) {
+
 
             if(this.state.favoritedPlaylist) {
                 if(this.state.favoritedPlaylist.length() === 0) { return; }
