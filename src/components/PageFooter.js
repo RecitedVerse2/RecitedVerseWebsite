@@ -49,11 +49,11 @@ class PageFooter extends Component {
     ***********************/
 
     render() {
-        const isMobile = window.innerWidth <= 500;
+        const isMobile = window.innerWidth <= 800;
         if(isMobile){
           return (
               <div style={this.getStyles()}>
-  
+
 
                   <div>
                       <h1 id='copyright'><span className='fa fa-copyright'></span>

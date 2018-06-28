@@ -67,6 +67,21 @@ class ProfileBanner extends Component {
         }
     }
 
+    getMobileNameStyles() {
+        return {
+            position:'absolute',
+            top: this.props.top || '60px',
+            color:'white',
+            margin:'auto',
+            top:'200px',
+            left: '30px',
+            fontSize: '24px',
+            textAlign:'center',
+            padding:'5px 20px 5px 20px',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        }
+    }
+
     getFollowStyles() {
         return {
             position:'absolute',
@@ -143,6 +158,24 @@ class ProfileBanner extends Component {
     ***********************/
 
     render() {
+      const isMobile = window.innerWidth <= 800;
+      if(isMobile){
+        return (
+            <div style={this.getStyles()}>
+                <img alt='bckg' style={this.getImageStyle()} src={this.state.backgroundImage}/>
+                 <img src={this.state.avatar}  style={this.getAvatorStyles()} />
+                    <div style={this.getMobileNameStyles()}>
+                        {this.state.name}
+                    </div>
+                    <div style={this.getFollowStyles()}>
+                        <a style={this.getFollowAStyles()} onClick={this.goToFolllowing.bind(this)}><strong>25</strong> Following</a>
+
+                    </div>
+
+            </div>
+        );
+
+      }else{
         return (
             <div style={this.getStyles()}>
                 <img alt='bckg' style={this.getImageStyle()} src={this.state.backgroundImage}/>
@@ -160,6 +193,9 @@ class ProfileBanner extends Component {
                     </div>
             </div>
         );
+
+      }
+
     }
 
 

@@ -124,6 +124,50 @@ class ProfileBanner extends Component {
         }
     }
 
+    getMobileAvatorStyles() {
+        return {
+            position:'absolute',
+            borderRadius: '50%',
+            paddingTop:'10px',
+            left:'30px',
+            top:'30px',
+            width:'150px',
+            height:'150px',
+
+        }
+    }
+
+
+    getMobileNameStyles() {
+      return {
+        position: 'absolute',
+        top: this.props.top || '60px',
+        color: 'white',
+        margin: 'auto',
+        top: '200px',
+        left: '40px',
+        fontSize: '20px',
+        textAlign: 'center',
+        padding: '5px 20px 5px 20px',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)'
+      }
+    }
+
+
+
+    getMobileFollowStyles() {
+        return {
+            position:'absolute',
+            color:'white',
+            margin:'auto',
+            left: '200px',
+            top: '90px',
+            fontSize: '20px',
+            textAlign:'center',
+            padding:'5px 20px 5px 20px',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        }
+    }
 
     /**********************
     *                     *
@@ -132,23 +176,47 @@ class ProfileBanner extends Component {
     ***********************/
 
     render() {
-        return (
-            <div style={this.getStyles()}>
-                <img alt='bckg' style={this.getImageStyle()} src={this.props.userInfo.backgroundImage}/>
-                 <img src={this.props.userInfo.photoURL}  style={this.getAvatorStyles()} />
-                    <div style={this.getNameStyles()}>
-                        {this.props.userInfo.fullname}
-                    </div>
-                    <div style={this.getFollowStyles()}>
-                        <a style={this.getFollowAStyles()} onClick={this.goToFolllowing.bind(this)}>{this.props.userInfo.follow}</a>
+        const isMobile = window.innerWidth <= 800;
+        if(isMobile){
+          return (
+              <div style={this.getStyles()}>
+                  <img alt='bckg' style={this.getImageStyle()} src={this.props.userInfo.backgroundImage}/>
+                   <img src={this.props.userInfo.photoURL}  style={this.getMobileAvatorStyles()} />
+                      <div style={this.getMobileNameStyles()}>
+                          {this.props.userInfo.fullname}
+                      </div>
+                      <div  >
+                          <a style={this.getMobileFollowStyles()} onClick={this.goToFolllowing.bind(this)}>{this.props.userInfo.follow}</a>
+                     </div>
 
-                    </div>
 
-                    <div >
+              </div>
+          );
+
+        }else{
+          return (
+              <div style={this.getStyles()}>
+                  <img alt='bckg' style={this.getImageStyle()} src={this.props.userInfo.backgroundImage}/>
+                   <img src={this.props.userInfo.photoURL}  style={this.getAvatorStyles()} />
+                      <div style={this.getNameStyles()}>
+                          {this.props.userInfo.fullname}
+                      </div>
+                      <div style={this.getFollowStyles()}>
+                          <a style={this.getFollowAStyles()} onClick={this.goToFolllowing.bind(this)}>{this.props.userInfo.follow}</a>
+
+                      </div>
+
+                      <div >
                         <p style={this.getBioStyles()}>{this.props.userInfo.bio}</p>
                     </div>
-            </div>
-        );
+
+
+              </div>
+          );
+
+
+        }
+
     }
 
 

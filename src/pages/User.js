@@ -16,7 +16,7 @@ import ProfileBanner from '../components/User/ProfileBanner';
 
 import Recitation from '../objects/Recitation';
 
-import RecitationItem2 from '../components/ProfilePageComps/RecitationItem2';
+
 import RecitationItem from '../components/ProfilePageComps/RecitationItem';
 import PlaylistItem from '../components/ProfilePageComps/PlaylistItem';
 import Playlist from '../objects/Playlist';
