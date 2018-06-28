@@ -230,9 +230,9 @@ class User extends Component {
                                   id='followers' className='changeRecitationsButton'>Followers {this.state.followers}</button>
 
 
-                        <button ref={(button)=>{this.playlistButton = button}}
+                        {/* <button ref={(button)=>{this.playlistButton = button}}
                                 onClick={this.changeRecitations.bind(this)}
-                                id='playlist' className='changeRecitationsButton'>Playlists</button>
+                                id='playlist' className='changeRecitationsButton'>Playlists</button> */}
                     </div>
                 </div>
                 <div className='profileDisplayArea'>
