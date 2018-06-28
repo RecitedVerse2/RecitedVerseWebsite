@@ -59,3 +59,22 @@
     outline: none;
     display: table-cell;
 }
+
+
+@media only screen and (max-width: 800px) {
+    .audio_buttons_section {
+      width: 40%;
+    }
+
+    .title_area {
+      left: 45%;
+      width: 40%;
+    }
+
+    .right_buttons {;
+        width: 20%;
+    }
+    .fa-caret-up, .fa-caret-down{
+      height: 15%;
+    }
+}

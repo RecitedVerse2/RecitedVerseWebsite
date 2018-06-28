@@ -49,54 +49,74 @@ class PageFooter extends Component {
     ***********************/
 
     render() {
-        return (
-            <div style={this.getStyles()}>
-                <div className='sectionHolders'>
-                    <div className='companyInfoSection'>
-                        <h1>Company</h1>
-                        <button>About</button>
-                        <br/>
-                        <button>Jobs</button>
-                        <br/>
-                        <button>Press</button>
-                        <br/>
-                        <button>News</button>
-                    </div>
+        const isMobile = window.innerWidth <= 500;
+        if(isMobile){
+          return (
+              <div style={this.getStyles()}>
+  
 
-                    <div className='communitiesSection'>
-                        <h1>Community</h1>
-                        <button>Artists</button>
-                        <br/>
-                        <button>Developers</button>
-                        <br/>
-                        <button>Brands</button>
-                    </div>
+                  <div>
+                      <h1 id='copyright'><span className='fa fa-copyright'></span>
+                          &nbsp;
+                          Recited Verse 2017
+                      </h1>
+                  </div>
+                  {this.props.children}
+              </div>
+          );
 
-                    <div className='userfulLinksSection'>
-                        <h1>Useful Links</h1>
-                        <button>Help</button>
-                        <br/>
-                        <button>Gifts</button>
-                        <br/>
-                        <button>Brands</button>
-                    </div>
+        }else{
+          return (
+              <div style={this.getStyles()}>
+                  <div className='sectionHolders'>
+                      <div className='companyInfoSection'>
+                          <h1>Company</h1>
+                          <button>About</button>
+                          <br/>
+                          <button>Jobs</button>
+                          <br/>
+                          <button>Press</button>
+                          <br/>
+                          <button>News</button>
+                      </div>
 
-                    <div className='buttonsSection'>
-                        <button className='socialBtn' onClick={this.goToFacebook.bind(this)}><img className='socialImg' src={facebookBtn} alt="facebook"/></button>
-                        <button className='socialBtn' onClick={this.goToInstagram.bind(this)}><img className='socialImg' src={instagramBtn} alt="instagram"/></button>
-                        <button className='socialBtn' onClick={this.goToTwitter.bind(this)}><img className='socialImg' src={twitterBtn} alt="twitter"/></button>
-                    </div>
-                </div>
+                      <div className='communitiesSection'>
+                          <h1>Community</h1>
+                          <button>Artists</button>
+                          <br/>
+                          <button>Developers</button>
+                          <br/>
+                          <button>Brands</button>
+                      </div>
 
-                <div>
-                    <h1 id='copyright'><span className='fa fa-copyright'></span>
-                        &nbsp;
-                        Recited Verse 2017
-                    </h1>
-                </div>
-                {this.props.children}
-            </div>
-        );
+                      <div className='userfulLinksSection'>
+                          <h1>Useful Links</h1>
+                          <button>Help</button>
+                          <br/>
+                          <button>Gifts</button>
+                          <br/>
+                          <button>Brands</button>
+                      </div>
+
+                      <div className='buttonsSection'>
+                          <button className='socialBtn' onClick={this.goToFacebook.bind(this)}><img className='socialImg' src={facebookBtn} alt="facebook"/></button>
+                          <button className='socialBtn' onClick={this.goToInstagram.bind(this)}><img className='socialImg' src={instagramBtn} alt="instagram"/></button>
+                          <button className='socialBtn' onClick={this.goToTwitter.bind(this)}><img className='socialImg' src={twitterBtn} alt="twitter"/></button>
+                      </div>
+                  </div>
+
+                  <div>
+                      <h1 id='copyright'><span className='fa fa-copyright'></span>
+                          &nbsp;
+                          Recited Verse 2017
+                      </h1>
+                  </div>
+                  {this.props.children}
+              </div>
+          );
+
+        }
+
     }
 
 

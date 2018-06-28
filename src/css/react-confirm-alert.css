@@ -40,6 +40,13 @@
   color: #666;
 }
 
+
+@media only screen and (max-width: 800px) {
+    .react-confirm-alert-body {
+      width: 300px;
+    }
+}
+
 .react-confirm-alert-svg{
   position: absolute;
   top: 0;

@@ -59,6 +59,20 @@ class Header extends Component {
             display:'table-cell',
         }
     }
+
+    getMobileLogoStyle() {
+        return {
+            position:'absolute',
+            top:'10px',
+            left:'40px',
+            width:'80px',
+            height:'40px',
+            cursor:'pointer',
+            marginTop:'5px',
+            display:'table-cell',
+        }
+    }
+
     getButtonsSectionStyle() {
         return {
             position:'absolute',
@@ -91,10 +105,12 @@ class Header extends Component {
 
 
     render() {
-        return (
+        const isMobile = window.innerWidth <= 800;
+        if(isMobile){
+          return (
             <div className='header' style={this.getHeaderStyle()}>
                 &nbsp;&nbsp;
-                <img onClick={this.goToHome.bind(this)} alt='logo' style={this.getLogoStyle()} src={TextLogo}></img>
+                <img onClick={this.goToHome.bind(this)} alt='logo' style={this.getMobileLogoStyle()} src={TextLogo}></img>
 
                 <div style={this.getButtonsSectionStyle()}>
                 <span style={this.getWhiteSpanStyle()} className="glyphicon glyphicon-log-in" ></span>
@@ -107,7 +123,30 @@ class Header extends Component {
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
             </div>
-        );
+          );
+
+        }else{
+          return (
+              <div className='header' style={this.getHeaderStyle()}>
+                  &nbsp;&nbsp;
+                  <img onClick={this.goToHome.bind(this)} alt='logo' style={this.getLogoStyle()} src={TextLogo}></img>
+
+                  <div style={this.getButtonsSectionStyle()}>
+                  <span style={this.getWhiteSpanStyle()} className="glyphicon glyphicon-log-in" ></span>
+                      <button style={this.getButtonsStyle()} onClick={this.goToLogin.bind(this)}>Sign In</button>
+
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </div>
+
+                  <Clock onupdate={this.update.bind(this)}></Clock>
+              </div>
+          );
+
+        }
+
+
     }
 
     /**********************
