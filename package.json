@@ -29,6 +29,7 @@
     "react-scroll-box": "^0.3.5",
     "react-scrollarea": "^0.6.15",
     "react-scrollbar": "^0.5.4",
+    "react-select": "^1.2.1",
     "redux": "^3.7.0"
   },
   "devDependencies": {

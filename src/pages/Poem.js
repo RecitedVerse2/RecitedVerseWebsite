@@ -488,7 +488,7 @@ class Poem extends Component {
                     <div className='verticalTextArea' style={this.getTextAreaStyle()}>
                        <h1 className='headerText'><strong><a className="headerText" style={{color: 'white'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
                        <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
-                       <h1 className='headerText'>Genre: {this.state.genre}</h1>
+                       {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
                       <h1 className='headerText'>Date:  {this.state.date}</h1>
 
                         <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
