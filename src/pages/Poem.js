@@ -530,7 +530,7 @@ class Poem extends Component {
                 <div className="poemCommentBox" style={{paddingTop: '10px', paddingBottom: '100px'}}>
                     <Grid>
                     <Row className="show-grid">
-                            <Col md={4}>
+                            <Col style={{padding: '20px', backgroundColor: '#FAFAFA', borderRadius: '5px'}} md={4}>
                             {this.state.comments.length > 1 ? (
                                 <h2>{this.state.comments.length} comments</h2>
                             ) : (
