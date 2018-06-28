@@ -154,6 +154,13 @@ iframe {
   z-index: 1;
 }
 
+
+@media only screen and (max-width: 800px) {
+    .container-login100 {
+        padding: 0px;
+    }
+}
+
 .container-login100::before {
   content: "";
   display: block;

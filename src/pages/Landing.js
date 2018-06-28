@@ -71,6 +71,15 @@ class Landing extends Component {
         }
     }
 
+    getMobileBannerDivStyle() {
+        return {
+            position:'relative',
+            width:'100%',
+            height:'100%',
+            padding:'40px 40px 200px 0px'
+        }
+    }
+
     getBannerDivStyle() {
         return {
             position:'relative',
@@ -79,6 +88,8 @@ class Landing extends Component {
             padding:'60px 30px 200px 0px'
         }
     }
+
+
 
     getBannerStyle() {
         return {
@@ -96,39 +107,83 @@ class Landing extends Component {
 
 
     render() {
-        return (
-            <div style={this.getStyles()}>
-                <div style={this.getOverlay()}></div>
-                 {/* <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img> */}
+      const isMobile = window.innerWidth <= 500;
+      if(isMobile){
 
+          return (
+              <div style={this.getStyles()}>
+                  <div style={this.getOverlay()}></div>
+                   {/* <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img> */}
+                  <Header nav={this.props.nav} style={this.getHeaderStyle()} ></Header>
 
-                <Header nav={this.props.nav} style={this.getHeaderStyle()} ></Header>
+                  <div id="myCarousel" className="carousel slide"  style={this.getMobileBannerDivStyle()} data-interval="4000" data-ride="carousel">
+                  <ol className="carousel-indicators" style={this.getIndicatorStyle()}>
+                    <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                  </ol>
+                  <div className="carousel-inner" >
+                    <div className="item active" style={this.getBannerStyle()}>
+                      <img src={CarouselImage1} alt="" ></img>
+                    </div>
 
-                <div id="myCarousel" className="carousel slide"  style={this.getBannerDivStyle()} data-interval="4000" data-ride="carousel">
-                <ol className="carousel-indicators" style={this.getIndicatorStyle()}>
-                  <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
-                  <li data-target="#myCarousel" data-slide-to="1"></li>
-                  <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-                <div className="carousel-inner" >
-                  <div className="item active" style={this.getBannerStyle()}>
-                    <img src={CarouselImage1} alt="" ></img>
+                    <div className="item" style={this.getBannerStyle()}>
+                      <img src={CarouselImage2} alt="" ></img>
+                    </div>
+
+                    <div className="item" style={this.getBannerStyle()}>
+                      <img src={CarouselImage3} alt="" ></img>
+                    </div>
+                  </div>
                   </div>
 
-                  <div className="item" style={this.getBannerStyle()}>
-                    <img src={CarouselImage2} alt="" ></img>
+                  <PageFooter></PageFooter>
+                  {this.props.children}
+              </div>
+          );
+
+            }else{
+              return (
+              <div style={this.getStyles()}>
+                  <div style={this.getOverlay()}></div>
+                   {/* <img alt='bg' style={this.getImageStyles()} src={backgroundImage}></img> */}
+                  <Header nav={this.props.nav} style={this.getHeaderStyle()} ></Header>
+
+                  <div id="myCarousel" className="carousel slide"  style={this.getBannerDivStyle()} data-interval="4000" data-ride="carousel">
+                  <ol className="carousel-indicators" style={this.getIndicatorStyle()}>
+                    <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                  </ol>
+                  <div className="carousel-inner" >
+                    <div className="item active" style={this.getBannerStyle()}>
+                      <img src={CarouselImage1} alt="" ></img>
+                    </div>
+
+                    <div className="item" style={this.getBannerStyle()}>
+                      <img src={CarouselImage2} alt="" ></img>
+                    </div>
+
+                    <div className="item" style={this.getBannerStyle()}>
+                      <img src={CarouselImage3} alt="" ></img>
+                    </div>
+                  </div>
                   </div>
 
-                  <div className="item" style={this.getBannerStyle()}>
-                    <img src={CarouselImage3} alt="" ></img>
-                  </div>
-                </div>
-                </div>
+                  <PageFooter></PageFooter>
+                  {this.props.children}
+              </div>
+          );
 
-                <PageFooter></PageFooter>
-                {this.props.children}
-            </div>
-        );
+            }
+
+
+
+
+
+
+
+
     }
 }
 

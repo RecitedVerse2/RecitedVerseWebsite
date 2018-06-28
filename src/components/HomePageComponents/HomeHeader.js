@@ -73,6 +73,19 @@ class Header extends Component {
             backgroundColor: 'white',
         }
     }
+
+    getMobileHeaderStyle() {
+        return {
+            position: 'fixed',
+            top:'0px',
+            left:'0xp',
+            width: '100%',
+            height: '90px',
+            display:'table',
+            zIndex:'1000',
+            backgroundColor: 'white',
+        }
+    }
     getLogoStyle() {
         return {
             position:'absolute',
@@ -86,6 +99,17 @@ class Header extends Component {
         }
     }
 
+    getMobileLogoStyle() {
+        return {
+            position:'absolute',
+            top:'10px',
+            left:'10px',
+            width:'80px',
+            height:'20px',
+            cursor:'pointer',
+            display:'table-cell',
+        }
+    }
 
 
 
@@ -128,6 +152,19 @@ class Header extends Component {
       }
     }
 
+
+    getMobileButtonsSectionStyle() {
+        return {
+            position:'absolute',
+            top:'20px',
+            textAlign:'right',
+            paddingRight:'50px',
+            width: '365px',
+
+            marginTop:'20px',
+            display:'table-cell',
+        }
+    }
 
     getButtonsSectionStyle() {
         return {
@@ -309,52 +346,104 @@ class Header extends Component {
 
 
 
+       const isMobile = window.innerWidth <= 800;
+       if(isMobile){
+
+                 return (
+
+                     <div className='header' style={this.getMobileHeaderStyle()}>
+                     <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getMobileLogoStyle()} src={TextLogo}></img>
+
+
+                         <div style={this.getSearchContainerStyle()} className="search-container">
+                             {/* <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" /> */}
+                             {/* <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button> */}
+                             <InstantSearch
+                             appId="I5KQF3O5KB"
+                             apiKey="8199ff4474cffdde931f62cc2bfe4d53"
+                             indexName="recitedverse"
+                         >
+                             {/* Use widgets here */}
+                             <SearchBox />
+                             <ul className="suggestions" id="sugg">
+                             <ConditionalHits />
+                             </ul>
+                         </InstantSearch>
+                          </div>
+
+                         <div style={this.getMobileButtonsSectionStyle()}>
+
+
+                             <button style={this.getUploadButtonsStyle()} onClick={this.goToUploadPage.bind(this)}>Upload</button>
+                               <button style={this.getMessagesButtonsStyle()} onClick={this.goToMessagesPage.bind(this)}>Notifications</button>
+                               {redNotifications}
 
 
 
-        return (
+                             <div className="dropdown"   onMouseEnter={this.mouseOver} onMouseLeave={this.mouseLeaves} style={this.getDownAreatyle()}  >
+                               <button  style={this.getButtonsUserStyle()}  className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               {this.state.name} <i className="fa fa-caret-down"  style={this.getDownArrowStyle()} ></i>
+                               </button>
+                              {downMeue}
+                             </div>
 
-            <div className='header' style={this.getHeaderStyle()}>
-                <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={TextLogo}></img>
-
-                <div style={this.getSearchContainerStyle()} className="search-container">
-                    {/* <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" /> */}
-                    {/* <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button> */}
-                    <InstantSearch
-                    appId="I5KQF3O5KB"
-                    apiKey="8199ff4474cffdde931f62cc2bfe4d53"
-                    indexName="recitedverse"
-                >
-                    {/* Use widgets here */}
-                    <SearchBox />
-                    <ul className="suggestions" id="sugg">
-                        <ConditionalHits />
-                    </ul>
-                </InstantSearch>
-                 </div>
-
-                <div style={this.getButtonsSectionStyle()}>
+                         </div>
 
 
-                    <button style={this.getUploadButtonsStyle()} onClick={this.goToUploadPage.bind(this)}>Upload</button>
-                      <button style={this.getMessagesButtonsStyle()} onClick={this.goToMessagesPage.bind(this)}>Notifications</button>
-                      {redNotifications}
+                         <Clock onupdate={this.update.bind(this)}></Clock>
+                     </div>
+                 );
+
+       }else{
+
+                 return (
+
+                     <div className='header' style={this.getHeaderStyle()}>
+                         <img onClick={this.goToHomePage.bind(this)} alt='logo' style={this.getLogoStyle()} src={TextLogo}></img>
+
+                         <div style={this.getSearchContainerStyle()} className="search-container">
+                             {/* <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" /> */}
+                             {/* <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button> */}
+                             <InstantSearch
+                             appId="I5KQF3O5KB"
+                             apiKey="8199ff4474cffdde931f62cc2bfe4d53"
+                             indexName="recitedverse"
+                         >
+                             {/* Use widgets here */}
+                             <SearchBox />
+                             <ul className="suggestions" id="sugg">
+                             <ConditionalHits />
+                             </ul>
+
+                         </InstantSearch>
+                          </div>
+
+                         <div style={this.getButtonsSectionStyle()}>
+
+
+                             <button style={this.getUploadButtonsStyle()} onClick={this.goToUploadPage.bind(this)}>Upload</button>
+                               <button style={this.getMessagesButtonsStyle()} onClick={this.goToMessagesPage.bind(this)}>Notifications</button>
+                               {redNotifications}
 
 
 
-                    <div className="dropdown"   onMouseEnter={this.mouseOver} onMouseLeave={this.mouseLeaves} style={this.getDownAreatyle()}  >
-                      <button  style={this.getButtonsUserStyle()}  className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {this.state.name} <i className="fa fa-caret-down"  style={this.getDownArrowStyle()} ></i>
-                      </button>
-                     {downMeue}
-                    </div>
+                             <div className="dropdown"   onMouseEnter={this.mouseOver} onMouseLeave={this.mouseLeaves} style={this.getDownAreatyle()}  >
+                               <button  style={this.getButtonsUserStyle()}  className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               {this.state.name} <i className="fa fa-caret-down"  style={this.getDownArrowStyle()} ></i>
+                               </button>
+                              {downMeue}
+                             </div>
 
-                </div>
+                         </div>
 
 
-                <Clock onupdate={this.update.bind(this)}></Clock>
-            </div>
-        );
+                         <Clock onupdate={this.update.bind(this)}></Clock>
+                     </div>
+                 );
+
+       }
+
+
     }
 
     /**********************
