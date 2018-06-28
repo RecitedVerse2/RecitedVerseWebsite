@@ -23,6 +23,9 @@ import { Grid, Row, Col, Form, FormGroup, FormControl, Button, Glyphicon } from 
 import { base } from '../objects/config';
 import { MentionsInput, Mention } from 'react-mentions'
 
+const processString = require('react-process-string');
+
+
 class Poem extends Component {
 
     /**********************
@@ -88,6 +91,7 @@ class Poem extends Component {
         this.addComment = this.addComment.bind(this);
         this.reportComment = this.reportComment.bind(this);
         this.reportPoem = this.reportPoem.bind(this);
+        this.returnPhoto = this.returnPhoto.bind(this);
 
 
     }
@@ -182,9 +186,8 @@ class Poem extends Component {
         base.fetch(`/Users/${usersUid}`, {
             context: this,
             then(data){
-
                 base.push(`/Recitations/${this.state.recitationId}/comments`, {
-                    data: {userId: firebase.auth().currentUser.uid, userName: data.fullname, comment: this.state.commentMessage}
+                    data: {userId: firebase.auth().currentUser.uid, userName: data.fullname, comment: this.state.commentMessage, photo: data.photoURL}
                   }).then(newLocation => {
                     this.NotificationAddComment()
                 }).catch(err => {
@@ -220,6 +223,12 @@ class Poem extends Component {
                 }
             }
         }, this);
+    }
+
+    returnPhoto(photoURl){
+        if(photoURl){
+            return <img height="25" width="25" src={`${photoURl}`} />;
+        }
     }
 
 
@@ -518,7 +527,7 @@ class Poem extends Component {
                 <Clock onupdate={this.update.bind(this)}></Clock>
                 {this.props.children}
                 </div>
-                <div style={{paddingTop: '10px', paddingBottom: '100px'}}>
+                <div className="poemCommentBox" style={{paddingTop: '10px', paddingBottom: '100px'}}>
                     <Grid>
                     <Row className="show-grid">
                             <Col md={4}>
@@ -528,7 +537,7 @@ class Poem extends Component {
                                 <h2>Comment:</h2>
                             )}
                             <hr></hr>
-                            {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}><a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a></li>)}
+                            {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}>{this.returnPhoto(item.photo)}<a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a><hr/></li>)}
                             {/* <Form>
                                 <FormGroup>
                                 <FormControl
@@ -541,7 +550,7 @@ class Poem extends Component {
                                 <Button onClick={this.addComment}>Add Comment</Button>
                                 </FormGroup>
                             </Form> */}
-                            <MentionsInput value={this.state.commentMessage} onChange={(event) => this.setState({commentMessage: event.target.value})}>
+                            <MentionsInput placeholder="Write a comment..." value={this.state.commentMessage} onChange={(event) => this.setState({commentMessage: event.target.value})}>
                                 <Mention
                                     trigger="@"
                                     data={this.state.users}

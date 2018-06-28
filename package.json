@@ -23,6 +23,7 @@
     "react-instantsearch": "^5.0.3",
     "react-mentions": "^2.0.1",
     "react-modal": "^2.0.6",
+    "react-process-string": "^1.2.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-scroll-box": "^0.3.5",
