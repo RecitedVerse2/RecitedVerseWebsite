@@ -483,7 +483,6 @@ class Poem extends Component {
 
         var share_url = 'https://twitter.com/intent/tweet?text='+ titleStr +'&url=https%3A%2F%2Frecitedverse.com/share?'+this.state.recitationId;
 
-<<<<<<< HEAD
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
@@ -575,7 +574,6 @@ class Poem extends Component {
                 </div>
             </div>
         );
-=======
 
         const isMobile = window.innerWidth <= 800;
 
@@ -770,7 +768,6 @@ class Poem extends Component {
         }
 
 
->>>>>>> c4aab5a3fcefe03af34a24d93e3dbf5e7935ee50
     }
 
 
