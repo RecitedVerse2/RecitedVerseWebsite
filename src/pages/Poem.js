@@ -368,6 +368,18 @@ class Poem extends Component {
         }
     }
 
+    getMobileOverlay() {
+        return {
+           backgroundImage: `url(${this.state.poemImage})`,
+           height: '600px',
+           zIndex: '999',
+           paddingLeft: '0px',
+           backgroundPosition: 'center',
+           backgroundRepeat: 'no-repeat',
+           backgroundSize: 'cover',
+        }
+    }
+
     getImageStyles() {
         return {
             position:'absolute',
@@ -471,6 +483,7 @@ class Poem extends Component {
 
         var share_url = 'https://twitter.com/intent/tweet?text='+ titleStr +'&url=https%3A%2F%2Frecitedverse.com/share?'+this.state.recitationId;
 
+<<<<<<< HEAD
         return (
             <div style={this.getStyles()}>
                 {/* The header area */}
@@ -562,6 +575,202 @@ class Poem extends Component {
                 </div>
             </div>
         );
+=======
+
+        const isMobile = window.innerWidth <= 800;
+
+        if(isMobile){
+          return (
+              <div style={this.getStyles()}>
+                  {/* The header area */}
+                  <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
+
+                  {/* The background image */}
+
+                  <div style={this.getMobileOverlay()}>
+
+
+                  {/* The div that shows the image. */}
+                  <div className='contentArea' >
+
+                      <div className='verticalTextArea' style={this.getTextAreaStyle()}>
+                         <h1 className='headerText'><strong><a className="headerText" style={{color: 'white'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
+                         <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
+                         {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
+                        <h1 className='headerText'>Date:  {this.state.date}</h1>
+
+                          <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
+
+                          <div style={{marginLeft:'10px'}}>
+                              <button style={this.getPlayButtonSize()} className='interactButton fa fa-play'
+                              ref={(button)=>{this.playBtn = button}}
+                              onClick={this.playRecitation.bind(this)}>
+                              &nbsp;&nbsp;
+                              </button>  <span style={this.getPlayFont()}> {this.state.plays}  </span>
+
+                            <button className='interactButton fa fa-heart' style={this.getPlayButtonSize()}
+                                      ref={(button)=>{this.likeBtn = button}}
+                                      onClick={this.likeRecitation.bind(this)}>
+
+                                      </button>     <span style={this.getPlayFont()}> {this.state.likes} </span>
+                            {/*  <button className='interactButton fa fa-heart'
+                                      ref={(button)=>{this.favoriteBtn = button}}
+                                      onClick={this.favoriteRecitation.bind(this)}></button>
+                                      */}
+                          </div>
+                          <Grid>
+                          <Row className="show-grid">
+                              <Col md={8}>
+                              <div style={{lineHeight: '2', fontWeight: '700' }}>
+                              {this.state.poemTranscript}
+                              </div>
+                              </Col>
+                          </Row>
+                          </Grid>
+                          {this.state.deleteButton}
+                      </div>
+                  </div>
+
+
+                  <Clock onupdate={this.update.bind(this)}></Clock>
+                  {this.props.children}
+                  </div>
+                  <div className="poemCommentBox" style={{paddingTop: '10px', paddingBottom: '100px'}}>
+                      <Grid>
+                      <Row className="show-grid">
+                              <Col style={{padding: '20px', backgroundColor: '#FAFAFA', borderRadius: '5px'}} md={4}>
+                              {this.state.comments.length > 1 ? (
+                                  <h2>{this.state.comments.length} comments</h2>
+                              ) : (
+                                  <h2>Comment:</h2>
+                              )}
+                              <hr></hr>
+                              {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}>{this.returnPhoto(item.photo)}<a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a><hr/></li>)}
+                              {/* <Form>
+                                  <FormGroup>
+                                  <FormControl
+                                      type="text"
+                                      value={this.state.value}
+                                      placeholder="Enter text"
+                                      onChange={(e) => this.setState({commentMessage: e.target.value})}
+                                  />
+
+                                  <Button onClick={this.addComment}>Add Comment</Button>
+                                  </FormGroup>
+                              </Form> */}
+                              <MentionsInput placeholder="Write a comment..." value={this.state.commentMessage} onChange={(event) => this.setState({commentMessage: event.target.value})}>
+                                  <Mention
+                                      trigger="@"
+                                      data={this.state.users}
+                                      renderSuggestion={this.renderUserSuggestion}
+                                  />
+                                  </MentionsInput>
+                                  <Button onClick={this.addComment}>Add Comment</Button>
+                              </Col>
+                              </Row>
+                      </Grid>
+                  </div>
+              </div>
+          );
+
+        }else{
+
+          return (
+              <div style={this.getStyles()}>
+                  {/* The header area */}
+                  <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
+
+                  {/* The background image */}
+
+                  <div style={this.getOverlay()}>
+
+
+                  {/* The div that shows the image. */}
+                  <div className='contentArea' >
+
+                      <div className='verticalTextArea' style={this.getTextAreaStyle()}>
+                         <h1 className='headerText'><strong><a className="headerText" style={{color: 'white'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
+                         <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
+                         {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
+                        <h1 className='headerText'>Date:  {this.state.date}</h1>
+
+                          <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
+
+                          <div style={{marginLeft:'10px'}}>
+                              <button style={this.getPlayButtonSize()} className='interactButton fa fa-play'
+                              ref={(button)=>{this.playBtn = button}}
+                              onClick={this.playRecitation.bind(this)}>
+                              &nbsp;&nbsp;
+                              </button>  <span style={this.getPlayFont()}> {this.state.plays}  </span>
+
+                            <button className='interactButton fa fa-heart' style={this.getPlayButtonSize()}
+                                      ref={(button)=>{this.likeBtn = button}}
+                                      onClick={this.likeRecitation.bind(this)}>
+
+                                      </button>     <span style={this.getPlayFont()}> {this.state.likes} </span>
+                            {/*  <button className='interactButton fa fa-heart'
+                                      ref={(button)=>{this.favoriteBtn = button}}
+                                      onClick={this.favoriteRecitation.bind(this)}></button>
+                                      */}
+                          </div>
+                          <Grid>
+                          <Row className="show-grid">
+                              <Col md={8}>
+                              <div style={{lineHeight: '2', fontWeight: '700' }}>
+                              {this.state.poemTranscript}
+                              </div>
+                              </Col>
+                          </Row>
+                          </Grid>
+                          {this.state.deleteButton}
+                      </div>
+                  </div>
+
+
+                  <Clock onupdate={this.update.bind(this)}></Clock>
+                  {this.props.children}
+                  </div>
+                  <div className="poemCommentBox" style={{paddingTop: '10px', paddingBottom: '100px'}}>
+                      <Grid>
+                      <Row className="show-grid">
+                              <Col style={{padding: '20px', backgroundColor: '#FAFAFA', borderRadius: '5px'}} md={4}>
+                              {this.state.comments.length > 1 ? (
+                                  <h2>{this.state.comments.length} comments</h2>
+                              ) : (
+                                  <h2>Comment:</h2>
+                              )}
+                              <hr></hr>
+                              {this.state.comments.map((item,i) => <li style={{margin: '1px'}} key={i}>{this.returnPhoto(item.photo)}<a href={`/user?${item.userId}`}>{item.userName}</a>: {item.comment} <a onClick={() => this.reportComment(item)}><Glyphicon glyph="flag" /></a><hr/></li>)}
+                              {/* <Form>
+                                  <FormGroup>
+                                  <FormControl
+                                      type="text"
+                                      value={this.state.value}
+                                      placeholder="Enter text"
+                                      onChange={(e) => this.setState({commentMessage: e.target.value})}
+                                  />
+
+                                  <Button onClick={this.addComment}>Add Comment</Button>
+                                  </FormGroup>
+                              </Form> */}
+                              <MentionsInput placeholder="Write a comment..." value={this.state.commentMessage} onChange={(event) => this.setState({commentMessage: event.target.value})}>
+                                  <Mention
+                                      trigger="@"
+                                      data={this.state.users}
+                                      renderSuggestion={this.renderUserSuggestion}
+                                  />
+                                  </MentionsInput>
+                                  <Button onClick={this.addComment}>Add Comment</Button>
+                              </Col>
+                              </Row>
+                      </Grid>
+                  </div>
+              </div>
+          );
+        }
+
+
+>>>>>>> c4aab5a3fcefe03af34a24d93e3dbf5e7935ee50
     }
 
 

@@ -18,10 +18,25 @@ class RecitationItem extends Component {
             time:0,
             touching:false,
             visible:'hidden',
-            opacity:'0.0'
+            opacity:'0.0',
+            audio:null
         }
     }
+  componentDidMount() {
+    this.loadRecitationAudio();
+  }
 
+    /** Loads the audio that will be played. */
+    loadRecitationAudio() {
+        firebase.storage().ref().child('Recitations').child(this.props.recitation.id).getDownloadURL().then( (url) => {
+            var audio = new Audio(url);
+            audio.loop = false;
+
+            this.setState({
+                audio: audio
+            });
+        });
+    }
 
     /**********************
     *                     *
@@ -285,37 +300,33 @@ class RecitationItem extends Component {
             type:'CLEAR'
         });
 
-        // Get the new audio.
-        storageRef.child('Recitations').child(rec.id).getDownloadURL().then( (url) => {
-            var audio = new Audio(url);
-            audio.loop = false;
 
-            // First set the audio if it is null. Then play it.
-            if(store.audio === null) {
-                this.props.rStore.dispatch({
-                    type:'SET',
-                    id:rec.id,
-                    uploaderID:rec.uploaderID,
-                    uploaderName:rec.uploaderName,
-                    image:rec.image,
-                    title:rec.title,
-                    author:rec.author,
-                    recitedBy:rec.recitedBy,
-                    published:rec.published,
-                    genre:rec.genre,
-                    description:rec.description,
-                    likes:rec.likes,
-                    plays:rec.plays,
-                    favorites:rec.favorites,
-                    text:rec.text,
-                    recitation:rec,
-                    audio:audio,
-                    volume:store.volume,
-                    loop:store.loop,
-                });
-                store.audio.play();
-            }
-        });
+
+        // First set the audio if it is null. Then play it.
+            this.props.rStore.dispatch({
+                type:'SET',
+                id:rec.id,
+                uploaderID:rec.uploaderID,
+                uploaderName:rec.uploaderName,
+                image:rec.image,
+                title:rec.title,
+                author:rec.author,
+                recitedBy:rec.recitedBy,
+                published:rec.published,
+                genre:rec.genre,
+                description:rec.description,
+                likes:rec.likes,
+                plays:rec.plays,
+                favorites:rec.favorites,
+                text:rec.text,
+                recitation:rec,
+                audio:this.state.audio,
+                volume:store.volume,
+                loop:store.loop,
+            });
+
+            store.audio.play();
+
     }
 
 }

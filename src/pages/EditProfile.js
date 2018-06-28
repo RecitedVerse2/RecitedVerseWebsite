@@ -262,119 +262,238 @@ class EditProfile extends Component {
     ***********************/
 
     render() {
-        return (
-            <div style={this.getStyles()}>
+        const isMobile = window.innerWidth <= 800;
+        if(isMobile){
+          return (
+              <div style={this.getStyles()}>
 
 
-                {/* Header and Banner stuff. */}
-                <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
-                <div style={this.getOverlay()}></div>
-
-
-
-                // banner
-                <div style={this.getStyles2()}>
-                <p ref={(p)=>{this.statusLabel = p}}></p>
-                    <img alt='bckg' style={this.getImageStyle()} ref={(img)=>{this.backgroundImage= img}} src={this.state.backgroundImage}/>
-                     <img src={this.state.photoURL} ref={(img)=>{this.avatar= img}}  style={this.getavatarStyles()} />
-                        <div style={this.getNameStyles()}>
-                            {this.state.name}
-                        </div>
-
-                        <div >
-                            <p style={this.getBioStyles()}>{this.state.bio}</p>
-                        </div>
-                </div>
+                  {/* Header and Banner stuff. */}
+                  <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
+                  <div style={this.getOverlay()}></div>
 
 
 
-
-                {/* Edit personal information. */}
-                <div className='editingContainer'>
-                     <div>
-                    <h1 className='titleText'>Personal</h1>
-                    </div>
-
-                    {/* All of the input fields. */}
-                    <div className='FormDiv' >
-                    <div style={this.getSBStyles()}>
-                        <h1 style={this.getSearchBarTitleStyle(10, -2)}>Name:</h1>
-                        <input ref={(input)=>{this.nameField = input}} style={this.getInputStyles(25)} type='text' value={this.state.name} />
-                    </div>
-
-                    <div style={this.getSBStyles()} >
-                        <h1 style={this.getSearchBarTitleStyle(10, -2)}>Email:</h1>
-                        <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(25)} type='text' value={this.state.email} />
-                    </div>
-
-                    <div style={this.getSBStyles()}>
-                        <h1 style={this.getSearchBarTitleStyle(15, 0)}>Title:</h1>
-                        <input ref={(input)=>{this.titleField = input}} style={this.getInputStyles(25)} type='text'  />
-                    </div>
-
-                    <div style={this.getSBStyles()}>
-                        <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                        <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)} type='text'  />
-                    </div>
-
-                    <div style={this.getSBStyles()}>
-                        <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                        <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text'  />
-                    </div>
-
-                    </div>
+                  // banner
+                  <div style={this.getStyles2()}>
+                  <p ref={(p)=>{this.statusLabel = p}}></p>
+                      <img alt='bckg' style={this.getImageStyle()} ref={(img)=>{this.backgroundImage= img}} src={this.state.backgroundImage}/>
+                       <img src={this.state.photoURL} ref={(img)=>{this.avatar= img}}  style={this.getavatarStyles()} />
+                      
 
 
-
-                    <div>
-                    <FileChooserForm formButtonStyle={this.getFormButtonStyle2()}
-                                    ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
-                                    formButtonId='fromFileBtn'
-                                    path={"Avatar/"+this.state.userID}
-                                    formButtonClass='pill_btn' name='fileRecitation'
-                                    accept='image' multiple='false'
-                                    startFileSelectedHandler={(e)=>{this.startUploadAavatarImage()}}
-                                    fileSelectedHandler={(e)=>{this.uploadAavatarImage(e)}}>
-                        Upload
-                    </FileChooserForm>
-
-                    <FileChooserForm formButtonStyle={this.getFormButtonStyle3()}
-                                    ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
-                                    formButtonId='fromFileBtn'
-                                    path={"Avatar/"+this.state.userID}
-                                    formButtonClass='pill_btn2' name='fileRecitation2'
-                                    accept='image' multiple='false'
-                                    startFileSelectedHandler={(e)=>{this.startUploadBackgrouandImage()}}
-                                    fileSelectedHandler={(e)=>{this.uploadBackgrouandImage(e)}}>
-                        Upload background
-                    </FileChooserForm>
-                    </div>
-
-
-                    {/* Setting the bio. */}
-
-                    <h1 className='bioText'>Bio</h1>
-
-                    <textarea className='bioField'
-                              ref={(textarea)=>{this.bioField = textarea}}
-                              rows={5} cols={45}
-                              value={this.state.bio}></textarea>
+                  </div>
 
 
 
 
-              <div>
+                  {/* Edit personal information. */}
+                  <div className='editingContainer'>
+                       <div>
+                      <h1 className='titleText'>Personal</h1>
+                      </div>
 
-                    <button className='titleText' style={this.getSaveButtonStyle()} onClick={this.handleSaveChanges.bind(this)}>Save Changes</button>
-</div>
-                </div>
+                      {/* All of the input fields. */}
+                      <div className='FormDiv' >
+                      <div style={this.getSBStyles()}>
+                          <h1 style={this.getSearchBarTitleStyle(10, -2)}>Name:</h1>
+                          <input ref={(input)=>{this.nameField = input}} style={this.getInputStyles(25)} type='text' value={this.state.name} />
+                      </div>
+
+                      <div style={this.getSBStyles()} >
+                          <h1 style={this.getSearchBarTitleStyle(10, -2)}>Email:</h1>
+                          <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(25)} type='text' value={this.state.email} />
+                      </div>
+
+                      <div style={this.getSBStyles()}>
+                          <h1 style={this.getSearchBarTitleStyle(15, 0)}>Title:</h1>
+                          <input ref={(input)=>{this.titleField = input}} style={this.getInputStyles(25)} type='text'  />
+                      </div>
+
+                      <div style={this.getSBStyles()}>
+                          <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
+                          <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)} type='text'  />
+                      </div>
+
+                      <div style={this.getSBStyles()}>
+                          <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
+                          <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text'  />
+                      </div>
+
+                      </div>
 
 
-                <PageFooter bottom='-240px'>
-                </PageFooter>
-                {this.props.children}
-            </div>
-        );
+
+                      <div>
+                      <FileChooserForm formButtonStyle={this.getFormButtonStyle2()}
+                                      ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
+                                      formButtonId='fromFileBtn'
+                                      path={"Avatar/"+this.state.userID}
+                                      formButtonClass='pill_btn' name='fileRecitation'
+                                      accept='image' multiple='false'
+                                      startFileSelectedHandler={(e)=>{this.startUploadAavatarImage()}}
+                                      fileSelectedHandler={(e)=>{this.uploadAavatarImage(e)}}>
+                          Upload
+                      </FileChooserForm>
+
+                      <FileChooserForm formButtonStyle={this.getFormButtonStyle3()}
+                                      ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
+                                      formButtonId='fromFileBtn'
+                                      path={"Avatar/"+this.state.userID}
+                                      formButtonClass='pill_btn2' name='fileRecitation2'
+                                      accept='image' multiple='false'
+                                      startFileSelectedHandler={(e)=>{this.startUploadBackgrouandImage()}}
+                                      fileSelectedHandler={(e)=>{this.uploadBackgrouandImage(e)}}>
+                          Upload background
+                      </FileChooserForm>
+                      </div>
+
+
+                      {/* Setting the bio. */}
+
+                      <h1 className='bioText'>Bio</h1>
+
+                      <textarea className='bioField'
+                                ref={(textarea)=>{this.bioField = textarea}}
+                                rows={5} cols={45}
+                                value={this.state.bio}></textarea>
+
+
+
+
+                <div>
+
+                      <button className='titleText' style={this.getSaveButtonStyle()} onClick={this.handleSaveChanges.bind(this)}>Save Changes</button>
+  </div>
+                  </div>
+
+
+                  <PageFooter bottom='-240px'>
+                  </PageFooter>
+                  {this.props.children}
+              </div>
+          );
+
+        }else{
+
+          return (
+              <div style={this.getStyles()}>
+
+
+                  {/* Header and Banner stuff. */}
+                  <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
+                  <div style={this.getOverlay()}></div>
+
+
+
+                  // banner
+                  <div style={this.getStyles2()}>
+                  <p ref={(p)=>{this.statusLabel = p}}></p>
+                      <img alt='bckg' style={this.getImageStyle()} ref={(img)=>{this.backgroundImage= img}} src={this.state.backgroundImage}/>
+                       <img src={this.state.photoURL} ref={(img)=>{this.avatar= img}}  style={this.getavatarStyles()} />
+                          <div style={this.getNameStyles()}>
+                              {this.state.name}
+                          </div>
+
+                          <div >
+                              <p style={this.getBioStyles()}>{this.state.bio}</p>
+                          </div>
+                  </div>
+
+
+
+
+                  {/* Edit personal information. */}
+                  <div className='editingContainer'>
+                       <div>
+                      <h1 className='titleText'>Personal</h1>
+                      </div>
+
+                      {/* All of the input fields. */}
+                      <div className='FormDiv' >
+                      <div style={this.getSBStyles()}>
+                          <h1 style={this.getSearchBarTitleStyle(10, -2)}>Name:</h1>
+                          <input ref={(input)=>{this.nameField = input}} style={this.getInputStyles(25)} type='text' value={this.state.name} />
+                      </div>
+
+                      <div style={this.getSBStyles()} >
+                          <h1 style={this.getSearchBarTitleStyle(10, -2)}>Email:</h1>
+                          <input ref={(input)=>{this.emailField = input}} style={this.getInputStyles(25)} type='text' value={this.state.email} />
+                      </div>
+
+                      <div style={this.getSBStyles()}>
+                          <h1 style={this.getSearchBarTitleStyle(15, 0)}>Title:</h1>
+                          <input ref={(input)=>{this.titleField = input}} style={this.getInputStyles(25)} type='text'  />
+                      </div>
+
+                      <div style={this.getSBStyles()}>
+                          <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
+                          <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)} type='text'  />
+                      </div>
+
+                      <div style={this.getSBStyles()}>
+                          <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
+                          <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text'  />
+                      </div>
+
+                      </div>
+
+
+
+                      <div>
+                      <FileChooserForm formButtonStyle={this.getFormButtonStyle2()}
+                                      ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
+                                      formButtonId='fromFileBtn'
+                                      path={"Avatar/"+this.state.userID}
+                                      formButtonClass='pill_btn' name='fileRecitation'
+                                      accept='image' multiple='false'
+                                      startFileSelectedHandler={(e)=>{this.startUploadAavatarImage()}}
+                                      fileSelectedHandler={(e)=>{this.uploadAavatarImage(e)}}>
+                          Upload
+                      </FileChooserForm>
+
+                      <FileChooserForm formButtonStyle={this.getFormButtonStyle3()}
+                                      ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
+                                      formButtonId='fromFileBtn'
+                                      path={"Avatar/"+this.state.userID}
+                                      formButtonClass='pill_btn2' name='fileRecitation2'
+                                      accept='image' multiple='false'
+                                      startFileSelectedHandler={(e)=>{this.startUploadBackgrouandImage()}}
+                                      fileSelectedHandler={(e)=>{this.uploadBackgrouandImage(e)}}>
+                          Upload background
+                      </FileChooserForm>
+                      </div>
+
+
+                      {/* Setting the bio. */}
+
+                      <h1 className='bioText'>Bio</h1>
+
+                      <textarea className='bioField'
+                                ref={(textarea)=>{this.bioField = textarea}}
+                                rows={5} cols={45}
+                                value={this.state.bio}></textarea>
+
+
+
+
+                <div>
+
+                      <button className='titleText' style={this.getSaveButtonStyle()} onClick={this.handleSaveChanges.bind(this)}>Save Changes</button>
+  </div>
+                  </div>
+
+
+                  <PageFooter bottom='-240px'>
+                  </PageFooter>
+                  {this.props.children}
+              </div>
+          );
+
+
+
+        }
+
     }
 
 

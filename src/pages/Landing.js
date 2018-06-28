@@ -107,7 +107,7 @@ class Landing extends Component {
 
 
     render() {
-      const isMobile = window.innerWidth <= 500;
+      const isMobile = window.innerWidth <= 800;
       if(isMobile){
 
           return (

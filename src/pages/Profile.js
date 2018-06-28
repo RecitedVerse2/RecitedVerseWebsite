@@ -72,6 +72,7 @@ class Profile extends Component {
     componentDidMount() {
         this.allButton.style.textDecoration = 'underline';
 
+
         // Check for null objects.
         if(this.props.rStore.getState().currentUser == null) {
             var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
@@ -86,9 +87,15 @@ class Profile extends Component {
                     currentUser: cUser
                 });
             }
+
+
         }
 
-        this.updateFollowCount(cUser.userID);
+         //console.log();
+        this.updateFollowCount(this.props.rStore.getState().currentUser.userID);
+
+
+
 
 
 

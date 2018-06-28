@@ -63,6 +63,7 @@
 
 @media only screen and (max-width: 800px) {
     .audio_buttons_section {
+      left: 5%;
       width: 40%;
     }
 
