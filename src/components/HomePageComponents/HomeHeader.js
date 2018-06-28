@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import * as firebase from 'firebase';
-import {InstantSearch, SearchBox, Hits, Highlight} from 'react-instantsearch/dom';
+import { InstantSearch, Hits, SearchBox, Highlight, HitsPerPage, Configure } from 'react-instantsearch/dom';
+
 import { createConnector } from "react-instantsearch";
 
 import RVLogo from '../../res/RV-Final-Icon.png';
@@ -13,6 +14,10 @@ import __ from '../../css/Header.css';
 
 import Clock from '../Clock';
 import { Link } from 'react-router-dom';
+import { connectStateResults } from 'react-instantsearch/connectors';
+import Autosuggest from 'react-autosuggest';
+import Autocomplete from './Autocomplete';
+
 class Header extends Component {
 
     /**********************
@@ -301,6 +306,7 @@ class Header extends Component {
 
 
 
+
     render() {
        var downMeue = "";
        let redNotifications = "";
@@ -317,32 +323,8 @@ class Header extends Component {
                 </div>
           );
          }
-         const ConditionalHits = createConnector({
-            displayName: "ConditionalQuery",
-            getProvidedProps(props, searchState, searchResults) {
-              const { query, hits } = searchResults.results ? searchResults.results : {};
-              return { query, hits };
-            }
-          })(({ query, hits }) => {
-            const hs =
-              hits && query
-                ? hits.map(hit =>
-                  <li key={hit.recitation.title}>
-                      <div style={{zIndex: '999', marginTop: '10px'}} className="inc-name">
-                        {/* {hit.text.title} | <a href={'/user?' + hit.text.uploaderID}>{hit.text.uploaderName}</a> */}
+  
 
-                        {hit.recitation.title} | <a target="_blank" href={`/user?${hit.recitation.uploaderID}`}>{hit.recitation.uploaderName}</a>
-
-                      </div>
-                  </li>
-                  )
-                : null;
-            return (
-              <div id="hits">
-                {hs}
-              </div>
-            );
-          });
 
 
 
@@ -358,17 +340,8 @@ class Header extends Component {
                          <div style={this.getSearchContainerStyle()} className="search-container">
                              {/* <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" /> */}
                              {/* <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button> */}
-                             <InstantSearch
-                             appId="I5KQF3O5KB"
-                             apiKey="8199ff4474cffdde931f62cc2bfe4d53"
-                             indexName="recitedverse"
-                         >
-                             {/* Use widgets here */}
-                             <SearchBox />
-                             <ul className="suggestions" id="sugg">
-                             <ConditionalHits />
-                             </ul>
-                         </InstantSearch>
+                             
+                            <Autocomplete />
                           </div>
 
                          <div style={this.getMobileButtonsSectionStyle()}>
@@ -404,18 +377,9 @@ class Header extends Component {
                          <div style={this.getSearchContainerStyle()} className="search-container">
                              {/* <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" /> */}
                              {/* <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button> */}
-                             <InstantSearch
-                             appId="I5KQF3O5KB"
-                             apiKey="8199ff4474cffdde931f62cc2bfe4d53"
-                             indexName="recitedverse"
-                         >
-                             {/* Use widgets here */}
-                             <SearchBox />
-                             <ul className="suggestions" id="sugg">
-                             <ConditionalHits />
-                             </ul>
+                           
+                             <Autocomplete />
 
-                         </InstantSearch>
                           </div>
 
                          <div style={this.getButtonsSectionStyle()}>

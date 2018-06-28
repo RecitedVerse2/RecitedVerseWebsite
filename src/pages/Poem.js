@@ -25,7 +25,6 @@ import { MentionsInput, Mention } from 'react-mentions'
 
 const processString = require('react-process-string');
 
-
 class Poem extends Component {
 
     /**********************
@@ -227,7 +226,7 @@ class Poem extends Component {
 
     returnPhoto(photoURl){
         if(photoURl){
-            return <img height="25" width="25" src={`${photoURl}`} />;
+            return <img style={{borderRadius: '100px', marginRight: '5px'}} height="25" width="25" src={`${photoURl}`} />;
         }
     }
 
@@ -484,7 +483,6 @@ class Poem extends Component {
 
                 {/* The div that shows the image. */}
                 <div className='contentArea' >
-
                     <div className='verticalTextArea' style={this.getTextAreaStyle()}>
                        <h1 className='headerText'><strong><a className="headerText" style={{color: 'white'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
                        <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
