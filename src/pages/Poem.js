@@ -471,6 +471,22 @@ class Poem extends Component {
     }
 
 
+     renderGenerAndDate(){
+        if(this.state.genre.length == 0){
+          return (
+
+            <div><h1 className='headerText'>Date:  {this.state.date}</h1></div>
+          )
+
+        }else{
+          return(
+          <div>  <h1 className='headerText'>Genre:  {this.state.genre}</h1>
+              <h1 className='headerText'>Date:  {this.state.date}</h1></div>
+          )
+        }
+
+     }
+
 
 
     /**********************
@@ -487,6 +503,7 @@ class Poem extends Component {
         var titleStr = encodeURIComponent(title);
 
         var share_url = 'https://twitter.com/intent/tweet?text='+ titleStr +'&url=https%3A%2F%2Frecitedverse.com/share?'+this.state.recitationId;
+
 
         return (
             <div style={this.getStyles()}>
@@ -505,8 +522,8 @@ class Poem extends Component {
                        <h1 className='headerText'><strong><a className="headerText" style={{color: 'white'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
                        <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
                        {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
-                      <h1 className='headerText'>Date:  {this.state.date}</h1>
-                        {this.myProp}
+                       {this.renderGenerAndDate()}
+
 
                         <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
 

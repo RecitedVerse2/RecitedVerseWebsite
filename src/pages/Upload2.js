@@ -898,7 +898,11 @@ recorded text on the Recited Verse archive</p>
 
         let genre = '';
         this.state.multiValue.map((option) => {
-          genre.concat(' ', option.value, ' , ');
+          if(genre.length == 0){
+            genre = option.value;
+          }else{
+              genre += " " + option.value;
+          }
         })
 
 
@@ -912,6 +916,7 @@ recorded text on the Recited Verse archive</p>
         var poemAuthor = this.poetField;
         var poemRecitedBy = this.recitedByField;
         var poemPublished = this.publishedField;
+
         var poemGenre = genre;
         var poemWrittenText = this.transcriptField;
         var poemDescription = this.descriptionField;
