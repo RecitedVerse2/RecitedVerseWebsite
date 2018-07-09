@@ -582,7 +582,7 @@ recorded text on the Recited Verse archive</p>
 
     confirmAlert({
       title: 'Reminder',
-      message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original peom that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
+      message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original poem that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
       buttons: [
         {
           label: 'I Understand',
@@ -607,7 +607,7 @@ recorded text on the Recited Verse archive</p>
       if (navigator.userAgent.indexOf("Chrome") !== -1){
         confirmAlert({
           title: 'Reminder',
-          message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original peom that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
+          message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original poem that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
           buttons: [
             {
               label: 'I Understand',
