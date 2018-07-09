@@ -45,7 +45,7 @@ class Header extends Component {
         firebase.database().ref().child('Users').child(cUser.userID).once('value').then((snap)=>{
             var user = snap.val()
             var notifications = 0;
-            if(user.notifications){
+            if(user != null && user.notifications){
               notifications = user.notifications;
              }
 
@@ -323,7 +323,7 @@ class Header extends Component {
                 </div>
           );
          }
-  
+
 
 
 
@@ -340,7 +340,7 @@ class Header extends Component {
                          <div style={this.getSearchContainerStyle()} className="search-container">
                              {/* <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" /> */}
                              {/* <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button> */}
-                             
+
                             <Autocomplete />
                           </div>
 
@@ -377,7 +377,7 @@ class Header extends Component {
                          <div style={this.getSearchContainerStyle()} className="search-container">
                              {/* <input type="text" style={this.getSearchInputStyle()} onKeyPress={this.handleSearch.bind(this)} ref={(input)=>{this.searchBar = input}}  placeholder="Search.." name="search" /> */}
                              {/* <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button> */}
-                           
+
                              <Autocomplete />
 
                           </div>

@@ -17,14 +17,14 @@ import emptyImage from '../res/empty.png';
 import _ from '../css/UploadBox.css';
 
 
-import randImage1 from '../res/rand1.jpg';
-import randImage2 from '../res/rand2.jpg';
-import randImage3 from '../res/rand3.jpg';
-import randImage4 from '../res/rand4.jpg';
-import randImage5 from '../res/rand5.jpg';
-import randImage6 from '../res/rand6.jpg';
-import randImage7 from '../res/rand7.jpg';
-import randImage8 from '../res/rand8.jpg';
+// import randImage1 from '../res/rand1.jpg';
+// import randImage2 from '../res/rand2.jpg';
+// import randImage3 from '../res/rand3.jpg';
+// import randImage4 from '../res/rand4.jpg';
+// import randImage5 from '../res/rand5.jpg';
+// import randImage6 from '../res/rand6.jpg';
+// import randImage7 from '../res/rand7.jpg';
+// import randImage8 from '../res/rand8.jpg';
 
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import ProfileHeader from '../components/ProfilePageComps/ProfileHeader';
@@ -33,6 +33,8 @@ import FileChooserForm from '../components/FileChooserForm';
 import Clock from '../components/Clock';
 import 'react-select/dist/react-select.css';
 import { base } from '../objects/config';
+
+const GallerySize = 40;  // 1 -8 so it is 8
 
 
 class Upload extends Component {
@@ -696,7 +698,7 @@ recorded text on the Recited Verse archive</p>
     }
 
     RandomGallery(){
-          const randIndex = Math.floor( (Math.random() * 8) + 1);
+          const randIndex = Math.floor( (Math.random() * GallerySize) + 1);
           //  1 ---  8 storage in firebase
           var url = 'https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2Frand' + randIndex +'.jpg?alt=media'
           this.poemImage.src = url;
@@ -917,7 +919,7 @@ recorded text on the Recited Verse archive</p>
 
         // Select a random image if choseImage is false
         if(this.state.choseImage === false) {
-          const randIndex = Math.floor( (Math.random() * 8) + 1);
+          const randIndex = Math.floor( (Math.random() * GallerySize) + 1);
           //  1 ---  8 storage in firebase
           var url = 'https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2Frand' + randIndex +'.jpg?alt=media'
 

@@ -19,6 +19,7 @@ import Clock from '../components/Clock';
 import Recitation from '../objects/Recitation';
 
 import Comments from '../components/PoemPageComps/Comments';
+import MultiLines from '../components/PoemPageComps/MultiLines';
 import { Grid, Row, Col, Form, FormGroup, FormControl, Button, Glyphicon } from 'react-bootstrap';
 import { base } from '../objects/config';
 import { MentionsInput, Mention } from 'react-mentions'
@@ -92,6 +93,10 @@ class Poem extends Component {
         this.reportPoem = this.reportPoem.bind(this);
         this.returnPhoto = this.returnPhoto.bind(this);
 
+
+
+        var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
+        this.poemTranscript = recitation.text;
 
     }
 
@@ -493,6 +498,7 @@ class Poem extends Component {
                 <div style={this.getOverlay()}>
 
 
+
                 {/* The div that shows the image. */}
                 <div className='contentArea' >
                     <div className='verticalTextArea' style={this.getTextAreaStyle()}>
@@ -500,6 +506,7 @@ class Poem extends Component {
                        <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
                        {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
                       <h1 className='headerText'>Date:  {this.state.date}</h1>
+                        {this.myProp}
 
                         <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
 
@@ -524,7 +531,7 @@ class Poem extends Component {
                         <Row className="show-grid">
                             <Col md={8}>
                             <div style={{lineHeight: '2', fontWeight: '700' }}>
-                            {this.state.poemTranscript}
+                            <MultiLines content={this.poemTranscript} ></MultiLines>
                             </div>
                             </Col>
                         </Row>
@@ -532,6 +539,8 @@ class Poem extends Component {
                         {this.state.deleteButton}
                     </div>
                 </div>
+
+
 
 
                 <Clock onupdate={this.update.bind(this)}></Clock>
@@ -620,7 +629,7 @@ class Poem extends Component {
                           <Row className="show-grid">
                               <Col md={8}>
                               <div style={{lineHeight: '2', fontWeight: '700' }}>
-                              {this.state.poemTranscript}
+                              <MultiLines content={this.poemTranscript} ></MultiLines>
                               </div>
                               </Col>
                           </Row>
