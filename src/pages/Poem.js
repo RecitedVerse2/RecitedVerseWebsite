@@ -108,7 +108,7 @@ class Poem extends Component {
         if(store.currentUser !== null) {
             if(store.currentUser.userID === recitation.uploaderID) {
                var btn = <button className='deleteButton' onClick={this.handleDeleteRecitation.bind(this)}>
-                                Delete Recitation
+                                Delete Recording
                         </button>
 
                 this.setState({
