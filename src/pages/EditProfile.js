@@ -351,11 +351,13 @@ class EditProfile extends Component {
 
                       {/* Setting the bio. */}
 
-                      <h1 className='bioText'>Bio</h1>
+                      <h3 className='bioText'>Write a little about yourself. Eg. your occupation, location, interests, etc.</h3>
 
                       <textarea className='bioField'
                                 ref={(textarea)=>{this.bioField = textarea}}
                                 rows={5} cols={45}
+                                onChange={(event) => this.setState({bio: event.target.value}) }
+                                placeholder="Write a little about yourself. Eg. your occupation, location, interests, etc. "
                                 value={this.state.bio}></textarea>
 
 
@@ -467,12 +469,15 @@ class EditProfile extends Component {
 
                       {/* Setting the bio. */}
 
-                      <h1 className='bioText'>Bio</h1>
+                      <h3 className='bioText'>Write a little about yourself. Eg. your occupation, location, interests, etc. </h3>
 
                       <textarea className='bioField'
                                 ref={(textarea)=>{this.bioField = textarea}}
                                 rows={5} cols={45}
-                                value={this.state.bio}></textarea>
+                                onChange={(event) => this.setState({bio: event.target.value}) }
+                                value={this.state.bio}
+                                placeholder="Write a little about yourself. Eg. your occupation, location, interests, etc. "
+                    ></textarea>
 
 
 

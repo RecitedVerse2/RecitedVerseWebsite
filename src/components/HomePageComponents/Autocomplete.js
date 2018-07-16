@@ -32,7 +32,12 @@ const Search = () => {
 };
 
 const handleLinkClick = (hit) => {
-  window.open(`/user?${hit.recitation.uploaderID}`);
+  // window.open(`/user?${hit.recitation.uploaderID}`);
+  console.log(hit);
+}
+
+const handlePoemClick = (hit) => {
+  
 }
 
 

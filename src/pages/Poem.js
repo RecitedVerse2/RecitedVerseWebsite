@@ -94,7 +94,6 @@ class Poem extends Component {
         this.returnPhoto = this.returnPhoto.bind(this);
 
 
-
         var recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
         this.poemTranscript = recitation.text;
 
@@ -480,7 +479,7 @@ class Poem extends Component {
 
         }else{
           return(
-          <div>  <h1 className='headerText'>Genre:  {this.state.genre}</h1>
+          <div>  <h1 className='headerText'>Tags:  {this.state.genre}</h1>
               <h1 className='headerText'>Date:  {this.state.date}</h1></div>
           )
         }

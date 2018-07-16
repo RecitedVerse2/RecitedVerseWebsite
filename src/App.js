@@ -21,7 +21,12 @@ import Notifications from './pages/Notifications';
 import MainPoem from './pages/MainPoem';
 import AudioPlayer from './components/AudioPlayer';
 import navigation from './components/navigation';
-
+import FaqPage from './pages/FaqPage';
+import About from './pages/about';
+import Volunteer from './pages/volunteer';
+import Donations from './pages/donations';
+import Copyright from './pages/Copyright';
+import Beta from './pages/Beta';
 
 // REDUX
 const defaultState = {
@@ -225,6 +230,12 @@ class App extends Component {
                     <Route exact path="/share" component={PoemSharePage}></Route>
                     <Route exact path="/notifications" component={NotificationsPage}></Route>
                     <Route exact path="/allrecordings" component={PoemByName}></Route>
+                    <Route exact path="/faq" component={FaqPage}></Route>
+                    <Route exact path="/about" component={About}></Route>
+                    <Route exact path="/volunteer" component={Volunteer}></Route>
+                    <Route exact path="/donations" component={Donations}></Route>
+                    <Route exact path="/copyright" component={Copyright}></Route>
+                    <Route exact path="/beta" component={Beta}></Route>
                 </div>
             </BrowserRouter>
         );

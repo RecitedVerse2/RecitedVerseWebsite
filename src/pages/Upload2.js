@@ -68,12 +68,31 @@ class Upload extends Component {
               { value: 'G', label: 'Green' },
               { value: 'B', label: 'Blue' }
             ],
-            value: undefined
+            value: undefined,
+            titles: [],
+            authors: [],
+
+            fullWork: true,
+            nameOfCompleteWork: '',
+            translation: false,
+            translator: '',
 
         }
 
         this.func123 = this.showReminder.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+
+    }
+
+    handleInputChange(event) {
+      const target = event.target;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const name = target.name;
+  
+      this.setState({
+        [name]: value
+      });
     }
 
     showReminder(event){
@@ -122,6 +141,23 @@ class Upload extends Component {
         }
       })
       this.setState({options: tags});
+
+      // fetch all the titles of poems 
+      base.fetch('/Recitations', {
+        context: this,
+        asArray: true,
+        then(recitations){
+          let allTitles = recitations.map((recitation) => {
+            return recitation.title;
+          });
+
+          let allAuthors = recitations.map((recitation) => {
+            return recitation.author;
+          })
+
+          this.setState({titles: allTitles, authors: allAuthors});
+        }
+      })
 
     }
 
@@ -213,7 +249,7 @@ class Upload extends Component {
     getUploadDiv2Style() {
       return {
           width: '800px',
-          height: '800px',
+          height: '900px',
           margin: 'auto',
           marginTop: '100px',
           backgroundColor: 'white',
@@ -520,9 +556,24 @@ class Upload extends Component {
           </div>
             <div  style={this.getUploadRightInfoDivStyle()} >
              <label className="control-label col-sm-2" >Poem:</label><br/>
-             <div >
+             <div>
                <input type="email" className="form-control"  placeholder="Enter Title" ref={(input)=>{this.poemField = input}} ></input>
+              <div style={{display: 'inline'}}>
+              <input id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork} onChange={this.handleInputChange} ></input>
+               <label for="fullwork">Is this a Complete Work?</label>
+               </div>
+               {this.state.fullWork === false &&
+                  <input className="form-control" type="text" placeholder="Name of Completed Work" name="nameOfCompleteWork" value={this.state.nameOfCompleteWork} onChange={this.handleInputChange}></input>
+                }             
              </div>
+             <div>
+             <input id="fullwork" type="checkbox" className="form-control" name="translation" value={this.state.translation} onChange={this.handleInputChange} ></input>
+               <label for="fullwork">Is this a Translation?</label>
+               </div>
+               {this.state.translation === true &&
+                  <input className="form-control" type="text" placeholder="Name of Translator" name="translator" value={this.state.translator} onChange={this.handleInputChange}></input>
+                }
+               
 
              <label className="control-label col-sm-2" >Poet:</label><br/>
              <div >
