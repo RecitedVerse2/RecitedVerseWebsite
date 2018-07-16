@@ -431,7 +431,7 @@ class SignUp extends Component {
 
               setInterval(function(){
                    window.location.href = 'login';
-               }, 2000);
+               }, 100);  // no need do this way, just want to keep code, leave it here.
 
               }
             },
