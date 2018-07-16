@@ -6,7 +6,7 @@ import Alertify from 'alertify.js';
 import Select from 'react-select';
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
-
+import IsUserFirst from './IsUserFirst';
 import '../css/react-confirm-alert.css'
 
 
@@ -84,7 +84,6 @@ class Upload extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.updateValue = this.updateValue.bind(this);
         this.updateValueTitle = this.updateValueTitle.bind(this);
-
     }
 
     handleInputChange(event) {
@@ -169,6 +168,14 @@ class Upload extends Component {
            
           });
 
+          let originalTitles = recitations.map((recitation) => {
+            return {
+              value: recitation.title,
+              label: recitation.title
+            };
+           
+          });
+
           let allAuthors = recitations.map((recitation) => {
             return {
               value: recitation.author,
@@ -176,7 +183,7 @@ class Upload extends Component {
             }
           })
 
-          this.setState({titles: allTitles, authors: allAuthors});
+          this.setState({titles: allTitles, authors: allAuthors, originalTitles});
         }
       })
 
@@ -591,6 +598,7 @@ class Upload extends Component {
                 value={this.state.title}
                 onChange={this.updateValueTitle}
               />
+              <IsUserFirst title={this.state.title} originalTitles={this.state.originalTitles}  />
               <div style={{display: 'inline'}}>
               <input id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork} onChange={this.handleInputChange} ></input>
                <label for="fullwork">Is this a Complete Work?</label>
