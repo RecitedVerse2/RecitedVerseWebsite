@@ -148,11 +148,15 @@ class Upload extends Component {
         asArray: true,
         then(recitations){
           let allTitles = recitations.map((recitation) => {
-            return recitation.title;
+            recitation["value"] = recitation.title;
+            recitation["label"] = recitation.title;
+            return recitation;
           });
 
           let allAuthors = recitations.map((recitation) => {
-            return recitation.author;
+            recitation["value"] = recitation.author;
+            recitation["label"] = recitation.author;
+            return recitation;
           })
 
           this.setState({titles: allTitles, authors: allAuthors});
@@ -578,6 +582,21 @@ class Upload extends Component {
              <label className="control-label col-sm-2" >Poet:</label><br/>
              <div >
                <input type="email" className="form-control"  placeholder="Enter Author" ref={(input)=>{this.poetField = input}}  ></input>
+               <Select.Creatable
+					id="state-select"
+					ref={(ref) => { this.select = ref; }}
+					onBlurResetsInput={false}
+					onSelectResetsInput={false}
+					autoFocus
+					options={this.state.authors}
+					simpleValue
+					clearable={true}
+					name="selected-state"
+					disabled={false}
+					value={this.state.author}
+					onChange={this.updateValue}
+					searchable={true}
+				/>
              </div>
 
 
