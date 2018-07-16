@@ -72,7 +72,7 @@ class RecitationItem extends Component {
            fontFamily:'Roboto',
            fontSize:'20px',
            background:'none',
-           paddingTop:'10px',
+           paddingTop:'3px',
            textDecoration:'none',
            fontWeight: '700',
            textAlign: 'left',
@@ -90,15 +90,31 @@ class RecitationItem extends Component {
            outline:'none',
            cursor:'pointer',
            fontFamily:'Roboto',
-           fontSize:'16px',
+           fontSize:'20px',
            background:'none',
-           paddingTop:'10px',
+           paddingTop:'2px',
+           paddingBottom:'10px',
            textDecoration:'none',
            fontWeight: '500',
            marginLeft: '5px',
-
-
        }
+   }
+
+   getAuthorStyles(){
+     return {
+         color:'#595959',
+         border:'none',
+         outline:'none',
+         cursor:'pointer',
+         fontFamily:'Roboto',
+         fontSize:'14px',
+         background:'none',
+         paddingTop:'0px',
+         textDecoration:'none',
+         fontWeight: '500',
+         marginLeft: '5px',
+     }
+
    }
    addToPlaylistButtonStyles() {
        return {
@@ -153,6 +169,9 @@ class RecitationItem extends Component {
                     <button onClick={this.goToPoemPage.bind(this)}
                             style={this.getTextStyles()}>
                         {this.props.recitation.title}
+                    </button>
+                    <button  onClick={this.goToPoemPage.bind(this)} style={this.getAuthorStyles()}>
+                        {this.props.recitation.author}
                     </button>
                     <button  onClick={this.goToPoemPage.bind(this)} style={this.getUploaderStyles()}>
                         {this.props.recitation.uploaderName}
