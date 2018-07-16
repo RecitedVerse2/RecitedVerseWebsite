@@ -4,6 +4,7 @@ import { base } from '../objects/config';
 import { Grid, Row, Col } from 'react-bootstrap';
 import Recitation from '../objects/Recitation';
 import RecitationItem2 from '../components/SearchPageComps/RecitationItem2';
+import MultiLines from '../components/PoemPageComps/MultiLines';
 
 export default class MainPoem extends Component {
     constructor(props){
@@ -29,7 +30,7 @@ export default class MainPoem extends Component {
         var final = poem.replaceAll('+', ' ');
         final.replaceAll('%20', ' ');
         console.log(final,' poem id');
-        // get poem name, 
+        // get poem name,
         base.fetch(`/Recitations/${final}`, {
             context: this,
             then(data){
@@ -41,7 +42,7 @@ export default class MainPoem extends Component {
                     asArray: true,
                     then(allPoemData) {
                         this.setState({allPoemData, loading: false});
-                        
+
                         var recs = [];
                         var comps = [];
 
@@ -70,7 +71,7 @@ export default class MainPoem extends Component {
                                     this.setState({
                                         matchingRecitations: recs
                                     });
-                    
+
                                     var item = <RecitationItem2 key={poem.timestamp}
                                                                 recitation={recObj}
                                                                 nav={this.props.nav}
@@ -80,15 +81,15 @@ export default class MainPoem extends Component {
                                         recComponents: comps
                                     });
                                 }
-                               
+
                         })
-                        
+
                     }
                 });
             }
         })
         // get all poems
-        
+
 
 
     }
@@ -127,7 +128,8 @@ export default class MainPoem extends Component {
 
                 <div style={{marginTop: '5%'}} className="content">
                 <h2>{this.state.title} - <i>All Recordings</i></h2>
-                <p style={{textAlign: 'center', marginRight: '25%', marginLeft: '25%', marginTop: '25px'}}>{this.state.text}</p>
+                <div style={{lineHeight: '2', fontWeight: '700' , marginRight: '25%', marginLeft: '25%', marginTop: '25px', height: '300px', overflowY: 'scroll'}}>
+                  <MultiLines content={this.state.text} ></MultiLines></div>
                     <div style={{marginLeft: '20px'}}>
                         {this.state.recComponents}
                     </div>
