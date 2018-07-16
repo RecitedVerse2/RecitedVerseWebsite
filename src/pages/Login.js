@@ -20,7 +20,7 @@ import _1 from '../css/icon-font.min.css';
 import _2 from '../css/login_util.css';
 import _3 from '../css/login_main.css';
 
-
+import { confirmAlert } from 'react-confirm-alert';
 
 
 
@@ -506,6 +506,23 @@ class Login extends Component {
             //this.statusLabel.style.visibility = "visible";
             // Wait for the login, then change pages.
             firebase.auth().onAuthStateChanged((user) => {
+              console.log(user);
+                if(!user.emailVerified){
+
+                  confirmAlert({
+                    title: 'Email Varification',
+                    message: 'Please validate your email first : ' + user.email,
+                    buttons: [
+                      {
+                        label: 'OK',
+                        onClick: () => {
+
+                        }
+                      },
+                    ]
+                  })
+                  return;
+                }
                 if (user) {
                     firebase.database().ref().child('Users').child(user.uid).once('value', (snap) => {
                         var usr = snap.val();

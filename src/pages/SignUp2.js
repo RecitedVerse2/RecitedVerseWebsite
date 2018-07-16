@@ -18,6 +18,7 @@ import Header from '../components/LandingComps/Header';
 import googleIcon from '../res/icon-google.png';
 
 import Alertify from 'alertify.js';
+import { confirmAlert } from 'react-confirm-alert';
 
 
 // This is where users can register for accounts on RecitedVerse.com
@@ -413,15 +414,41 @@ class SignUp extends Component {
         fireRef.child('Users').child(user.uid).set(createdUser);
 
         // Save the currently logged in user's userID to the local storage.
+      var user = firebase.auth().currentUser;
+      user.sendEmailVerification().then(function() {
 
-        var missingInfo = "Create Account successfully, go to Signin Page ";
+        confirmAlert({
+          title: 'Email Varification',
+          message: 'A varify email has sent to you email. You need varify email before Sign in',
+          buttons: [
+            {
+              label: 'OK',
+              onClick: () => {
+                //var missingInfo = "Create Account successfully, go to Signin Page ";
 
 
-       Alertify.alert(missingInfo);
+               //Alertify.alert(missingInfo);
 
-      setInterval(function(){
-           window.location.href = 'login';
-       }, 2000);
+              setInterval(function(){
+                   window.location.href = 'login';
+               }, 2000);
+
+              }
+            },
+          ]
+        })
+
+
+  // Email sent.
+}).catch(function(error) {
+  // An error happened.
+});
+
+
+
+
+
+
 
 
 
@@ -429,6 +456,9 @@ class SignUp extends Component {
 
 
       });
+
+
+
 
 
     }
@@ -504,6 +534,8 @@ class SignUp extends Component {
             this.statusLabel.style.visibility = "visible";
             this.statusLabel.innerHTML = "Please enter all credentials.";
         }// End of making sure values exist.
+
+
     }
 
     // Logs the user in after they just signed up.
@@ -535,7 +567,9 @@ class SignUp extends Component {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 window.localStorage.setItem('currentUID',user.uid);
-                this.props.nav.goTo('profile');
+                //alert("onAuthStateChangedonAuthStateChanged")
+                //this.props.nav.goTo('profile');
+
             } else {
                 return;
             }
