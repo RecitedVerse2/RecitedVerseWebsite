@@ -507,7 +507,7 @@ class Login extends Component {
             // Wait for the login, then change pages.
             firebase.auth().onAuthStateChanged((user) => {
               console.log(user);
-                if(!user.emailVerified){
+                if(!user&&!user.emailVerified){
 
                   confirmAlert({
                     title: 'Email Varification',
