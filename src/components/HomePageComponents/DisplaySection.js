@@ -76,8 +76,9 @@ class DisplaySection extends Component {
     getTitleStyles() {
         return {
             color:'black',
-            fontFamily:'Arimo',
-            fontSize:'50px',
+            fontFamily:'HelveticaNeue',
+            fontWeight: 'bold',
+            fontSize:'35px',
             marginLeft: '5%',
         }
     }
