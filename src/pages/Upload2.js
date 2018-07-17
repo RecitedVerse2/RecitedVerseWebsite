@@ -90,7 +90,7 @@ class Upload extends Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-  
+
       this.setState({
         [name]: value
       });
@@ -155,7 +155,7 @@ class Upload extends Component {
       })
       this.setState({options: tags});
 
-      // fetch all the titles of poems 
+      // fetch all the titles of poems
       base.fetch('/Recitations', {
         context: this,
         asArray: true,
@@ -165,7 +165,7 @@ class Upload extends Component {
               value: recitation.title,
               label: recitation.title
             };
-           
+
           });
 
           let originalTitles = recitations.map((recitation) => {
@@ -173,7 +173,7 @@ class Upload extends Component {
               value: recitation.title,
               label: recitation.title
             };
-           
+
           });
 
           let allAuthors = recitations.map((recitation) => {
@@ -546,10 +546,10 @@ class Upload extends Component {
                        ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
                        formButtonId='fromFileBtn'
                        formButtonClass='pill_btn' name='fileRecitation'
-                       accept='audio/*' multiple='false'
+                       accept='audio/mpeg' multiple='false'
                        beforeUploadHandler={(e)=>{this.beforeUpload(e)}}
                        fileSelectedHandler={(e)=>{this.uploadAudioFile(e)}}>
-           Upload Audio Record
+           Upload MP3 Audio Record
        </FileChooserForm>
 
          <h2 style={this.getRecordingH2Style()}  onClick={this.recordNow.bind(this)}   >Record Now</h2>
@@ -605,7 +605,7 @@ class Upload extends Component {
                </div>
                {this.state.fullWork === false &&
                   <input className="form-control" type="text" placeholder="Name of Completed Work" name="nameOfCompleteWork" value={this.state.nameOfCompleteWork} onChange={this.handleInputChange}></input>
-                }             
+                }
              </div>
              <div>
              <input id="fullwork" type="checkbox" className="form-control" name="translation" value={this.state.translation} onChange={this.handleInputChange} ></input>
@@ -614,7 +614,7 @@ class Upload extends Component {
                {this.state.translation === true &&
                   <input className="form-control" type="text" placeholder="Name of Translator" name="translator" value={this.state.translator} onChange={this.handleInputChange}></input>
                 }
-               
+
 
              <label className="control-label col-sm-2" >Poet:</label><br/>
              <div >

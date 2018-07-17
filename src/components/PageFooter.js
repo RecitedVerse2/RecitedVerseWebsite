@@ -70,18 +70,18 @@ class PageFooter extends Component {
               <div style={this.getStyles()}>
                   <div className='sectionHolders'>
                       <div className='companyInfoSection'>
-                          <h1>Find Out More</h1>
-                          <a href="/about">About</a>
-                          <br/>
-                          <a href="/volunteer">Volunteer & Internships</a>
-                          <br/>
-                          <a href="/donations">Donatinos</a>
-                          <br/>
-                          <a href="/beta">Beta Testing Info</a>
-                          <a href="/copyright">Copyright Info</a>
+                          <ul>
+                          <li><a href="/about">About</a><span className="after"> | </span></li>
+
+                          <li><a href="/volunteer">Volunteer & Internships</a><span className="after"> | </span></li>
+
+                          <li><a href="/donations">Donatinos</a><span className="after"> | </span></li>
+                          <li><a href="/beta">Beta Testing Info</a><span className="after"> | </span></li>
+                          <li><a href="/copyright">Copyright Info</a></li>
+                          </ul>
                       </div>
 
-                      
+
 
                       <div className='buttonsSection'>
                           <button className='socialBtn' onClick={this.goToFacebook.bind(this)}><img className='socialImg' src={facebookBtn} alt="facebook"/></button>
