@@ -450,6 +450,17 @@ class Poem extends Component {
       }
     }
 
+    getMobileTextAreaStyle(){
+      return{
+        paddingBottom: '10px',
+        paddingRight: '10px',
+        paddingLeft: '10px',
+        paddingTop:'30px',
+        backgroundColor:'rgba(0, 0, 0, 0.5)',
+        minHeight: '200px'
+      }
+    }
+
 
     getUserAlinkStyle(){
       return{
@@ -521,7 +532,7 @@ class Poem extends Component {
 
                 {/* The div that shows the image. */}
                 <div className='contentArea' >
-                    <div className='verticalTextArea' style={this.getTextAreaStyle()}>
+                    <div className='verticalTextArea' style={this.getMobileTextAreaStyle()}>
                        <h1 className='headerText'><strong><a className="headerText" style={{color: 'blue'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'red'}} glyph="flag" /></a></strong></h1>
                        <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
                        {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
