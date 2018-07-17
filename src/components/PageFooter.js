@@ -37,6 +37,7 @@ class PageFooter extends Component {
             color: 'black',
             marginBottom: '50px',
             backgroundColor: 'white',
+            paddingBottom:'30px'
         }
     }
 
