@@ -507,16 +507,18 @@ class Login extends Component {
             // Wait for the login, then change pages.
             firebase.auth().onAuthStateChanged((user) => {
               console.log(user);
-                if(!user&&!user.emailVerified){
+
+
+                if(user != null && user.emailVerified == false){
 
                   confirmAlert({
                     title: 'Email Varification',
-                    message: 'Please validate your email first : ' + user.email,
+                    message: 'A verification email has been sent to you. Please click on link in your account to verify your email. ',
                     buttons: [
                       {
                         label: 'OK',
                         onClick: () => {
-
+                             window.location.reload();
                         }
                       },
                     ]

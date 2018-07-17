@@ -329,7 +329,7 @@ class SignUp extends Component {
       var userName = this.name.value.substring(0, this.name.value.indexOf(' '))
       if(userName.length <= 0){
         this.errorInfo.style.display = 'block'
-        this.errorInfo.innerHTML='<strong>Warning!</strong>Valid name likes John Steve with a whitespace';
+        this.errorInfo.innerHTML='<strong>Warning!</strong>Valid name likes : John Steve with a whitespace';
         return;
       }
 
@@ -418,20 +418,19 @@ class SignUp extends Component {
       user.sendEmailVerification().then(function() {
 
         confirmAlert({
-          title: 'Email Varification',
-          message: 'A varify email has sent to you email. You need varify email before Sign in',
+          title: 'Email Verification ',
+          message: 'A verification email has been sent to you. Please click on link in your account to verify your email.',
           buttons: [
             {
               label: 'OK',
               onClick: () => {
                 //var missingInfo = "Create Account successfully, go to Signin Page ";
-
-
+                window.location.href = 'login';
                //Alertify.alert(missingInfo);
 
-              setInterval(function(){
-                   window.location.href = 'login';
-               }, 100);  // no need do this way, just want to keep code, leave it here.
+              // setInterval(function(){
+              //      window.location.href = 'login';
+              //  }, 100);  // no need do this way, just want to keep code, leave it here.
 
               }
             },

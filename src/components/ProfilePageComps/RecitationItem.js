@@ -79,7 +79,7 @@ class RecitationItem extends Component {
            marginLeft: '5px',
            width: '90%',
            whiteSpace: 'nowrap',
-           overflow:'hidden'
+           overflow:'hidden',
 
        }
    }
@@ -113,6 +113,8 @@ class RecitationItem extends Component {
          textDecoration:'none',
          fontWeight: '500',
          marginLeft: '5px',
+         width: '200px',
+         textAlign:'left'
      }
 
    }
