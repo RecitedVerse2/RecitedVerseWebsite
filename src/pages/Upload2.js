@@ -6,7 +6,7 @@ import Alertify from 'alertify.js';
 import Select from 'react-select';
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
-
+import IsUserFirst from './IsUserFirst';
 import '../css/react-confirm-alert.css'
 
 
@@ -82,7 +82,8 @@ class Upload extends Component {
         this.func123 = this.showReminder.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-
+        this.updateValue = this.updateValue.bind(this);
+        this.updateValueTitle = this.updateValueTitle.bind(this);
     }
 
     handleInputChange(event) {
@@ -101,6 +102,18 @@ class Upload extends Component {
       this.beforeUpload()
 
     }
+
+    updateValue (newValue) {
+      this.setState({
+        author: newValue,
+      });
+    }
+
+      updateValueTitle (newValue) {
+        this.setState({
+          title: newValue,
+        });
+      }
 
     componentDidMount() {
         audioRec.requestPermission();
@@ -148,14 +161,29 @@ class Upload extends Component {
         asArray: true,
         then(recitations){
           let allTitles = recitations.map((recitation) => {
-            return recitation.title;
+            return {
+              value: recitation.title,
+              label: recitation.title
+            };
+           
+          });
+
+          let originalTitles = recitations.map((recitation) => {
+            return {
+              value: recitation.title,
+              label: recitation.title
+            };
+           
           });
 
           let allAuthors = recitations.map((recitation) => {
-            return recitation.author;
+            return {
+              value: recitation.author,
+              label:  recitation.author,
+            }
           })
 
-          this.setState({titles: allTitles, authors: allAuthors});
+          this.setState({titles: allTitles, authors: allAuthors, originalTitles});
         }
       })
 
@@ -557,7 +585,20 @@ class Upload extends Component {
             <div  style={this.getUploadRightInfoDivStyle()} >
              <label className="control-label col-sm-2" >Poem:</label><br/>
              <div>
-               <input type="email" className="form-control"  placeholder="Enter Title" ref={(input)=>{this.poemField = input}} ></input>
+               {/* <input type="email" className="form-control"  placeholder="Enter Title" ref={(input)=>{this.poemField = input}} ></input> */}
+               <Select.Creatable
+                id="state-select"
+                options={this.state.titles}
+                simpleValue
+                clearable={true}
+                name="selected-state"
+                placeholder="Enter Title"
+                disabled={false}
+                searchable={true}
+                value={this.state.title}
+                onChange={this.updateValueTitle}
+              />
+              <IsUserFirst title={this.state.title} originalTitles={this.state.originalTitles}  />
               <div style={{display: 'inline'}}>
               <input id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork} onChange={this.handleInputChange} ></input>
                <label for="fullwork">Is this a Complete Work?</label>
@@ -577,7 +618,19 @@ class Upload extends Component {
 
              <label className="control-label col-sm-2" >Poet:</label><br/>
              <div >
-               <input type="email" className="form-control"  placeholder="Enter Author" ref={(input)=>{this.poetField = input}}  ></input>
+               {/* <input type="email" className="form-control"  placeholder="Enter Author" ref={(input)=>{this.poetField = input}}  ></input> */}
+               <Select.Creatable
+                id="state-select"
+                options={this.state.authors}
+                simpleValue
+                placeholder="Enter Author"
+                clearable={true}
+                name="selected-state"
+                disabled={false}
+                searchable={true}
+                value={this.state.author}
+                onChange={this.updateValue}
+              />
              </div>
 
 
@@ -963,8 +1016,8 @@ recorded text on the Recited Verse archive</p>
         const storageRef = firebase.storage().ref();
         const store = this.props.rStore.getState();
 
-        var poemName = this.poemField;
-        var poemAuthor = this.poetField;
+        var poemName = this.state.title;
+        var poemAuthor = this.state.author;
         var poemRecitedBy = this.recitedByField;
         var poemPublished = this.publishedField;
 
@@ -983,7 +1036,7 @@ recorded text on the Recited Verse archive</p>
             this.poemImage.src = url;
         }
 
-        if( (this.valueExists(this.state.audioObj) || finalRecording !== null) && this.valueExists(poemName.value) && this.valueExists(poemAuthor.value)
+        if( (this.valueExists(this.state.audioObj) || finalRecording !== null)
         && this.valueExists(poemWrittenText.value)) {
 
             // Create a dictionary object for the audio.
@@ -1000,8 +1053,8 @@ recorded text on the Recited Verse archive</p>
                 "id":fp.key,
                 "uploaderID":store.currentUser.userID,
                 "uploaderName":store.currentUser.fullname,
-                "title":poemName.value,
-                "author":poemAuthor.value,
+                "title":poemName,
+                "author":poemAuthor,
                 "genre": genre,
                 "text":poemWrittenText.value,
                 "Published":"unkown",
@@ -1056,8 +1109,6 @@ recorded text on the Recited Verse archive</p>
         } else {
 
             if(!this.valueExists(this.state.audioObj) && finalRecording === null) { missingInfo += "You must upload or record a poem before submitting<br/>"; }
-            if(!this.valueExists(poemName.value)) { missingInfo += "Enter a name for the poem<br/>"; }
-            if(!this.valueExists(poemAuthor.value)) { missingInfo += "Enter a name of the poet<br/>"; }
             if(!this.valueExists(poemWrittenText.value)) { missingInfo += "Enter the transcript of the poem<br/>"; }
 
             Alertify.alert(missingInfo);

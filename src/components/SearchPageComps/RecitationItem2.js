@@ -133,7 +133,7 @@ class RecitationItem2 extends Component {
                                 <li style={this.getDescLiStyle()} >Recorded By:&nbsp;{this.props.recitation.recited_by} </li>
                                 <li style={this.getDescLiStyle()} >Date:&nbsp;  {createTime}</li>
                                 <li style={this.getDescLiStyle()}  >Like:&nbsp; {this.props.recitation.likes} </li>
-                                <li style={this.getDescLiStyle()}  >Genre: &nbsp;{this.props.recitation.genre}</li>
+                                <li style={this.getDescLiStyle()}  >Tags: &nbsp;{this.props.recitation.genre}</li>
 
 
 
