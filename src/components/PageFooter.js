@@ -78,6 +78,7 @@ class PageFooter extends Component {
                           <a href="/donations">Donatinos</a>
                           <br/>
                           <a href="/beta">Beta Testing Info</a>
+                          <br/>
                           <a href="/copyright">Copyright Info</a>
                       </div>
 

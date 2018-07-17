@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 
-export default class Donations extends Component {
+export default class Contact extends Component {
     constructor(props){
         super(props);
         this.state = {};
@@ -21,7 +21,7 @@ export default class Donations extends Component {
             position:'absolute',
             width:'100%',
             height:'100%',
-            zIndex:'0',
+            zIndex:'0', 
             backgroundColor: 'white'
         }
     }
@@ -57,12 +57,12 @@ export default class Donations extends Component {
             <HomeHeader nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></HomeHeader>
             <div style={this.getOverlay()}></div>
             <div className='resultsSection'>
-            <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '20%', marginRight: '20%'}}>
+            <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '20%', marginRight: '20%', fontFamily: 'Helvetica !important', fontSize: '14px !important'}}>
             
-                <h3 style={{paddingBottom: '20px'}}>Support and Donate to Recited Verse:</h3>
+                <h3 style={{paddingBottom: '20px', fontFamily: 'Helvetica !important', fontSize: '14px !important'}}>Contact</h3>
 
-                <p>We are currently looking for donations to be able to expand our team of developers. If you are interested in donating to Recited Verse, please send a message to hello@recitedverse.com</p>
-
+                <p style={{color: '#424242', fontFamily: 'Helvetica', fontSize: '14px'}}>We’d love to hear from you. Please send any inquiries via email to <a href="mailto:hello@recitedverse.com">hello@recitedverse.com</a></p>
+                <br/>
                 
             </div>
             </div>
