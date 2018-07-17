@@ -516,7 +516,13 @@ class Login extends Component {
                     message: 'A verification email has been sent to you. Please click on link in your account to verify your email. ',
                     buttons: [
                       {
-                        label: 'OK',
+                        label: 'Resend Verify Email',
+                        onClick: () => {
+                             user.sendEmailVerification()
+                             window.location.reload();
+                        }
+                      },
+                      {  label: 'OK',
                         onClick: () => {
                              window.location.reload();
                         }
