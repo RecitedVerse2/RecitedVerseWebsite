@@ -312,12 +312,12 @@ class EditProfile extends Component {
 
                       <div style={this.getSBStyles()}>
                           <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                          <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)} type='text'  />
+                          <input type="password" ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)}  />
                       </div>
 
                       <div style={this.getSBStyles()}>
                           <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                          <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text'  />
+                          <input type="password" ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)}   />
                       </div>
 
                       </div>
@@ -430,12 +430,12 @@ class EditProfile extends Component {
 
                       <div style={this.getSBStyles()}>
                           <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                          <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)} type='text'  />
+                          <input ref={(input)=>{this.passwordField = input}} style={this.getInputStyles(25)} type='password'  />
                       </div>
 
                       <div style={this.getSBStyles()}>
                           <h1 style={this.getSearchBarTitleStyle(15, 0)}>Password:</h1>
-                          <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='text'  />
+                          <input ref={(input)=>{this.passwordConfirmField = input}} style={this.getInputStyles(25)} type='password'  />
                       </div>
 
                       </div>
