@@ -73,12 +73,16 @@ class PageFooter extends Component {
                       <div className='companyInfoSection'>
                           <ul>
                           <li><a href="/about">About</a><span className="after"> | </span></li>
+                            <li><a href="/beta">Beta Testing</a><span className="after"> | </span></li>
+                              <li><a href="/faq">FAQs</a><span className="after"> | </span></li>
 
-                          <li><a href="/volunteer">Volunteer & Internships</a><span className="after"> | </span></li>
+                           <li><a href="/volunteer">Volunteer&Intern</a><span className="after"> | </span></li>
 
                           <li><a href="/donations">Donatinos</a><span className="after"> | </span></li>
-                          <li><a href="/beta">Beta Testing Info</a><span className="after"> | </span></li>
-                          <li><a href="/copyright">Copyright Info</a></li>
+
+                          <li><a href="/copyright">Copyright</a><span className="after"> | </span></li>
+
+                          <li><a href="/contact">Contact US</a></li>
                           </ul>
                       </div>
 
