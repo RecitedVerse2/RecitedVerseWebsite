@@ -76,6 +76,7 @@ class Upload extends Component {
             nameOfCompleteWork: '',
             translation: false,
             translator: '',
+            transcript: '',
 
         }
 
@@ -110,6 +111,11 @@ class Upload extends Component {
     }
 
       updateValueTitle (newValue) {
+        this.state.titles.map((title) => {
+          if(title.label === newValue && title.transcript && title.author){
+            this.setState({title: newValue, transcript: title.transcript, author: title.author })
+          }
+        })
         this.setState({
           title: newValue,
         });
@@ -163,7 +169,9 @@ class Upload extends Component {
           let allTitles = recitations.map((recitation) => {
             return {
               value: recitation.title,
-              label: recitation.title
+              label: recitation.title,
+              transcript: recitation.text,
+              author: recitation.author,
             };
 
           });
@@ -171,7 +179,9 @@ class Upload extends Component {
           let originalTitles = recitations.map((recitation) => {
             return {
               value: recitation.title,
-              label: recitation.title
+              label: recitation.title,
+              transcript: recitation.text,
+              author: recitation.author,
             };
 
           });
@@ -663,7 +673,7 @@ class Upload extends Component {
              </div>
               <label className="control-label col-sm-2" >Transcript:</label><br/>
              <div >
-               <textarea rows="4" cols="50" className="form-control" id="email" placeholder="Enter Description & Poem Transcript"  ref={(textarea)=>{this.transcriptField = textarea}}  ></textarea>
+               <textarea rows="4" cols="50" className="form-control" id="email" placeholder="Enter Description & Poem Transcript"  value={this.state.transcript}  ></textarea>
              </div>
 
   <div className="checkbox">
@@ -1039,7 +1049,7 @@ recorded text on the Recited Verse archive</p>
         var poemPublished = this.publishedField;
 
         var poemGenre = genre;
-        var poemWrittenText = this.transcriptField;
+        var poemWrittenText = this.state.transcript;
         var poemDescription = this.descriptionField;
 
 
@@ -1131,7 +1141,6 @@ recorded text on the Recited Verse archive</p>
         } else {
 
             if(!this.valueExists(this.state.audioObj) && finalRecording === null) { missingInfo += "You must upload or record a poem before submitting<br/>"; }
-            if(!this.valueExists(poemWrittenText.value)) { missingInfo += "Enter the transcript of the poem<br/>"; }
 
             Alertify.alert(missingInfo);
             return;
