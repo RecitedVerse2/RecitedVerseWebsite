@@ -8,11 +8,15 @@ export default class IsUserFirst extends Component {
             decision: false,
         }
     }
+    componentDidMount(){
+        this.setState({decision: false});
+    }
     componentWillReceiveProps(){
+        this.setState({decision: false});
         let decision = false;
         if(this.props.title){
             this.props.originalTitles.map((originalTitle) => {
-                if(this.props.title === originalTitle.label){
+                if(this.props.title == originalTitle.label){
                     
                 }
                 else {

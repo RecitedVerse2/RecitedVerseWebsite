@@ -625,7 +625,7 @@ class Upload extends Component {
                 value={this.state.title}
                 onChange={this.updateValueTitle}
               />
-              <IsUserFirst title={this.state.title} originalTitles={this.state.originalTitles}  />
+              {/* <IsUserFirst title={this.state.title} originalTitles={this.state.originalTitles}  /> */}
               <div style={{display: 'inline'}}>
               <input defaultChecked="true" id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork} onChange={this.handleInputChange} ></input>
                <label for="fullwork">Is this a Complete Work?</label>
