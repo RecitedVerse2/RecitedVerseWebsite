@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 
-export default class About extends Component {
+export default class Privacy extends Component {
     constructor(props){
         super(props);
         this.state = {};
@@ -11,7 +11,7 @@ export default class About extends Component {
 
 
     render() {
-        return (<div>this is beta page</div>
+        return (<div>this is privacy page</div>
 
     )
   }

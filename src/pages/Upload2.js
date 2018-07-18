@@ -306,7 +306,7 @@ class Upload extends Component {
 
     getUploadButtonDivStyle() {
       return {
-          width: '200px',
+          width: '220px',
           margin: 'auto',
       }
     }
@@ -492,6 +492,22 @@ class Upload extends Component {
  }
 
 
+ getConvertLinkStyle(){
+   return{
+     marginTop:'40px',
+
+
+     fontSize:'12px',
+     cursor: 'pointer',
+     textAlign: 'center',
+
+
+     fontSize: '12px',
+
+   }
+ }
+
+
    getRecodingButtonsHtml() {
 
          return(
@@ -549,11 +565,12 @@ class Upload extends Component {
                        accept='audio/mpeg' multiple='false'
                        beforeUploadHandler={(e)=>{this.beforeUpload(e)}}
                        fileSelectedHandler={(e)=>{this.uploadAudioFile(e)}}>
-           Upload MP3 Audio Record
+           Upload mp3 Audio Record
        </FileChooserForm>
 
          <h2 style={this.getRecordingH2Style()}  onClick={this.recordNow.bind(this)}   >Record Now</h2>
 
+         <div style={this.getConvertLinkStyle()}><a  href="https://online-audio-converter.com" target = "_blank">convert audio file to mp3 file</a></div>
 
        </div>
        </div>
