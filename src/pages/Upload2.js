@@ -565,7 +565,7 @@ class Upload extends Component {
                        accept='audio/mpeg' multiple='false'
                        beforeUploadHandler={(e)=>{this.beforeUpload(e)}}
                        fileSelectedHandler={(e)=>{this.uploadAudioFile(e)}}>
-           Upload mp3 Audio Record
+           Upload mp3 Audio Recording
        </FileChooserForm>
 
          <h2 style={this.getRecordingH2Style()}  onClick={this.recordNow.bind(this)}   >Record Now</h2>
