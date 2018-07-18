@@ -81,7 +81,7 @@ class Home extends Component {
 
                             audioPlayer={this.props.children}></ROTDArea>
 
-                <PageFooter bottom='-400px'>
+                <PageFooter bottom='-200px'>
                 </PageFooter>
                 {this.props.children}
             </div>

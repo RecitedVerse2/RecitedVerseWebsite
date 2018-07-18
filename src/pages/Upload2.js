@@ -90,7 +90,7 @@ class Upload extends Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-  
+
       this.setState({
         [name]: value
       });
@@ -155,7 +155,7 @@ class Upload extends Component {
       })
       this.setState({options: tags});
 
-      // fetch all the titles of poems 
+      // fetch all the titles of poems
       base.fetch('/Recitations', {
         context: this,
         asArray: true,
@@ -165,7 +165,7 @@ class Upload extends Component {
               value: recitation.title,
               label: recitation.title
             };
-           
+
           });
 
           let originalTitles = recitations.map((recitation) => {
@@ -173,7 +173,7 @@ class Upload extends Component {
               value: recitation.title,
               label: recitation.title
             };
-           
+
           });
 
           let allAuthors = recitations.map((recitation) => {
@@ -306,7 +306,7 @@ class Upload extends Component {
 
     getUploadButtonDivStyle() {
       return {
-          width: '200px',
+          width: '220px',
           margin: 'auto',
       }
     }
@@ -492,6 +492,22 @@ class Upload extends Component {
  }
 
 
+ getConvertLinkStyle(){
+   return{
+     marginTop:'40px',
+
+
+     fontSize:'12px',
+     cursor: 'pointer',
+     textAlign: 'center',
+
+
+     fontSize: '12px',
+
+   }
+ }
+
+
    getRecodingButtonsHtml() {
 
          return(
@@ -546,14 +562,15 @@ class Upload extends Component {
                        ref={(FileChooserForm)=>{this.fromFileBtn = FileChooserForm}}
                        formButtonId='fromFileBtn'
                        formButtonClass='pill_btn' name='fileRecitation'
-                       accept='audio/*' multiple='false'
+                       accept='audio/mpeg' multiple='false'
                        beforeUploadHandler={(e)=>{this.beforeUpload(e)}}
                        fileSelectedHandler={(e)=>{this.uploadAudioFile(e)}}>
-           Upload Audio Record
+           Upload mp3 Audio Recording
        </FileChooserForm>
 
          <h2 style={this.getRecordingH2Style()}  onClick={this.recordNow.bind(this)}   >Record Now</h2>
 
+         <div style={this.getConvertLinkStyle()}><a  href="https://online-audio-converter.com" target = "_blank">convert audio file to mp3 file</a></div>
 
        </div>
        </div>
@@ -600,12 +617,12 @@ class Upload extends Component {
               />
               <IsUserFirst title={this.state.title} originalTitles={this.state.originalTitles}  />
               <div style={{display: 'inline'}}>
-              <input id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork} onChange={this.handleInputChange} ></input>
+              <input defaultChecked="true" id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork} onChange={this.handleInputChange} ></input>
                <label for="fullwork">Is this a Complete Work?</label>
                </div>
                {this.state.fullWork === false &&
                   <input className="form-control" type="text" placeholder="Name of Completed Work" name="nameOfCompleteWork" value={this.state.nameOfCompleteWork} onChange={this.handleInputChange}></input>
-                }             
+                }
              </div>
              <div>
              <input id="fullwork" type="checkbox" className="form-control" name="translation" value={this.state.translation} onChange={this.handleInputChange} ></input>
@@ -614,7 +631,7 @@ class Upload extends Component {
                {this.state.translation === true &&
                   <input className="form-control" type="text" placeholder="Name of Translator" name="translator" value={this.state.translator} onChange={this.handleInputChange}></input>
                 }
-               
+
 
              <label className="control-label col-sm-2" >Poet:</label><br/>
              <div >
@@ -1026,6 +1043,7 @@ recorded text on the Recited Verse archive</p>
         var poemDescription = this.descriptionField;
 
 
+
         // Select a random image if choseImage is false
         if(this.state.choseImage === false) {
           const randIndex = Math.floor( (Math.random() * GallerySize) + 1);
@@ -1064,8 +1082,12 @@ recorded text on the Recited Verse archive</p>
                 "likes":0,
                 "favorites":0,
                 "comments":[],
-                "timestamp":Date.now()
+                "timestamp":Date.now(),
+                "translator": this.state.translator,
+                "nameOfCompleteWork": this.state.nameOfCompleteWork,
             };
+
+            
 
 
             var myRecording = audioRec.getRecordingFile();

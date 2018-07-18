@@ -37,6 +37,7 @@ class PageFooter extends Component {
             color: 'black',
             marginBottom: '50px',
             backgroundColor: 'white',
+            paddingBottom:'30px'
         }
     }
 
@@ -70,19 +71,22 @@ class PageFooter extends Component {
               <div style={this.getStyles()}>
                   <div className='sectionHolders'>
                       <div className='companyInfoSection'>
-                          <h1>Find Out More</h1>
-                          <a href="/about">About</a>
-                          <br/>
-                          <a href="/volunteer">Volunteer & Internships</a>
-                          <br/>
-                          <a href="/donations">Donatinos</a>
-                          <br/>
-                          <a href="/beta">Beta Testing Info</a>
-                          <br/>
-                          <a href="/copyright">Copyright Info</a>
+                          <ul>
+                          <li><a href="/about">About</a><span className="after"> | </span></li>
+                            <li><a href="/beta">Beta Testing</a><span className="after"> | </span></li>
+                              <li><a href="/faq">FAQs</a><span className="after"> | </span></li>
+
+                           <li><a href="/volunteer">Volunteer & Intern</a><span className="after"> | </span></li>
+
+                          <li><a href="/donations">Donations</a><span className="after"> | </span></li>
+
+                          <li><a href="/copyright">Copyright</a><span className="after"> | </span></li>
+                           <li><a href="/privacy">Privacy</a><span className="after"> | </span></li>
+                          <li><a href="/contact">Contact Us</a></li>
+                          </ul>
                       </div>
 
-                      
+
 
                       <div className='buttonsSection'>
                           <button className='socialBtn' onClick={this.goToFacebook.bind(this)}><img className='socialImg' src={facebookBtn} alt="facebook"/></button>

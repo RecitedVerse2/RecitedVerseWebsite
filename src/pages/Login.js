@@ -512,7 +512,7 @@ class Login extends Component {
                 if(user != null && user.emailVerified == false){
 
                   confirmAlert({
-                    title: 'Email Varification',
+                    title: 'Email Verification',
                     message: 'A verification email has been sent to you. Please click on link in your account to verify your email. ',
                     buttons: [
                       {

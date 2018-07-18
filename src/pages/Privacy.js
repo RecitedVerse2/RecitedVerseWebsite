@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 
-export default class Beta extends Component {
+export default class Privacy extends Component {
     constructor(props){
         super(props);
         this.state = {};
@@ -59,14 +59,11 @@ export default class Beta extends Component {
             <div className='resultsSection'>
             <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '20%', marginRight: '20%'}}>
             
-                <h3 style={{paddingBottom: '20px', paddingTop: '20px'}}>Beta Testing</h3>
-                <p>Recited Verse is currently undergoing BETA site testing. We kindly ask that, as a beta site user, you:</p>
-
-<ul>
-    <li style={{listStyleType: 'circle' }}>Contribute as many recordings of your favorite poems as you can to help us expand our preliminary archive. </li>
-    <li style={{listStyleType: 'circle'}}>Provide us with any positive or constructive feedback to help us continue improving the site.</li>
-    <li style={{listStyleType: 'circle'}}>Recommend to us other users who would be interested in participating in this BETA site test-run. Email us their information to hello@recitedverse.com. Include their name, email address, and a brief explanation as to why they would be optimal contributors during this trial-run period. Use the subject line: “Beta User Recommendation.”</li>
-</ul>                
+                <h3 style={{paddingBottom: '20px', paddingTop: '20px'}}>Privacy</h3>
+                <p>As a Recited Verse user, you share certain personal information with other users, including your name, personal photo, location, and occupation. We do not share your personal information with any other organizational entities, including businesses or other third parties.</p>
+                <br/><br/>
+                <p>When you interact with our services, we collect the information that you choose to share with us. We may use information that we collect about you to perform research and analysis about your use of, or interest in, Recited Verse. We will also communicate with you by email about any updates to our services.</p>
+                <p>If you have any questions about this Privacy Policy, please contact us by email hello@recitedverse.com</p>               
 
             </div>
             </div>

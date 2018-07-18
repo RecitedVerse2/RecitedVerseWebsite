@@ -17,7 +17,20 @@
         <div id="root">
 
         </div>
-        <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="8f041474-335f-45ca-b00e-0d0d92ae9ae8";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+        <script type="text/javascript">
+        window.$crisp = [];
+window.CRISP_WEBSITE_ID = "8f041474-335f-45ca-b00e-0d0d92ae9ae8";
+(function() {
+    d = document;
+    s = d.createElement("script");
+    s.src = "https://client.crisp.chat/l.js";
+    s.async = 1;
+    const isNotMobile = window.innerWidth >= 800;
+    if (isNotMobile) {
+        d.getElementsByTagName("head")[0].appendChild(s);
+    }
+})();
+        </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
     </body>

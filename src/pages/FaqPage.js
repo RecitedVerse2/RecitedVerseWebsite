@@ -56,8 +56,31 @@ export default class FaqPage extends Component {
             <div style={this.getOverlay()}></div>
             <div className='resultsSection'>
             <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '20%', marginRight: '20%'}}>
-            <p>
-    <strong>Frequently Asked Questions [FAQs]:</strong>
+            <p style={{marginBottom: '20px'}}>
+    <strong style={{marginBottom: '10px'}}>Frequently Asked Questions [FAQs]:</strong><br/>
+    <a style={{color: 'blue'}} href="#whenOriginate">When did this project originate?</a><br/>
+    <a style={{color: 'blue'}} href="#whatInspired">What inspired this idea?</a><br/>
+    <a style={{color: 'blue'}} href="#whyRecited">Why is this project called “Recited Verse”?</a><br/>
+    <a style={{color: 'blue'}} href="#specificRules">Are there any specific RV rules for submitting a recording of a poem?</a><br/>
+    <a style={{color: 'blue'}} href="#highQuality">How do I ensure that I share a high-quality recording of a poem?</a><br/>
+    <a style={{color: 'blue'}} href="#isLimit">Is there any limit to the number of recordings allowed per poem?</a><br/>
+    <a style={{color: 'blue'}} href="#ifResists">If Recited Verse resists the idea of a single authoritative audio recording of a poem, then why does it offer a “like” feature to single out a top recording for any given poem?</a><br/>
+    <a style={{color: 'blue'}} href="#music">Can I include music or any other background effects in my recordings?</a><br/>
+    <a style={{color: 'blue'}} href="#video">Can I share video files of my personal readings of poems onto my profile and to the RV community?</a><br/>
+    <a style={{color: 'blue'}} href="#originalWork">I am a poet who wishes to share my original and non-published work on Recited Verse. Is this possible?</a><br/>
+    <a style={{color: 'blue'}} href="#cost">How much does it cost to use Recited Verse?</a><br/>
+    <a style={{color: 'blue'}} href="#publishedPoet">I am a published poet and would like to share audio recordings of my poetry on RV. How do I do it?</a><br/>
+    <a style={{color: 'blue'}} href="#publishedAfter">What if I have original work uploaded on Recited Verse and have decided to get it published with a literary press or some other website?</a><br/>
+    <a style={{color: 'blue'}} href="#underCopyright">Can there be a recording of a poem on Recited Verse that is under copyright?</a><br/>
+    <a style={{color: 'blue'}} href="#report">How do I report inappropriate content on the site?</a><br/>
+    <a style={{color: 'blue'}} href="#afterBeta">What happens after the BETA site testing period?</a><br/>
+    <a style={{color: 'blue'}} href="#howWeSupport">How does RV support itself?</a><br/>
+    <a style={{color: 'blue'}} href="#howCanIDonate">How can I donate to Recited Verse?</a><br/>
+    <a style={{color: 'blue'}} href="#volunteer">How can I join the RV team as a volunteer or intern?</a><br/>
+    <a style={{color: 'blue'}} href="#intheclassroom">I teach poetry and would like to know how to integrate RV into my
+        classroom.
+        </a><br/>
+    
 </p>
 <p>
     <strong> </strong>
@@ -69,7 +92,7 @@ export default class FaqPage extends Component {
     <strong> </strong>
 </p>
 <p>
-    <strong>When did this project originate?</strong>
+    <strong id="whenOriginate">When did this project originate?</strong>
 </p>
 <p>
     <strong> </strong>
@@ -80,7 +103,7 @@ export default class FaqPage extends Component {
     students.
 </p>
 <p>
-    <strong>What inspired this idea?</strong>
+    <strong id="whatInspired">What inspired this idea?</strong>
 </p>
 <p>
     Some people find poetry to be inaccessible or difficult. Those same
@@ -95,7 +118,7 @@ export default class FaqPage extends Component {
     <br/>
 </p>
 <p>
-    <strong>Why is this project called “Recited Verse”?</strong>
+    <strong id="whyRecited">Why is this project called “Recited Verse”?</strong>
 </p>
 <p>
     <strong> </strong>
@@ -126,7 +149,7 @@ export default class FaqPage extends Component {
     <strong>GENERAL GUIDELINES / TERMS OF USE</strong>
 </p>
 <p>
-    <strong>
+    <strong id="specificRules">
         Are there any specific RV rules for submitting a recording of a poem?
     </strong>
 </p>
@@ -170,7 +193,7 @@ export default class FaqPage extends Component {
     our system.
 </p>
 <p>
-    <strong>
+    <strong id="highQuality">
         How do I ensure that I share a high-quality recording of a poem?
     </strong>
 </p>
@@ -187,7 +210,7 @@ export default class FaqPage extends Component {
     <br/>
 </p>
 <p>
-    <strong>
+    <strong id="isLimit">
         Is there any limit to the number of recordings allowed per poem?
     </strong>
 </p>
@@ -201,7 +224,7 @@ export default class FaqPage extends Component {
     ever-growing hub of recordings for each and every poem.
 </p>
 <p>
-    <strong>
+    <strong id="ifResists">
         If Recited Verse resists the idea of a single authoritative audio
         recording of a poem, then why does it offer a “like” feature to single
         out a top recording for any given poem?
@@ -228,7 +251,7 @@ export default class FaqPage extends Component {
     <strong> </strong>
 </p>
 <p>
-    <strong>
+    <strong id="music">
         Can I include music or any other background effects in my recordings?
     </strong>
 </p>
@@ -237,7 +260,7 @@ export default class FaqPage extends Component {
     printed page or the screen – as the optimal and only medium.
 </p>
 <p>
-    <strong>
+    <strong id="video">
         Can I share video files of my personal readings of poems onto my
         profile and to the RV community?
     </strong>
@@ -250,7 +273,7 @@ export default class FaqPage extends Component {
     <br/>
 </p>
 <p>
-    <strong>
+    <strong id="originalWork">
         I am a poet who wishes to share my original and non-published work on
         Recited Verse. Is this possible?
     </strong>
@@ -284,7 +307,7 @@ export default class FaqPage extends Component {
     <br/>
 </p>
 <p>
-    <strong>How much does it cost to use Recited Verse?</strong>
+    <strong id="cost">How much does it cost to use Recited Verse?</strong>
 </p>
 <p>
     <strong> </strong>
@@ -311,7 +334,7 @@ export default class FaqPage extends Component {
     <br/>
 </p>
 <p>
-    <strong>
+    <strong id="publishedPoet">
         I am a published poet and would like to share audio recordings of my
         poetry on RV. How do I do it?
     </strong>
@@ -331,18 +354,6 @@ permission at    <a href="mailto:hello@recitedverse.com">hello@recitedverse.com<
     Complete Copyright Policy for more information.
 </p>
 <p>
-    <strong>
-        I am a poet who wishes to share my original and non-published work on
-        Recited Verse. Is this possible?
-    </strong>
-</p>
-<p>
-    Yes! We encourage this kind of sharing. When you share a recording of your
-    work on Recited Verse, all of your followers will receive a notification.
-    You may keep the work on RV as long as desired or remove it from your
-    profile at any time.
-</p>
-<p>
     By sharing original poetry on Recited Verse, you certify to us that you
     have not published the material elsewhere and are, therefore, not violating
     any copyright. Moreover, should you wish to have the work published
@@ -351,7 +362,7 @@ permission at    <a href="mailto:hello@recitedverse.com">hello@recitedverse.com<
     See our Complete Copyright Policy for more information.
 </p>
 <p>
-    <strong>
+    <strong id="publishedAfter">
         What if I have original work uploaded on Recited Verse and have decided
         to get it published with a literary press or some other website?
     </strong>
@@ -369,7 +380,7 @@ permission at    <a href="mailto:hello@recitedverse.com">hello@recitedverse.com<
     <br/>
 </p>
 <p>
-    <strong>
+    <strong id="underCopyright">
         Can there be a recording of a poem on Recited Verse that is under
         copyright?
     </strong>
@@ -397,7 +408,7 @@ permission at    <a href="mailto:hello@recitedverse.com">hello@recitedverse.com<
     <br/>
 </p>
 <p>
-    <strong>How do I report inappropriate content on the site?</strong>
+    <strong id="report">How do I report inappropriate content on the site?</strong>
 </p>
 <p>
     We have implemented a community-flagging system on our site. A flag icon
@@ -422,7 +433,7 @@ permission at    <a href="mailto:hello@recitedverse.com">hello@recitedverse.com<
     <br/>
 </p>
 <p>
-    <strong>What happens after the BETA site testing period?</strong>
+    <strong id="afterBeta">What happens after the BETA site testing period?</strong>
 </p>
 <p>
     Recited Verse will continue to improve its website by responding to user
@@ -443,7 +454,7 @@ permission at    <a href="mailto:hello@recitedverse.com">hello@recitedverse.com<
     <strong> </strong>
 </p>
 <p>
-    <strong>How does RV support itself?</strong>
+    <strong id="howWeSupport">How does RV support itself?</strong>
 </p>
 <p>
     <strong> </strong>
@@ -459,7 +470,7 @@ permission at    <a href="mailto:hello@recitedverse.com">hello@recitedverse.com<
     <strong> </strong>
 </p>
 <p>
-    <strong>How can I donate to Recited Verse?</strong>
+    <strong id="howCanIDonate">How can I donate to Recited Verse?</strong>
 </p>
 <p>
     <strong></strong>
@@ -485,7 +496,7 @@ permission at    <a href="mailto:hello@recitedverse.com">hello@recitedverse.com<
     <br/>
 </p>
 <p>
-    <strong>How can I join the RV team as a volunteer or intern?</strong>
+    <strong id="volunteer">How can I join the RV team as a volunteer or intern?</strong>
 </p>
 <p>
     <strong></strong>
@@ -548,7 +559,7 @@ If interested in any position, please email us at    <a href="mailto:hello@recit
     <br/>
 </p>
 <p>
-    <strong>
+    <strong id="intheclassroom">
         I teach poetry and would like to know how to integrate RV into my
         classroom.
     </strong>

@@ -27,7 +27,7 @@ import Volunteer from './pages/volunteer';
 import Donations from './pages/donations';
 import Copyright from './pages/Copyright';
 import Beta from './pages/Beta';
-import Contact from './pages/contact';
+import Privacy from './pages/Privacy';
 
 // REDUX
 const defaultState = {
@@ -237,7 +237,7 @@ class App extends Component {
                     <Route exact path="/donations" component={Donations}></Route>
                     <Route exact path="/copyright" component={Copyright}></Route>
                     <Route exact path="/beta" component={Beta}></Route>
-                    <Route exact path="/contact" component={Contact}></Route>
+                    <Route exact path="/privacy" component={Privacy}></Route>
                 </div>
             </BrowserRouter>
         );
