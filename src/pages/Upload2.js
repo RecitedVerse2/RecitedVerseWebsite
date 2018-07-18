@@ -1065,7 +1065,7 @@ recorded text on the Recited Verse archive</p>
         }
 
         if( (this.valueExists(this.state.audioObj) || finalRecording !== null)
-        && this.valueExists(poemWrittenText.value)) {
+        ) {
 
             // Create a dictionary object for the audio.
             // Save that dictionary to the Firebase database.
@@ -1084,7 +1084,7 @@ recorded text on the Recited Verse archive</p>
                 "title":poemName,
                 "author":poemAuthor,
                 "genre": genre,
-                "text":poemWrittenText.value,
+                "text": this.state.transcript,
                 "Published":"unkown",
                 "image":this.poemImage.src,
                 "recited_by": store.currentUser.fullname,
