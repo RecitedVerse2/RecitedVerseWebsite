@@ -33,7 +33,9 @@ const Search = () => {
 
 const handleLinkClick = (hit) => {
   // window.open(`/user?${hit.recitation.uploaderID}`);
-  console.log(hit);
+  console.log(hit, 'this is hit');
+  window.location.href = '/allrecordings?' + hit.recitation.id;
+
 }
 
 const handlePoemClick = (hit) => {
