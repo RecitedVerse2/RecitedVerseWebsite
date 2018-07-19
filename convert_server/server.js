@@ -16,16 +16,8 @@ admin.initializeApp({
 
 
 // As an admin, the app has access to read and write all data, regardless of Security Rules
-var db = admin.database();
-var ref = db.ref("server/saving-data/fireblog");
+//var db = admin.database();
 
-    ref.update({
-      "nickname": "Amazing Grace"
-    });
-
-    var metadata = {
-      contentType: 'audio/mp3',
-    };
 
 app.listen(5005, () => {
   console.log('App listening to port 5005');
@@ -46,10 +38,6 @@ var random = "tmp"; //Math.floor(Math.random() * Math.floor(1000))
 var localFilename =   random + ".webm"
 var covertedFile = random + ".mp3"
 console.log("local name"+ localFilename);
-
-
-
-
 
 
 
@@ -150,7 +138,7 @@ function getDownloadURL(id){
 
 
 
-app.get('/hello', (req, res) => {
+app.get('/convert', (req, res) => {
   var id = req.query.id;
   console.log(id);
   res.send({ express: 'job is done' });
@@ -164,7 +152,7 @@ catch(error) {
 }
 });
 
-app.post('/hello', (req, res) => {
+app.post('/convert', (req, res) => {
   var id = req.query.id;
   console.log(id);
   res.send({ express: 'job is done' });
@@ -177,54 +165,3 @@ catch(error) {
   // Note - error messages will vary depending on browser
 }
 });
-/**
- * Adding new file to the storage
- */
-app.post('/upload', (req, res) => {
-  console.log('Upload Image');
-
-  let file = req.file;
-  if (file) {
-    uploadImageToStorage(file).then((success) => {
-      res.status(200).send({
-        status: 'success'
-      });
-    }).catch((error) => {
-      console.error(error);
-    });
-  }
-});
-
-/**
- * Upload the image file to Google Storage
- * @param {File} file object that will be uploaded to Google Storage
- */
-const uploadImageToStorage = (file) => {
-  let prom = new Promise((resolve, reject) => {
-    if (!file) {
-      reject('No image file');
-    }
-    let newFileName = `${file.originalname}_${Date.now()}`;
-
-    let fileUpload = bucket.file(newFileName);
-
-    const blobStream = fileUpload.createWriteStream({
-      metadata: {
-        contentType: file.mimetype
-      }
-    });
-
-    blobStream.on('error', (error) => {
-      reject('Something is wrong! Unable to upload at the moment.');
-    });
-
-    blobStream.on('finish', () => {
-      // The public URL can be used to directly access the file via HTTP.
-      const url = format(`https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`);
-      resolve(url);
-    });
-
-    blobStream.end(file.buffer);
-  });
-  return prom;
-}
