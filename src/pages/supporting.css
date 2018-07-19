@@ -1,0 +1,17 @@
+.rcsupport p strong {
+    margin-bottom: 0px !important;
+}
+.rcsupport p {
+    margin-bottom: 25px;
+}
+.rcsupport strong {
+    color: black;
+}
+ .rcsupport ul  {
+    list-style-type: circle !important;
+}
+.rcsupport li {
+    list-style: disc outside none;
+    display: list-item;
+    margin-left: 1.5em;    
+}
