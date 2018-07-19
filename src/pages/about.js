@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
 import PageFooter from '../components/PageFooter';
+import './supporting.css';
 
 export default class About extends Component {
     constructor(props){
@@ -57,8 +58,8 @@ export default class About extends Component {
             <div style={this.getStyles()}>
             <HomeHeader nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></HomeHeader>
             <div style={this.getOverlay()}></div>
-            <div className='resultsSection'>
-            <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%', fontFamily: 'Helvetica !important', fontSize: '14px !important'}}>
+            <div   className='resultsSection'>
+            <div className="rcsupport" style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%', fontFamily: 'Helvetica !important', fontSize: '14px !important'}}>
             
                 <h3 style={{paddingBottom: '20px', fontFamily: 'Helvetica !important', fontSize: '16px !important'}}>About</h3>
 

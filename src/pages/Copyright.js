@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
+import PageFooter from '../components/PageFooter';
+import './supporting.css';
 
 export default class Copyright extends Component {
     constructor(props){
@@ -57,12 +59,12 @@ export default class Copyright extends Component {
             <HomeHeader nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></HomeHeader>
             <div style={this.getOverlay()}></div>
             <div className='resultsSection'>
-            <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '20%', marginRight: '20%'}}>
+            <div className="rcsupport"  style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%'}}>
             
-                <h3 style={{paddingBottom: '20px', paddingTop: '20px'}}>COPYRIGHT, COPYRIGHT INFRINGEMENT, AND REPORTING INAPPROPRIATE CONTENT</h3>
+                <h3 style={{paddingBottom: '20px', paddingTop: '20px'}}>Copyright, Copyright Infringement, and Reporting Inapropriate  Content</h3>
 
 <p>At Recited Verse, we take claims of copyright infringement seriously. If a copyrighted poem appears erroneously on our site, then we will attempt to remove the content as soon as possible. Sometimes, our staff may not be aware that such a recording has appeared in our system. For this reason, we have implemented a community-flagging system. A flag icon can be found either beside a poem’s title or beside any user comment. By pressing on this icon, users can report any recording of a poem that violates copyright law. Flagging any content on our site – a recording, a comment, a photo – will immediately send a notification to our RV team for speedy review. </p>
-<h3 style={{paddingBottom: '20px', paddingTop: '20px'}}>REPORTING CLAIMS OF COPYRIGHT INFRINGEMENT </h3>
+<h3 style={{paddingBottom: '20px', paddingTop: '20px'}}>Reporting Claims of Copyright Infringement </h3>
 <p>We will respond to notices of alleged copyright infringement that comply with applicable law. If you believe any materials accessible on or from this site infringe your copyright, you may request removal of those materials (or access to them) from the website by submitting written notification to our Copyright Agent (designated below). </p>
 <p>In accordance with the Online Copyright Infringement Liability Limitation Act of the Digital Millennium Copyright Act (17 U.S.C. § 512) ("DMCA"), the written notice (the "DMCA Notice") must include the following:</p>
 <ul>
@@ -77,7 +79,7 @@ export default class Copyright extends Component {
 
 <p>If you fail to comply with all of the requirements of Section 512(c)(3) of the DMCA, your DMCA Notice may not be effective.</p>
 <p>Please be aware that if you knowingly misrepresent that material or activity on the Website is infringing your copyright, you may be held liable for damages (including costs and attorneys' fees) under Section 512(f) of the DMCA.</p>
-<h3>CONTENT REMOVED IN ERROR</h3>
+<h3>Content Removed in Error</h3>
 <p>If you believe that material you posted on Recited Verse was removed or access to it was disabled by mistake or misidentification, you may file a counter-notification with us (a "Counter-Notice") by submitting written notification to our copyright agent (identified below). </p>
 <p>Pursuant to the Digital Millennium Copyright Act (DMCA), the Counter-Notice must include substantially the following: </p>
 <ul>
@@ -88,11 +90,12 @@ export default class Copyright extends Component {
     <li style={{listStyleType: 'circle'}}>A statement that you will consent to the jurisdiction of the Federal District Court for the judicial district in which your address is located (or if you reside outside the United States for any judicial district in which the Website may be found) and that you will accept service from the person (or an agent of that person) who provided the Website with the complaint at issue. </li>
 </ul>        
 <p>The DMCA allows us to restore the removed content if the party filing the original DMCA Notice does not file a court action against you within ten business days of receiving the copy of your Counter-Notice. Please be aware that if you knowingly materially misrepresent that material or activity on the Website was removed or disabled by mistake or misidentification, you may be held liable for damages (including costs and attorneys' fees) under Section 512(f) of the DMCA.] </p>
-<h3 style={{paddingBottom: '20px', paddingTop: '20px'}}>REPEATED VIOLATIONS OF COPYRIGHT INFRINGEMENT</h3>
+<h3 style={{paddingBottom: '20px', paddingTop: '20px'}}> Repeated Violations of Copyright Infringement</h3>
 <p>Because we take copyright infringement seriously, it is our policy – in appropriate circumstances – to disable and/or terminate the accounts of users who are repeat infringers.</p>
 
             </div>
             </div>
+            <PageFooter bottom="-300px" />
             </div>
 
         )

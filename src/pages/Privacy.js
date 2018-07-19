@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
+import './supporting.css';
+import PageFooter from '../components/PageFooter';
 
 export default class Privacy extends Component {
     constructor(props){
@@ -57,16 +59,16 @@ export default class Privacy extends Component {
             <HomeHeader nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></HomeHeader>
             <div style={this.getOverlay()}></div>
             <div className='resultsSection'>
-            <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '20%', marginRight: '20%'}}>
+            <div className="rcsupport" style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%'}}>
             
                 <h3 style={{paddingBottom: '20px', paddingTop: '20px'}}>Privacy</h3>
                 <p>As a Recited Verse user, you share certain personal information with other users, including your name, personal photo, location, and occupation. We do not share your personal information with any other organizational entities, including businesses or other third parties.</p>
-                <br/><br/>
                 <p>When you interact with our services, we collect the information that you choose to share with us. We may use information that we collect about you to perform research and analysis about your use of, or interest in, Recited Verse. We will also communicate with you by email about any updates to our services.</p>
-                <p>If you have any questions about this Privacy Policy, please contact us by email hello@recitedverse.com</p>               
+                <p>If you have any questions about this Privacy Policy, please contact us by email <a href="mailto:hello@recitedverse.com"> hello@recitedverse.com</a></p>               
 
             </div>
             </div>
+            <PageFooter bottom="-300px" />
             </div>
 
         )

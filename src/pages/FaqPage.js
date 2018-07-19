@@ -14,7 +14,7 @@ export default class FaqPage extends Component {
             position:'absolute',
             left:'0px',
             top:'0px',
-            width:'100%'
+            width:'100%',
         };
     }
     getOverlay() {
@@ -53,11 +53,11 @@ export default class FaqPage extends Component {
 
     render(){
         return (
-            <div className="rcsupport" style={this.getStyles()}>
+            <div style={this.getStyles()}>
             <HomeHeader nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></HomeHeader>
             <div style={this.getOverlay()}></div>
             <div className='resultsSection'>
-            <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%'}}>
+            <div className="rcsupport"  style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%'}}>
             <p style={{marginBottom: '20px'}}>
     <strong style={{paddingBottom: '20px'}}>Frequently Asked Questions [FAQs]:</strong>
     <ul>

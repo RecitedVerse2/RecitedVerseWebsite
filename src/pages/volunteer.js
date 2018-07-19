@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
+import './supporting.css';
+import PageFooter from '../components/PageFooter';
 
 export default class About extends Component {
     constructor(props){
@@ -57,7 +59,7 @@ export default class About extends Component {
             <HomeHeader nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></HomeHeader>
             <div style={this.getOverlay()}></div>
             <div className='resultsSection'>
-            <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '20%', marginRight: '20%', color: '#424242', fontSize: '14px'}}>
+            <div className="rcsupport"  style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%', color: '#424242', fontSize: '14px'}}>
             
                 <h3 style={{paddingBottom: '20px', color: '#424242'}}>Opportunities:</h3>
 
@@ -75,6 +77,7 @@ export default class About extends Component {
                 
             </div>
             </div>
+            <PageFooter bottom="-300px" />
             </div>
 
         )
