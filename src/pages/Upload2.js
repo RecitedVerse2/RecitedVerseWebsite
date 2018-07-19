@@ -889,6 +889,7 @@ recorded text on the Recited Verse archive</p>
     };
 
     recordDone(){
+        this.handleEndRecord();
         this.setState({ isUpdateDone: true });
     }
     uploadAudioFile(e) {
