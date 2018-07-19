@@ -1183,7 +1183,7 @@ alert(res)
                     fetch('convert?id='+dictionary['id'], {
                       method: 'get'
                     }).then(function(response) {
-                      this.props.nav.goTo('home')
+                        window.location = '/home';
                       //console.log(response);
                     });
 
