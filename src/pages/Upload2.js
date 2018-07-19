@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import audioRec from 'au-audio-recorder';
 import Alertify from 'alertify.js';
 import Select from 'react-select';
 
@@ -10,11 +9,12 @@ import IsUserFirst from './IsUserFirst';
 import '../css/react-confirm-alert.css'
 
 
-
 import emptyImage from '../res/empty.png';
 
 // eslint-disable-next-line
 import _ from '../css/UploadBox.css';
+
+
 
 
 // import randImage1 from '../res/rand1.jpg';
@@ -33,6 +33,9 @@ import FileChooserForm from '../components/FileChooserForm';
 import Clock from '../components/Clock';
 import 'react-select/dist/react-select.css';
 import { base } from '../objects/config';
+
+
+var audioRec = require('../au-audio-recorder/src/AUAudioRecorderIndex.js');
 
 const GallerySize = 40;  // 1 -8 so it is 8
 
@@ -85,16 +88,28 @@ class Upload extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.updateValue = this.updateValue.bind(this);
         this.updateValueTitle = this.updateValueTitle.bind(this);
+        this.onInputChangeToUpperCase = this.onInputChangeToUpperCase.bind(this);
+
     }
 
     handleInputChange(event) {
+
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
 
-      this.setState({
-        [name]: value
-      });
+      if(target.id === "fullworkName"){
+        var newValue = this.toTitleCase(target.value)
+        this.setState({
+          [name]: newValue
+        });
+      }else{
+        this.setState({
+          [name]: value
+        });
+      }
+
+
     }
 
     showReminder(event){
@@ -104,24 +119,46 @@ class Upload extends Component {
 
     }
 
+    onInputChangeToUpperCase(newValue){
+      newValue = this.toTitleCase(newValue)
+      return newValue
+    }
+
+
     updateValue (newValue) {
       this.setState({
         author: newValue,
       });
     }
 
+    toTitleCase(str) {
+      if(str == null) return ""
+      return str.replace(/\w\S*/g, function(txt){
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+    }
+
       updateValueTitle (newValue) {
+        // this.setState({
+        //   title: "newValue",
+        // });
+
         this.state.titles.map((title) => {
-          if(title.label === newValue && title.transcript && title.author){
+
+          var upperValue = this.toTitleCase(title.label)
+          console.log(upperValue + "   compare  " + newValue +"----" +" ---"+title.author);
+          if(upperValue === newValue && title.transcript && title.author){
             this.setState({title: newValue, transcript: title.transcript, author: title.author })
           }
         })
+
         this.setState({
           title: newValue,
         });
       }
 
     componentDidMount() {
+
         audioRec.requestPermission();
         document.getElementById("fromFileBtn").addEventListener("click", this.func123);
 
@@ -197,7 +234,10 @@ class Upload extends Component {
         }
       })
 
-    }
+
+
+
+  }
 
     handleOnChange(value){
       const { multi } = this.state;
@@ -470,7 +510,9 @@ class Upload extends Component {
 
  submitButtonStyle(){
    return{
-     marginLeft:'40px'
+     marginLeft:'80px',
+     width: '100px'
+
    }
  }
 
@@ -527,6 +569,7 @@ class Upload extends Component {
 
                <div style={this.getRecodingButtonsDivStyle()}>
                <table>
+               <tbody>
                <tr>
                <td style={this.getButtonTDDivStyle()}><button onClick={this.handleRecord.bind(this)} ref={(button)=>{this.recordBtn = button}} className='recordingButtons fa fa-microphone'></button></td>
               <td style={this.getButtonTDDivStyle()} ><button onClick={this.handleStop.bind(this)} ref={(button)=>{this.stopBtn = button}} className='recordingButtons fa fa-stop'></button></td>
@@ -537,6 +580,8 @@ class Upload extends Component {
                <td style={this.getButtonTDDivStyle()} ><button onClick={this.handleClear.bind(this)} ref={(button)=>{this.clearBtn = button}} className='recordingButtons fa fa-trash'></button></td>
 
                </tr>
+               </tbody>
+               <tbody>
                 <tr>
     <td style={this.getButtonTDDivStyle()} >record</td>
     <td style={this.getButtonTDDivStyle()} >stop</td>
@@ -544,6 +589,7 @@ class Upload extends Component {
     <td style={this.getButtonTDDivStyle()} >pause</td>
     <td style={this.getButtonTDDivStyle()}>clear</td>
                 </tr>
+                </tbody>
                </table>
                </div>
 
@@ -623,20 +669,21 @@ class Upload extends Component {
                 disabled={false}
                 searchable={true}
                 value={this.state.title}
+                onInputChange={this.onInputChangeToUpperCase}
                 onChange={this.updateValueTitle}
               />
               {/* <IsUserFirst title={this.state.title} originalTitles={this.state.originalTitles}  /> */}
               <div style={{display: 'inline'}}>
-              <input defaultChecked="true" id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork} onChange={this.handleInputChange} ></input>
-               <label for="fullwork">Is this a Complete Work?</label>
+              <input defaultChecked="true" id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork}  onChange={this.handleInputChange} ></input>
+               <label >Is this a Complete Work?{this.state.title}</label>
                </div>
                {this.state.fullWork === false &&
-                  <input className="form-control" type="text" placeholder="Name of Completed Work" name="nameOfCompleteWork" value={this.state.nameOfCompleteWork} onChange={this.handleInputChange}></input>
+                  <input id="fullworkName" className="form-control" type="text" placeholder="Name of Completed Work" name="nameOfCompleteWork" value={this.state.nameOfCompleteWork} onChange={this.handleInputChange}></input>
                 }
              </div>
              <div>
-             <input id="fullwork" type="checkbox" className="form-control" name="translation" value={this.state.translation} onChange={this.handleInputChange} ></input>
-               <label for="fullwork">Is this a Translation?</label>
+             <input  type="checkbox" className="form-control" name="translation" value={this.state.translation} onChange={this.handleInputChange} ></input>
+               <label>Is this a Translation?</label>
                </div>
                {this.state.translation === true &&
                   <input className="form-control" type="text" placeholder="Name of Translator" name="translator" value={this.state.translator} onChange={this.handleInputChange}></input>
@@ -647,7 +694,7 @@ class Upload extends Component {
              <div >
                {/* <input type="email" className="form-control"  placeholder="Enter Author" ref={(input)=>{this.poetField = input}}  ></input> */}
                <Select.Creatable
-                id="state-select"
+                id="state-select2"
                 options={this.state.authors}
                 simpleValue
                 placeholder="Enter Author"
@@ -656,6 +703,7 @@ class Upload extends Component {
                 disabled={false}
                 searchable={true}
                 value={this.state.author}
+                onInputChange={this.onInputChangeToUpperCase}
                 onChange={this.updateValue}
               />
              </div>
@@ -684,7 +732,7 @@ recorded text on the Recited Verse archive</p>
 
  <div  style={this.getSubmitDivStyle()}>
   <p style={this.getStatusLabelStyle()} ref={(p)=>{this.statusLabel = p}}></p>
-  <button type="button" style={this.cancelButtonStyle()}  onClick={this.cancel.bind(this)} className="btn btn-success">Cancel</button>
+
   <button type="button" style={this.submitButtonStyle()} onClick={this.handleSubmit.bind(this)} className ="btn btn-success">Submit</button>
   </div>
 
@@ -714,8 +762,8 @@ recorded text on the Recited Verse archive</p>
 
 
     confirmAlert({
-      title: 'Reminder',
-      message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original poem that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
+      title: 'Reminders',
+      message: '(1) Each recording must begin by stating the poem\'s title and author (even if you are its author): "Sonnet 29\' by William Shakespeare . . ."\n(2) Each poem must be either published before 1923 (open access in the public domain) or your own original poetry that you authorize to be circulated in the Recited Verse archive. ',
       buttons: [
         {
           label: 'I Understand',
@@ -739,8 +787,8 @@ recorded text on the Recited Verse archive</p>
 
       if (navigator.userAgent.indexOf("Chrome") !== -1){
         confirmAlert({
-          title: 'Reminder',
-          message: 'Your personal recording must be of a work of poetry that is either in the public domain(published before 1923) or your own original poem that you authorize to be circulated in the Recited Verse archive. Anything else will be promptly removed from our System.',
+          title: 'Reminders',
+          message: '(1) Each recording must begin by stating the poem\'s title and author (even if you are its author): "Sonnet 29\' by William Shakespeare . . ."\n(2) Each poem must be either published before 1923 (open access in the public domain) or your own original poetry that you authorize to be circulated in the Recited Verse archive. ',
           buttons: [
             {
               label: 'I Understand',
@@ -876,7 +924,9 @@ recorded text on the Recited Verse archive</p>
             this.start = Date.now();
             console.log("startRecording");
             console.log(audioRec);
+
             audioRec.startRecording();
+            console.log(audioRec);
             this.recordBtn.className = 'recordingButtons fa fa-microphone-slash';
             statusLabel.innerHTML = 'Recording...';
             statusLabel.style.WebkitTransitionDuration = '0s';
@@ -926,6 +976,21 @@ recorded text on the Recited Verse archive</p>
     }
 
     handlePause() {
+      var myRecording = audioRec.getRecordingFile();
+       var formData = new FormData();
+      formData.append("record", myRecording);
+
+
+
+       fetch('http://127.0.0.1:8000/test.php', {
+       method: 'POST',
+      // headers: {'Content-Type':'multipart/form-data'},
+       body: formData
+     }).then((res) => {
+alert(res)
+       })
+    .catch((err) => {console.log(err)})
+
         if(this.state.audioObj !== null) {
             this.state.audioObj.pause();
             this.statusLabel.innerHTML = 'Paused...';
@@ -1039,6 +1104,7 @@ recorded text on the Recited Verse archive</p>
 
 
         var finalRecording = audioRec.getRecording();
+
         const fireRef = firebase.database().ref();
         const storageRef = firebase.storage().ref();
         const store = this.props.rStore.getState();
@@ -1097,9 +1163,9 @@ recorded text on the Recited Verse archive</p>
                 "nameOfCompleteWork": this.state.nameOfCompleteWork,
             };
 
-            
 
 
+            //audioRec.setOutputFileType("wav");
             var myRecording = audioRec.getRecordingFile();
             // If the recording is not null, then upload that. Otherwise, upload a file.
             if(myRecording !== null) {
@@ -1139,8 +1205,10 @@ recorded text on the Recited Verse archive</p>
             }
             return;
         } else {
-
-            if(!this.valueExists(this.state.audioObj) && finalRecording === null) { missingInfo += "You must upload or record a poem before submitting<br/>"; }
+            missingInfo = "unknown error";
+            if(!this.valueExists(this.state.audioObj) && finalRecording === null) {
+               missingInfo = "You must upload or record a poem before submitting<br/>";
+             }
 
             Alertify.alert(missingInfo);
             return;
@@ -1152,6 +1220,8 @@ recorded text on the Recited Verse archive</p>
     }
 
     handleStopPlaying() {
+
+
         if(this.state.audioObj !== null) {
             if(this.state.audioObj.ended === true) {
                 this.statusLabel.innerHTML = '';

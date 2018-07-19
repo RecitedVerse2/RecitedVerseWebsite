@@ -101,7 +101,10 @@ class Landing extends Component {
 
     getIndicatorStyle(){
       return {
-        top: '600px'
+        top: '440px',
+        height:'20px',
+        display:'none'
+
       }
     }
 
