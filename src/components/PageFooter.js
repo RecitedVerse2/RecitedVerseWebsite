@@ -98,7 +98,7 @@ class PageFooter extends Component {
                   <div>
                       <h1 id='copyright'><span className='fa fa-copyright'></span>
                           &nbsp;
-                          Recited Verse 2017
+                          Recited Verse 2018
                       </h1>
                   </div>
                   {this.props.children}

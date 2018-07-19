@@ -463,7 +463,7 @@ class Poem extends Component {
 
     getUserAlinkStyle(){
       return{
-        fontSize: '40px',
+        fontSize: '22px',
         color:'blue'
       }
     }
@@ -627,15 +627,15 @@ class Poem extends Component {
 
 
                   {/* The div that shows the image. */}
-                  <div className='contentArea' >
+                  <div className='contentArea' style={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}} >
                       <div className='verticalTextArea' style={this.getTextAreaStyle()}>
-                         <h1 className='headerText'><strong><a className="headerText" style={{color: 'blue'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'red'}} glyph="flag" /></a></strong></h1>
-                         <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
+                         <h2 className='headerText'><strong><a className="headerText" style={{color: 'blue'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'red'}} glyph="flag" /></a></strong></h2>
+                         <h2 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h2>
                          {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
                          {this.renderGenerAndDate()}
 
 
-                          <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
+                          <h2 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h2>
 
                           <div style={{marginLeft:'10px'}}>
                               <button style={this.getPlayButtonSize()} className='interactButton fa fa-play'
