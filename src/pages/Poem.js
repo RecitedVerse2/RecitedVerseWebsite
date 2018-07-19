@@ -562,7 +562,7 @@ class Poem extends Component {
                           <Grid>
                           <Row className="show-grid">
                               <Col md={8}>
-                              <div style={{lineHeight: '2', fontWeight: '700' }}>
+                              <div style={{lineHeight: '2', fontWeight: '700', height: '300px', overflowY: 'scroll'}}>
                               <MultiLines content={this.poemTranscript} ></MultiLines>
                               </div>
                               </Col>
