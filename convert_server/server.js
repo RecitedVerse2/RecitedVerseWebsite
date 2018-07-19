@@ -38,6 +38,9 @@ var random = "tmp"; //Math.floor(Math.random() * Math.floor(1000))
 var localFilename =   random + ".webm"
 var covertedFile = random + ".mp3"
 console.log("local name"+ localFilename);
+var metadata = {
+  contentType: 'audio/mp3',
+};
 
 
 
