@@ -61,28 +61,28 @@ export default class FaqPage extends Component {
             <p style={{marginBottom: '20px'}}>
     <strong style={{paddingBottom: '20px'}}>Frequently Asked Questions [FAQs]:</strong>
     <ul>
-    <li><a style={{color: 'blue'}} href="#whenOriginate">When did this project originate?</a></li>
-    <li><a style={{color: 'blue'}} href="#whatInspired">What inspired this idea?</a></li>
-    <li><a style={{color: 'blue'}} href="#whyRecited">Why is this project called “Recited Verse”?</a></li>
-    <li><a style={{color: 'blue'}} href="#specificRules">Are there any specific RV rules for submitting a recording of a poem?</a></li>
-    <li><a style={{color: 'blue'}} href="#highQuality">How do I ensure that I share a high-quality recording of a poem?</a></li>
-    <li><a style={{color: 'blue'}} href="#isLimit">Is there any limit to the number of recordings allowed per poem?</a></li>
-    <li><a style={{color: 'blue'}} href="#ifResists">If Recited Verse resists the idea of a single authoritative audio recording of a poem, then why does it offer a “like” feature to single out a top recording for any given poem?</a></li>
-    <li><a style={{color: 'blue'}} href="#music">Can I include music or any other background effects in my recordings?</a></li>
-    <li><a style={{color: 'blue'}} href="#video">Can I share video files of my personal readings of poems onto my profile and to the RV community?</a></li>
-    <li><a style={{color: 'blue'}} href="#originalWork">I am a poet who wishes to share my original and non-published work on Recited Verse. Is this possible?</a></li>
-    <li><a style={{color: 'blue'}} href="#cost">How much does it cost to use Recited Verse?</a></li>
-    <li><a style={{color: 'blue'}} href="#publishedPoet">I am a published poet and would like to share audio recordings of my poetry on RV. How do I do it?</a></li>
-    <li><a style={{color: 'blue'}} href="#publishedAfter">What if I have original work uploaded on Recited Verse and have decided to get it published with a literary press or some other website?</a></li>
-    <li><a style={{color: 'blue'}} href="#underCopyright">Can there be a recording of a poem on Recited Verse that is under copyright?</a></li>
-    <li><a style={{color: 'blue'}} href="#report">How do I report inappropriate content on the site?</a></li>
-    <li><a style={{color: 'blue'}} href="#afterBeta">What happens after the BETA site testing period?</a></li>
-    <li><a style={{color: 'blue'}} href="#howWeSupport">How does RV support itself?</a></li>
-    <li><a style={{color: 'blue'}} href="#howCanIDonate">How can I donate to Recited Verse?</a></li>
-    <li><a style={{color: 'blue'}} href="#volunteer">How can I join the RV team as a volunteer or intern?</a></li>
-    <li><a style={{color: 'blue'}} href="#intheclassroom">I teach poetry and would like to know how to integrate RV into my
+    <li><a class="anchor" style={{color: 'blue'}} href="#whenOriginate">When did this project originate?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#whatInspired">What inspired this idea?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#whyRecited">Why is this project called “Recited Verse”?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#specificRules">Are there any specific RV rules for submitting a recording of a poem?</a></li><br/>
+    <li><a  class="anchor"  style={{color: 'blue'}} href="#highQuality">How do I ensure that I share a high-quality recording of a poem?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#isLimit">Is there any limit to the number of recordings allowed per poem?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#ifResists">If Recited Verse resists the idea of a single authoritative audio recording of a poem, then why does it offer a “like” feature to single out a top recording for any given poem?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#music">Can I include music or any other background effects in my recordings?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#video">Can I share video files of my personal readings of poems onto my profile and to the RV community?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#originalWork">I am a poet who wishes to share my original and non-published work on Recited Verse. Is this possible?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#cost">How much does it cost to use Recited Verse?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#publishedPoet">I am a published poet and would like to share audio recordings of my poetry on RV. How do I do it?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#publishedAfter">What if I have original work uploaded on Recited Verse and have decided to get it published with a literary press or some other website?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#underCopyright">Can there be a recording of a poem on Recited Verse that is under copyright?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#report">How do I report inappropriate content on the site?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#afterBeta">What happens after the BETA site testing period?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#howWeSupport">How does RV support itself?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#howCanIDonate">How can I donate to Recited Verse?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#volunteer">How can I join the RV team as a volunteer or intern?</a></li><br/>
+    <li><a class="anchor"  style={{color: 'blue'}} href="#intheclassroom">I teach poetry and would like to know how to integrate RV into my
         classroom.
-        </a></li>
+        </a></li><br/>
         </ul>
     
 </p>

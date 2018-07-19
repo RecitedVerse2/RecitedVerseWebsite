@@ -61,9 +61,9 @@ export default class About extends Component {
             <div className='resultsSection'>
             <div className="rcsupport"  style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%', color: '#424242', fontSize: '14px'}}>
             
-                <h3 style={{paddingBottom: '20px', color: '#424242'}}>Opportunities:</h3>
+                <h3 style={{paddingBottom: '20px'}}>Opportunities:</h3>
 
-<p style={{color: '#424242', fontFamily: 'Helvetica', fontSize: '14px'}}>We are currently seeking poetry enthusiasts as volunteers and interns to help grow Recited Verse. We welcome anyone, including students, instructors, and scholars, to help us with expanding our archive, recruitment, social media campaigns, and spearheading local events. </p>
+<p style={{fontFamily: 'Helvetica'}}>We are currently seeking poetry enthusiasts as volunteers and interns to help grow Recited Verse. We welcome anyone, including students, instructors, and scholars, to help us with expanding our archive, recruitment, social media campaigns, and spearheading local events. </p>
                 <br/>
                 <p>We are also seeking the following specific volunteer opportunities:</p>
 
@@ -73,7 +73,7 @@ export default class About extends Component {
                     <li style={{listStyleType: 'circle'}}>Affiliated Scholars: This person will be associated with one specific author on PRV. For example, the Affiliated Scholar for William Wordsworth will work to develop / expand the online archive of recordings of Wordsworth's poems. These scholars will also curate the content of each main poem page, including the comments section. Their photos and bio will appear on each Wordsworth page, and they will directly interface with the general public (i.e., RecitedVerse users).</li>
                 </ul>
 
-                <p style={{color: '#424242', fontFamily: 'Helvetica', fontSize: '14px', paddingTop: '10px'}}>If interested in any position, please email us at hello@recitedverse.com with a resume/CV and a cover letter. Use the subject line “Volunteer / Intern Application.” </p>
+                <p style={{color: '#424242', fontFamily: 'Helvetica', fontSize: '14px', paddingTop: '10px'}}>If interested in any position, please email us at <a href="mailto:hello@recitedverse.com"> hello@recitedverse.com</a> with a resume/CV and a cover letter. Use the subject line “Volunteer / Intern Application.” </p>
                 
             </div>
             </div>
