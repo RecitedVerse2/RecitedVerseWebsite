@@ -33,9 +33,8 @@ import FileChooserForm from '../components/FileChooserForm';
 import Clock from '../components/Clock';
 import 'react-select/dist/react-select.css';
 import { base } from '../objects/config';
+import audioRec from 'au-audio-recorder';
 
-
-var audioRec = require('../au-audio-recorder/src/AUAudioRecorderIndex.js');
 
 const GallerySize = 40;  // 1 -8 so it is 8
 
