@@ -1183,13 +1183,11 @@ alert(res)
                     fetch('convert?id='+dictionary['id'], {
                       method: 'get'
                     }).then(function(response) {
-            
-                      console.log(response);
-                    }).then(function(data) {
-                    console.log(data);
+                      this.props.nav.goTo('home')
+                      //console.log(response);
                     });
 
-                  //  this.props.nav.goTo('home')
+                  //
                     return;
                 });
 
