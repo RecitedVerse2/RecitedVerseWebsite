@@ -14,6 +14,9 @@ export default class MultiLines extends Component {
     }
 
     render(){
+      if(this.props.content == null){
+        return (<div></div>)
+      }
       var lines = this.props.content.split("\n");
 
       var LinesList = lines.map(function(line){

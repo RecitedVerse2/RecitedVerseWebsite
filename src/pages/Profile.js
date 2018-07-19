@@ -96,9 +96,6 @@ class Profile extends Component {
 
 
 
-
-
-
         this.loadUploadPlaylist(this.props.rStore, () => {
             this.loadLikedPlaylist(this.props.rStore, () => {
                 this.loadFavoritedPlaylist(this.props.rStore, () => {
@@ -111,14 +108,6 @@ class Profile extends Component {
             });
         });
 
-       if(window.location.href.includes('following')){
-
-
-       }else if(window.location.href.includes('follower')){
-
-       }else{
-
-       }
     }
 
 
@@ -513,14 +502,17 @@ class Profile extends Component {
                 this.setState({
                     playlistPlaylist: playlists
                 });
-                callback();
+
             });
+
+            callback();
         });
     }
 
 
     /** Takes the playlists (once they are loaded) and pushes new html elements onto the page. */
-    pushOntoPage() {
+     pushOntoPage() {
+      console.log("push on page : " + this.state.showUploads);
         // Clear all of the recitations.
         var items = [];
         var recs = [];
@@ -531,6 +523,7 @@ class Profile extends Component {
                 if(this.state.uploadPlaylist.length() === 0) { return; }
             } else { return; }
 
+               console.log("this.state.showUploads this.state.showUploads this.state.showUploads ");
             // Create the array of recitation items.
             this.state.uploadPlaylist.forEach( (rec) => {
                 recs.push(rec);

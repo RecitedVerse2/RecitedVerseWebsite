@@ -29,6 +29,7 @@ import Copyright from './pages/Copyright';
 import Beta from './pages/Beta';
 import Privacy from './pages/Privacy';
 import Contact from './pages/contact';
+
 // REDUX
 const defaultState = {
     currentUser:null,
@@ -203,6 +204,14 @@ class App extends Component {
                       <Route exact path="/signup" component={SignUpPage}></Route>
                       <Route exact path="/login" component={LoginPage}></Route>
                       <Route exact path="/share" component={PoemSharePage}></Route>
+                      <Route exact path="/faq" component={FaqPage}></Route>
+                      <Route exact path="/about" component={About}></Route>
+                      <Route exact path="/volunteer" component={Volunteer}></Route>
+                      <Route exact path="/donations" component={Donations}></Route>
+                      <Route exact path="/copyright" component={Copyright}></Route>
+                      <Route exact path="/beta" component={Beta}></Route>
+                      <Route exact path="/privacy" component={Privacy}></Route>
+                      <Route exact path="/contact" component={Contact}></Route>
                       <Route component={LandingPage}></Route>
                   </Switch>
                   </div>

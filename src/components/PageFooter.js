@@ -78,7 +78,7 @@ class PageFooter extends Component {
 
                            <li><a href="/volunteer">Volunteer & Intern</a><span className="after"> | </span></li>
 
-                          <li><a href="/donations">Donations</a><span className="after"> | </span></li>
+                          <li><a href="/donations">Support Us</a><span className="after"> | </span></li>
 
                           <li><a href="/copyright">Copyright</a><span className="after"> | </span></li>
                            <li><a href="/privacy">Privacy</a><span className="after"> | </span></li>

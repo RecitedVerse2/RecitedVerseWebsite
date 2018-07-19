@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import { connectStateResults } from 'react-instantsearch/connectors';
 import Autosuggest from 'react-autosuggest';
 import Autocomplete from './Autocomplete';
+import {default as HeaderBeforeLogin}  from '../LandingComps/Header';
 
 class Header extends Component {
 
@@ -34,10 +35,14 @@ class Header extends Component {
             textColor: 'rgba(0,0,0,0)',
             showDownMenu:false,
             notifications:0,
+            isLogin:false
         }
 
 
         var cUser = JSON.parse(window.localStorage.getItem('currentUser'));
+        if(!cUser)return  // not login
+
+        this.state.isLogin = true;
         var fullname = cUser.fullname;
         this.state.name = fullname.substring(0, fullname.indexOf(' '))
 
@@ -322,6 +327,11 @@ class Header extends Component {
                 <a style={this.getDropdownItem()} onClick={this.handleLogout.bind(this)} >Logout</a>
                 </div>
           );
+         }
+
+
+         if(this.state.isLogin == false){
+           return(<HeaderBeforeLogin></HeaderBeforeLogin>)
          }
 
 
