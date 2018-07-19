@@ -674,7 +674,7 @@ class Upload extends Component {
               {/* <IsUserFirst title={this.state.title} originalTitles={this.state.originalTitles}  /> */}
               <div style={{display: 'inline'}}>
               <input defaultChecked="true" id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork}  onChange={this.handleInputChange} ></input>
-               <label >Is this a Complete Work?{this.state.title}</label>
+               <label >Is this a Complete Work?</label>
                </div>
                {this.state.fullWork === false &&
                   <input id="fullworkName" className="form-control" type="text" placeholder="Name of Completed Work" name="nameOfCompleteWork" value={this.state.nameOfCompleteWork} onChange={this.handleInputChange}></input>
@@ -1180,7 +1180,16 @@ alert(res)
                 storageRef.child('Recitations').child(dictionary['id']).put(myRecording).then(() => {
                     this.statusLabel.innerHTML = "Done!";
                     document.body.scrollTop = 0;
-                    this.props.nav.goTo('home')
+                    fetch('convert?id='+dictionary['id'], {
+                      method: 'get'
+                    }).then(function(response) {
+            
+                      console.log(response);
+                    }).then(function(data) {
+                    console.log(data);
+                    });
+
+                  //  this.props.nav.goTo('home')
                     return;
                 });
 
