@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
+
+import _ from '../../css/MultiLines.css';
+
 export default class MultiLines extends Component {
     constructor(props){
         super(props);
@@ -23,7 +26,7 @@ export default class MultiLines extends Component {
                       return <li>{line}</li>;
                     })
         return (
-            <div>
+            <div className="MultiLines">
             {LinesList}
 
 
