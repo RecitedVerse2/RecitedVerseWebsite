@@ -6,7 +6,6 @@ const Multer = require('multer');
 var admin = require("firebase-admin");
 var fs = require('fs');
 const { exec } = require('child_process');
-var sleep = require('sleep');
 
 var serviceAccount = require("./recitedverse.json");
 
@@ -48,7 +47,7 @@ var metadata = {
 
 
 function processTask(id){
-  
+
   const file = bucket.file("Recitations/"+id);
   file.exists(function(err, exists) {
     if(exists == false){
