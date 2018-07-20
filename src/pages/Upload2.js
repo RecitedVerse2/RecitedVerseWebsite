@@ -673,16 +673,18 @@ class Upload extends Component {
               />
               {/* <IsUserFirst title={this.state.title} originalTitles={this.state.originalTitles}  /> */}
               <div style={{display: 'inline'}}>
+              <label >
               <input defaultChecked="true" id="fullwork" type="checkbox" className="form-control" name="fullWork" value={this.state.fullWork}  onChange={this.handleInputChange} ></input>
-               <label >Is this a Complete Work?</label>
+               Is this a Complete Work?</label>
                </div>
                {this.state.fullWork === false &&
                   <input id="fullworkName" className="form-control" type="text" placeholder="Name of Completed Work" name="nameOfCompleteWork" value={this.state.nameOfCompleteWork} onChange={this.handleInputChange}></input>
                 }
              </div>
              <div>
+             <label>
              <input  type="checkbox" className="form-control" name="translation" value={this.state.translation} onChange={this.handleInputChange} ></input>
-               <label>Is this a Translation?</label>
+               Is this a Translation?</label>
                </div>
                {this.state.translation === true &&
                   <input className="form-control" type="text" placeholder="Name of Translator" name="translator" value={this.state.translator} onChange={this.handleInputChange}></input>
