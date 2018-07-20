@@ -103,7 +103,6 @@ function processed(file){
     }
   });
   console.log("final convert paht : "+finalCoverted);
-  if (fs.existsSync(finalCoverted)) {
     fs.createReadStream(finalCoverted)
       .pipe(file.createWriteStream())
       .on('error', function(err) {
@@ -122,9 +121,7 @@ function processed(file){
         });
 
       });
-  }else{
-    console.log("coverted file not exit");
-  }
+
 
 
 
