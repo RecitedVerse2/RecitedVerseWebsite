@@ -69,7 +69,7 @@
     margin: auto;
     border: none;
     font-size: 30px;
-    font-family: 'NEB';
+    font-family: 'HelveticaNeue';
     background: none;
     text-decoration: none;
     box-shadow: none;
@@ -96,7 +96,7 @@
 .recordTitle {
     margin: auto;
     font-size: 30px;
-    font-family: 'Monthoers';
+    font-family: 'HelveticaNeue';
     text-align: center;
 }
 
@@ -116,7 +116,7 @@
     background: none;
     font-size: 40px;
     padding-top: 20px;
-    font-family: 'Monthoers';
+    font-family: 'HelveticaNeue';
     text-decoration: none;
 }
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import backgroundImage from '../res/brickBackground.jpg';
-import CarouselImage1 from '../res/RVBanner.png';
-import CarouselImage2 from '../res/flash_2.jpg';
-import CarouselImage3 from '../res/flash_3.jpg';
+import CarouselImage1 from '../res/2xbanner.png';
+import CarouselImage2 from '../res/new10.png';
+import CarouselImage3 from '../res/5x10.png';
 
 import Header from '../components/LandingComps/Header';
 import MainPointsSection from '../components/LandingComps/MainPointsSection';

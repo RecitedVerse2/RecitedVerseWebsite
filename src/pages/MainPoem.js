@@ -127,10 +127,10 @@ export default class MainPoem extends Component {
                 <HomeHeader nav={this.props.nav} rStore={this.props.rStore}></HomeHeader>
 
                 <div style={{marginTop: '5%'}} className="content">
-                <h2>{this.state.title} - <i>All Recordings</i></h2>
+                <h2 style={{marginLeft: '25%'}} >{this.state.title}</h2>
                 <div style={{lineHeight: '2', fontWeight: '700' , marginRight: '25%', marginLeft: '25%', marginTop: '25px', height: '300px', overflowY: 'scroll'}}>
                   <MultiLines content={this.state.text} ></MultiLines></div>
-                    <div style={{marginLeft: '20px'}}>
+                    <div style={{boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.1)', marginLeft: '25%', marginRight: '25%', marginBottom: '10px', marginTop: '10px', paddingBottom: '5%', paddingTop: '5%'}}>
                         {this.state.recComponents}
                     </div>
                 </div>

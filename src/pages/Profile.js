@@ -161,8 +161,8 @@ class Profile extends Component {
 
 
                 <ProfileBanner rStore={this.props.rStore}>
-                    <h1 style={{fontFamily:'NEB', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}</h1>
-                    <h1 style={{fontFamily:'Monthoers', fontSize:'90px'}}>Recordings</h1>
+                    <h1 style={{fontFamily:'Helvetica', fontSize:'70px', paddingBottom:'10px'}}>{this.state.name}</h1>
+                    <h1 style={{fontFamily:'Helvetica', fontSize:'90px'}}>Recordings</h1>
                 </ProfileBanner>
 
                 <div className='buttonsArea'>
@@ -188,7 +188,7 @@ class Profile extends Component {
                                 id='playlist' className='changeRecitationsButton'>Playlists</button>
                     </div>
                 </div>
-                <div className='profileDisplayArea'>
+                <div style={{boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.1)', marginBottom: '10px', marginTop: '10px', paddingBottom: '5%', paddingTop: '5%'}} className='profileDisplayArea'>
                     {this.state.recitations}
                 </div>
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomePageComponents/HomeHeader';
+import PageFooter from '../components/PageFooter';
+import './supporting.css';
 
 export default class About extends Component {
     constructor(props){
@@ -56,16 +58,16 @@ export default class About extends Component {
             <div style={this.getStyles()}>
             <HomeHeader nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></HomeHeader>
             <div style={this.getOverlay()}></div>
-            <div className='resultsSection'>
-            <div style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '20%', marginRight: '20%', fontFamily: 'Helvetica !important', fontSize: '14px !important'}}>
+            <div   className='resultsSection'>
+            <div className="rcsupport" style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%', fontFamily: 'Helvetica !important', fontSize: '14px !important'}}>
             
-                <h3 style={{paddingBottom: '20px', fontFamily: 'Helvetica !important', fontSize: '14px !important'}}>About</h3>
+                <h3 style={{paddingBottom: '20px', fontFamily: 'Helvetica !important', fontSize: '16px !important'}}>About</h3>
 
-                <p style={{color: '#424242', fontFamily: 'Helvetica', fontSize: '14px'}}>Currently under BETA testing mode, Recited Verse is an online community dedicated to creating and sharing original audio recordings of poetry. The archive of spoken verse is entirely user-generated and brings together original audio recordings of poems of all ages and cultures. Recited Verse users can easily record and listen to poetry at home, on the road, or in the classroom.</p>
+                <p style={{color: '#424242', fontFamily: 'Helvetica', fontSize: '16px'}}>Currently under BETA testing mode, Recited Verse is an online community dedicated to creating and sharing original audio recordings of poetry. The archive of spoken verse is entirely user-generated and brings together original audio recordings of poems of all ages and cultures. Recited Verse users can easily record and listen to poetry at home, on the road, or in the classroom.</p>
                 <br/>
-                <p style={{color: '#424242', fontFamily: 'Helvetica', fontSize: '14px'}}>Once fully launched, Recited Verse users will be able to:</p>
+                <p style={{color: '#424242', fontFamily: 'Helvetica', fontSize: '16px'}}>Once fully launched, Recited Verse users will be able to:</p>
                 <ul style={{color: '#424242'}}>
-                    <li style={{listStyleType: 'circle'}}>Create and/or upload an unlimited number of audio recordings of poems onto one’s personal profile </li>
+                    <li style={{listStyleType: 'circle', display: 'list-item'}}>Create and/or upload an unlimited number of audio recordings of poems onto one’s personal profile </li>
                     <li style={{listStyleType: 'circle'}}>Share those audio recordings with the rest of the RV online community</li>
                     <li style={{listStyleType: 'circle'}}>Listen to other users’ audio recordings, make use of our “liking” feature, and generate lists of favorite recordings</li>
                     <li style={{listStyleType: 'circle'}}>Compile and share playlists of recordings arranged according to themes, moods, poets, literary periods, genres, or other creative tags</li>
@@ -82,6 +84,8 @@ export default class About extends Component {
 
             </div>
             </div>
+            <PageFooter bottom='-300px'>
+                </PageFooter>
             </div>
 
         )

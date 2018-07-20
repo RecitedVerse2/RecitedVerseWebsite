@@ -19,7 +19,7 @@
     height: 100%;
     float: left;
     text-align: left;
-    font-family: 'NEB';
+    font-family: 'HelveticaNeue';
     font-size: 25px;
     z-index: 50;
     display: table-cell;
@@ -37,7 +37,7 @@
     background: none;
     box-shadow: none;
     font-size: 30px;
-    font-family: 'NEB';
+    font-family: 'HelveticaNeue';
     display: table-cell;
     padding-left: 65px;
     z-index: 50;

@@ -1,0 +1,39 @@
+.rcsupport p strong {
+    margin-bottom: 0px !important;
+}
+.rcsupport p {
+    margin-bottom: 25px;
+    font-size: 18px;
+    color: #424242;
+}
+.rcsupport strong {
+    color: black;
+}
+.rcsupport h3 {
+    color: black;
+}
+ .rcsupport ul  {
+    list-style-type: circle !important;
+    margin-bottom: 10px;
+}
+.rcsupport li {
+    list-style: disc outside none;
+    display: list-item;
+    margin-left: 1.5em;  
+    color: #424242;
+    font-size: 16px;  
+}
+
+a.anchor {
+    display: block;
+    position: relative;
+    top: -200px;
+    visibility: hidden;
+}
+
+:target:before {
+    content:"";
+    display:block;
+    height:90px; /* fixed header height*/
+    margin:-90px 0 0; /* negative fixed header height */
+    }
