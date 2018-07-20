@@ -48,10 +48,7 @@ var metadata = {
 
 
 function processTask(id){
-  while(1){
-      sleep.sleep(1)
-      console.log("this is a test");
-  }
+  
   const file = bucket.file("Recitations/"+id);
   file.exists(function(err, exists) {
     if(exists == false){
