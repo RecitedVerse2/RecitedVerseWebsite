@@ -722,7 +722,7 @@ class Upload extends Component {
              </div>
               <label className="control-label col-sm-2" >Transcript:</label><br/>
              <div >
-               <textarea rows="4" cols="50" className="form-control" id="email" placeholder="Enter Description & Poem Transcript" onChange={(event) => this.setState({transcript: event.target.value})}  value={this.state.transcript}  ></textarea>
+               <textarea rows="4" cols="50" className="form-control" id="email" placeholder="Enter Poem Transcript" onChange={(event) => this.setState({transcript: event.target.value})}  value={this.state.transcript}  ></textarea>
              </div>
 
   <div className="checkbox">
