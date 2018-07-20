@@ -86,6 +86,7 @@ class RecitationItem2 extends Component {
        padding: '0',
        textAlign: 'left',
        fontSize:'18px',
+       width: '100%',
      }
    }
 
@@ -130,7 +131,7 @@ class RecitationItem2 extends Component {
 
                                 <li style={this.getDescLiStyle()}> <strong> {this.props.recitation.title}</strong></li>
                                 <li style={this.getDescLiStyle()} >By:&nbsp;<strong> &nbsp;{this.props.recitation.author}</strong></li>
-                                <li style={this.getDescLiStyle()} >Recorded By:&nbsp;{this.props.recitation.recited_by} </li>
+                                <li style={this.getDescLiStyle()} >Recorded By:&nbsp;{this.props.recitation.recitedBy} </li>
                                 <li style={this.getDescLiStyle()} >Date:&nbsp;  {createTime}</li>
                                 <li style={this.getDescLiStyle()}  >Like:&nbsp; {this.props.recitation.likes} </li>
                                 <li style={this.getDescLiStyle()}  >Tags: &nbsp;{this.props.recitation.genre}</li>
