@@ -13,8 +13,8 @@ import __ from '../../css/Header.css';
 
 const Product = ({ hit }) => {
   return (
-      <div style={{width: '100%'}} key={hit.recitation.title} onClick={() => handleLinkClick(hit)}>
-        <span style={{width: '100%', cursor: 'pointer' }}>{hit.recitation.title} | {hit.recitation.uploaderName}</span>
+      <div style={{width: '100%'}} key={hit.recitation.title}>
+        <span onClick={() => handlePoemClick(hit)} style={{width: '100%', cursor: 'pointer' }}>{hit.recitation.title}</span> | <span style={{cursor: 'pointer'}} onClick={() => handleLinkClick(hit)}>{hit.recitation.uploaderName}</span>
       <hr />
       </div>
   );
@@ -32,14 +32,14 @@ const Search = () => {
 };
 
 const handleLinkClick = (hit) => {
-  // window.open(`/user?${hit.recitation.uploaderID}`);
-  console.log(hit, 'this is hit');
-  window.location.href = '/allrecordings?' + hit.recitation.id;
+  window.open(`/user?${hit.recitation.uploaderID}`);
+  // console.log(hit, 'this is hit');
+  // window.location.href = '/allrecordings?' + hit.recitation.id;
 
 }
 
 const handlePoemClick = (hit) => {
-  
+  window.location.href = '/allrecordings?' + hit.recitation.id;
 }
 
 
