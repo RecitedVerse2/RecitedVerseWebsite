@@ -88,7 +88,7 @@ function processTask(id){
 
 
 function processed(file){
-  exec("rm -rf *.mp3", (err, stdout, stderr) => {
+  exec("rm -rf *.mp3 ", (err, stdout, stderr) => {
     if (err) {
       console.log(error);
     }
@@ -103,6 +103,7 @@ function processed(file){
     }
   });
   console.log("final convert paht : "+finalCoverted);
+  if (fs.existsSync(finalCoverted)) {
     fs.createReadStream(finalCoverted)
       .pipe(file.createWriteStream())
       .on('error', function(err) {
@@ -113,7 +114,7 @@ function processed(file){
         console.log("finish upload");
         file.setMetadata(metadata, function(err, apiResponse) {});
 
-        exec("rm "+ localFilename + "  "+ covertedFile, (err, stdout, stderr) => {
+        exec("rm "+ localFilename , (err, stdout, stderr) => {
           if (err) {
             // node couldn't execute the command
             console.log(error);
@@ -121,7 +122,9 @@ function processed(file){
         });
 
       });
-
+  }else{
+    console.log("coverted file not exit");
+  }
 
 
 
