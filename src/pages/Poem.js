@@ -463,7 +463,7 @@ class Poem extends Component {
 
     getUserAlinkStyle(){
       return{
-        fontSize: '22px',
+        fontSize: 'px',
         color:'blue'
       }
     }
@@ -657,7 +657,7 @@ class Poem extends Component {
                           <Grid>
                           <Row className="show-grid">
                               <Col md={8}>
-                              <div style={{lineHeight: '2', fontWeight: '700' , height: '300px', overflowY: 'scroll'}}>
+                              <div className="multiLine" style={{lineHeight: '2', fontWeight: '700' , height: '300px', overflowY: 'scroll'}}>
                               <MultiLines content={this.poemTranscript} ></MultiLines>
                               </div>
                               </Col>
