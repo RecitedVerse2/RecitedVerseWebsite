@@ -97,8 +97,8 @@ class Upload extends Component {
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
 
-      if(target.id === "fullworkName"){
-        var newValue = this.toTitleCase(target.value)
+      if(target.id === "fullworkName" || target.id === "translator"){
+        var newValue = this.toUpperCase(target.value)
         this.setState({
           [name]: newValue
         });
@@ -119,7 +119,7 @@ class Upload extends Component {
     }
 
     onInputChangeToUpperCase(newValue){
-      newValue = this.toTitleCase(newValue)
+      newValue = this.toUpperCase(newValue)
       return newValue
     }
 
@@ -130,7 +130,7 @@ class Upload extends Component {
       });
     }
 
-    toTitleCase(str) {
+    toUpperCase(str) {
       if(str == null) return ""
       return str.replace(/\w\S*/g, function(txt){
           return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -138,15 +138,9 @@ class Upload extends Component {
     }
 
       updateValueTitle (newValue) {
-        // this.setState({
-        //   title: "newValue",
-        // });
 
         this.state.titles.map((title) => {
-
-          var upperValue = this.toTitleCase(title.label)
-          console.log(upperValue + "   compare  " + newValue +"----" +" ---"+title.author);
-          if(upperValue === newValue && title.transcript && title.author){
+          if(title.label=== newValue && title.transcript && title.author){
             this.setState({title: newValue, transcript: title.transcript, author: title.author })
           }
         })
@@ -681,11 +675,11 @@ class Upload extends Component {
                 }
              </div>
              <div>
-             <input  type="checkbox" className="form-control" name="translation" value={this.state.translation} onChange={this.handleInputChange} ></input>
+             <input  id="translation" type="checkbox" className="form-control" name="translation" value={this.state.translation} onChange={this.handleInputChange} ></input>
                <label>Is this a Translation?</label>
                </div>
                {this.state.translation === true &&
-                  <input className="form-control" type="text" placeholder="Name of Translator" name="translator" value={this.state.translator} onChange={this.handleInputChange}></input>
+                  <input id="translator" className="form-control" type="text" placeholder="Name of Translator" name="translator" value={this.state.translator} onChange={this.handleInputChange}></input>
                 }
 
 
@@ -976,21 +970,6 @@ recorded text on the Recited Verse archive</p>
     }
 
     handlePause() {
-      var myRecording = audioRec.getRecordingFile();
-       var formData = new FormData();
-      formData.append("record", myRecording);
-
-
-
-       fetch('http://127.0.0.1:8000/test.php', {
-       method: 'POST',
-      // headers: {'Content-Type':'multipart/form-data'},
-       body: formData
-     }).then((res) => {
-alert(res)
-       })
-    .catch((err) => {console.log(err)})
-
         if(this.state.audioObj !== null) {
             this.state.audioObj.pause();
             this.statusLabel.innerHTML = 'Paused...';
