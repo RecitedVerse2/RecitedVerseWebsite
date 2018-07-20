@@ -6,6 +6,7 @@ const Multer = require('multer');
 var admin = require("firebase-admin");
 var fs = require('fs');
 const { exec } = require('child_process');
+var sleep = require('sleep');
 
 var serviceAccount = require("./recitedverse.json");
 
@@ -37,6 +38,8 @@ bucket.getMetadata().then(results => {
 var random = "tmp"; //Math.floor(Math.random() * Math.floor(1000))
 var localFilename =   random + ".webm"
 var covertedFile = random + ".mp3"
+var root = "/home/yousong_zhang/RecitedVerseWebsite/convert_server/";
+var finalCoverted = root + covertedFile;
 console.log("local name"+ localFilename);
 var metadata = {
   contentType: 'audio/mp3',
@@ -45,6 +48,10 @@ var metadata = {
 
 
 function processTask(id){
+  while(1){
+      sleep.sleep(1)
+      console.log("this is a test");
+  }
   const file = bucket.file("Recitations/"+id);
   file.exists(function(err, exists) {
     if(exists == false){
@@ -99,8 +106,9 @@ function processed(file){
       console.log(error);
     }
   });
-  if (fs.existsSync(covertedFile)) {
-    fs.createReadStream(covertedFile)
+  console.log("final convert paht : "+finalCoverted);
+  if (fs.existsSync(finalCoverted)) {
+    fs.createReadStream(finalCoverted)
       .pipe(file.createWriteStream())
       .on('error', function(err) {
         console.log("error upload");
