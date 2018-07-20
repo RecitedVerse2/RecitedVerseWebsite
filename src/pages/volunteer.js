@@ -59,7 +59,7 @@ export default class About extends Component {
             <HomeHeader nav={this.props.nav} rStore={this.props.rStore} callbackParent={this.onChildChanged} ></HomeHeader>
             <div style={this.getOverlay()}></div>
             <div className='resultsSection'>
-            <div className="rcsupport"  style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%', color: '#424242', fontSize: '14px'}}>
+            <div className="rcsupport"  style={{ padding: '10px', color: 'black', textAlign: 'left', marginLeft: '25%', marginRight: '25%', color: '#424242'}}>
             
                 <h3 style={{paddingBottom: '20px'}}>Opportunities:</h3>
 
