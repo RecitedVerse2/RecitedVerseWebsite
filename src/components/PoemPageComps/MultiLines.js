@@ -23,7 +23,7 @@ export default class MultiLines extends Component {
       var lines = this.props.content.split("\n");
 
       var LinesList = lines.map(function(line){
-                      return <li>{line}</li>;
+                      return <li>{line}&nbsp;</li>;
                     })
         return (
             <div className="MultiLines">
