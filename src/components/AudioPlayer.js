@@ -341,17 +341,23 @@ class AudioPlayer extends Component {
     handleUpdatePlayCount() {
         const recitation = JSON.parse(window.sessionStorage.getItem('CurrentRecitation'));
 
-        recitation.plays += 1;
-        window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
+        firebase.database().ref().child('Recitations').child(recitation.id).once('value', (snap) => {
+          var record = snap.val();
+          if(record){
+            recitation.plays += 1;
+            window.sessionStorage.setItem('CurrentRecitation', JSON.stringify(recitation));
 
-        firebase.database().ref().child('Recitations').child(recitation.id).update({
-            plays: recitation.plays
-        }, () => {
-            this.props.rStore.dispatch({
-                type:'UPDATE_PLAYCOUNT',
-                shouldUpdatePlayCount: false
+            firebase.database().ref().child('Recitations').child(recitation.id).update({
+                plays: recitation.plays
+            }, () => {
+                this.props.rStore.dispatch({
+                    type:'UPDATE_PLAYCOUNT',
+                    shouldUpdatePlayCount: false
+                });
             });
+          }
         });
+
         return;
     }
 
