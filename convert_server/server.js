@@ -39,7 +39,7 @@ var random = "tmp"; //Math.floor(Math.random() * Math.floor(1000))
 var localFilename =   random + ".webm"
 var covertedFile = random + ".mp3"
 var root = "/home/yousong_zhang/RecitedVerseWebsite/convert_server/";
-var finalCoverted = root + covertedFile;
+var finalCoverted = covertedFile;
 console.log("local name"+ localFilename);
 var metadata = {
   contentType: 'audio/mp3',
@@ -68,7 +68,7 @@ function processTask(id){
                 // The file is fully downloaded.
                 console.log("finished load from firebase");
                 processed(file);
-                console.log("job done");
+
               })
               .pipe(fs.createWriteStream(localFilename));
 
@@ -87,23 +87,14 @@ function processTask(id){
 }
 
 
-function waitingffmpeg(){
-  let i = 0;
-  while(i < 10){
-    if(fs.existsSync(finalCoverted)){
-      console.log("find file return");
-      return ;
-    }
-    console.log("not find keep sleep");
-    sleep.sleep(1);
-  }
-}
+
 
 function processed(file){
   exec("rm -rf *.mp3", (err, stdout, stderr) => {
     if (err) {
       console.log(error);
     }
+
   });
 
   var command = "ffmpeg -i "+localFilename+" "+covertedFile;
@@ -112,35 +103,39 @@ function processed(file){
     if (err) {
       // node couldn't execute the command
       console.log(error);
+    }else{
+
+      if (fs.existsSync(finalCoverted)) {
+        fs.createReadStream(finalCoverted)
+          .pipe(file.createWriteStream())
+          .on('error', function(err) {
+            console.log("error upload");
+          })
+          .on('finish', function() {
+            // The file upload is complete.
+            console.log("finish upload");
+            file.setMetadata(metadata, function(err, apiResponse) {});
+            console.log("job done");
+
+            exec("rm "+ localFilename + "  "+ covertedFile, (err, stdout, stderr) => {
+              if (err) {
+                // node couldn't execute the command
+                console.log(error);
+              }
+            });
+
+          });
+      }else{
+        console.log("coverted file not exit");
+      }
+
+
     }
   });
-  console.log("final convert paht : "+finalCoverted);
 
 
-  waitingffmpeg();
 
-  if (fs.existsSync(finalCoverted)) {
-    fs.createReadStream(finalCoverted)
-      .pipe(file.createWriteStream())
-      .on('error', function(err) {
-        console.log("error upload");
-      })
-      .on('finish', function() {
-        // The file upload is complete.
-        console.log("finish upload");
-        file.setMetadata(metadata, function(err, apiResponse) {});
 
-        exec("rm "+ localFilename + "  "+ covertedFile, (err, stdout, stderr) => {
-          if (err) {
-            // node couldn't execute the command
-            console.log(error);
-          }
-        });
-
-      });
-  }else{
-    console.log("coverted file not exit");
-  }
 
 
 
