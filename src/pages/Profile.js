@@ -513,6 +513,8 @@ class Profile extends Component {
 
             callback();
         });
+
+        callback();
     }
 
 
