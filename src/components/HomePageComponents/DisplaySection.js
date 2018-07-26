@@ -168,7 +168,7 @@ class DisplaySection extends Component {
     loadMostPopular(fireRef, callback) {
         var playlist = new Playlist("Popular");
 
-        fireRef.child('Recitations').orderByChild('plays').limitToLast(8).once('value').then((snapshot)=> {
+        fireRef.child('Recitations').orderByChild('plays').limitToLast(20).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((rO) => {
@@ -191,7 +191,7 @@ class DisplaySection extends Component {
                                              rO.val().timestamp,
                                              playlist );
                 playlist.add(recObj);
-                
+
 
                 playlist.recitations.sort( (a, b) => {
                     return b.plays - a.plays;
@@ -210,7 +210,8 @@ class DisplaySection extends Component {
     loadMostRecent(fireRef, callback) {
         var playlist = new Playlist("Recently Uploaded");
         var nowMS = Date.now();
-        fireRef.child('Recitations').orderByChild('timestamp').startAt().limitToLast(8).once('value').then((snapshot)=> {
+        var uploader = [];
+        fireRef.child('Recitations').orderByChild('timestamp').startAt().limitToLast(50).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((rO) => {
@@ -233,7 +234,12 @@ class DisplaySection extends Component {
                                              rO.val().audio,
                                              rO.val().timestamp,
                                              playlist );
-                playlist.add(recObj);
+
+                if(!uploader.includes(rO.val().uploaderName)){
+                  playlist.add(recObj);
+                  uploader.push(rO.val().uploaderName);
+                }
+
 
                 //var d = new Date(recObj.timestamp);
                 //var dateString = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + (d.getMonth()+1) + (d.getMonth()+1);
