@@ -69,7 +69,7 @@ class Home extends Component {
                                 name='Trending'>
                 </DisplaySection>
 
-                <DisplaySection title='New Uploads'
+                <DisplaySection title='Featured Recordings'
                                 top='150px'
                                 rStore={this.props.rStore}
                                 nav={this.props.nav}
