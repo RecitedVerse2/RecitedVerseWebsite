@@ -1,3 +1,6 @@
+.rcsupport{
+    text-align: left;
+}
 .rcsupport p strong {
     margin-bottom: 0px !important;
 }
@@ -19,7 +22,7 @@
 .rcsupport li {
     list-style: disc outside none;
     display: list-item;
-    margin-left: 1.5em;  
+    margin-left: 1.5em;
     color: #424242;
     font-size: 16px; 
     margin-bottom: 5px; 

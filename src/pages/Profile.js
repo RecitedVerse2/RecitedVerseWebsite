@@ -338,6 +338,8 @@ class Profile extends Component {
             if(likes) {
                 likes.forEach( (e) => {
                     fireRef.child('Recitations').child(e).once('value', (rO) => {
+                      i++;
+                      if(rO.val() != null){
                         var recObj = new Recitation( rO.val().id,
                                                     rO.val().uploaderID,
                                                     rO.val().uploaderName,
@@ -356,7 +358,11 @@ class Profile extends Component {
                                                     rO.val().timestamp  );
 
                         playlist.add(recObj);
-                        i++;
+
+
+                      }
+
+
 
                         this.setState({
                             likedPlaylist: playlist
@@ -507,6 +513,8 @@ class Profile extends Component {
 
             callback();
         });
+
+        callback();
     }
 
 

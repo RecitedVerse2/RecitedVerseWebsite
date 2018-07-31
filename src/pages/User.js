@@ -498,29 +498,35 @@ class User extends Component {
             if(likes) {
                 likes.forEach( (e) => {
                     fireRef.child('Recitations').child(e).once('value', (rO) => {
-                        var recObj = new Recitation( rO.val().id,
-                                                    rO.val().uploaderID,
-                                                    rO.val().uploaderName,
-                                                    rO.val().image,
-                                                    rO.val().title,
-                                                    rO.val().author,
-                                                    rO.val().recited_by,
-                                                    rO.val().published,
-                                                    rO.val().genre,
-                                                    rO.val().description,
-                                                    rO.val().likes,
-                                                    rO.val().plays,
-                                                    rO.val().favorites,
-                                                    rO.val().text,
-                                                    rO.val().audio,
-                                                    rO.val().timestamp  );
-
-                        playlist.add(recObj);
                         i++;
+                         if(rO.val() != null){
+                           var recObj = new Recitation( rO.val().id,
+                                                       rO.val().uploaderID,
+                                                       rO.val().uploaderName,
+                                                       rO.val().image,
+                                                       rO.val().title,
+                                                       rO.val().author,
+                                                       rO.val().recited_by,
+                                                       rO.val().published,
+                                                       rO.val().genre,
+                                                       rO.val().description,
+                                                       rO.val().likes,
+                                                       rO.val().plays,
+                                                       rO.val().favorites,
+                                                       rO.val().text,
+                                                       rO.val().audio,
+                                                       rO.val().timestamp  );
 
-                        this.setState({
-                            likedPlaylist: playlist
-                        });
+                           playlist.add(recObj);
+
+
+
+
+                         }
+                         this.setState({
+                             likedPlaylist: playlist
+                         });
+
                         if(i === likes.length) {
                             callback();
                         }
@@ -671,7 +677,10 @@ class User extends Component {
                 });
                 callback();
             });
+            callback();
         });
+
+        callback();
     }
 
 

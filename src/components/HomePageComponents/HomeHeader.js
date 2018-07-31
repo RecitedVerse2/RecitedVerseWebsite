@@ -389,11 +389,10 @@ class Header extends Component {
                              {/* <button type="submit" style={this.getSearchButtonStyle()} onClick={this.handleSearchButton.bind(this)}  ><i className="fa fa-search"></i></button> */}
 
                              <Autocomplete />
-
+                             {/* <a href="/search">Advanced Search</a> */}
                           </div>
 
                          <div style={this.getButtonsSectionStyle()}>
-
 
                              <button style={this.getUploadButtonsStyle()} onClick={this.goToUploadPage.bind(this)}>Upload</button>
                                <button style={this.getMessagesButtonsStyle()} onClick={this.goToMessagesPage.bind(this)}>Notifications</button>
