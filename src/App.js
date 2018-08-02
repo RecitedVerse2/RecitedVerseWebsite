@@ -29,6 +29,7 @@ import Copyright from './pages/Copyright';
 import Beta from './pages/Beta';
 import Privacy from './pages/Privacy';
 import Contact from './pages/contact';
+import AdvancedSearch from './pages/AdvancedSearch';
 
 // REDUX
 const defaultState = {
