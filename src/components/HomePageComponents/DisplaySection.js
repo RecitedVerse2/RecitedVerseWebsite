@@ -33,7 +33,12 @@ class DisplaySection extends Component {
             this.loadMostPopular(fireRef, (playlist) => {
                 this.createRecitationItems(playlist)
             });
-        } else if(this.props.name === 'Recent') {
+        } else if(this.props.name === 'Featured') {
+            this.loadFeatured(fireRef, (playlist) => {
+                this.createRecitationItems(playlist)
+            });
+        }
+        else if(this.props.name === 'Recent') {
             this.loadMostRecent(fireRef, (playlist) => {
                 this.createRecitationItems(playlist)
             });
@@ -168,7 +173,7 @@ class DisplaySection extends Component {
     loadMostPopular(fireRef, callback) {
         var playlist = new Playlist("Popular");
 
-        fireRef.child('Recitations').orderByChild('plays').limitToLast(20).once('value').then((snapshot)=> {
+        fireRef.child('Recitations').orderByChild('plays').limitToLast(15).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((rO) => {
@@ -210,8 +215,8 @@ class DisplaySection extends Component {
     loadMostRecent(fireRef, callback) {
         var playlist = new Playlist("Recently Uploaded");
         var nowMS = Date.now();
-        var uploader = [];
-        fireRef.child('Recitations').orderByChild('timestamp').startAt().limitToLast(50).once('value').then((snapshot)=> {
+
+        fireRef.child('Recitations').orderByChild('timestamp').startAt().limitToLast(15).once('value').then((snapshot)=> {
             /* Go through each recitation that the user has. If the array of recitations does not contain
             that recitation, then add it. */
             snapshot.forEach((rO) => {
@@ -235,25 +240,85 @@ class DisplaySection extends Component {
                                              rO.val().timestamp,
                                              playlist );
 
-                if(!uploader.includes(rO.val().uploaderName)){
+
                   playlist.add(recObj);
-                  uploader.push(rO.val().uploaderName);
-                }
+
 
 
                 //var d = new Date(recObj.timestamp);
                 //var dateString = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + (d.getMonth()+1) + (d.getMonth()+1);
               //console.log(d.toGMTString());
 
-                playlist.recitations.sort( (a, b) => {
-                    return b.timestamp - a.timestamp;
-                });
+                // playlist.recitations.sort( (a, b) => {
+                //     return b.timestamp - a.timestamp;
+
             });
             this.setState({
                 recentPlaylist: playlist
             });
             callback(playlist);
         });
+
+      }
+
+
+
+        // Loads the 8 most recently uploaded recitations.
+        loadFeatured(fireRef, callback) {
+            var playlist = new Playlist("Featured Recordings");
+            var nowMS = Date.now();
+            var uploader = [];
+            var randomIndexs = [];
+            for(let i = 0; i < 15; i++){
+              randomIndexs[i] = Math.floor(Math.random()*49);
+            }
+
+            console.log(randomIndexs);
+
+
+            fireRef.child('Recitations').orderByChild('timestamp').startAt().limitToLast(50).once('value').then((snapshot)=> {
+                /* Go through each recitation that the user has. If the array of recitations does not contain
+                that recitation, then add it. */
+                let records = [];
+                snapshot.forEach((rO) => {
+                  records.push(rO.val())
+                })
+                console.log(records[20])
+                for(let index of randomIndexs){
+                  let record = records[index];
+                console.log("index" + index)
+                  var recObj = new Recitation( record.id,
+                                               record.uploaderID,
+                                               record.uploaderName,
+                                               record.image,
+                                               record.title,
+                                               record.author,
+                                               record.recited_by,
+                                               record.published,
+                                               record.genre,
+                                               record.description,
+                                               record.likes,
+                                               record.plays,
+                                               record.favorites,
+                                               record.text,
+                                               record.audio,
+                                               record.timestamp,
+                                               playlist );
+
+                  //  if(!uploader.includes(record.uploaderName)){
+                            playlist.add(recObj);
+                            uploader.push(record.uploaderName);
+                //    }
+                }
+
+
+
+
+                this.setState({
+                    recentPlaylist: playlist
+                });
+                callback(playlist);
+            });
     }
 
 

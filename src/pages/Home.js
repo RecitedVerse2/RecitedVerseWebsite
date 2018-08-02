@@ -73,6 +73,13 @@ class Home extends Component {
                                 top='150px'
                                 rStore={this.props.rStore}
                                 nav={this.props.nav}
+                                name='Featured'>
+                </DisplaySection>
+
+                <DisplaySection title='Recently Uploaded'
+                                top='200px'
+                                rStore={this.props.rStore}
+                                nav={this.props.nav}
                                 name='Recent'>
                 </DisplaySection>
 
