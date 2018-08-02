@@ -269,47 +269,36 @@ class DisplaySection extends Component {
             var nowMS = Date.now();
             var uploader = [];
             var randomIndexs = [];
-            for(let i = 0; i < 15; i++){
-              randomIndexs[i] = Math.floor(Math.random()*49);
-            }
+
 
             console.log(randomIndexs);
 
 
-            fireRef.child('Recitations').orderByChild('timestamp').startAt().limitToLast(50).once('value').then((snapshot)=> {
+            fireRef.child('Recitations').orderByChild('timestamp').startAt().limitToLast(100).once('value').then((snapshot)=> {
                 /* Go through each recitation that the user has. If the array of recitations does not contain
                 that recitation, then add it. */
                 let records = [];
                 snapshot.forEach((rO) => {
                   records.push(rO.val())
                 })
-                console.log(records[20])
+
+
+                for(let i = 0; i < 50; i++){
+                  randomIndexs[i] = Math.floor(Math.random()*99);
+                }
+
+
                 for(let index of randomIndexs){
                   let record = records[index];
-                console.log("index" + index)
-                  var recObj = new Recitation( record.id,
-                                               record.uploaderID,
-                                               record.uploaderName,
-                                               record.image,
-                                               record.title,
-                                               record.author,
-                                               record.recited_by,
-                                               record.published,
-                                               record.genre,
-                                               record.description,
-                                               record.likes,
-                                               record.plays,
-                                               record.favorites,
-                                               record.text,
-                                               record.audio,
-                                               record.timestamp,
-                                               playlist );
-
-                  //  if(!uploader.includes(record.uploaderName)){
+                  let recObj = this.createRecObj(record, playlist);
+                  if(!uploader.includes(recObj.uploaderName)){
                             playlist.add(recObj);
-                            uploader.push(record.uploaderName);
-                //    }
+                            uploader.push(recObj.uploaderName);
+                    }
                 }
+
+                if(playlist.length > 15)
+                playlist.splice(15)
 
 
 
@@ -319,6 +308,27 @@ class DisplaySection extends Component {
                 });
                 callback(playlist);
             });
+    }
+
+    createRecObj(record, playlist){
+      var recObj = new Recitation( record.id,
+                                   record.uploaderID,
+                                   record.uploaderName,
+                                   record.image,
+                                   record.title,
+                                   record.author,
+                                   record.recited_by,
+                                   record.published,
+                                   record.genre,
+                                   record.description,
+                                   record.likes,
+                                   record.plays,
+                                   record.favorites,
+                                   record.text,
+                                   record.audio,
+                                   record.timestamp,
+                                   playlist );
+       return recObj;
     }
 
 
