@@ -99,7 +99,7 @@ export default class Autocomplete extends Component {
             apiKey="8199ff4474cffdde931f62cc2bfe4d53"
             indexName="recitedverse"
         >
-           <Configure hitsPerPage={5} />
+           <Configure hitsPerPage={25} />
            <SearchBox />
            <ul style={{width: '100%'}}>
             <Results />      
