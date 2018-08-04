@@ -253,6 +253,11 @@ class DisplaySection extends Component {
                 //     return b.timestamp - a.timestamp;
 
             });
+
+            playlist.recitations.sort( (a, b) => {
+                return b.timestamp - a.timestamp;
+            });
+
             this.setState({
                 recentPlaylist: playlist
             });
