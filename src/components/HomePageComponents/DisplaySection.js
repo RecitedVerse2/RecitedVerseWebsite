@@ -151,6 +151,7 @@ class DisplaySection extends Component {
                     {this.state.recitations[2]}
                     {this.state.recitations[3]}
                     {this.state.recitations[4]}
+                    {this.state.recitations[5]}
 
 
                     <button onClick={this.slideLeft.bind(this)}
