@@ -17,6 +17,8 @@ import _ from '../css/UploadBox.css';
 
 
 
+
+
 // import randImage1 from '../res/rand1.jpg';
 // import randImage2 from '../res/rand2.jpg';
 // import randImage3 from '../res/rand3.jpg';
@@ -34,6 +36,9 @@ import Clock from '../components/Clock';
 import 'react-select/dist/react-select.css';
 import { base } from '../objects/config';
 import audioRec from 'au-audio-recorder';
+
+
+var Base64 = require('js-base64').Base64;
 
 
 const GallerySize = 40;  // 1 -8 so it is 8
@@ -61,7 +66,7 @@ class Upload extends Component {
             poemWrittenText:'',
             poemDescription:'',
             choseImage: false,
-            isFileUpdate: true,
+            isFileUpdate: true,  //choose upload file vs recording online
             isUpdateDone: false,
             multiValue: [],
             multi: true,
@@ -79,8 +84,14 @@ class Upload extends Component {
             translation: false,
             translator: '',
             transcript: '',
+            year:'',
+            randomImageIndex: 10,
+            title:''
 
         }
+
+
+
 
         this.func123 = this.showReminder.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
@@ -88,6 +99,9 @@ class Upload extends Component {
         this.updateValue = this.updateValue.bind(this);
         this.updateValueTitle = this.updateValueTitle.bind(this);
         this.onInputChangeToUpperCase = this.onInputChangeToUpperCase.bind(this);
+
+
+        this.loadData();
 
     }
 
@@ -103,6 +117,7 @@ class Upload extends Component {
           [name]: newValue
         });
       }else{
+        console.log(name)
         this.setState({
           [name]: value
         });
@@ -141,7 +156,7 @@ class Upload extends Component {
 
         this.state.titles.map((title) => {
           if(title.label=== newValue && title.transcript && title.author){
-            this.setState({title: newValue, transcript: title.transcript, author: title.author })
+            this.setState({title: newValue, transcript: title.transcript, author: title.author, year: title.year })
           }
         })
 
@@ -150,87 +165,106 @@ class Upload extends Component {
         });
       }
 
-    componentDidMount() {
+    componentDidMount(){
 
+    }
+
+    checkIsHaveTitle(){ /// from all recording add uploading
+      if(this.state.title.length > 0)return;  // not check if title set
+      var url = window.location.href;
+      var n = url.indexOf("upload");
+      var titleBase64 = url.substring(n+7);
+
+      let title = Base64.decode(titleBase64);
+      this.updateValueTitle (title)
+
+    }
+
+    loadData(){
         audioRec.requestPermission();
-        document.getElementById("fromFileBtn").addEventListener("click", this.func123);
+          //document.getElementById("fromFileBtn").addEventListener("click", this.func123);
 
 
-      //   document.getElementById("fromFileBtn").addEventListener("click", function(event){
-      //    alert("this is a test")
-      //    event.preventDefault()
-      // });
-      if (navigator.userAgent.indexOf("Chrome") !== -1){
-      }else{
+        //   document.getElementById("fromFileBtn").addEventListener("click", function(event){
+        //    alert("this is a test")
+        //    event.preventDefault()
+        // });
+        if (navigator.userAgent.indexOf("Chrome") !== -1){
+        }else{
 
-        confirmAlert({
-          title: 'Warning',
-          message: 'Only Chrome browser supports Upload.',
-          buttons: [
-            {
-              label: 'OK',
-              onClick: () => {
+          confirmAlert({
+            title: 'Warning',
+            message: 'Only Chrome browser supports Upload.',
+            buttons: [
+              {
+                label: 'OK',
+                onClick: () => {
 
+                }
+              },
+            ]
+          })
+
+        }
+
+        let tags = [];
+        // fetch tags
+        base.fetch('/tags', {
+          context: this,
+          asArray: true,
+          then(data){
+            data.map((tag) => {
+              tags.push(tag.option);
+            })
+          }
+        })
+        this.setState({options: tags});
+
+        // fetch all the titles of poems
+        base.fetch('/Recitations', {
+          context: this,
+          asArray: true,
+          then(recitations){
+            let allTitles = recitations.map((recitation) => {
+              let year = "";
+              if(recitation.year) year = recitation.year;
+              return {
+                value: recitation.title,
+                label: recitation.title,
+                transcript: recitation.text,
+                author: recitation.author,
+                year: year,
+              };
+
+            });
+
+            let originalTitles = recitations.map((recitation) => {
+              return {
+                value: recitation.title,
+                label: recitation.title,
+                transcript: recitation.text,
+                author: recitation.author,
+              };
+
+            });
+
+            let allAuthors = recitations.map((recitation) => {
+              return {
+                value: recitation.author,
+                label:  recitation.author,
               }
-            },
-          ]
+            })
+
+
+            this.setState({titles: allTitles, authors: allAuthors, originalTitles});
+          }
         })
 
-      }
-
-      let tags = [];
-      // fetch tags
-      base.fetch('/tags', {
-        context: this,
-        asArray: true,
-        then(data){
-          data.map((tag) => {
-            tags.push(tag.option);
-          })
-        }
-      })
-      this.setState({options: tags});
-
-      // fetch all the titles of poems
-      base.fetch('/Recitations', {
-        context: this,
-        asArray: true,
-        then(recitations){
-          let allTitles = recitations.map((recitation) => {
-            return {
-              value: recitation.title,
-              label: recitation.title,
-              transcript: recitation.text,
-              author: recitation.author,
-            };
-
-          });
-
-          let originalTitles = recitations.map((recitation) => {
-            return {
-              value: recitation.title,
-              label: recitation.title,
-              transcript: recitation.text,
-              author: recitation.author,
-            };
-
-          });
-
-          let allAuthors = recitations.map((recitation) => {
-            return {
-              value: recitation.author,
-              label:  recitation.author,
-            }
-          })
-
-          this.setState({titles: allTitles, authors: allAuthors, originalTitles});
-        }
-      })
 
 
 
 
-  }
+    }
 
     handleOnChange(value){
       const { multi } = this.state;
@@ -475,11 +509,29 @@ class Upload extends Component {
      }
    }
 
-   GalleryButtonStyle(){
+   GalleryButtonLeftStyle(){
      return{
        position:'absolute',
        marginTop: '220px',
-       marginLeft:'50px',
+       marginLeft:'10px',
+
+     }
+   }
+
+   GalleryButtonMidleStyle(){
+     return{
+       position:'absolute',
+       marginTop: '220px',
+        marginLeft:'80px',
+
+     }
+   }
+
+   GalleryButtonRightStyle(){
+     return{
+       position:'absolute',
+       marginTop: '220px',
+       marginLeft:'165px',
 
      }
    }
@@ -619,7 +671,7 @@ class Upload extends Component {
 
          <h2 style={this.getRecordingH2Style()}  onClick={this.recordNow.bind(this)}   >Record Now</h2>
 
-         <div style={this.getConvertLinkStyle()}><a  href="https://online-audio-converter.com" target = "_blank">convert audio file to mp3 file</a></div>
+           <div style={this.getConvertLinkStyle()}><a  href="https://online-audio-converter.com" target = "_blank">convert audio file to mp3 file</a></div>
 
        </div>
        </div>
@@ -644,8 +696,11 @@ class Upload extends Component {
                           fileSelectedHandler={(e)=>{this.uploadRecitationImage(e)}}>
             Upload Cover Image
           </FileChooserForm>
+<button type="button" style={this.GalleryButtonLeftStyle()}  onClick={this.RandomGalleryPrev.bind(this)} className="btn btn-success">&laquo; Prev</button>
+          <button type="button" style={this.GalleryButtonMidleStyle()}  onClick={this.RandomGallery.bind(this)} className="btn btn-success">Random</button>
+          <button type="button" style={this.GalleryButtonRightStyle()}  onClick={this.RandomGalleryNext.bind(this)} className="btn btn-success">Next &raquo;</button>
 
-          <button type="button" style={this.GalleryButtonStyle()}  onClick={this.RandomGallery.bind(this)} className="btn btn-success">Select Default Image</button>
+
 
           </div>
             <div  style={this.getUploadRightInfoDivStyle()} >
@@ -717,7 +772,10 @@ class Upload extends Component {
              <div >
                <textarea rows="4" cols="50" className="form-control" id="email" placeholder="Enter Poem Transcript" onChange={(event) => this.setState({transcript: event.target.value})}  value={this.state.transcript}  ></textarea>
              </div>
-
+             <label className="control-label col-sm-2" >Year:</label><br/>
+             <div>
+             <input id="year" className="form-control" type="text" placeholder="Year of peom" name="year" value={this.state.year} onChange={this.handleInputChange}></input>
+              </div>
   <div className="checkbox">
   <p style={this.getPTagStyle()} >This is a recording of a work of poetry that is either in the
 public domain (published before 1923) or I am its author and authorize its circulation as written and
@@ -874,7 +932,35 @@ recorded text on the Recited Verse archive</p>
           const randIndex = Math.floor( (Math.random() * GallerySize) + 1);
           //  1 ---  8 storage in firebase
           var url = 'https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2Frand' + randIndex +'.jpg?alt=media'
+           console.log(url);
           this.poemImage.src = url;
+          this.state.randomImageIndex = randIndex;
+          this.setState({ choseImage: true });
+    }
+
+    RandomGalleryPrev(){
+      let randIndex = this.state.randomImageIndex - 1;
+
+      if(randIndex < 1) randIndex = GallerySize;
+      console.log(randIndex);
+          //  1 ---  8 storage in firebase
+          var url = 'https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2Frand' + randIndex +'.jpg?alt=media'
+console.log(url);
+          this.poemImage.src = url;
+          this.state.randomImageIndex = randIndex;
+          this.setState({ choseImage: true });
+    }
+
+    RandomGalleryNext(){
+          let randIndex = this.state.randomImageIndex + 1;
+
+          if(randIndex > GallerySize) randIndex = GallerySize;
+          console.log(randIndex);
+          //  1 ---  8 storage in firebase
+          var url = 'https://firebasestorage.googleapis.com/v0/b/recitedverse-6efe4.appspot.com/o/RV_Website%2Frand' + randIndex +'.jpg?alt=media'
+console.log(url);
+          this.poemImage.src = url;
+          this.state.randomImageIndex = randIndex;
           this.setState({ choseImage: true });
     }
 
@@ -885,6 +971,7 @@ recorded text on the Recited Verse archive</p>
 
     recordDone(){
         this.handleEndRecord();
+        this.checkIsHaveTitle();
         this.setState({ isUpdateDone: true });
     }
     uploadAudioFile(e) {
@@ -894,6 +981,7 @@ recorded text on the Recited Verse archive</p>
         this.setState({
             audioObj:aud
         });
+        this.checkIsHaveTitle();
         this.setState({ isUpdateDone: true });
 
     }
@@ -1058,6 +1146,15 @@ recorded text on the Recited Verse archive</p>
           this.statusLabel.innerHTML = "";
         }
 
+        if(!this.state.year){
+          missingInfo += "Year of Peom can not be empty.";
+
+         Alertify.alert(missingInfo);
+
+           return;
+
+        }
+
         //upload tags
         this.state.multiValue.map((option) => {
 
@@ -1141,6 +1238,7 @@ recorded text on the Recited Verse archive</p>
                 "timestamp":Date.now(),
                 "translator": this.state.translator,
                 "nameOfCompleteWork": this.state.nameOfCompleteWork,
+                "year": this.state.year
             };
 
 

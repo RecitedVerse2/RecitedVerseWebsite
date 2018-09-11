@@ -195,7 +195,9 @@ class DisplaySection extends Component {
                                              rO.val().text,
                                              rO.val().audio,
                                              rO.val().timestamp,
-                                             playlist );
+                                             rO.val().timestamp,
+                                             playlist,
+                                             rO.val().year);
                 playlist.add(recObj);
 
 
@@ -239,7 +241,8 @@ class DisplaySection extends Component {
                                              rO.val().text,
                                              rO.val().audio,
                                              rO.val().timestamp,
-                                             playlist );
+                                             playlist,
+                                             rO.val().year );
 
 
                   playlist.add(recObj);
@@ -333,7 +336,8 @@ class DisplaySection extends Component {
                                    record.text,
                                    record.audio,
                                    record.timestamp,
-                                   playlist );
+                                   playlist,
+                                   record.year);
        return recObj;
     }
 

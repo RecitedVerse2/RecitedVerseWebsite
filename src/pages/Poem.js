@@ -56,6 +56,7 @@ class Poem extends Component {
             userInfo:'',
             comments: [],
             commentMessage: '',
+            year:'',
             users: [
                 {
                     id: 'walter',
@@ -143,6 +144,7 @@ class Poem extends Component {
             favorits: recitation.favorites,
             date: dateString,
             recitationId: recitation.id,
+            year: recitation.year,
         })
 
 
@@ -485,18 +487,44 @@ class Poem extends Component {
 
 
      renderGenerAndDate(){
-        if(this.state.genre.length == 0){
-          return (
+        if(this.state.year){
 
-            <div><h1 className='headerText'>Date:  {this.state.date}</h1></div>
-          )
+          if(this.state.genre.length == 0){
+            return (
+
+              <div><h1 className='headerText'>Year:  {this.state.year}</h1>
+              <h1 className='headerText'>Date:  {this.state.date}</h1></div>
+            )
+
+          }else{
+            return(
+            <div> <h1 className='headerText'>Year:  {this.state.year}</h1>
+             <h1 className='headerText'>Tags:  {this.state.genre}</h1>
+                <h1 className='headerText'>Date:  {this.state.date}</h1></div>
+            )
+          }
+
 
         }else{
-          return(
-          <div>  <h1 className='headerText'>Tags:  {this.state.genre}</h1>
-              <h1 className='headerText'>Date:  {this.state.date}</h1></div>
-          )
+
+          if(this.state.genre.length == 0){
+            return (
+
+              <div><h1 className='headerText'>Date:  {this.state.date}</h1></div>
+            )
+
+          }else{
+            return(
+            <div>  <h1 className='headerText'>Tags:  {this.state.genre}</h1>
+                <h1 className='headerText'>Date:  {this.state.date}</h1></div>
+            )
+          }
+
         }
+
+
+
+
 
      }
 
@@ -538,6 +566,7 @@ class Poem extends Component {
                          <h1 className='headerText'><strong><a className="headerText" style={{color: 'white'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'white'}} glyph="flag" /></a></strong></h1>
                          <h1 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h1>
                          {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
+                        <h1 className='headerText'>Year:  {this.state.year}</h1>
                         <h1 className='headerText'>Date:  {this.state.date}</h1>
 
                           <h1 className='headerText'>Recorded By:<a style={this.getUserAlinkStyle()} href={'/user?' + this.state.userInfo.userID}  > {this.state.uploaderName}</a></h1>
@@ -632,6 +661,7 @@ class Poem extends Component {
                          <h2 className='headerText'><strong><a className="headerText" style={{color: 'blue'}} href={`/allrecordings?${this.state.recitationId}`}>{this.state.poemName}</a> <a onClick={() => this.reportPoem(this.state.recitationId)}><Glyphicon style={{color: 'red'}} glyph="flag" /></a></strong></h2>
                          <h2 className='headerText'>By <strong>{this.state.poemAuthor} </strong></h2>
                          {/* <h1 className='headerText'>Genre: {this.state.genre}</h1> */}
+
                          {this.renderGenerAndDate()}
 
 

@@ -5,6 +5,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import Recitation from '../objects/Recitation';
 import RecitationItem2 from '../components/SearchPageComps/RecitationItem2';
 import MultiLines from '../components/PoemPageComps/MultiLines';
+var Base64 = require('js-base64').Base64;
 
 export default class MainPoem extends Component {
     constructor(props){
@@ -34,7 +35,7 @@ export default class MainPoem extends Component {
         base.fetch(`/Recitations/${final}`, {
             context: this,
             then(data){
-                console.log(data);
+                //console.log(data);
                 this.setState({title: data.title, text: data.text});
 
                 base.fetch(`/Recitations`, {
@@ -111,6 +112,19 @@ export default class MainPoem extends Component {
         };
     }
 
+    AddPeomButtonStyle(){
+      return{
+        marginLeft:'800px',
+
+      }
+    }
+
+    addPeom() {
+      let url = "upload?"+Base64.encode(this.state.title);
+      //alert(url);
+      window.location.href = url;
+    }
+
     render(){
         const poemList = this.state.allPoemData.map((poem) => {
             console.log(poem, 'poemlog');
@@ -128,6 +142,7 @@ export default class MainPoem extends Component {
 
                 <div style={{marginTop: '5%'}} className="content">
                 <h2 style={{marginLeft: '25%'}} >{this.state.title}</h2>
+                <button type="button" style={this.AddPeomButtonStyle()}  onClick={this.addPeom.bind(this)} className="btn btn-success">Add Recording</button>
                 <div className="multiLine" style={{lineHeight: '2', fontWeight: '700' , marginRight: '25%', marginLeft: '25%', marginTop: '25px', height: '300px', overflowY: 'scroll'}}>
                   <MultiLines content={this.state.text} ></MultiLines></div>
                     <div style={{boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.1)', marginLeft: '25%', marginRight: '25%', marginBottom: '10px', marginTop: '10px', paddingBottom: '5%', paddingTop: '5%'}}>
