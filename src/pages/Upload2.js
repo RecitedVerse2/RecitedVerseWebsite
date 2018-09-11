@@ -170,6 +170,7 @@ class Upload extends Component {
     }
 
     checkIsHaveTitle(){ /// from all recording add uploading
+      if(this.state.titles.length == 0)return;
       if(this.state.title.length > 0)return;  // not check if title set
       var url = window.location.href;
       var n = url.indexOf("upload");
@@ -219,7 +220,6 @@ class Upload extends Component {
           }
         })
         this.setState({options: tags});
-
         // fetch all the titles of poems
         base.fetch('/Recitations', {
           context: this,
@@ -257,6 +257,7 @@ class Upload extends Component {
 
 
             this.setState({titles: allTitles, authors: allAuthors, originalTitles});
+            this.checkIsHaveTitle();
           }
         })
 
