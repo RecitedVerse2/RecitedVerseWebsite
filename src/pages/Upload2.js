@@ -775,7 +775,7 @@ class Upload extends Component {
              </div>
              <label className="control-label col-sm-2" >Year:</label><br/>
              <div>
-             <input id="year" className="form-control" type="text" placeholder="Year of peom" name="year" value={this.state.year} onChange={this.handleInputChange}></input>
+             <input id="year" className="form-control" type="text" placeholder="Year of Publication" name="year" value={this.state.year} onChange={this.handleInputChange}></input>
               </div>
   <div className="checkbox">
   <p style={this.getPTagStyle()} >This is a recording of a work of poetry that is either in the
